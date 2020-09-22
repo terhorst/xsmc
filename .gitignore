@@ -1,0 +1,13 @@
+__pycache__
+./build
+*.so
+.ipynb_checkpoints
+*.egg-info
+.ropeproject
+_xsmc.c
+_xsmc.h
+docsrc/_build
+build
+venv
+.idea
+.eggs
