@@ -5,7 +5,7 @@ import sys
 import platform
 
 
-USE_CYTHON = os.environ.get("USE_CYTHON", False)
+USE_CYTHON = os.environ.get("USE_CYTHON", True)
 
 ext = ".pyx" if USE_CYTHON else ".cpp"
 
