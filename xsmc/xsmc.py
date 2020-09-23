@@ -1,24 +1,24 @@
 "Exact Bayesian and frequentist decoding of the sequentially Markov coalescent"
 
+import logging
+from dataclasses import dataclass
+from typing import List, Union
+
 import numpy as np
 import tskit
-from typing import List, Union
-from dataclasses import dataclass
 
-from .segmentation import Segmentation, ArraySegmentation, SizeHistory
-from .supporting import watterson
-from .sampler import XSMCSampler
 import xsmc._sampler
 from . import _viterbi
-
-import logging
+from .sampler import XSMCSampler
+from .segmentation import Segmentation, ArraySegmentation, SizeHistory
+from .supporting import watterson
 
 logger = logging.getLogger(__name__)
 
 
 @dataclass
 class XSMC:
-    r"""Sample from, or maximize, the posterior distribution :math:`p(X_{1:N} | \mathbf{Y})` of the sequentially Markov 
+    r"""Sample from, or maximize, the posterior distribution :math:`p(X_{1:N} | \mathbf{Y})` of the sequentially Markov
     coalescent.
 
     Args:
@@ -28,13 +28,13 @@ class XSMC:
         theta: Population-scaled mutation rate. If None, Watterson's estimator is used.
         rho_over_theta: Ratio of recombination to mutation rates.
         w: Window size. Observations are binned into windows of this size. Recombinations are assumed to occur between
-            adjacent bins, but not within them.
+            adjacent bins, but not within them. If None, try to calculate a sensible default based on `rho`.
         robust: If True, use robust model in which bins are classified as either segregating or nonsegregating, as in PSMC.
             Otherwise, allow for any number of mutations per bin.
-    
+
     Notes:
         The height of segments returned by this class are expressed in coalescent units. To convert to generations,
-        rescale them by `self.theta / (4 * mu)`, where `mu` is the biological mutation rate.
+        rescale them by `2 * self.theta / (4 * mu)`, where `mu` is the biological mutation rate.
     """
     ts: tskit.TreeSequence
     focal: int
@@ -50,7 +50,7 @@ class XSMC:
             logger.debug("Estimated θ=%f", self.theta)
         self.rho = self.theta * self.rho_over_theta
         if self.w is None:
-            self.w = int(1. / (10 * self.rho))
+            self.w = int(1 / (10 * self.rho))
             logger.debug("Setting window size w=%f", self.w)
         self._sampler = None
 
@@ -79,9 +79,7 @@ class XSMC:
             )
         return self._sampler
 
-    def sample(
-        self, k: int = 1, seed: int = None
-    ) -> List[Segmentation]:
+    def sample(self, k: int = 1, seed: int = None) -> List[Segmentation]:
         r"""Sample path(s) from the posterior distribution.
 
         Args:
@@ -89,10 +87,10 @@ class XSMC:
             seed: Random seed used for sampling.
 
         Returns:
-            A list of `k` posterior samples for the positional min-TMRCA of `focal` with `panel`. 
+            A list of `k` posterior samples for the positional min-TMRCA of `focal` with `panel`.
 
         Notes:
-            If sampling many paths at once, it is more efficient to set `k > 1` than to call `sample_paths()` 
+            If sampling many paths at once, it is more efficient to set `k > 1` than to call `sample()`
             repeatedly.
         """
         prime = False

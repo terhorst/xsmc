@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Comparison of XSMC and PSMC &#8212; xsmc 1.0.0 documentation</title>
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -29,9 +29,6 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
         <li class="right" >
           <a href="1kg.html" title="1000 Genomes analysis"
              accesskey="N">next</a> |</li>
@@ -293,15 +290,15 @@ div.rendered_html tbody tr:hover {
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">xsmc</span>
 <span class="kn">import</span> <span class="nn">xsmc.sampler</span>
-<span class="kn">from</span> <span class="nn">xsmc</span> <span class="k">import</span> <span class="n">Segmentation</span>
-<span class="kn">from</span> <span class="nn">xsmc.supporting.plotting</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">xsmc.supporting.kde_ne</span> <span class="k">import</span> <span class="n">kde_ne</span>
+<span class="kn">from</span> <span class="nn">xsmc</span> <span class="kn">import</span> <span class="n">Segmentation</span>
+<span class="kn">from</span> <span class="nn">xsmc.supporting.plotting</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">xsmc.supporting.kde_ne</span> <span class="kn">import</span> <span class="n">kde_ne</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">msprime</span> <span class="k">as</span> <span class="nn">msp</span>
-<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="k">import</span> <span class="n">PPoly</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">PPoly</span>
 <span class="kn">import</span> <span class="nn">tskit</span>
-<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="k">import</span> <span class="n">ProcessPoolExecutor</span><span class="p">,</span> <span class="n">ThreadPoolExecutor</span>
+<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ProcessPoolExecutor</span><span class="p">,</span> <span class="n">ThreadPoolExecutor</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
 
@@ -569,9 +566,9 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span>
-<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="k">import</span> <span class="n">convolve</span>
-<span class="kn">from</span> <span class="nn">xsmc.supporting.kde_ne</span> <span class="k">import</span> <span class="o">*</span>
+<span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">convolve</span>
+<span class="kn">from</span> <span class="nn">xsmc.supporting.kde_ne</span> <span class="kn">import</span> <span class="o">*</span>
 
 
 <span class="k">def</span> <span class="nf">parallel_kde</span><span class="p">(</span><span class="n">sampled_heights</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -1979,9 +1976,6 @@ var element = document.currentScript.previousSibling.previousSibling;
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="1kg.html" title="1000 Genomes analysis"
              >next</a> |</li>
         <li class="right" >
@@ -1994,7 +1988,7 @@ var element = document.currentScript.previousSibling.previousSibling;
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Caleb Ki and Jonathan Terhorst.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>
