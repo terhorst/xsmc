@@ -9,7 +9,8 @@ import numpy as np
 import xsmc._sampler
 from . import _viterbi
 from .sampler import XSMCSampler
-from .segmentation import Segmentation, ArraySegmentation, SizeHistory
+from .segmentation import Segmentation, ArraySegmentation
+from .size_history import SizeHistory
 from .supporting import watterson
 
 logger = logging.getLogger(__name__)
@@ -58,9 +59,13 @@ class XSMC:
         if self.theta is None:
             self.theta = watterson(ts)
             logger.debug("Estimated θ=%f", self.theta)
+        if self.theta == 0.:
+            raise ValueError('theta must be positive')
+        if self.rho_over_theta <= 0.:
+            raise ValueError('rho_over_theta must be positive')
         self.rho = self.theta * self.rho_over_theta
         if self.w is None:
-            self.w = int(1 / (10 * self.rho))
+            self.w = 1 + int(1 / (10 * self.rho))
             logger.debug("Setting window size w=%f", self.w)
         self._sampler = None
 
