@@ -12,3 +12,4 @@ venv
 .idea
 .eggs
 *.swp
+dist
