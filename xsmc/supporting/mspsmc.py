@@ -1,7 +1,6 @@
 """Reference implementation of Li & Durbin's (2011) PSMC model."""
 from dataclasses import dataclass
 from typing import List, Tuple, TextIO, Union
-import tskit
 import numpy as np
 import itertools
 import os
@@ -31,7 +30,7 @@ class PSMCPosterior:
     gamma: np.ndarray
 
 def _gen_psmcfa(
-    ts: tskit.TreeSequence,
+    ts: 'tskit.TreeSequence',
     contig: str,
     nodes: Tuple[int, int],
     out: TextIO,
@@ -124,7 +123,7 @@ class msPSMC:
          data: List of `(tree sequence, (hap1, hap2))` pairs.
     """
 
-    data: List[Tuple[tskit.TreeSequence, Tuple[int, int]]]
+    data: List[Tuple['tskit.TreeSequence', Tuple[int, int]]]
     w: int = 100
 
     def __post_init__(self):

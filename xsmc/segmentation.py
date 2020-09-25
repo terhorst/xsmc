@@ -2,7 +2,6 @@ from typing import NamedTuple
 import numpy as np
 from typing import Tuple, List
 import scipy.interpolate
-import tskit
 
 from scipy.interpolate import PPoly
 
@@ -82,7 +81,7 @@ class Segmentation(NamedTuple):
 
     @classmethod
     def from_ts(
-        cls, ts: tskit.TreeSequence, focal: int, panel: List[int]
+        cls, ts: 'tskit.TreeSequence', focal: int, panel: List[int]
     ) -> "Segmentation":
         """Return a segmentation consisting of the genealogical MRCA of `focal` among `panel`.
 
@@ -249,7 +248,7 @@ class SizeHistory(NamedTuple):
         "Return size history scaled by reference effective population size N0."
         return SizeHistory(t=self.t * N0, Ne=self.Ne * N0)
 
-    def simulate(self, **kwargs) -> tskit.TreeSequence:
+    def simulate(self, **kwargs) -> 'tskit.TreeSequence':
         """Simulate (using msprime) under demographic represented by self.
 
         Args:

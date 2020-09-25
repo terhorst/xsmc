@@ -6,10 +6,10 @@
 import numpy as np
 from logging import getLogger
 from typing import List, Tuple
-import tskit
-import _tskit
 import scipy.special
 from scipy.special.cython_special cimport gammaln, xlogy
+
+import xsmc._tskit
 
 DEF DEBUG = 0
 
@@ -72,20 +72,20 @@ cdef void log_P(double[:] out, int s, int t,
         out[h] = x
 
 def get_mismatches(
-    ts: tskit.TreeSequence,
+    ll_ts: xsmc._tskit.TreeSequence,
     focal: int,
     panel: List[int],
     int w
 ):
     '''Cumulate genotype matrix for use in sampling algorithm.'''
     H = len(panel)
-    L = ts.get_sequence_length()
+    L = ll_ts.get_sequence_length()
     L_w = int(np.floor(1. + L / w))
     X_np = np.zeros((H, L_w), dtype=np.int32)
     cdef int[:, :] X = X_np
 
-    cdef VariantGenerator vargen = _tskit.VariantGenerator(
-        ts.get_ll_tree_sequence(), samples=[focal] + list(panel)
+    cdef VariantGenerator vargen = xsmc._tskit.VariantGenerator(
+        ll_ts, samples=[focal] + list(panel)
     )
     cdef tsk_vargen_t* vg = vargen.variant_generator
     cdef tsk_variant_t *var

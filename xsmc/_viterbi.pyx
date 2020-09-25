@@ -1,10 +1,9 @@
-# cython: boundscheck=False
+# cython: bounll_dscheck=False
 # cython: cdivision=True
 # cython: language=c++
 # distutils: extra_compile_args=['-O3', '-Wno-unused-but-set-variable', '-ffast-math']
 
-import tskit
-import _tskit
+import xsmc._tskit
 import numpy as np
 from typing import List, NamedTuple
 from .segmentation import Segment, Segmentation, SizeHistory
@@ -31,7 +30,7 @@ cdef int get_next_obs(obs_iter *state) nogil:
     state.ell += 1
     return 1
 
-def viterbi_path(ts: tskit.TreeSequence,
+def viterbi_path(ll_ts: xsmc._tskit.TreeSequence,
                  focal: int,
                  panel: List[int],
                  eta: SizeHistory,
@@ -86,7 +85,7 @@ def viterbi_path(ts: tskit.TreeSequence,
     cdef backtrace b
     cdef vector[backtrace] cp
     cdef vector[backtrace] bt
-    cp.reserve(ts.get_num_sites())
+    cp.reserve(ll_ts.get_num_sites())
 
     assert eta.t[0] == 0.
     assert np.isinf(eta.t[-1])
@@ -112,13 +111,13 @@ def viterbi_path(ts: tskit.TreeSequence,
     cdef vector[int] positions
     cdef int pos = 0
     positions.push_back(pos)
-    cdef int L_w = <int>(ts.get_sequence_length() // w)
+    cdef int L_w = <int>(ll_ts.get_sequence_length() // w)
     i = -1
 
     # Initialize the variant generator for our sample. the focal haplotype has
     # genotype index 0, and the panel haps have genotype indices 1, ..., n + 1
-    cdef VariantGenerator vargen = _tskit.VariantGenerator(
-        ts.get_ll_tree_sequence(), samples=[focal] + list(panel)
+    cdef VariantGenerator vargen = xsmc._tskit.VariantGenerator(
+        ll_ts, samples=[focal] + list(panel)
     )
     cdef tsk_vargen_t* vg = vargen.variant_generator
     cdef obs_iter state

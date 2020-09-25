@@ -60,6 +60,6 @@ cdef extern from "tskit.h" nogil:
     # void tsk_vargen_print_state(tsk_vargen_t *self, FILE *out);
 
 cdef extern:
-    ctypedef class _tskit.VariantGenerator [object VariantGenerator]:
+    ctypedef class xsmc._tskit.VariantGenerator [object VariantGenerator]:
         cdef void *tree_sequence
         cdef tsk_vargen_t *variant_generator

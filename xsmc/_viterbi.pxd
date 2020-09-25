@@ -11,7 +11,7 @@ from libc.stdint cimport int32_t
 from libc.math cimport INFINITY, isinf
 from gsl cimport *
 
-from _tskit cimport *
+from xsmc._tskit cimport *
 
 cdef extern from "<cmath>" namespace "std" nogil:
     bool isinf(double)

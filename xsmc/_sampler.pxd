@@ -6,5 +6,5 @@ from libcpp.pair cimport pair
 from libcpp cimport bool
 from libc.stdio cimport printf
 from scipy.special.cython_special cimport gammaln
-from _tskit cimport VariantGenerator, tsk_vargen_t, tsk_variant_t, tsk_vargen_next, tsk_id_t
+from xsmc._tskit cimport VariantGenerator, tsk_vargen_t, tsk_variant_t, tsk_vargen_next, tsk_id_t
 

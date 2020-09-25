@@ -1,11 +1,10 @@
 "Exact Bayesian and frequentist decoding of the sequentially Markov coalescent"
 
 import logging
-from dataclasses import dataclass
+from dataclasses import dataclass, InitVar
 from typing import List, Union
 
 import numpy as np
-import tskit
 
 import xsmc._sampler
 from . import _viterbi
@@ -36,7 +35,7 @@ class XSMC:
         The height of segments returned by this class are expressed in coalescent units. To convert to generations,
         rescale them by `2 * self.theta / (4 * mu)`, where `mu` is the biological mutation rate.
     """
-    ts: tskit.TreeSequence
+    ts: InitVar['tskit.TreeSequence']
     focal: int
     panel: List[int]
     theta: float = None
@@ -44,9 +43,20 @@ class XSMC:
     w: int = None
     robust: bool = False
 
-    def __post_init__(self):
+    def __post_init__(self, ts):
+        # This handles the task of converting from the passed-in tree sequence to our internal version. (These could be based off of different libraries).
+        self.L = ts.get_sequence_length()
+        tables = ts.dump_tables()
+        lwtc = xsmc._tskit.LightweightTableCollection()
+        lwtc.fromdict(tables.asdict())
+        tables_dict = lwtc.asdict()
+        tables = xsmc._tskit.TableCollection(tables_dict["sequence_length"])
+        for k in ["individuals","nodes","edges","migrations","sites","mutations","populations","provenances"]:
+            getattr(tables, k).set_columns(tables_dict[k])
+        self._llts = xsmc._tskit.TreeSequence()
+        self._llts.load_tables(tables)
         if self.theta is None:
-            self.theta = watterson(self.ts)
+            self.theta = watterson(ts)
             logger.debug("Estimated θ=%f", self.theta)
         self.rho = self.theta * self.rho_over_theta
         if self.w is None:
@@ -55,17 +65,13 @@ class XSMC:
         self._sampler = None
 
     @property
-    def L(self):
-        return self.ts.get_sequence_length()
-
-    @property
     def H(self):
         return len(self.panel)
 
     @property
     def sampler(self):
         if self._sampler is None:
-            X = xsmc._sampler.get_mismatches(self.ts, self.focal, self.panel, self.w)
+            X = xsmc._sampler.get_mismatches(self._llts, self.focal, self.panel, self.w)
             deltas = np.ones_like(X[0])
             # Perform sampling
             assert deltas.shape[0] == X.shape[1]
@@ -117,7 +123,7 @@ class XSMC:
         """
         eta: SizeHistory = SizeHistory(t=np.array([0.0, np.inf]), Ne=np.array([1.0]))
         return _viterbi.viterbi_path(
-            ts=self.ts,
+            ll_ts=self._llts,
             focal=self.focal,
             panel=self.panel,
             eta=eta,

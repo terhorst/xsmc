@@ -1027,10 +1027,10 @@ struct __pyx_t_4xsmc_8_sampler_sampler_params {
   bool use_cache;
 };
 
-/* "_tskit.pxd":63
+/* "xsmc/_tskit.pxd":63
  * 
  * cdef extern:
- *     ctypedef class _tskit.VariantGenerator [object VariantGenerator]:             # <<<<<<<<<<<<<<
+ *     ctypedef class xsmc._tskit.VariantGenerator [object VariantGenerator]:             # <<<<<<<<<<<<<<
  *         cdef void *tree_sequence
  *         cdef tsk_vargen_t *variant_generator
  */
@@ -1999,7 +1999,7 @@ static double (*__pyx_fuse_1__pyx_f_5scipy_7special_14cython_special_xlogy)(doub
 
 /* Module declarations from 'libc.stdint' */
 
-/* Module declarations from '_tskit' */
+/* Module declarations from 'xsmc._tskit' */
 
 /* Module declarations from 'xsmc._tskit' */
 static PyTypeObject *__pyx_ptype_4xsmc_6_tskit_VariantGenerator = 0;
@@ -2087,7 +2087,6 @@ static const char __pyx_k_t[] = "t";
 static const char __pyx_k_w[] = "w";
 static const char __pyx_k_id[] = "id";
 static const char __pyx_k_np[] = "np";
-static const char __pyx_k_ts[] = "ts";
 static const char __pyx_k_vg[] = "vg";
 static const char __pyx_k_L_w[] = "L_w";
 static const char __pyx_k_Xcs[] = "Xcs";
@@ -2116,6 +2115,7 @@ static const char __pyx_k_size[] = "size";
 static const char __pyx_k_step[] = "step";
 static const char __pyx_k_stop[] = "stop";
 static const char __pyx_k_test[] = "__test__";
+static const char __pyx_k_xsmc[] = "xsmc";
 static const char __pyx_k_ASCII[] = "ASCII";
 static const char __pyx_k_Tuple[] = "Tuple";
 static const char __pyx_k_class[] = "__class__";
@@ -2126,6 +2126,7 @@ static const char __pyx_k_flags[] = "flags";
 static const char __pyx_k_floor[] = "floor";
 static const char __pyx_k_focal[] = "focal";
 static const char __pyx_k_int32[] = "int32";
+static const char __pyx_k_ll_ts[] = "ll_ts";
 static const char __pyx_k_log_Q[] = "log_Q";
 static const char __pyx_k_numpy[] = "numpy";
 static const char __pyx_k_panel[] = "panel";
@@ -2157,7 +2158,6 @@ static const char __pyx_k_logging[] = "logging";
 static const char __pyx_k_memview[] = "memview";
 static const char __pyx_k_samples[] = "samples";
 static const char __pyx_k_special[] = "special";
-static const char __pyx_k_tskit_2[] = "tskit";
 static const char __pyx_k_Ellipsis[] = "Ellipsis";
 static const char __pyx_k_getstate[] = "__getstate__";
 static const char __pyx_k_itemsize[] = "itemsize";
@@ -2176,6 +2176,7 @@ static const char __pyx_k_pyx_result[] = "__pyx_result";
 static const char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
 static const char __pyx_k_MemoryError[] = "MemoryError";
 static const char __pyx_k_PickleError[] = "PickleError";
+static const char __pyx_k_xsmc__tskit[] = "xsmc._tskit";
 static const char __pyx_k_SamplerProxy[] = "_SamplerProxy";
 static const char __pyx_k_pyx_checksum[] = "__pyx_checksum";
 static const char __pyx_k_stringsource[] = "stringsource";
@@ -2199,7 +2200,6 @@ static const char __pyx_k_strided_and_direct[] = "<strided and direct>";
 static const char __pyx_k_Done_sampling_paths[] = "Done sampling paths.";
 static const char __pyx_k_get_sequence_length[] = "get_sequence_length";
 static const char __pyx_k_Done_computing_log_Q[] = "Done computing log Q";
-static const char __pyx_k_get_ll_tree_sequence[] = "get_ll_tree_sequence";
 static const char __pyx_k_strided_and_indirect[] = "<strided and indirect>";
 static const char __pyx_k_contiguous_and_direct[] = "<contiguous and direct>";
 static const char __pyx_k_MemoryView_of_r_object[] = "<MemoryView of %r object>";
@@ -2295,7 +2295,6 @@ static PyObject *__pyx_n_s_fortran;
 static PyObject *__pyx_n_u_fortran;
 static PyObject *__pyx_n_s_gammaln;
 static PyObject *__pyx_n_s_getLogger;
-static PyObject *__pyx_n_s_get_ll_tree_sequence;
 static PyObject *__pyx_n_s_get_mismatches;
 static PyObject *__pyx_n_s_get_sequence_length;
 static PyObject *__pyx_n_s_getstate;
@@ -2309,6 +2308,7 @@ static PyObject *__pyx_n_s_int32;
 static PyObject *__pyx_n_s_itemsize;
 static PyObject *__pyx_kp_s_itemsize_0_for_cython_array;
 static PyObject *__pyx_n_s_k;
+static PyObject *__pyx_n_s_ll_ts;
 static PyObject *__pyx_n_s_log_Q;
 static PyObject *__pyx_n_s_logger;
 static PyObject *__pyx_n_s_logging;
@@ -2363,9 +2363,7 @@ static PyObject *__pyx_n_s_struct;
 static PyObject *__pyx_n_s_t;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_theta;
-static PyObject *__pyx_n_s_ts;
 static PyObject *__pyx_n_s_tskit;
-static PyObject *__pyx_n_s_tskit_2;
 static PyObject *__pyx_n_s_typing;
 static PyObject *__pyx_kp_s_unable_to_allocate_array_data;
 static PyObject *__pyx_kp_s_unable_to_allocate_shape_and_str;
@@ -2376,11 +2374,13 @@ static PyObject *__pyx_n_s_var;
 static PyObject *__pyx_n_s_vargen;
 static PyObject *__pyx_n_s_vg;
 static PyObject *__pyx_n_s_w;
+static PyObject *__pyx_n_s_xsmc;
 static PyObject *__pyx_n_s_xsmc__sampler;
 static PyObject *__pyx_kp_s_xsmc__sampler_pyx;
+static PyObject *__pyx_n_s_xsmc__tskit;
 static PyObject *__pyx_n_s_y_i;
 static PyObject *__pyx_n_s_zeros;
-static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_ts, PyObject *__pyx_v_focal, PyObject *__pyx_v_panel, int __pyx_v_w); /* proto */
+static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_ll_ts, PyObject *__pyx_v_focal, PyObject *__pyx_v_panel, int __pyx_v_w); /* proto */
 static int __pyx_pf_4xsmc_8_sampler_13_SamplerProxy___init__(struct __pyx_obj_4xsmc_8_sampler__SamplerProxy *__pyx_v_self, PyObject *__pyx_v_Xcs, PyObject *__pyx_v_positions, PyObject *__pyx_v_theta, PyObject *__pyx_v_rho, PyObject *__pyx_v_robust, PyObject *__pyx_v_eps); /* proto */
 static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct __pyx_obj_4xsmc_8_sampler__SamplerProxy *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_2log_P(struct __pyx_obj_4xsmc_8_sampler__SamplerProxy *__pyx_v_self, PyObject *__pyx_v_s, PyObject *__pyx_v_t); /* proto */
@@ -2671,7 +2671,7 @@ static void __pyx_f_4xsmc_8_sampler_log_P(__Pyx_memviewslice __pyx_v_out, int __
  *         out[h] = x
  * 
  * def get_mismatches(             # <<<<<<<<<<<<<<
- *     ts: tskit.TreeSequence,
+ *     ll_ts: xsmc._tskit.TreeSequence,
  *     focal: int,
  */
 
@@ -2680,7 +2680,7 @@ static PyObject *__pyx_pw_4xsmc_8_sampler_1get_mismatches(PyObject *__pyx_self, 
 static char __pyx_doc_4xsmc_8_sampler_get_mismatches[] = "Cumulate genotype matrix for use in sampling algorithm.";
 static PyMethodDef __pyx_mdef_4xsmc_8_sampler_1get_mismatches = {"get_mismatches", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_4xsmc_8_sampler_1get_mismatches, METH_VARARGS|METH_KEYWORDS, __pyx_doc_4xsmc_8_sampler_get_mismatches};
 static PyObject *__pyx_pw_4xsmc_8_sampler_1get_mismatches(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_ts = 0;
+  PyObject *__pyx_v_ll_ts = 0;
   PyObject *__pyx_v_focal = 0;
   PyObject *__pyx_v_panel = 0;
   int __pyx_v_w;
@@ -2691,7 +2691,7 @@ static PyObject *__pyx_pw_4xsmc_8_sampler_1get_mismatches(PyObject *__pyx_self, 
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_mismatches (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_ts,&__pyx_n_s_focal,&__pyx_n_s_panel,&__pyx_n_s_w,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_ll_ts,&__pyx_n_s_focal,&__pyx_n_s_panel,&__pyx_n_s_w,0};
     PyObject* values[4] = {0,0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
@@ -2711,7 +2711,7 @@ static PyObject *__pyx_pw_4xsmc_8_sampler_1get_mismatches(PyObject *__pyx_self, 
       kw_args = PyDict_Size(__pyx_kwds);
       switch (pos_args) {
         case  0:
-        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_ts)) != 0)) kw_args--;
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_ll_ts)) != 0)) kw_args--;
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -2743,7 +2743,7 @@ static PyObject *__pyx_pw_4xsmc_8_sampler_1get_mismatches(PyObject *__pyx_self, 
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
       values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
     }
-    __pyx_v_ts = values[0];
+    __pyx_v_ll_ts = values[0];
     __pyx_v_focal = values[1];
     __pyx_v_panel = values[2];
     __pyx_v_w = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_w == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 78, __pyx_L3_error)
@@ -2756,14 +2756,14 @@ static PyObject *__pyx_pw_4xsmc_8_sampler_1get_mismatches(PyObject *__pyx_self, 
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4xsmc_8_sampler_get_mismatches(__pyx_self, __pyx_v_ts, __pyx_v_focal, __pyx_v_panel, __pyx_v_w);
+  __pyx_r = __pyx_pf_4xsmc_8_sampler_get_mismatches(__pyx_self, __pyx_v_ll_ts, __pyx_v_focal, __pyx_v_panel, __pyx_v_w);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_ts, PyObject *__pyx_v_focal, PyObject *__pyx_v_panel, int __pyx_v_w) {
+static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_ll_ts, PyObject *__pyx_v_focal, PyObject *__pyx_v_panel, int __pyx_v_w) {
   Py_ssize_t __pyx_v_H;
   PyObject *__pyx_v_L = NULL;
   PyObject *__pyx_v_L_w = NULL;
@@ -2803,7 +2803,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
  * ):
  *     '''Cumulate genotype matrix for use in sampling algorithm.'''
  *     H = len(panel)             # <<<<<<<<<<<<<<
- *     L = ts.get_sequence_length()
+ *     L = ll_ts.get_sequence_length()
  *     L_w = int(np.floor(1. + L / w))
  */
   __pyx_t_1 = PyObject_Length(__pyx_v_panel); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 81, __pyx_L1_error)
@@ -2812,11 +2812,11 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
   /* "xsmc/_sampler.pyx":82
  *     '''Cumulate genotype matrix for use in sampling algorithm.'''
  *     H = len(panel)
- *     L = ts.get_sequence_length()             # <<<<<<<<<<<<<<
+ *     L = ll_ts.get_sequence_length()             # <<<<<<<<<<<<<<
  *     L_w = int(np.floor(1. + L / w))
  *     X_np = np.zeros((H, L_w), dtype=np.int32)
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_get_sequence_length); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_ll_ts, __pyx_n_s_get_sequence_length); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
@@ -2838,7 +2838,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
 
   /* "xsmc/_sampler.pyx":83
  *     H = len(panel)
- *     L = ts.get_sequence_length()
+ *     L = ll_ts.get_sequence_length()
  *     L_w = int(np.floor(1. + L / w))             # <<<<<<<<<<<<<<
  *     X_np = np.zeros((H, L_w), dtype=np.int32)
  *     cdef int[:, :] X = X_np
@@ -2879,7 +2879,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
   __pyx_t_4 = 0;
 
   /* "xsmc/_sampler.pyx":84
- *     L = ts.get_sequence_length()
+ *     L = ll_ts.get_sequence_length()
  *     L_w = int(np.floor(1. + L / w))
  *     X_np = np.zeros((H, L_w), dtype=np.int32)             # <<<<<<<<<<<<<<
  *     cdef int[:, :] X = X_np
@@ -2927,7 +2927,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
  *     X_np = np.zeros((H, L_w), dtype=np.int32)
  *     cdef int[:, :] X = X_np             # <<<<<<<<<<<<<<
  * 
- *     cdef VariantGenerator vargen = _tskit.VariantGenerator(
+ *     cdef VariantGenerator vargen = xsmc._tskit.VariantGenerator(
  */
   __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_dsds_int(__pyx_v_X_np, PyBUF_WRITABLE); if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(0, 85, __pyx_L1_error)
   __pyx_v_X = __pyx_t_7;
@@ -2937,63 +2937,33 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
   /* "xsmc/_sampler.pyx":87
  *     cdef int[:, :] X = X_np
  * 
- *     cdef VariantGenerator vargen = _tskit.VariantGenerator(             # <<<<<<<<<<<<<<
- *         ts.get_ll_tree_sequence(), samples=[focal] + list(panel)
+ *     cdef VariantGenerator vargen = xsmc._tskit.VariantGenerator(             # <<<<<<<<<<<<<<
+ *         ll_ts, samples=[focal] + list(panel)
  *     )
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_tskit); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_xsmc); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_VariantGenerator); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_tskit); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_VariantGenerator); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "xsmc/_sampler.pyx":88
  * 
- *     cdef VariantGenerator vargen = _tskit.VariantGenerator(
- *         ts.get_ll_tree_sequence(), samples=[focal] + list(panel)             # <<<<<<<<<<<<<<
+ *     cdef VariantGenerator vargen = xsmc._tskit.VariantGenerator(
+ *         ll_ts, samples=[focal] + list(panel)             # <<<<<<<<<<<<<<
  *     )
  *     cdef tsk_vargen_t* vg = vargen.variant_generator
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_get_ll_tree_sequence); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_INCREF(__pyx_v_ll_ts);
+  __Pyx_GIVEREF(__pyx_v_ll_ts);
+  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_ll_ts);
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_4);
-    if (likely(__pyx_t_2)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-      __Pyx_INCREF(__pyx_t_2);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_4, function);
-    }
-  }
-  __pyx_t_6 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 88, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-
-  /* "xsmc/_sampler.pyx":87
- *     cdef int[:, :] X = X_np
- * 
- *     cdef VariantGenerator vargen = _tskit.VariantGenerator(             # <<<<<<<<<<<<<<
- *         ts.get_ll_tree_sequence(), samples=[focal] + list(panel)
- *     )
- */
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GIVEREF(__pyx_t_6);
-  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_6);
-  __pyx_t_6 = 0;
-
-  /* "xsmc/_sampler.pyx":88
- * 
- *     cdef VariantGenerator vargen = _tskit.VariantGenerator(
- *         ts.get_ll_tree_sequence(), samples=[focal] + list(panel)             # <<<<<<<<<<<<<<
- *     )
- *     cdef tsk_vargen_t* vg = vargen.variant_generator
- */
-  __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 88, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_v_focal);
@@ -3005,27 +2975,27 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_samples, __pyx_t_8) < 0) __PYX_ERR(0, 88, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_samples, __pyx_t_8) < 0) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
   /* "xsmc/_sampler.pyx":87
  *     cdef int[:, :] X = X_np
  * 
- *     cdef VariantGenerator vargen = _tskit.VariantGenerator(             # <<<<<<<<<<<<<<
- *         ts.get_ll_tree_sequence(), samples=[focal] + list(panel)
+ *     cdef VariantGenerator vargen = xsmc._tskit.VariantGenerator(             # <<<<<<<<<<<<<<
+ *         ll_ts, samples=[focal] + list(panel)
  *     )
  */
-  __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_4xsmc_6_tskit_VariantGenerator))))) __PYX_ERR(0, 87, __pyx_L1_error)
   __pyx_v_vargen = ((VariantGenerator *)__pyx_t_8);
   __pyx_t_8 = 0;
 
   /* "xsmc/_sampler.pyx":90
- *         ts.get_ll_tree_sequence(), samples=[focal] + list(panel)
+ *         ll_ts, samples=[focal] + list(panel)
  *     )
  *     cdef tsk_vargen_t* vg = vargen.variant_generator             # <<<<<<<<<<<<<<
  *     cdef tsk_variant_t *var
@@ -3069,59 +3039,59 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
  *     with nogil:
  *         while err == 1:
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_logger); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 95, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_debug); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 95, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_logger); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = NULL;
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_debug); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 95, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = NULL;
   __pyx_t_11 = 0;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_4);
-    if (likely(__pyx_t_6)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-      __Pyx_INCREF(__pyx_t_6);
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_4);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_4, function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
       __pyx_t_11 = 1;
     }
   }
   #if CYTHON_FAST_PYCALL
-  if (PyFunction_Check(__pyx_t_4)) {
-    PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_kp_s_Counting_mismatches_for_focal_d, __pyx_v_focal, __pyx_v_panel};
-    __pyx_t_8 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 3+__pyx_t_11); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 95, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+  if (PyFunction_Check(__pyx_t_3)) {
+    PyObject *__pyx_temp[4] = {__pyx_t_4, __pyx_kp_s_Counting_mismatches_for_focal_d, __pyx_v_focal, __pyx_v_panel};
+    __pyx_t_8 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 3+__pyx_t_11); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 95, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_8);
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
-  if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
-    PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_kp_s_Counting_mismatches_for_focal_d, __pyx_v_focal, __pyx_v_panel};
-    __pyx_t_8 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 3+__pyx_t_11); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 95, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
+    PyObject *__pyx_temp[4] = {__pyx_t_4, __pyx_kp_s_Counting_mismatches_for_focal_d, __pyx_v_focal, __pyx_v_panel};
+    __pyx_t_8 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_11, 3+__pyx_t_11); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 95, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_8);
   } else
   #endif
   {
-    __pyx_t_3 = PyTuple_New(3+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 95, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    if (__pyx_t_6) {
-      __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_6); __pyx_t_6 = NULL;
+    __pyx_t_6 = PyTuple_New(3+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 95, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    if (__pyx_t_4) {
+      __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
     }
     __Pyx_INCREF(__pyx_kp_s_Counting_mismatches_for_focal_d);
     __Pyx_GIVEREF(__pyx_kp_s_Counting_mismatches_for_focal_d);
-    PyTuple_SET_ITEM(__pyx_t_3, 0+__pyx_t_11, __pyx_kp_s_Counting_mismatches_for_focal_d);
+    PyTuple_SET_ITEM(__pyx_t_6, 0+__pyx_t_11, __pyx_kp_s_Counting_mismatches_for_focal_d);
     __Pyx_INCREF(__pyx_v_focal);
     __Pyx_GIVEREF(__pyx_v_focal);
-    PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_11, __pyx_v_focal);
+    PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_11, __pyx_v_focal);
     __Pyx_INCREF(__pyx_v_panel);
     __Pyx_GIVEREF(__pyx_v_panel);
-    PyTuple_SET_ITEM(__pyx_t_3, 2+__pyx_t_11, __pyx_v_panel);
-    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 95, __pyx_L1_error)
+    PyTuple_SET_ITEM(__pyx_t_6, 2+__pyx_t_11, __pyx_v_panel);
+    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 95, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
   /* "xsmc/_sampler.pyx":96
@@ -3240,7 +3210,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
  *         out[h] = x
  * 
  * def get_mismatches(             # <<<<<<<<<<<<<<
- *     ts: tskit.TreeSequence,
+ *     ll_ts: xsmc._tskit.TreeSequence,
  *     focal: int,
  */
 
@@ -20632,7 +20602,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_u_fortran, __pyx_k_fortran, sizeof(__pyx_k_fortran), 0, 1, 0, 1},
   {&__pyx_n_s_gammaln, __pyx_k_gammaln, sizeof(__pyx_k_gammaln), 0, 0, 1, 1},
   {&__pyx_n_s_getLogger, __pyx_k_getLogger, sizeof(__pyx_k_getLogger), 0, 0, 1, 1},
-  {&__pyx_n_s_get_ll_tree_sequence, __pyx_k_get_ll_tree_sequence, sizeof(__pyx_k_get_ll_tree_sequence), 0, 0, 1, 1},
   {&__pyx_n_s_get_mismatches, __pyx_k_get_mismatches, sizeof(__pyx_k_get_mismatches), 0, 0, 1, 1},
   {&__pyx_n_s_get_sequence_length, __pyx_k_get_sequence_length, sizeof(__pyx_k_get_sequence_length), 0, 0, 1, 1},
   {&__pyx_n_s_getstate, __pyx_k_getstate, sizeof(__pyx_k_getstate), 0, 0, 1, 1},
@@ -20646,6 +20615,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_itemsize, __pyx_k_itemsize, sizeof(__pyx_k_itemsize), 0, 0, 1, 1},
   {&__pyx_kp_s_itemsize_0_for_cython_array, __pyx_k_itemsize_0_for_cython_array, sizeof(__pyx_k_itemsize_0_for_cython_array), 0, 0, 1, 0},
   {&__pyx_n_s_k, __pyx_k_k, sizeof(__pyx_k_k), 0, 0, 1, 1},
+  {&__pyx_n_s_ll_ts, __pyx_k_ll_ts, sizeof(__pyx_k_ll_ts), 0, 0, 1, 1},
   {&__pyx_n_s_log_Q, __pyx_k_log_Q, sizeof(__pyx_k_log_Q), 0, 0, 1, 1},
   {&__pyx_n_s_logger, __pyx_k_logger, sizeof(__pyx_k_logger), 0, 0, 1, 1},
   {&__pyx_n_s_logging, __pyx_k_logging, sizeof(__pyx_k_logging), 0, 0, 1, 1},
@@ -20700,9 +20670,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_t, __pyx_k_t, sizeof(__pyx_k_t), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_theta, __pyx_k_theta, sizeof(__pyx_k_theta), 0, 0, 1, 1},
-  {&__pyx_n_s_ts, __pyx_k_ts, sizeof(__pyx_k_ts), 0, 0, 1, 1},
   {&__pyx_n_s_tskit, __pyx_k_tskit, sizeof(__pyx_k_tskit), 0, 0, 1, 1},
-  {&__pyx_n_s_tskit_2, __pyx_k_tskit_2, sizeof(__pyx_k_tskit_2), 0, 0, 1, 1},
   {&__pyx_n_s_typing, __pyx_k_typing, sizeof(__pyx_k_typing), 0, 0, 1, 1},
   {&__pyx_kp_s_unable_to_allocate_array_data, __pyx_k_unable_to_allocate_array_data, sizeof(__pyx_k_unable_to_allocate_array_data), 0, 0, 1, 0},
   {&__pyx_kp_s_unable_to_allocate_shape_and_str, __pyx_k_unable_to_allocate_shape_and_str, sizeof(__pyx_k_unable_to_allocate_shape_and_str), 0, 0, 1, 0},
@@ -20713,8 +20681,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_vargen, __pyx_k_vargen, sizeof(__pyx_k_vargen), 0, 0, 1, 1},
   {&__pyx_n_s_vg, __pyx_k_vg, sizeof(__pyx_k_vg), 0, 0, 1, 1},
   {&__pyx_n_s_w, __pyx_k_w, sizeof(__pyx_k_w), 0, 0, 1, 1},
+  {&__pyx_n_s_xsmc, __pyx_k_xsmc, sizeof(__pyx_k_xsmc), 0, 0, 1, 1},
   {&__pyx_n_s_xsmc__sampler, __pyx_k_xsmc__sampler, sizeof(__pyx_k_xsmc__sampler), 0, 0, 1, 1},
   {&__pyx_kp_s_xsmc__sampler_pyx, __pyx_k_xsmc__sampler_pyx, sizeof(__pyx_k_xsmc__sampler_pyx), 0, 0, 1, 0},
+  {&__pyx_n_s_xsmc__tskit, __pyx_k_xsmc__tskit, sizeof(__pyx_k_xsmc__tskit), 0, 0, 1, 1},
   {&__pyx_n_s_y_i, __pyx_k_y_i, sizeof(__pyx_k_y_i), 0, 0, 1, 1},
   {&__pyx_n_s_zeros, __pyx_k_zeros, sizeof(__pyx_k_zeros), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
@@ -20974,10 +20944,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         out[h] = x
  * 
  * def get_mismatches(             # <<<<<<<<<<<<<<
- *     ts: tskit.TreeSequence,
+ *     ll_ts: xsmc._tskit.TreeSequence,
  *     focal: int,
  */
-  __pyx_tuple__23 = PyTuple_Pack(17, __pyx_n_s_ts, __pyx_n_s_focal, __pyx_n_s_panel, __pyx_n_s_w, __pyx_n_s_H, __pyx_n_s_L, __pyx_n_s_L_w, __pyx_n_s_X_np, __pyx_n_s_X, __pyx_n_s_vargen, __pyx_n_s_vg, __pyx_n_s_var, __pyx_n_s_err, __pyx_n_s_focal_2, __pyx_n_s_i, __pyx_n_s_h, __pyx_n_s_y_i); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 74, __pyx_L1_error)
+  __pyx_tuple__23 = PyTuple_Pack(17, __pyx_n_s_ll_ts, __pyx_n_s_focal, __pyx_n_s_panel, __pyx_n_s_w, __pyx_n_s_H, __pyx_n_s_L, __pyx_n_s_L_w, __pyx_n_s_X_np, __pyx_n_s_X, __pyx_n_s_vargen, __pyx_n_s_vg, __pyx_n_s_var, __pyx_n_s_err, __pyx_n_s_focal_2, __pyx_n_s_i, __pyx_n_s_h, __pyx_n_s_y_i); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__23);
   __Pyx_GIVEREF(__pyx_tuple__23);
   __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(4, 0, 17, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__sampler_pyx, __pyx_n_s_get_mismatches, 74, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 74, __pyx_L1_error)
@@ -21186,9 +21156,9 @@ static int __Pyx_modinit_type_import_code(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_import_code", 0);
   /*--- Type import code ---*/
-  __pyx_t_1 = PyImport_ImportModule("_tskit"); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 63, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("xsmc._tskit"); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_ptype_4xsmc_6_tskit_VariantGenerator = __Pyx_ImportType(__pyx_t_1, "_tskit", "VariantGenerator", sizeof(VariantGenerator), __Pyx_ImportType_CheckSize_Warn);
+  __pyx_ptype_4xsmc_6_tskit_VariantGenerator = __Pyx_ImportType(__pyx_t_1, "xsmc._tskit", "VariantGenerator", sizeof(VariantGenerator), __Pyx_ImportType_CheckSize_Warn);
    if (!__pyx_ptype_4xsmc_6_tskit_VariantGenerator) __PYX_ERR(2, 63, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
@@ -21452,7 +21422,7 @@ if (!__Pyx_RefNanny) {
  * import numpy as np
  * from logging import getLogger             # <<<<<<<<<<<<<<
  * from typing import List, Tuple
- * import tskit
+ * import scipy.special
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -21472,8 +21442,8 @@ if (!__Pyx_RefNanny) {
  * import numpy as np
  * from logging import getLogger
  * from typing import List, Tuple             # <<<<<<<<<<<<<<
- * import tskit
- * import _tskit
+ * import scipy.special
+ * from scipy.special.cython_special cimport gammaln, xlogy
  */
   __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -21499,37 +21469,25 @@ if (!__Pyx_RefNanny) {
   /* "xsmc/_sampler.pyx":9
  * from logging import getLogger
  * from typing import List, Tuple
- * import tskit             # <<<<<<<<<<<<<<
- * import _tskit
- * import scipy.special
- */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_tskit_2, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tskit_2, __pyx_t_1) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-  /* "xsmc/_sampler.pyx":10
- * from typing import List, Tuple
- * import tskit
- * import _tskit             # <<<<<<<<<<<<<<
- * import scipy.special
- * from scipy.special.cython_special cimport gammaln, xlogy
- */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_tskit, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tskit, __pyx_t_1) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-  /* "xsmc/_sampler.pyx":11
- * import tskit
- * import _tskit
  * import scipy.special             # <<<<<<<<<<<<<<
  * from scipy.special.cython_special cimport gammaln, xlogy
  * 
  */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_scipy_special, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_scipy_special, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_scipy, __pyx_t_1) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_scipy, __pyx_t_1) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "xsmc/_sampler.pyx":12
+ * from scipy.special.cython_special cimport gammaln, xlogy
+ * 
+ * import xsmc._tskit             # <<<<<<<<<<<<<<
+ * 
+ * DEF DEBUG = 0
+ */
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_xsmc__tskit, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_xsmc, __pyx_t_1) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "xsmc/_sampler.pyx":16
@@ -21564,7 +21522,7 @@ if (!__Pyx_RefNanny) {
  *         out[h] = x
  * 
  * def get_mismatches(             # <<<<<<<<<<<<<<
- *     ts: tskit.TreeSequence,
+ *     ll_ts: xsmc._tskit.TreeSequence,
  *     focal: int,
  */
   __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_sampler_1get_mismatches, NULL, __pyx_n_s_xsmc__sampler); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 74, __pyx_L1_error)
