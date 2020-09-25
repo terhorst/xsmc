@@ -1,0 +1,3 @@
+[submodule "tskit"]
+	path = tskit
+	url = https://github.com/tskit-dev/tskit
