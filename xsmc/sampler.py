@@ -1,7 +1,7 @@
 """Exact samplers for renewal SMC model. Algorithms based on Fearnhead, P. 'Exact and efficient Bayesian inference for multiple changepoint problems'. 2006.
 """
 from logging import getLogger
-from typing import List, Union, Tuple
+from typing import List, Tuple, Union
 
 import numpy as np
 
@@ -121,8 +121,11 @@ def _sample_path_heights_smcp(
     a[0] = 0.0
     b = a[::-1]
     heights = np.zeros_like(a)
+
     def log_q(t, s):
-        return np.log(np.exp(-(max(t, s) - s)) - np.exp(-(min(t, s) + t))) - np.log(2 * s)
+        return np.log(np.exp(-(max(t, s) - s)) - np.exp(-(min(t, s) + t))) - np.log(
+            2 * s
+        )
 
     rej = 0
     for i, (i0, i1, Xb, _) in enumerate(segments.T):
@@ -143,14 +146,14 @@ def _sample_path_heights_smcp(
             # we have f(t) <= g(t) * exp(s/2) / (2s)
             s = heights[i - 1]
             alpha = 1 + b[i] + Xb
-            beta = H / 2. + delta * (theta + rho)
+            beta = H / 2.0 + delta * (theta + rho)
             q = 0
             while True:
                 t = heights[i] = np.random.gamma(alpha, 1.0 / beta)
                 # U <= f(t)/[g(t) * exp(s/2) * (2s)]
                 # -log(u) >= log(g * ...) - log(f)
                 u = log_q(H * t, s)
-                v = -H * t / 2. + s / 2 - np.log(2 * s)
+                v = -H * t / 2.0 + s / 2 - np.log(2 * s)
                 if np.random.exponential() > v - u:
                     break
                 rej += 1

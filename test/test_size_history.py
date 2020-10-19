@@ -1,10 +1,11 @@
-import pytest
-import numpy as np
-from xsmc.size_history import SizeHistory
-from scipy.interpolate import PPoly
-from scipy.integrate import quad
 import msprime as msp
+import numpy as np
+import pytest
+from scipy.integrate import quad
+from scipy.interpolate import PPoly
+
 import xsmc
+from xsmc.size_history import SizeHistory
 
 
 @pytest.fixture

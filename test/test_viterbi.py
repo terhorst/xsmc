@@ -1,12 +1,14 @@
+import warnings
+
 import msprime as msp
-from scipy.interpolate import PPoly
-from scipy.integrate import quad
-import xsmc._viterbi
-from xsmc.size_history import SizeHistory
 import numpy as np
 import pytest
-import warnings
+from scipy.integrate import quad
+from scipy.interpolate import PPoly
+
 import tskit
+import xsmc._viterbi
+from xsmc.size_history import SizeHistory
 
 
 def test_root_bug1():

@@ -1,15 +1,16 @@
 "Exact Bayesian and frequentist decoding of the sequentially Markov coalescent"
 
 import logging
-from dataclasses import dataclass, InitVar
+from dataclasses import InitVar, dataclass
 from typing import List, Union
 
 import numpy as np
 
 import xsmc._sampler
+
 from . import _viterbi
 from .sampler import XSMCSampler
-from .segmentation import Segmentation, ArraySegmentation
+from .segmentation import ArraySegmentation, Segmentation
 from .size_history import SizeHistory
 from .supporting import watterson
 

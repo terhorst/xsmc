@@ -1,11 +1,9 @@
-from typing import NamedTuple
-import numpy as np
-from typing import Tuple, List
-import scipy.interpolate
-
-from scipy.interpolate import PPoly
-
 import logging
+from typing import List, NamedTuple, Tuple
+
+import numpy as np
+import scipy.interpolate
+from scipy.interpolate import PPoly
 
 logger = logging.getLogger(__name__)
 

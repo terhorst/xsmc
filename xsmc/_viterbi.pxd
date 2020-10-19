@@ -1,17 +1,18 @@
-from libcpp.vector cimport vector
+from gsl cimport *
+from libc.math cimport INFINITY, isinf
+from libc.stdint cimport int32_t
+from libc.stdio cimport printf
+from libc.string cimport memcmp, memcpy, memset
+from libcpp cimport bool
+from libcpp.algorithm cimport lower_bound
 from libcpp.pair cimport pair
 from libcpp.queue cimport queue
 from libcpp.unordered_map cimport unordered_map
 from libcpp.unordered_set cimport unordered_set
-from libc.string cimport memcmp, memset, memcpy
-from libcpp.algorithm cimport lower_bound
-from libc.stdio cimport printf
-from libcpp cimport bool
-from libc.stdint cimport int32_t
-from libc.math cimport INFINITY, isinf
-from gsl cimport *
+from libcpp.vector cimport vector
 
 from xsmc._tskit cimport *
+
 
 cdef extern from "<cmath>" namespace "std" nogil:
     bool isinf(double)

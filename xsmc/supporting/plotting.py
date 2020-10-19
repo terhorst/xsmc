@@ -1,12 +1,23 @@
+import matplotlib.pyplot as plt
 import numpy as np
+import seaborn as sns
 
 # Make nice plots
 # https://towardsdatascience.com/making-matplotlib-beautiful-by-default-d0d41e3534fd
 
-import matplotlib.pyplot as plt
-import seaborn as sns
 
-TABLEAU = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple', 'tab:brown', 'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan']
+TABLEAU = [
+    "tab:blue",
+    "tab:orange",
+    "tab:green",
+    "tab:red",
+    "tab:purple",
+    "tab:brown",
+    "tab:pink",
+    "tab:gray",
+    "tab:olive",
+    "tab:cyan",
+]
 
 sns.set(
     font="Helvetica",
@@ -55,7 +66,9 @@ def summarize_lines(xys, x0):
     "summarize a collection of lines by plotting their median and IQR"
     y0 = []
     for x, y in xys:
-        f = interp1d(x, y, bounds_error=False)  # interpolate linearly to a common set of points
+        f = interp1d(
+            x, y, bounds_error=False
+        )  # interpolate linearly to a common set of points
         y0.append(f(x0))
     return np.nanquantile(y0, [0.5, 0.25, 0.75], axis=0)  # median, q25, q75
 
@@ -73,6 +86,7 @@ def plot_de(de, Ne):
     def ev_iter():
         last_g = 0.0
         last_a = Ne
+        last_t = None
         for ev in de:
             t = ev.time
             a = ev.initial_size or last_a * np.exp(-last_g * (t - last_t))

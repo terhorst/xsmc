@@ -1,7 +1,8 @@
 "Estimation of Ne(t) by kernel smoothing."
 
-import numpy as np
 from collections import Counter
+
+import numpy as np
 from scipy.signal import convolve
 
 

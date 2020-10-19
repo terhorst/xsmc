@@ -1,13 +1,14 @@
-import msprime as msp
-import pytest
-import numpy as np
-from functools import partial
-from scipy.special import logsumexp
-
-from xsmc.sampler import XSMCSampler
-import xsmc
 import logging
 from concurrent.futures import ThreadPoolExecutor
+from functools import partial
+
+import msprime as msp
+import numpy as np
+import pytest
+from scipy.special import logsumexp
+
+import xsmc
+from xsmc.sampler import XSMCSampler
 
 
 def prior(L, rho):
@@ -65,6 +66,7 @@ def big_data():
 @pytest.fixture
 def data():
     import msprime as msp
+
     import xsmc
 
     return msp.simulate(
@@ -80,6 +82,7 @@ def data():
 @pytest.fixture
 def tiny_data():
     import msprime as msp
+
     import xsmc
 
     return msp.simulate(
@@ -168,9 +171,11 @@ def strong_compositions(n, k):
 
 @pytest.fixture
 def sampler():
-    from xsmc.sampler import XSMCSampler
-    from scipy.special import logsumexp
     import itertools
+
+    from scipy.special import logsumexp
+
+    from xsmc.sampler import XSMCSampler
 
     H = 5
     n = 5

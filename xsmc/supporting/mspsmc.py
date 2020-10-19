@@ -1,12 +1,13 @@
 """Reference implementation of Li & Durbin's (2011) PSMC model."""
-from dataclasses import dataclass
-from typing import List, Tuple, TextIO, Union
-import numpy as np
 import itertools
 import os
-import sh
-import textwrap
 import tempfile
+import textwrap
+from dataclasses import dataclass
+from typing import List, TextIO, Tuple, Union
+
+import numpy as np
+import sh
 from scipy.interpolate import PPoly
 
 psmc = sh.Command(os.environ.get("PSMC_PATH", "psmc"))

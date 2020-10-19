@@ -1,4 +1,5 @@
 from typing import NamedTuple
+
 import numpy as np
 from scipy.interpolate import PPoly
 
@@ -52,7 +53,7 @@ class SizeHistory(NamedTuple):
         "Return size history scaled by reference effective population size N0."
         return SizeHistory(t=self.t * N0, Ne=self.Ne * N0)
 
-    def simulate(self, **kwargs) -> 'tskit.TreeSequence':
+    def simulate(self, **kwargs) -> "tskit.TreeSequence":
         """Simulate (using msprime) under demographic represented by self.
 
         Args:

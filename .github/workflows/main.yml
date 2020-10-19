@@ -1,0 +1,46 @@
+name: PyPI release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - v*
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -U pytest build wheel setuptools cython isort black
+        sudo apt install -y libgsl-dev
+    - name: Python Lint (isort/black)
+      run: |
+        isort --check xsmc test
+        black --check xsmc test
+    - name: Build using setuptools
+      run: |
+        python -m build .
+    - name: Test with pytest
+      run: |
+        pip install -e .
+        py.test test/
+    - name: Remove wheels
+      run: |
+        rm -f dist/*.whl
+    - name: pypi upload
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_TOKEN }}

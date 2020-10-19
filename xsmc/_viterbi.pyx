@@ -3,11 +3,15 @@
 # cython: language=c++
 # distutils: extra_compile_args=['-O3', '-Wno-unused-but-set-variable', '-ffast-math']
 
-import xsmc._tskit
-import numpy as np
 from typing import List, NamedTuple
+
+import numpy as np
+
+import xsmc._tskit
+
 from .segmentation import Segment, Segmentation
 from .size_history import SizeHistory
+
 
 cdef struct obs_iter:
     int ell, L, w  # current position, total obs, window size
@@ -211,9 +215,12 @@ def viterbi_path(LightweightTableCollection lwtc,
 
 
 #### SUPPORT FUNCTIONS
-from cython.operator cimport dereference as deref, preincrement as inc
+
 cimport cython
+from cython.operator cimport dereference as deref
+from cython.operator cimport preincrement as inc
 from gsl cimport *
+
 
 # test functions, used for testing only
 cdef vector[piecewise_func] _monotone_decreasing_case(

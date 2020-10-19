@@ -1,6 +1,7 @@
 from libc.stdint cimport int8_t, int16_t, int32_t, uint32_t
 from libcpp cimport bool
 
+
 cdef extern from "tskit.h" nogil:
     ctypedef int32_t tsk_id_t
     ctypedef uint32_t tsk_size_t
