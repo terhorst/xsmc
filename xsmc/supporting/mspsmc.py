@@ -82,7 +82,7 @@ def _parse_psmc(out) -> List[PSMCResult]:
                 if line.startswith("RS")
             ]
         )
-        ret.append(dict(theta=theta, rho=rho, t=np.array(t), Ne=1. / np.array(lam)))
+        ret.append(dict(theta=theta, rho=rho, t=np.array(t), Ne=np.array(lam)))
     return ret
 
 
