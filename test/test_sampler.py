@@ -54,7 +54,11 @@ def test_Q_2():
 @pytest.fixture
 def big_data():
     return msp.simulate(
-        sample_size=50, recombination_rate=1e-8, mutation_rate=1e-9, length=1e5, Ne=1e4,
+        sample_size=50,
+        recombination_rate=1e-8,
+        mutation_rate=1e-9,
+        length=1e5,
+        Ne=1e4,
     )
 
 
@@ -90,9 +94,10 @@ def tiny_data():
 
 def test_theta_equals_0(big_data):
     with pytest.raises(ValueError):
-        p = xsmc.XSMC(big_data, 0, [1, 2, 3], theta=0., rho_over_theta=0.0).sample(
+        p = xsmc.XSMC(big_data, 0, [1, 2, 3], theta=0.0, rho_over_theta=0.0).sample(
             k=5, seed=1
         )
+
 
 def test_rho_equals_0(big_data):
     with pytest.raises(ValueError):
@@ -131,13 +136,10 @@ def test_bug():
     L = data.get_sequence_length()
     focal = 0
     panel = list(range(1, 19))
-    xs = [
-        xsmc.XSMC(data, focal, panel, rho_over_theta=1., w=100, robust=True)
-    ]
+    xs = [xsmc.XSMC(data, focal, panel, rho_over_theta=1.0, w=100, robust=True)]
     with ThreadPoolExecutor() as p:
         futs = [p.submit(x.sample, k=1, seed=1) for i, x in enumerate(xs)]
         paths = [f.result() for f in futs]
-
 
 
 def _compositions(n, k):
@@ -157,6 +159,7 @@ def _compositions(n, k):
             for comp in _compositions(n - i, k - 1):
                 yield [i] + comp
 
+
 def strong_compositions(n, k):
     for c in _compositions(n, k):
         if 0 not in c:
@@ -168,6 +171,7 @@ def sampler():
     from xsmc.sampler import XSMCSampler
     from scipy.special import logsumexp
     import itertools
+
     H = 5
     n = 5
     robust = False
@@ -176,16 +180,18 @@ def sampler():
     sampler = XSMCSampler(X, deltas, 0.01, 0.01, True, 0.0)
     return sampler
 
+
 def test_log_Q_last(sampler):
     n = sampler.n
     np.testing.assert_allclose(sampler.log_Q[n - 1], logsumexp(sampler.log_P(n - 1, n)))
+
 
 def test_log_Q_exact(sampler):
     n = sampler.n
     p = -np.inf
     for k in range(1, n + 1):
         for c in strong_compositions(n, k):
-            q = 0.
+            q = 0.0
             s = 0
             for j in c:
                 q += logsumexp(sampler.log_P(s, s + j))
@@ -196,6 +202,7 @@ def test_log_Q_exact(sampler):
 
 def test_memory_leak(tiny_data):
     import logging
+
     # import tracemalloc
     # tracemalloc.start()
     # logger = logging.getLogger('xsmc')
@@ -204,7 +211,7 @@ def test_memory_leak(tiny_data):
     for _ in range(4):
         focal = 0
         panel = list(range(1, 2))
-        x = xsmc.XSMC(tiny_data, focal, panel, rho_over_theta=1., w=100, robust=True)
+        x = xsmc.XSMC(tiny_data, focal, panel, rho_over_theta=1.0, w=100, robust=True)
         s = x.sample(k=100, seed=1)
         # current = tracemalloc.take_snapshot()
         # stats = current.compare_to(start, 'filename')
