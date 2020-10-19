@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API: xsmc package &#8212; xsmc 1.0.0 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -48,7 +48,7 @@
 <span id="api-xsmc-package"></span><h1>API: <code class="docutils literal notranslate"><span class="pre">xsmc</span></code> package<a class="headerlink" href="#module-xsmc" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="xsmc.XSMC">
-<em class="property">class </em><code class="sig-prename descclassname">xsmc.</code><code class="sig-name descname">XSMC</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ts</span><span class="p">:</span> <span class="n">tskit.trees.TreeSequence</span></em>, <em class="sig-param"><span class="n">focal</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">panel</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">theta</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rho_over_theta</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">w</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">robust</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#xsmc.XSMC" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">xsmc.</code><code class="sig-name descname">XSMC</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ts</span><span class="p">:</span> <span class="n">dataclasses.InitVar</span></em>, <em class="sig-param"><span class="n">focal</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">panel</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">theta</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rho_over_theta</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">w</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">robust</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#xsmc.XSMC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sample from, or maximize, the posterior distribution <span class="math notranslate nohighlight">\(p(X_{1:N} | \mathbf{Y})\)</span> of the sequentially Markov
 coalescent.</p>
 <dl class="field-list simple">
@@ -135,7 +135,7 @@ repeatedly.</p>
 
 <dl class="py method">
 <dt id="xsmc.segmentation.Segmentation.from_ts">
-<em class="property">classmethod </em><code class="sig-name descname">from_ts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ts</span><span class="p">:</span> <span class="n">tskit.trees.TreeSequence</span></em>, <em class="sig-param"><span class="n">focal</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">panel</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#xsmc.segmentation.Segmentation" title="xsmc.segmentation.Segmentation">xsmc.segmentation.Segmentation</a><a class="headerlink" href="#xsmc.segmentation.Segmentation.from_ts" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">from_ts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ts</span><span class="p">:</span> <span class="n">tskit.TreeSequence</span></em>, <em class="sig-param"><span class="n">focal</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">panel</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Segmentation<a class="headerlink" href="#xsmc.segmentation.Segmentation.from_ts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a segmentation consisting of the genealogical MRCA of <cite>focal</cite> among <cite>panel</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -154,9 +154,9 @@ repeatedly.</p>
 chosen arbitrarily.</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="py method">
 <dt id="xsmc.segmentation.Segmentation.panel">
-<code class="sig-name descname">panel</code><em class="property">: List<span class="p">[</span>int<span class="p">]</span></em><a class="headerlink" href="#xsmc.segmentation.Segmentation.panel" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">panel</code><a class="headerlink" href="#xsmc.segmentation.Segmentation.panel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 1</p>
 </dd></dl>
 
@@ -166,9 +166,9 @@ chosen arbitrarily.</p>
 <dd><p>Return a new segmentation where each height is multiplied by <cite>x</cite>.</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="py method">
 <dt id="xsmc.segmentation.Segmentation.segments">
-<code class="sig-name descname">segments</code><em class="property">: List<span class="p">[</span>xsmc.segmentation.Segment<span class="p">]</span></em><a class="headerlink" href="#xsmc.segmentation.Segmentation.segments" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">segments</code><a class="headerlink" href="#xsmc.segmentation.Segmentation.segments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 0</p>
 </dd></dl>
 
@@ -233,7 +233,7 @@ chosen arbitrarily.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Caleb Ki and Jonathan Terhorst.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
     </div>
   </body>
 </html>
