@@ -2,7 +2,8 @@
 
 import numpy as np
 
-def watterson(ts: 'tskit.TreeSequence'):
+
+def watterson(ts: "tskit.TreeSequence"):
     "Returns Watterson's estimate of `4 * N0 * mu` computed from tree sequence."
     K = ts.get_num_sites()
     n = ts.get_sample_size()

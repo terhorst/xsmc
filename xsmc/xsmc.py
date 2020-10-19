@@ -36,7 +36,7 @@ class XSMC:
         The height of segments returned by this class are expressed in coalescent units. To convert to generations,
         rescale them by `2 * self.theta / (4 * mu)`, where `mu` is the biological mutation rate.
     """
-    ts: InitVar['tskit.TreeSequence']
+    ts: InitVar["tskit.TreeSequence"]
     focal: int
     panel: List[int]
     theta: float = None
@@ -48,21 +48,15 @@ class XSMC:
         # This handles the task of converting from the passed-in tree sequence to our internal version. (These could be based off of different libraries).
         self.L = ts.get_sequence_length()
         tables = ts.dump_tables()
-        lwtc = xsmc._tskit.LightweightTableCollection()
-        lwtc.fromdict(tables.asdict())
-        tables_dict = lwtc.asdict()
-        tables = xsmc._tskit.TableCollection(tables_dict["sequence_length"])
-        for k in ["individuals","nodes","edges","migrations","sites","mutations","populations","provenances"]:
-            getattr(tables, k).set_columns(tables_dict[k])
-        self._llts = xsmc._tskit.TreeSequence()
-        self._llts.load_tables(tables)
+        self._lwtc = xsmc._tskit.LightweightTableCollection()
+        self._lwtc.fromdict(tables.asdict())
         if self.theta is None:
             self.theta = watterson(ts)
             logger.debug("Estimated θ=%f", self.theta)
-        if self.theta == 0.:
-            raise ValueError('theta must be positive')
-        if self.rho_over_theta <= 0.:
-            raise ValueError('rho_over_theta must be positive')
+        if self.theta == 0.0:
+            raise ValueError("theta must be positive")
+        if self.rho_over_theta <= 0.0:
+            raise ValueError("rho_over_theta must be positive")
         self.rho = self.theta * self.rho_over_theta
         if self.w is None:
             self.w = 1 + int(1 / (10 * self.rho))
@@ -76,7 +70,7 @@ class XSMC:
     @property
     def sampler(self):
         if self._sampler is None:
-            X = xsmc._sampler.get_mismatches(self._llts, self.focal, self.panel, self.w)
+            X = xsmc._sampler.get_mismatches(self._lwtc, self.focal, self.panel, self.w)
             deltas = np.ones_like(X[0])
             # Perform sampling
             assert deltas.shape[0] == X.shape[1]
@@ -128,7 +122,7 @@ class XSMC:
         """
         eta: SizeHistory = SizeHistory(t=np.array([0.0, np.inf]), Ne=np.array([1.0]))
         return _viterbi.viterbi_path(
-            ll_ts=self._llts,
+            lwtc=self._lwtc,
             focal=self.focal,
             panel=self.panel,
             eta=eta,

@@ -6,7 +6,7 @@ import platform
 import glob
 
 
-USE_CYTHON = os.environ.get("USE_CYTHON", True)
+USE_CYTHON = True   # os.environ.get("USE_CYTHON", True)
 
 ext = ".pyx" if USE_CYTHON else ".cpp"
 
@@ -40,13 +40,14 @@ extensions = [
 
 setup(
     name="xsmc",
-    version="1.0.0",
+    version="1.0.1",
     author="Caleb Ki and Jonathan Terhorst",
     author_email="jonth@umich.edu",
     install_requires=[
         "numpy>=1.17.0",
         "scipy>=1.1.0",
         "matplotlib>=3.0.0",
+        "tskit>=0.3.1",
     ],
     setup_requires=["setuptools>=46.0", "cython>=0.29"],
     packages=find_packages(),

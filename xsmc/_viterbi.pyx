@@ -31,7 +31,7 @@ cdef int get_next_obs(obs_iter *state) nogil:
     state.ell += 1
     return 1
 
-def viterbi_path(ll_ts: xsmc._tskit.TreeSequence,
+def viterbi_path(LightweightTableCollection lwtc,
                  focal: int,
                  panel: List[int],
                  eta: SizeHistory,
@@ -82,11 +82,18 @@ def viterbi_path(ll_ts: xsmc._tskit.TreeSequence,
     cdef vector[backtrace] F_t
     F_t.resize(n)
 
+    cdef tsk_treeseq_t ts
+    cdef int err
+    err = tsk_treeseq_init(&ts, lwtc.tables, TSK_BUILD_INDEXES)
+    assert err == 0
+    cdef double L = tsk_treeseq_get_sequence_length(&ts)
+    cdef tsk_size_t S = tsk_treeseq_get_num_sites(&ts);
+
     # cp is the backtrace list of changepoints: (pos, hap)
     cdef backtrace b
     cdef vector[backtrace] cp
     cdef vector[backtrace] bt
-    cp.reserve(ll_ts.get_num_sites())
+    cp.reserve(S)
 
     assert eta.t[0] == 0.
     assert np.isinf(eta.t[-1])
@@ -112,28 +119,26 @@ def viterbi_path(ll_ts: xsmc._tskit.TreeSequence,
     cdef vector[int] positions
     cdef int pos = 0
     positions.push_back(pos)
-    cdef int L_w = <int>(ll_ts.get_sequence_length() // w)
+    cdef int L_w = <int>(L // w)
     i = -1
 
     # Initialize the variant generator for our sample. the focal haplotype has
     # genotype index 0, and the panel haps have genotype indices 1, ..., n + 1
-    cdef VariantGenerator vargen = xsmc._tskit.VariantGenerator(
-        ll_ts, samples=[focal] + list(panel)
-    )
-    cdef tsk_vargen_t* vg = vargen.variant_generator
     cdef obs_iter state
     state.w = w
     state.L = L_w
     state.ell = 0
     state.err = 1
-    state.vg = vg
     assert n + 1 == state.vg.num_samples
     cdef int32_t[:] mismatches = np.zeros(n, dtype=np.int32)
     state.mismatches = &mismatches[0]
 
+    cdef tsk_id_t[:] samples = np.array([focal] + list(panel), dtype=np.int32)
+    err = tsk_vargen_init(state.vg, &ts, &samples[0], 1 + len(panel), NULL, 0)
+    assert err == 0
     state.err = tsk_vargen_next(state.vg, &state.var)
-
-    cdef int err = get_next_obs(&state)
+    assert state.err == 0
+    err = get_next_obs(&state)
     with nogil:
         while err == 1:
             # proceed to next variant

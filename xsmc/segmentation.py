@@ -81,7 +81,7 @@ class Segmentation(NamedTuple):
 
     @classmethod
     def from_ts(
-        cls, ts: 'tskit.TreeSequence', focal: int, panel: List[int]
+        cls, ts: "tskit.TreeSequence", focal: int, panel: List[int]
     ) -> "Segmentation":
         """Return a segmentation consisting of the genealogical MRCA of `focal` among `panel`.
 
@@ -197,5 +197,3 @@ class ArraySegmentation(NamedTuple):
                 )
             )
         return Segmentation(segments=segments, panel=self.panel)
-
-

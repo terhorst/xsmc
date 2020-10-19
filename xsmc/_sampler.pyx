@@ -72,24 +72,30 @@ cdef void log_P(double[:] out, int s, int t,
         out[h] = x
 
 def get_mismatches(
-    ll_ts: xsmc._tskit.TreeSequence,
+    LightweightTableCollection lwtc,
     focal: int,
     panel: List[int],
     int w
 ):
     '''Cumulate genotype matrix for use in sampling algorithm.'''
+    cdef tsk_treeseq_t ts
+    cdef int err
+    err = tsk_treeseq_init(&ts, lwtc.tables, TSK_BUILD_INDEXES)
+    assert err == 0
+    cdef double L = tsk_treeseq_get_sequence_length(&ts)
+
     H = len(panel)
-    L = ll_ts.get_sequence_length()
     L_w = int(np.floor(1. + L / w))
     X_np = np.zeros((H, L_w), dtype=np.int32)
     cdef int[:, :] X = X_np
 
-    cdef VariantGenerator vargen = xsmc._tskit.VariantGenerator(
-        ll_ts, samples=[focal] + list(panel)
-    )
-    cdef tsk_vargen_t* vg = vargen.variant_generator
+    cdef tsk_id_t[:] samples = np.array([focal] + list(panel), dtype=np.int32)
+    cdef tsk_vargen_t vg
+    err = tsk_vargen_init(&vg, &ts, &samples[0], 1 + len(panel), NULL, 0)
+    assert err == 0
     cdef tsk_variant_t *var
-    cdef int err = tsk_vargen_next(vg, &var)
+    err = tsk_vargen_next(&vg, &var)
+    assert err == 1
     cdef tsk_id_t focal_ = focal
     cdef int i = 0, h, y_i
     logger.debug('Counting mismatches for focal=%d panel=%s', focal, panel)
@@ -100,7 +106,7 @@ def get_mismatches(
             for h in range(H):
                 y_i = <int>(var.genotypes.i8[h + 1] != var.genotypes.i8[0])
                 X[h, i] += y_i
-            err = tsk_vargen_next(vg, &var)
+            err = tsk_vargen_next(&vg, &var)
     return X_np
 
 

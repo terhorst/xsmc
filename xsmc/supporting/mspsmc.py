@@ -11,26 +11,31 @@ from scipy.interpolate import PPoly
 
 psmc = sh.Command(os.environ.get("PSMC_PATH", "psmc"))
 
-__version__ = sh.grep(psmc(_err_to_out=True, _ok_code=1), "Version").strip().split(" ")[1]
+__version__ = (
+    sh.grep(psmc(_err_to_out=True, _ok_code=1), "Version").strip().split(" ")[1]
+)
+
 
 @dataclass(frozen=True)
 class PSMCResult:
     theta: float
     rho: float
-    Ne: Union[np.ndarray, 'SizeHistory']
+    Ne: Union[np.ndarray, "SizeHistory"]
 
     def __call__(self, x):
-        'Evaluate size history at point(s) x.'
+        "Evaluate size history at point(s) x."
         x = np.atleast_1d(x)
-        return self.Ne.Ne[np.searchsorted(self.Ne.t, x, 'right') - 1]
+        return self.Ne.Ne[np.searchsorted(self.Ne.t, x, "right") - 1]
+
 
 @dataclass(frozen=True)
 class PSMCPosterior:
     t: np.ndarray
     gamma: np.ndarray
 
+
 def _gen_psmcfa(
-    ts: 'tskit.TreeSequence',
+    ts: "tskit.TreeSequence",
     contig: str,
     nodes: Tuple[int, int],
     out: TextIO,
@@ -111,9 +116,9 @@ class SizeHistory:
     def to_pp(self):
         return PPoly(x=np.r_[self.t, np.inf], c=[self.Ne])
 
-
     def __call__(self, x):
-        return self.Ne[np.searchsorted(self.t, np.atleast_1d(x), 'right') - 1]
+        return self.Ne[np.searchsorted(self.t, np.atleast_1d(x), "right") - 1]
+
 
 @dataclass
 class msPSMC:
@@ -123,7 +128,7 @@ class msPSMC:
          data: List of `(tree sequence, (hap1, hap2))` pairs.
     """
 
-    data: List[Tuple['tskit.TreeSequence', Tuple[int, int]]]
+    data: List[Tuple["tskit.TreeSequence", Tuple[int, int]]]
     w: int = 100
 
     def __post_init__(self):
@@ -139,7 +144,9 @@ class msPSMC:
             psmc("-o", f.name, *args, self._fa)
             res = _parse_psmc(open(f.name, "rt"))
         r = res[-1]
-        return PSMCResult(theta=r['theta'], rho=r['rho'], Ne=SizeHistory(r['t'], r['Ne']))
+        return PSMCResult(
+            theta=r["theta"], rho=r["rho"], Ne=SizeHistory(r["t"], r["Ne"])
+        )
 
     def posterior(self, *args) -> Tuple[np.ndarray, np.ndarray]:
         """Return posterior decoding"""
