@@ -1,0 +1,2 @@
+include xsmc/*.pxd
+include tskit/c/tskit.h
