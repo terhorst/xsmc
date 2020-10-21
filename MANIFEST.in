@@ -1,2 +1,3 @@
 include xsmc/*.pxd
 include tskit/c/tskit.h
+include tskit/c/subprojects/kastore/kastore.h
