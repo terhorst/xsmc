@@ -38,7 +38,6 @@ extensions = [
 
 setup(
     name="xsmc",
-    version="1.0.1",
     author="Caleb Ki and Jonathan Terhorst",
     author_email="jonth@umich.edu",
     install_requires=[
