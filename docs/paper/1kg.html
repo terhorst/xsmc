@@ -4,8 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1000 Genomes analysis &#8212; xsmc 1.0.0 documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1000 Genomes analysis &#8212; xsmc 1.0.3.dev0+gfd916e6.d20201021 documentation</title>
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="psmc.html" title="Comparison of XSMC and PSMC"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">xsmc 1.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">xsmc 1.0.3.dev0+gfd916e6.d20201021 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Reproducible figures and tables from paper</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">1000 Genomes analysis</a></li> 
       </ul>
@@ -295,9 +295,9 @@ div.rendered_html tbody tr:hover {
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">xsmc</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="k">import</span> <span class="n">ThreadPoolExecutor</span><span class="p">,</span> <span class="n">as_completed</span><span class="p">,</span> <span class="n">ProcessPoolExecutor</span>
-<span class="kn">from</span> <span class="nn">xsmc.supporting.kde_ne</span> <span class="k">import</span> <span class="n">kde_ne</span>
-<span class="kn">from</span> <span class="nn">xsmc.supporting.plotting</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ThreadPoolExecutor</span><span class="p">,</span> <span class="n">as_completed</span><span class="p">,</span> <span class="n">ProcessPoolExecutor</span>
+<span class="kn">from</span> <span class="nn">xsmc.supporting.kde_ne</span> <span class="kn">import</span> <span class="n">kde_ne</span>
+<span class="kn">from</span> <span class="nn">xsmc.supporting.plotting</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
@@ -375,7 +375,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">full_chroms</span> <span class="o">=</span> <span class="p">[</span><span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;/scratch/1kg/trees/1kg_chr</span><span class="si">{i}</span><span class="s2">.trees&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">23</span><span class="p">)]</span>
+<span></span><span class="n">full_chroms</span> <span class="o">=</span> <span class="p">[</span><span class="n">tskit</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;/scratch/1kg/trees/1kg_chr</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.trees&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">23</span><span class="p">)]</span>
 <span class="c1"># chr1 = chr1.delete_intervals([[0, 16e6]], simplify=False).trim()</span>
 </pre></div>
 </div>
@@ -1076,14 +1076,14 @@ var element = document.currentScript.previousSibling.previousSibling;
         <li class="right" >
           <a href="psmc.html" title="Comparison of XSMC and PSMC"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">xsmc 1.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">xsmc 1.0.3.dev0+gfd916e6.d20201021 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" >Reproducible figures and tables from paper</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">1000 Genomes analysis</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Caleb Ki and Jonathan Terhorst.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>

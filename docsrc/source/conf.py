@@ -22,7 +22,10 @@ copyright = '2020, Caleb Ki and Jonathan Terhorst'
 author = 'Caleb Ki and Jonathan Terhorst'
 
 # The full version, including alpha/beta/rc tags
-release = '1.0.0'
+from pkg_resources import get_distribution
+release = get_distribution(project).version
+# for example take major/minor
+# version = '.'.join(release.split('.')[:2])
 
 
 # -- General configuration ---------------------------------------------------
