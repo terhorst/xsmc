@@ -18,3 +18,6 @@ def test_sample_paths_1(ts):
 
 def test_sample_paths_2(ts):
     xsmc.XSMC(ts, 0, [1, 2]).sample(k=100)
+
+def test_viterbi(ts):
+    xsmc.XSMC(ts, 0, [1, 2]).viterbi()

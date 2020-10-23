@@ -15,7 +15,7 @@ from .size_history import SizeHistory
 
 cdef struct obs_iter:
     int ell, L, w  # current position, total obs, window size
-    tsk_vargen_t* vg
+    tsk_vargen_t vg
     tsk_variant_t *var
     int err
     int32_t* mismatches
@@ -31,7 +31,7 @@ cdef int get_next_obs(obs_iter *state) nogil:
     while (state.err == 1) and (state.var.site.position / state.w < 1 + state.ell):
         for h in range(1, n + 1):
             state.mismatches[h - 1] += <int32_t>(gt[0] != gt[h])
-        state.err = tsk_vargen_next(state.vg, &state.var)
+        state.err = tsk_vargen_next(&state.vg, &state.var)
     state.ell += 1
     return 1
 
@@ -133,15 +133,15 @@ def viterbi_path(LightweightTableCollection lwtc,
     state.L = L_w
     state.ell = 0
     state.err = 1
-    assert n + 1 == state.vg.num_samples
     cdef int32_t[:] mismatches = np.zeros(n, dtype=np.int32)
     state.mismatches = &mismatches[0]
 
     cdef tsk_id_t[:] samples = np.array([focal] + list(panel), dtype=np.int32)
-    err = tsk_vargen_init(state.vg, &ts, &samples[0], 1 + len(panel), NULL, 0)
+    err = tsk_vargen_init(&state.vg, &ts, &samples[0], 1 + len(panel), NULL, 0)
+    assert n + 1 == state.vg.num_samples
     assert err == 0
-    state.err = tsk_vargen_next(state.vg, &state.var)
-    assert state.err == 0
+    state.err = tsk_vargen_next(&state.vg, &state.var)
+    assert state.err == 1
     err = get_next_obs(&state)
     with nogil:
         while err == 1:
