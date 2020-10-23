@@ -23,22 +23,23 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -U pytest build wheel setuptools cython isort black
-        sudo apt install -y libgsl-dev
+        pip install -U pytest build wheel setuptools cython isort black tox tox-gh-actions
+        sudo apt install libgsl-dev  # required for msprime
     - name: Python Lint (isort/black)
       run: |
         isort --check xsmc test
         black --check --exclude version.py xsmc test
+    - name: Test with tox
+      run: tox
     - name: Build using setuptools
       run: |
-        python -m build .
-    - name: Test with pytest
-      run: |
-        pip install -e .
-        py.test test/
-    - name: Remove wheels
-      run: |
-        rm -f dist/*.whl
+        python -m build --sdist
+    - name: Build manylinux Python wheels
+      uses: RalfG/python-wheels-manylinux-build@v0.3.1-manylinux2010_x86_64
+      with:
+        python-versions: 'cp38-cp38m'
+        build-requirements: 'cython numpy scipy'
+        # pre-build-command: 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/'
     - name: pypi upload
       uses: pypa/gh-action-pypi-publish@master
       with:

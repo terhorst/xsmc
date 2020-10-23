@@ -1,4 +1,4 @@
-# cython: bounll_dscheck=False
+# cython: boundscheck=False
 # cython: cdivision=True
 # cython: language=c++
 # distutils: extra_compile_args=['-O3', '-Wno-unused-but-set-variable', '-ffast-math']
@@ -164,7 +164,7 @@ def viterbi_path(LightweightTableCollection lwtc,
                         y_i = state.mismatches[j]
                         C[j][k].f.c[0] += theta_ + rho_
                         C[j][k].f.c[1] += y_i
-                        C[j][k].f.c[2] += gsl_sf_lngamma(1 + y_i) - y_i * log_theta
+                        C[j][k].f.c[2] += gammaln(1 + y_i) - y_i * log_theta
                     C[j][k].f.k += 1
 
             # loop 2: compute minimal cost function for recombination at this position
@@ -219,7 +219,6 @@ def viterbi_path(LightweightTableCollection lwtc,
 cimport cython
 from cython.operator cimport dereference as deref
 from cython.operator cimport preincrement as inc
-from gsl cimport *
 
 
 # test functions, used for testing only
@@ -470,7 +469,6 @@ cdef double _root(int branch, double a, double b, double c) nogil:
     cdef double x, h_star, log_x, w
     w = INFINITY
     cdef int status = -1
-    cdef gsl_sf_result result
     # if c/b is huge this can overflow
     log_x = log(-a / b) + c / b
     log_mx = log(a / b) + c / b
@@ -483,16 +481,18 @@ cdef double _root(int branch, double a, double b, double c) nogil:
     else:
         x = -a * exp(c / b) / b
         if branch == 0:
-            status = gsl_sf_lambert_W0_e(x, &result)
+            w = LambertW0(x)
+            # status = gsl_sf_lambert_W0_e(x, &result)
         elif branch == -1:
-            status = gsl_sf_lambert_Wm1_e(x, &result)
-        if status != 0:
-            h_star = b * (1 + log(a) - log(b)) + c
-            printf('*** branch=%d a=%.20f b=%.20f c=%.20f x=%.20f\n h_star=%.16f\n',
-                   branch, a, b, c, x, h_star)
-            printf('*** status=%d\n result.val=%.10f result.err=%.10f\n',
-                   status, result.val, result.err)
-        w = result.val
+            w = LambertWm1(x)
+            # status = gsl_sf_lambert_Wm1_e(x, &result)
+        # if status != 0:
+        #     h_star = b * (1 + log(a) - log(b)) + c
+        #     printf('*** branch=%d a=%.20f b=%.20f c=%.20f x=%.20f\n h_star=%.16f\n',
+        #            branch, a, b, c, x, h_star)
+        #     printf('*** status=%d\n result.val=%.10f result.err=%.10f\n',
+        #            status, result.val, result.err)
+        # w = result.val
     return w - c / b
 
 
