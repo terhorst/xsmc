@@ -28,7 +28,7 @@ jobs:
     - name: Python Lint (isort/black)
       run: |
         isort --check xsmc test
-        black --check xsmc test
+        black --check --exclude version.py xsmc test
     - name: Build using setuptools
       run: |
         python -m build .
