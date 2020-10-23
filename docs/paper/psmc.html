@@ -4,8 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Comparison of XSMC and PSMC &#8212; xsmc 0.0.0 documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparison of XSMC and PSMC &#8212; xsmc 1.0.4.dev3+g6ae67c3.d20201023 documentation</title>
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="simulation.html" title="Bayesian vs MAP"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">xsmc 0.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">xsmc 1.0.4.dev3+g6ae67c3.d20201023 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Reproducible figures and tables from paper</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Comparison of XSMC and PSMC</a></li> 
       </ul>
@@ -389,29 +389,28 @@ var element = document.currentScript.previousSibling.previousSibling;
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Collecting git+https://github.com/terhorst/mspsmc@e583e196f
-  Cloning https://github.com/terhorst/mspsmc (to revision e583e196f) to /tmp/pip-req-build-pb02_nr8
+  Cloning https://github.com/terhorst/mspsmc (to revision e583e196f) to /tmp/pip-req-build-z7s9zpy2
 <span class="ansi-yellow-fg">  WARNING: Did not find branch or tag &#39;e583e196f&#39;, assuming revision or ref.</span>
+Requirement already satisfied (use --upgrade to upgrade): mspsmc==0.1.0 from git+https://github.com/terhorst/mspsmc@e583e196f in /home/terhorst/opt/py37/lib/python3.7/site-packages
 Requirement already satisfied: scipy in /home/terhorst/opt/py37/lib/python3.7/site-packages (from mspsmc==0.1.0) (1.4.1)
 Requirement already satisfied: numpy in /home/terhorst/opt/py37/lib/python3.7/site-packages (from mspsmc==0.1.0) (1.18.2)
 Requirement already satisfied: tskit in /home/terhorst/opt/py37/lib/python3.7/site-packages (from mspsmc==0.1.0) (0.3.1)
-Requirement already satisfied: svgwrite in /home/terhorst/opt/py37/lib/python3.7/site-packages (from tskit-&gt;mspsmc==0.1.0) (1.3.1)
 Requirement already satisfied: jsonschema in /home/terhorst/opt/py37/lib/python3.7/site-packages (from tskit-&gt;mspsmc==0.1.0) (3.1.1)
-Requirement already satisfied: attrs&gt;=19.1.0 in /home/terhorst/opt/py37/lib/python3.7/site-packages (from tskit-&gt;mspsmc==0.1.0) (19.3.0)
 Requirement already satisfied: h5py in /home/terhorst/opt/py37/lib/python3.7/site-packages (from tskit-&gt;mspsmc==0.1.0) (2.10.0)
-Requirement already satisfied: pyparsing&gt;=2.0.1 in /home/terhorst/opt/py37/lib/python3.7/site-packages (from svgwrite-&gt;tskit-&gt;mspsmc==0.1.0) (2.4.2)
-Requirement already satisfied: pyrsistent&gt;=0.14.0 in /home/terhorst/opt/py37/lib/python3.7/site-packages (from jsonschema-&gt;tskit-&gt;mspsmc==0.1.0) (0.15.4)
+Requirement already satisfied: attrs&gt;=19.1.0 in /home/terhorst/opt/py37/lib/python3.7/site-packages (from tskit-&gt;mspsmc==0.1.0) (19.3.0)
+Requirement already satisfied: svgwrite in /home/terhorst/opt/py37/lib/python3.7/site-packages (from tskit-&gt;mspsmc==0.1.0) (1.3.1)
 Requirement already satisfied: importlib-metadata in /home/terhorst/opt/py37/lib/python3.7/site-packages (from jsonschema-&gt;tskit-&gt;mspsmc==0.1.0) (0.23)
-Requirement already satisfied: six&gt;=1.11.0 in /home/terhorst/opt/py37/lib/python3.7/site-packages (from jsonschema-&gt;tskit-&gt;mspsmc==0.1.0) (1.14.0)
+Requirement already satisfied: pyrsistent&gt;=0.14.0 in /home/terhorst/opt/py37/lib/python3.7/site-packages (from jsonschema-&gt;tskit-&gt;mspsmc==0.1.0) (0.15.4)
 Requirement already satisfied: setuptools in /home/terhorst/opt/py37/lib/python3.7/site-packages (from jsonschema-&gt;tskit-&gt;mspsmc==0.1.0) (49.3.2)
+Requirement already satisfied: six&gt;=1.11.0 in /home/terhorst/opt/py37/lib/python3.7/site-packages (from jsonschema-&gt;tskit-&gt;mspsmc==0.1.0) (1.14.0)
+Requirement already satisfied: pyparsing&gt;=2.0.1 in /home/terhorst/opt/py37/lib/python3.7/site-packages (from svgwrite-&gt;tskit-&gt;mspsmc==0.1.0) (2.4.2)
 Requirement already satisfied: zipp&gt;=0.5 in /home/terhorst/opt/py37/lib/python3.7/site-packages (from importlib-metadata-&gt;jsonschema-&gt;tskit-&gt;mspsmc==0.1.0) (0.6.0)
 Requirement already satisfied: more-itertools in /home/terhorst/opt/py37/lib/python3.7/site-packages (from zipp&gt;=0.5-&gt;importlib-metadata-&gt;jsonschema-&gt;tskit-&gt;mspsmc==0.1.0) (7.2.0)
 Building wheels for collected packages: mspsmc
   Building wheel for mspsmc (setup.py) ... done
-  Created wheel for mspsmc: filename=mspsmc-0.1.0-py2.py3-none-any.whl size=5757 sha256=2a985c3436b68c165ed595cb668e342f05b6ac56d53beb7c5b3f391a885c716e
-  Stored in directory: /tmp/pip-ephem-wheel-cache-ughf1bw5/wheels/af/38/87/3eee2ca03eb580f4df9e22215d1e0ff5a8914f16a45cf26f93
+  Created wheel for mspsmc: filename=mspsmc-0.1.0-py2.py3-none-any.whl size=5757 sha256=6961418aa633d0180cec574751c509435246e3a7d5541bd1d739840903c4ee9e
+  Stored in directory: /tmp/pip-ephem-wheel-cache-5a52eh0a/wheels/af/38/87/3eee2ca03eb580f4df9e22215d1e0ff5a8914f16a45cf26f93
 Successfully built mspsmc
-Installing collected packages: mspsmc
-Successfully installed mspsmc-0.1.0
 <span class="ansi-yellow-fg">WARNING: You are using pip version 20.2.3; however, version 20.2.4 is available.
 You should consider upgrading via the &#39;/home/terhorst/opt/py37/bin/python3 -m pip install --upgrade pip&#39; command.</span>
 </pre></div></div>
@@ -442,7 +441,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 </script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -464,7 +463,7 @@ var element = document.currentScript.previousSibling.previousSibling;
     <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
         <span class="c1"># See Appendix I of https://github.com/lh3/psmc/blob/master/README</span>
         <span class="n">N0</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">theta</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">mu</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span>
-        <span class="n">rescaled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">Ne</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="n">N0</span><span class="p">))</span>
+        <span class="n">rescaled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">Ne</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N0</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">rescaled</span>
 
 
@@ -473,7 +472,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -490,9 +489,9 @@ var element = document.currentScript.previousSibling.previousSibling;
 var element = document.currentScript.previousSibling.previousSibling;
 
             setTimeout(function() {
-                var nbb_cell_id = 7;
-                var nbb_unformatted_code = "# psmc code\nimport os\n\nos.environ[\"PSMC_PATH\"] = \"/scratch/psmc/psmc\"  # update as needed if running locally\nimport mspsmc\n\n\ndef run_psmc(reps, rho_over_theta=1.0):\n    def f(data, *args):\n        return mspsmc.msPSMC([(data, (0, 1))]).estimate(*args)\n\n    with ThreadPoolExecutor() as p:\n        futs = [p.submit(f, data, \"-r\", 1.0 / rho_over_theta) for data in reps]\n        res = [f.result() for f in futs]\n    rescaled = []\n    for r in res:\n        # See Appendix I of https://github.com/lh3/psmc/blob/master/README\n        N0 = r.theta / (4 * mu) / 100\n        rescaled.append(r.Ne.rescale(N0))\n    return rescaled\n\n\nmspsmc.__psmc__version__";
-                var nbb_formatted_code = "# psmc code\nimport os\n\nos.environ[\"PSMC_PATH\"] = \"/scratch/psmc/psmc\"  # update as needed if running locally\nimport mspsmc\n\n\ndef run_psmc(reps, rho_over_theta=1.0):\n    def f(data, *args):\n        return mspsmc.msPSMC([(data, (0, 1))]).estimate(*args)\n\n    with ThreadPoolExecutor() as p:\n        futs = [p.submit(f, data, \"-r\", 1.0 / rho_over_theta) for data in reps]\n        res = [f.result() for f in futs]\n    rescaled = []\n    for r in res:\n        # See Appendix I of https://github.com/lh3/psmc/blob/master/README\n        N0 = r.theta / (4 * mu) / 100\n        rescaled.append(r.Ne.rescale(N0))\n    return rescaled\n\n\nmspsmc.__psmc__version__";
+                var nbb_cell_id = 5;
+                var nbb_unformatted_code = "# psmc code\nimport os\n\nos.environ[\"PSMC_PATH\"] = \"/scratch/psmc/psmc\"  # update as needed if running locally\nimport mspsmc\n\n\ndef run_psmc(reps, rho_over_theta=1.0):\n    def f(data, *args):\n        return mspsmc.msPSMC([(data, (0, 1))]).estimate(*args)\n\n    with ThreadPoolExecutor() as p:\n        futs = [p.submit(f, data, \"-r\", 1.0 / rho_over_theta) for data in reps]\n        res = [f.result() for f in futs]\n    rescaled = []\n    for r in res:\n        # See Appendix I of https://github.com/lh3/psmc/blob/master/README\n        N0 = r.theta / (4 * mu) / 100\n        rescaled.append(r.Ne.rescale(2 * N0))\n    return rescaled\n\n\nmspsmc.__psmc__version__";
+                var nbb_formatted_code = "# psmc code\nimport os\n\nos.environ[\"PSMC_PATH\"] = \"/scratch/psmc/psmc\"  # update as needed if running locally\nimport mspsmc\n\n\ndef run_psmc(reps, rho_over_theta=1.0):\n    def f(data, *args):\n        return mspsmc.msPSMC([(data, (0, 1))]).estimate(*args)\n\n    with ThreadPoolExecutor() as p:\n        futs = [p.submit(f, data, \"-r\", 1.0 / rho_over_theta) for data in reps]\n        res = [f.result() for f in futs]\n    rescaled = []\n    for r in res:\n        # See Appendix I of https://github.com/lh3/psmc/blob/master/README\n        N0 = r.theta / (4 * mu) / 100\n        rescaled.append(r.Ne.rescale(2 * N0))\n    return rescaled\n\n\nmspsmc.__psmc__version__";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -507,7 +506,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 </script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -576,8 +575,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 <span class="k">def</span> <span class="nf">plot_summary</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">lines</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="n">all_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">m</span><span class="p">,</span> <span class="n">q25</span><span class="p">,</span> <span class="n">q75</span> <span class="o">=</span> <span class="n">summarize_lines</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">q25</span><span class="p">,</span> <span class="n">q75</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">m</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">q25</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">q75</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">plot_combined</span><span class="p">(</span><span class="n">lines_psmc</span><span class="p">,</span> <span class="n">lines_xsmc</span><span class="p">,</span> <span class="n">truth</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -615,9 +614,9 @@ var element = document.currentScript.previousSibling.previousSibling;
 var element = document.currentScript.previousSibling.previousSibling;
 
             setTimeout(function() {
-                var nbb_cell_id = 8;
-                var nbb_unformatted_code = "# other supporting functions\nL = int(5e7)  # length of simulated chromosome\nmu = 1.4e-8  # mutation rate/bp/gen\nM = 25  # number of replicates\n\n\ndef parallel_sample(reps, j=100, k=int(L / 50_000), rho_over_theta=1.0):\n    xs = [\n        xsmc.XSMC(data, focal=0, panel=[1], rho_over_theta=rho_over_theta)\n        for data in reps\n    ]\n    with ThreadPoolExecutor() as p:\n        futs = [\n            p.submit(x.sample_heights, j=j, k=k, seed=seed()) for i, x in enumerate(xs)\n        ]\n        return np.array(\n            [f.result() * 2 * x.theta / (4 * mu) for f, x in zip(futs, xs)]\n        )  # rescale each sampled path by 2N0 so that segment heights are in generations\n\n\ndef parallel_sample0(reps, j=100, k=int(L / 50_000), rho_over_theta=1.0):\n    xs = [\n        xsmc.XSMC(data, focal=0, panel=[1], rho_over_theta=rho_over_theta)\n        for data in reps\n    ]\n    with ProcessPoolExecutor() as p:\n        futs = [\n            p.submit(x.sample, k=j, seed=seed(), prime=True) for i, x in enumerate(xs)\n        ]\n        paths = [\n            [p.rescale(2 * x.theta / (4 * mu)) for p in f.result()]\n            for f, x in zip(futs, xs)\n        ]  # rescale each sampled path by 2N0 so that segment heights are in generations\n    return np.array([[p(np.random.uniform(0, L, k)) for p in path] for path in paths])\n\n\ndef sim_data(de, **kwargs):\n    d = dict(\n        sample_size=2,\n        recombination_rate=1.4e-8,\n        mutation_rate=mu,\n        length=L,\n        demographic_events=de,\n    )\n\n    d.update(kwargs)\n    with ThreadPoolExecutor() as p:\n        futs = [p.submit(msp.simulate, **d, random_seed=seed()) for i in range(M)]\n        return [f.result() for f in futs]\n\n\ndef summarize_lines(xys, x0):\n    \"summarize a collection of lines by plotting their median and IQR\"\n    y0 = []\n    for x, y in xys:\n        f = interp1d(\n            x, y, bounds_error=False\n        )  # interpolate linearly to a common set of points\n        y0.append(f(x0))\n    return np.nanquantile(y0, [0.5, 0.25, 0.75], axis=0)  # median, q25, q75\n\n\ndef plot_summary(ax, lines, x, label=None, **kwargs):\n    all_x = np.concatenate([l[0] for l in lines]).reshape(-1)\n    m, q25, q75 = summarize_lines(lines, x)\n    ax.plot(x, m, label=label, **kwargs)\n    ax.fill_between(x, q25, q75, **kwargs, alpha=0.5)\n\n\ndef plot_combined(lines_psmc, lines_xsmc, truth, ax=None):\n    if ax is None:\n        ax = plt.gca()\n    x = np.geomspace(1e2, 1e6, 200)\n    for lines, label, color in zip(\n        [lines_xsmc, lines_psmc], [\"XSMC\", \"PSMC\"], [\"tab:blue\", \"tab:red\"]\n    ):\n        #         for i, (x, y) in enumerate(lines):\n        #             ax.plot(\n        #                 x,\n        #                 y,\n        #                 color=color,\n        #                 label=label if i == 0 else None,\n        #                 alpha=5.0 / len(lines),\n        #             )\n        plot_summary(ax, lines, x, label=label, color=color)\n    ax.plot(\n        *truth, \"--\", color=\"darkgrey\", label=\"Truth\", drawstyle=\"steps-post\", zorder=0\n    )\n    ax.set_xscale(\"log\")\n    ax.set_yscale(\"log\")\n    ax.set_xlim(1e2, 1e5)\n    ax.set_ylim(1e3, 1e6)";
-                var nbb_formatted_code = "# other supporting functions\nL = int(5e7)  # length of simulated chromosome\nmu = 1.4e-8  # mutation rate/bp/gen\nM = 25  # number of replicates\n\n\ndef parallel_sample(reps, j=100, k=int(L / 50_000), rho_over_theta=1.0):\n    xs = [\n        xsmc.XSMC(data, focal=0, panel=[1], rho_over_theta=rho_over_theta)\n        for data in reps\n    ]\n    with ThreadPoolExecutor() as p:\n        futs = [\n            p.submit(x.sample_heights, j=j, k=k, seed=seed()) for i, x in enumerate(xs)\n        ]\n        return np.array(\n            [f.result() * 2 * x.theta / (4 * mu) for f, x in zip(futs, xs)]\n        )  # rescale each sampled path by 2N0 so that segment heights are in generations\n\n\ndef parallel_sample0(reps, j=100, k=int(L / 50_000), rho_over_theta=1.0):\n    xs = [\n        xsmc.XSMC(data, focal=0, panel=[1], rho_over_theta=rho_over_theta)\n        for data in reps\n    ]\n    with ProcessPoolExecutor() as p:\n        futs = [\n            p.submit(x.sample, k=j, seed=seed(), prime=True) for i, x in enumerate(xs)\n        ]\n        paths = [\n            [p.rescale(2 * x.theta / (4 * mu)) for p in f.result()]\n            for f, x in zip(futs, xs)\n        ]  # rescale each sampled path by 2N0 so that segment heights are in generations\n    return np.array([[p(np.random.uniform(0, L, k)) for p in path] for path in paths])\n\n\ndef sim_data(de, **kwargs):\n    d = dict(\n        sample_size=2,\n        recombination_rate=1.4e-8,\n        mutation_rate=mu,\n        length=L,\n        demographic_events=de,\n    )\n\n    d.update(kwargs)\n    with ThreadPoolExecutor() as p:\n        futs = [p.submit(msp.simulate, **d, random_seed=seed()) for i in range(M)]\n        return [f.result() for f in futs]\n\n\ndef summarize_lines(xys, x0):\n    \"summarize a collection of lines by plotting their median and IQR\"\n    y0 = []\n    for x, y in xys:\n        f = interp1d(\n            x, y, bounds_error=False\n        )  # interpolate linearly to a common set of points\n        y0.append(f(x0))\n    return np.nanquantile(y0, [0.5, 0.25, 0.75], axis=0)  # median, q25, q75\n\n\ndef plot_summary(ax, lines, x, label=None, **kwargs):\n    all_x = np.concatenate([l[0] for l in lines]).reshape(-1)\n    m, q25, q75 = summarize_lines(lines, x)\n    ax.plot(x, m, label=label, **kwargs)\n    ax.fill_between(x, q25, q75, **kwargs, alpha=0.5)\n\n\ndef plot_combined(lines_psmc, lines_xsmc, truth, ax=None):\n    if ax is None:\n        ax = plt.gca()\n    x = np.geomspace(1e2, 1e6, 200)\n    for lines, label, color in zip(\n        [lines_xsmc, lines_psmc], [\"XSMC\", \"PSMC\"], [\"tab:blue\", \"tab:red\"]\n    ):\n        #         for i, (x, y) in enumerate(lines):\n        #             ax.plot(\n        #                 x,\n        #                 y,\n        #                 color=color,\n        #                 label=label if i == 0 else None,\n        #                 alpha=5.0 / len(lines),\n        #             )\n        plot_summary(ax, lines, x, label=label, color=color)\n    ax.plot(\n        *truth, \"--\", color=\"darkgrey\", label=\"Truth\", drawstyle=\"steps-post\", zorder=0\n    )\n    ax.set_xscale(\"log\")\n    ax.set_yscale(\"log\")\n    ax.set_xlim(1e2, 1e5)\n    ax.set_ylim(1e3, 1e6)";
+                var nbb_cell_id = 6;
+                var nbb_unformatted_code = "# other supporting functions\nL = int(5e7)  # length of simulated chromosome\nmu = 1.4e-8  # mutation rate/bp/gen\nM = 25  # number of replicates\n\n\ndef parallel_sample(reps, j=100, k=int(L / 50_000), rho_over_theta=1.0):\n    xs = [\n        xsmc.XSMC(data, focal=0, panel=[1], rho_over_theta=rho_over_theta)\n        for data in reps\n    ]\n    with ThreadPoolExecutor() as p:\n        futs = [\n            p.submit(x.sample_heights, j=j, k=k, seed=seed()) for i, x in enumerate(xs)\n        ]\n        return np.array(\n            [f.result() * 2 * x.theta / (4 * mu) for f, x in zip(futs, xs)]\n        )  # rescale each sampled path by 2N0 so that segment heights are in generations\n\n\ndef parallel_sample0(reps, j=100, k=int(L / 50_000), rho_over_theta=1.0):\n    xs = [\n        xsmc.XSMC(data, focal=0, panel=[1], rho_over_theta=rho_over_theta)\n        for data in reps\n    ]\n    with ProcessPoolExecutor() as p:\n        futs = [\n            p.submit(x.sample, k=j, seed=seed(), prime=True) for i, x in enumerate(xs)\n        ]\n        paths = [\n            [p.rescale(2 * x.theta / (4 * mu)) for p in f.result()]\n            for f, x in zip(futs, xs)\n        ]  # rescale each sampled path by 2N0 so that segment heights are in generations\n    return np.array([[p(np.random.uniform(0, L, k)) for p in path] for path in paths])\n\n\ndef sim_data(de, **kwargs):\n    d = dict(\n        sample_size=2,\n        recombination_rate=1.4e-8,\n        mutation_rate=mu,\n        length=L,\n        demographic_events=de,\n    )\n\n    d.update(kwargs)\n    with ThreadPoolExecutor() as p:\n        futs = [p.submit(msp.simulate, **d, random_seed=seed()) for i in range(M)]\n        return [f.result() for f in futs]\n\n\ndef summarize_lines(xys, x0):\n    \"summarize a collection of lines by plotting their median and IQR\"\n    y0 = []\n    for x, y in xys:\n        f = interp1d(\n            x, y, bounds_error=False\n        )  # interpolate linearly to a common set of points\n        y0.append(f(x0))\n    return np.nanquantile(y0, [0.5, 0.25, 0.75], axis=0)  # median, q25, q75\n\n\ndef plot_summary(ax, lines, x, label=None, **kwargs):\n    all_x = np.concatenate([l[0] for l in lines]).reshape(-1)\n    m, q25, q75 = summarize_lines(lines, x)\n    ax.plot(x, m / 2, label=label, **kwargs)\n    ax.fill_between(x, q25 / 2, q75 / 2, **kwargs, alpha=0.5)\n\n\ndef plot_combined(lines_psmc, lines_xsmc, truth, ax=None):\n    if ax is None:\n        ax = plt.gca()\n    x = np.geomspace(1e2, 1e6, 200)\n    for lines, label, color in zip(\n        [lines_xsmc, lines_psmc], [\"XSMC\", \"PSMC\"], [\"tab:blue\", \"tab:red\"]\n    ):\n        #         for i, (x, y) in enumerate(lines):\n        #             ax.plot(\n        #                 x,\n        #                 y,\n        #                 color=color,\n        #                 label=label if i == 0 else None,\n        #                 alpha=5.0 / len(lines),\n        #             )\n        plot_summary(ax, lines, x, label=label, color=color)\n    ax.plot(\n        *truth, \"--\", color=\"darkgrey\", label=\"Truth\", drawstyle=\"steps-post\", zorder=0\n    )\n    ax.set_xscale(\"log\")\n    ax.set_yscale(\"log\")\n    ax.set_xlim(1e2, 1e5)\n    ax.set_ylim(1e3, 1e6)";
+                var nbb_formatted_code = "# other supporting functions\nL = int(5e7)  # length of simulated chromosome\nmu = 1.4e-8  # mutation rate/bp/gen\nM = 25  # number of replicates\n\n\ndef parallel_sample(reps, j=100, k=int(L / 50_000), rho_over_theta=1.0):\n    xs = [\n        xsmc.XSMC(data, focal=0, panel=[1], rho_over_theta=rho_over_theta)\n        for data in reps\n    ]\n    with ThreadPoolExecutor() as p:\n        futs = [\n            p.submit(x.sample_heights, j=j, k=k, seed=seed()) for i, x in enumerate(xs)\n        ]\n        return np.array(\n            [f.result() * 2 * x.theta / (4 * mu) for f, x in zip(futs, xs)]\n        )  # rescale each sampled path by 2N0 so that segment heights are in generations\n\n\ndef parallel_sample0(reps, j=100, k=int(L / 50_000), rho_over_theta=1.0):\n    xs = [\n        xsmc.XSMC(data, focal=0, panel=[1], rho_over_theta=rho_over_theta)\n        for data in reps\n    ]\n    with ProcessPoolExecutor() as p:\n        futs = [\n            p.submit(x.sample, k=j, seed=seed(), prime=True) for i, x in enumerate(xs)\n        ]\n        paths = [\n            [p.rescale(2 * x.theta / (4 * mu)) for p in f.result()]\n            for f, x in zip(futs, xs)\n        ]  # rescale each sampled path by 2N0 so that segment heights are in generations\n    return np.array([[p(np.random.uniform(0, L, k)) for p in path] for path in paths])\n\n\ndef sim_data(de, **kwargs):\n    d = dict(\n        sample_size=2,\n        recombination_rate=1.4e-8,\n        mutation_rate=mu,\n        length=L,\n        demographic_events=de,\n    )\n\n    d.update(kwargs)\n    with ThreadPoolExecutor() as p:\n        futs = [p.submit(msp.simulate, **d, random_seed=seed()) for i in range(M)]\n        return [f.result() for f in futs]\n\n\ndef summarize_lines(xys, x0):\n    \"summarize a collection of lines by plotting their median and IQR\"\n    y0 = []\n    for x, y in xys:\n        f = interp1d(\n            x, y, bounds_error=False\n        )  # interpolate linearly to a common set of points\n        y0.append(f(x0))\n    return np.nanquantile(y0, [0.5, 0.25, 0.75], axis=0)  # median, q25, q75\n\n\ndef plot_summary(ax, lines, x, label=None, **kwargs):\n    all_x = np.concatenate([l[0] for l in lines]).reshape(-1)\n    m, q25, q75 = summarize_lines(lines, x)\n    ax.plot(x, m / 2, label=label, **kwargs)\n    ax.fill_between(x, q25 / 2, q75 / 2, **kwargs, alpha=0.5)\n\n\ndef plot_combined(lines_psmc, lines_xsmc, truth, ax=None):\n    if ax is None:\n        ax = plt.gca()\n    x = np.geomspace(1e2, 1e6, 200)\n    for lines, label, color in zip(\n        [lines_xsmc, lines_psmc], [\"XSMC\", \"PSMC\"], [\"tab:blue\", \"tab:red\"]\n    ):\n        #         for i, (x, y) in enumerate(lines):\n        #             ax.plot(\n        #                 x,\n        #                 y,\n        #                 color=color,\n        #                 label=label if i == 0 else None,\n        #                 alpha=5.0 / len(lines),\n        #             )\n        plot_summary(ax, lines, x, label=label, color=color)\n    ax.plot(\n        *truth, \"--\", color=\"darkgrey\", label=\"Truth\", drawstyle=\"steps-post\", zorder=0\n    )\n    ax.set_xscale(\"log\")\n    ax.set_yscale(\"log\")\n    ax.set_xlim(1e2, 1e5)\n    ax.set_ylim(1e3, 1e6)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -632,7 +631,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 </script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -644,7 +643,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 <span class="k">def</span> <span class="nf">parallel_kde</span><span class="p">(</span><span class="n">sampled_heights</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">with</span> <span class="n">ProcessPoolExecutor</span><span class="p">()</span> <span class="k">as</span> <span class="n">p</span><span class="p">:</span>
         <span class="n">futs</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">kde_ne</span><span class="p">,</span> <span class="n">h</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">sampled_heights</span><span class="p">]</span>
-        <span class="k">return</span> <span class="p">[(</span><span class="n">f</span><span class="o">.</span><span class="n">result</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">f</span><span class="o">.</span><span class="n">result</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">futs</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[(</span><span class="n">f</span><span class="o">.</span><span class="n">result</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">f</span><span class="o">.</span><span class="n">result</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">futs</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -657,9 +656,9 @@ var element = document.currentScript.previousSibling.previousSibling;
 var element = document.currentScript.previousSibling.previousSibling;
 
             setTimeout(function() {
-                var nbb_cell_id = 9;
-                var nbb_unformatted_code = "from collections import Counter\nfrom scipy.signal import convolve\nfrom xsmc.supporting.kde_ne import *\n\n\ndef parallel_kde(sampled_heights, **kwargs):\n    with ProcessPoolExecutor() as p:\n        futs = [p.submit(kde_ne, h.reshape(-1), **kwargs) for h in sampled_heights]\n        return [(f.result()[0], f.result()[1] / 2) for f in futs]";
-                var nbb_formatted_code = "from collections import Counter\nfrom scipy.signal import convolve\nfrom xsmc.supporting.kde_ne import *\n\n\ndef parallel_kde(sampled_heights, **kwargs):\n    with ProcessPoolExecutor() as p:\n        futs = [p.submit(kde_ne, h.reshape(-1), **kwargs) for h in sampled_heights]\n        return [(f.result()[0], f.result()[1] / 2) for f in futs]";
+                var nbb_cell_id = 7;
+                var nbb_unformatted_code = "from collections import Counter\nfrom scipy.signal import convolve\nfrom xsmc.supporting.kde_ne import *\n\n\ndef parallel_kde(sampled_heights, **kwargs):\n    with ProcessPoolExecutor() as p:\n        futs = [p.submit(kde_ne, h.reshape(-1), **kwargs) for h in sampled_heights]\n        return [(f.result()[0], f.result()[1]) for f in futs]";
+                var nbb_formatted_code = "from collections import Counter\nfrom scipy.signal import convolve\nfrom xsmc.supporting.kde_ne import *\n\n\ndef parallel_kde(sampled_heights, **kwargs):\n    with ProcessPoolExecutor() as p:\n        futs = [p.submit(kde_ne, h.reshape(-1), **kwargs) for h in sampled_heights]\n        return [(f.result()[0], f.result()[1]) for f in futs]";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -678,7 +677,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 <h2>Constant effective population size<a class="headerlink" href="#Constant-effective-population-size" title="Permalink to this headline">¶</a></h2>
 <p>The simplest case. First we check the estimator on “perfect” data, that is i.i.d. samples from the true distribution:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -695,7 +694,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 var element = document.currentScript.previousSibling.previousSibling;
 
             setTimeout(function() {
-                var nbb_cell_id = 10;
+                var nbb_cell_id = 8;
                 var nbb_unformatted_code = "de = [msp.PopulationParametersChange(time=0, initial_size=1e4)]";
                 var nbb_formatted_code = "de = [msp.PopulationParametersChange(time=0, initial_size=1e4)]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -715,7 +714,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 <h3>Perfect data<a class="headerlink" href="#Perfect-data" title="Permalink to this headline">¶</a></h3>
 <p>Verify the estimator on “perfect” data:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -738,7 +737,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -751,7 +750,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-2020-10-21 11:15:22,933 WARNING matplotlib.font_manager MainThread findfont: Font family [&#39;sans-serif&#39;] not found. Falling back to DejaVu Sans.
+2020-10-22 17:02:57,282 WARNING matplotlib.font_manager MainThread findfont: Font family [&#39;sans-serif&#39;] not found. Falling back to DejaVu Sans.
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -770,7 +769,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 var element = document.currentScript.previousSibling.previousSibling;
 
             setTimeout(function() {
-                var nbb_cell_id = 11;
+                var nbb_cell_id = 9;
                 var nbb_unformatted_code = "true_data = np.array(\n    [\n        next(sim.trees()).get_time(2)\n        for sim in msp.simulate(\n            num_replicates=10000, demographic_events=de, sample_size=2\n        )\n    ]\n)\nx, y = kde_ne(true_data)\nplt.plot(x, y / 2, label=\"Fitted\")\nplt.plot(plt.xlim(), [1e4] * 2, \"--\", color=\"darkgrey\", label=\"Truth\")\nplt.xscale(\"log\")\nplt.yscale(\"log\")\nplt.legend()\nplt.ylim(1e3, 1e5)";
                 var nbb_formatted_code = "true_data = np.array(\n    [\n        next(sim.trees()).get_time(2)\n        for sim in msp.simulate(\n            num_replicates=10000, demographic_events=de, sample_size=2\n        )\n    ]\n)\nx, y = kde_ne(true_data)\nplt.plot(x, y / 2, label=\"Fitted\")\nplt.plot(plt.xlim(), [1e4] * 2, \"--\", color=\"darkgrey\", label=\"Truth\")\nplt.xscale(\"log\")\nplt.yscale(\"log\")\nplt.legend()\nplt.ylim(1e3, 1e5)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -791,7 +790,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 <h3>XSMC<a class="headerlink" href="#XSMC" title="Permalink to this headline">¶</a></h3>
 <p>Next we simulate data and sample from the posterior instead.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -801,7 +800,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -818,7 +817,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 var element = document.currentScript.previousSibling.previousSibling;
 
             setTimeout(function() {
-                var nbb_cell_id = 12;
+                var nbb_cell_id = 10;
                 var nbb_unformatted_code = "data = sim_data(de)\nlen(data)";
                 var nbb_formatted_code = "data = sim_data(de)\nlen(data)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -834,8 +833,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 
 </script></div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -844,42 +843,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(25, 100, 1000)
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 13;
-                var nbb_unformatted_code = "sampled_heights = parallel_sample(data)\nsampled_heights.shape";
-                var nbb_formatted_code = "sampled_heights = parallel_sample(data)\nsampled_heights.shape";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -887,33 +852,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 14;
-                var nbb_unformatted_code = "lines_xsmc = parallel_kde(sampled_heights)";
-                var nbb_formatted_code = "lines_xsmc = parallel_kde(sampled_heights)";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -924,52 +864,11 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x7f0a45698bd0&gt;]
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/paper_psmc_19_1.png" src="../_images/paper_psmc_19_1.png" />
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 15;
-                var nbb_unformatted_code = "# Diagnostic\nq = np.linspace(0, 1.0, 100)\nplt.plot(np.quantile(sampled_heights.reshape(-1), q), np.quantile(true_data, q))\nplt.plot(plt.xlim(), plt.xlim())";
-                var nbb_formatted_code = "# Diagnostic\nq = np.linspace(0, 1.0, 100)\nplt.plot(np.quantile(sampled_heights.reshape(-1), q), np.quantile(true_data, q))\nplt.plot(plt.xlim(), plt.xlim())";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
 </div>
 <div class="section" id="PSMC">
 <h3>PSMC<a class="headerlink" href="#PSMC" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -977,33 +876,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 16;
-                var nbb_unformatted_code = "psmc_out = run_psmc(data)";
-                var nbb_formatted_code = "psmc_out = run_psmc(data)";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1012,36 +886,11 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 17;
-                var nbb_unformatted_code = "x_psmc = np.geomspace(1e2, 1e5, 100)\nlines_psmc = [(x_psmc, r(x_psmc)) for r in psmc_out]";
-                var nbb_formatted_code = "x_psmc = np.geomspace(1e2, 1e5, 100)\nlines_psmc = [(x_psmc, r(x_psmc)) for r in psmc_out]";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
 </div>
 <div class="section" id="Combined-plot-for-paper">
 <h3>Combined plot for paper<a class="headerlink" href="#Combined-plot-for-paper" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1062,57 +911,14 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/home/terhorst/opt/py37/lib/python3.7/site-packages/numpy/lib/nanfunctions.py:1392: RuntimeWarning: All-NaN slice encountered
-  overwrite_input, interpolation)
-2020-10-21 11:16:47,680 WARNING matplotlib.font_manager MainThread findfont: Font family [&#39;sans-serif&#39;] not found. Falling back to DejaVu Sans.
-2020-10-21 11:16:47,895 WARNING matplotlib.font_manager MainThread findfont: Font family [&#39;sans-serif&#39;] not found. Falling back to DejaVu Sans.
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/paper_psmc_24_1.png" src="../_images/paper_psmc_24_1.png" />
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 18;
-                var nbb_unformatted_code = "truth = ([1e2, 1e6], [1e4, 1e4])\nfig, axs = plt.subplots(ncols=3, figsize=(12, 4.5), sharex=True, sharey=True, dpi=150)\nplot_combined(lines_psmc, lines_xsmc, truth, axs[0])\n# a.legend()\naxs[0].set_xlim(1e2, 1e5)\naxs[0].set_ylim(1e3, 1e6)\naxs[0].set_title(\"Constant\")\nfig.add_subplot(111, frameon=False)\nplt.tick_params(labelcolor=\"none\", top=False, bottom=False, left=False, right=False)\n# plt.xlabel(\"common X\")\n# plt.ylabel(\"common Y\")\nplt.xlabel(\"Generations\")\nplt.ylabel(\"$N_e$\")\nplt.tight_layout(pad=1.5)";
-                var nbb_formatted_code = "truth = ([1e2, 1e6], [1e4, 1e4])\nfig, axs = plt.subplots(ncols=3, figsize=(12, 4.5), sharex=True, sharey=True, dpi=150)\nplot_combined(lines_psmc, lines_xsmc, truth, axs[0])\n# a.legend()\naxs[0].set_xlim(1e2, 1e5)\naxs[0].set_ylim(1e3, 1e6)\naxs[0].set_title(\"Constant\")\nfig.add_subplot(111, frameon=False)\nplt.tick_params(labelcolor=\"none\", top=False, bottom=False, left=False, right=False)\n# plt.xlabel(\"common X\")\n# plt.ylabel(\"common Y\")\nplt.xlabel(\"Generations\")\nplt.ylabel(\"$N_e$\")\nplt.tight_layout(pad=1.5)";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
 </div>
 </div>
 <div class="section" id="Recent-growth">
 <h2>Recent growth<a class="headerlink" href="#Recent-growth" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id1">
 <h3>Perfect data<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1124,33 +930,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 19;
-                var nbb_unformatted_code = "de = [\n    msp.PopulationParametersChange(time=0, initial_size=1e6),\n    msp.PopulationParametersChange(time=1e3, initial_size=5e3),\n    msp.PopulationParametersChange(time=2e3, initial_size=2e4),\n]";
-                var nbb_formatted_code = "de = [\n    msp.PopulationParametersChange(time=0, initial_size=1e6),\n    msp.PopulationParametersChange(time=1e3, initial_size=5e3),\n    msp.PopulationParametersChange(time=2e3, initial_size=2e4),\n]";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1165,33 +946,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 20;
-                var nbb_unformatted_code = "true_data = np.array(\n    [\n        next(sim.trees()).get_time(2)\n        for sim in msp.simulate(\n            num_replicates=10000, demographic_events=de, sample_size=2, Ne=1\n        )\n    ]\n)";
-                var nbb_formatted_code = "true_data = np.array(\n    [\n        next(sim.trees()).get_time(2)\n        for sim in msp.simulate(\n            num_replicates=10000, demographic_events=de, sample_size=2, Ne=1\n        )\n    ]\n)";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1210,52 +966,11 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(100.0, 100000.0)
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/paper_psmc_29_1.png" src="../_images/paper_psmc_29_1.png" />
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 21;
-                var nbb_unformatted_code = "x, y = kde_ne(true_data)\nplt.plot(x[::50], y[::50] / 2)  # downsample the curves to make plotting faster\ntruth = ([0, 1e3, 2e3, 1e5], [1e6, 5e3, 2e4, 2e4])\n\n\nplt.plot(\n    *truth, \"--\", color=\"darkgrey\", label=\"Truth\", drawstyle=\"steps-post\",\n)\nplt.xscale(\"log\")\nplt.yscale(\"log\")\nplt.legend()\nplt.xlim(1e2, 1e5)";
-                var nbb_formatted_code = "x, y = kde_ne(true_data)\nplt.plot(x[::50], y[::50] / 2)  # downsample the curves to make plotting faster\ntruth = ([0, 1e3, 2e3, 1e5], [1e6, 5e3, 2e4, 2e4])\n\n\nplt.plot(\n    *truth, \"--\", color=\"darkgrey\", label=\"Truth\", drawstyle=\"steps-post\",\n)\nplt.xscale(\"log\")\nplt.yscale(\"log\")\nplt.legend()\nplt.xlim(1e2, 1e5)";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
 </div>
 <div class="section" id="id2">
 <h3>XSMC<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1263,33 +978,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 22;
-                var nbb_unformatted_code = "data = sim_data(de)";
-                var nbb_formatted_code = "data = sim_data(de)";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1297,33 +987,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 23;
-                var nbb_unformatted_code = "sampled_heights = parallel_sample(data)";
-                var nbb_formatted_code = "sampled_heights = parallel_sample(data)";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1331,36 +996,11 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 24;
-                var nbb_unformatted_code = "lines_xsmc = parallel_kde(sampled_heights)";
-                var nbb_formatted_code = "lines_xsmc = parallel_kde(sampled_heights)";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
 </div>
 <div class="section" id="id3">
 <h3>PSMC<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1368,33 +1008,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 25;
-                var nbb_unformatted_code = "psmc_out = run_psmc(data)";
-                var nbb_formatted_code = "psmc_out = run_psmc(data)";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1402,36 +1017,11 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 26;
-                var nbb_unformatted_code = "lines_psmc = [(x_psmc, r(x_psmc)) for r in psmc_out]";
-                var nbb_formatted_code = "lines_psmc = [(x_psmc, r(x_psmc)) for r in psmc_out]";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
 </div>
 <div class="section" id="id4">
 <h3>Combined plot for paper<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1441,45 +1031,12 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/paper_psmc_38_0.png" src="../_images/paper_psmc_38_0.png" />
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 27;
-                var nbb_unformatted_code = "plot_combined(lines_psmc, lines_xsmc, truth, axs[1])\naxs[1].set_title(\"Growth\")\nfig";
-                var nbb_formatted_code = "plot_combined(lines_psmc, lines_xsmc, truth, axs[1])\naxs[1].set_title(\"Growth\")\nfig";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
 </div>
 </div>
 <div class="section" id="Zigzag">
 <h2>Zigzag<a class="headerlink" href="#Zigzag" title="Permalink to this headline">¶</a></h2>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1493,35 +1050,10 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 28;
-                var nbb_unformatted_code = "import stdpopsim\n\nspecies = stdpopsim.get_species(\"HomSap\")\nmodel = species.get_demographic_model(\"Zigzag_1S14\")\nde = [\n    msp.PopulationParametersChange(time=0, initial_size=14312)\n] + model.demographic_events";
-                var nbb_formatted_code = "import stdpopsim\n\nspecies = stdpopsim.get_species(\"HomSap\")\nmodel = species.get_demographic_model(\"Zigzag_1S14\")\nde = [\n    msp.PopulationParametersChange(time=0, initial_size=14312)\n] + model.demographic_events";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
 <div class="section" id="id5">
 <h3>Perfect data<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1536,33 +1068,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 29;
-                var nbb_unformatted_code = "true_data = np.array(\n    [\n        next(sim.trees()).get_time(2)\n        for sim in msp.simulate(\n            num_replicates=10000, demographic_events=de, sample_size=2,\n        )\n    ]\n)";
-                var nbb_formatted_code = "true_data = np.array(\n    [\n        next(sim.trees()).get_time(2)\n        for sim in msp.simulate(\n            num_replicates=10000, demographic_events=de, sample_size=2,\n        )\n    ]\n)";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1584,52 +1091,11 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-(100.0, 100000.0)
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/paper_psmc_43_1.png" src="../_images/paper_psmc_43_1.png" />
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 30;
-                var nbb_unformatted_code = "x, y = kde_ne(true_data)\nplt.plot(x[::50], y[::50] / 2)  # downsample the curves to make plotting faster\n\nf = plot_de(de, 14312)\nx_zz = np.geomspace(1e2, 1e6, 1000)\ntruth = (x_zz, f(x_zz))\n\n\nplt.plot(\n    *truth, \"--\", color=\"darkgrey\", label=\"Truth\", drawstyle=\"steps-post\",\n)\nplt.xscale(\"log\")\nplt.yscale(\"log\")\nplt.legend()\nplt.xlim(1e2, 1e5)";
-                var nbb_formatted_code = "x, y = kde_ne(true_data)\nplt.plot(x[::50], y[::50] / 2)  # downsample the curves to make plotting faster\n\nf = plot_de(de, 14312)\nx_zz = np.geomspace(1e2, 1e6, 1000)\ntruth = (x_zz, f(x_zz))\n\n\nplt.plot(\n    *truth, \"--\", color=\"darkgrey\", label=\"Truth\", drawstyle=\"steps-post\",\n)\nplt.xscale(\"log\")\nplt.yscale(\"log\")\nplt.legend()\nplt.xlim(1e2, 1e5)";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
 </div>
 <div class="section" id="id6">
 <h3>XSMC<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1637,33 +1103,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 31;
-                var nbb_unformatted_code = "data = sim_data(de, recombination_rate=1e-9)";
-                var nbb_formatted_code = "data = sim_data(de, recombination_rate=1e-9)";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1671,33 +1112,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 32;
-                var nbb_unformatted_code = "sampled_heights = parallel_sample(data, rho_over_theta=1e-9 / mu)";
-                var nbb_formatted_code = "sampled_heights = parallel_sample(data, rho_over_theta=1e-9 / mu)";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1705,36 +1121,11 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 33;
-                var nbb_unformatted_code = "lines_xsmc = parallel_kde(sampled_heights)";
-                var nbb_formatted_code = "lines_xsmc = parallel_kde(sampled_heights)";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
 </div>
 <div class="section" id="id7">
 <h3>PSMC<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1742,33 +1133,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 34;
-                var nbb_unformatted_code = "psmc_out = run_psmc(data, rho_over_theta=1e-9 / mu)";
-                var nbb_formatted_code = "psmc_out = run_psmc(data, rho_over_theta=1e-9 / mu)";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1776,36 +1142,11 @@ var element = document.currentScript.previousSibling.previousSibling;
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 35;
-                var nbb_unformatted_code = "lines_psmc = [(x_psmc, r(x_psmc)) for r in psmc_out]";
-                var nbb_formatted_code = "lines_psmc = [(x_psmc, r(x_psmc)) for r in psmc_out]";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
-</div>
 </div>
 <div class="section" id="id8">
 <h3>Combined plot for paper<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1816,11 +1157,20 @@ var element = document.currentScript.previousSibling.previousSibling;
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/terhorst/opt/py37/lib/python3.7/site-packages/numpy/lib/nanfunctions.py:1392: RuntimeWarning: All-NaN slice encountered
+  overwrite_input, interpolation)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/paper_psmc_52_0.png" src="../_images/paper_psmc_52_0.png" />
+<img alt="../_images/paper_psmc_52_1.png" src="../_images/paper_psmc_52_1.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1832,7 +1182,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 var element = document.currentScript.previousSibling.previousSibling;
 
             setTimeout(function() {
-                var nbb_cell_id = 36;
+                var nbb_cell_id = 38;
                 var nbb_unformatted_code = "plot_combined(lines_psmc, lines_xsmc, truth, axs[2])\naxs[2].set_title(\"Zigzag\")\nfig";
                 var nbb_formatted_code = "plot_combined(lines_psmc, lines_xsmc, truth, axs[2])\naxs[2].set_title(\"Zigzag\")\nfig";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1849,7 +1199,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 </script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1858,12 +1208,12 @@ var element = document.currentScript.previousSibling.previousSibling;
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7f09ec5b6050&gt;
+&lt;matplotlib.legend.Legend at 0x7f1da126bcd0&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1875,7 +1225,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 var element = document.currentScript.previousSibling.previousSibling;
 
             setTimeout(function() {
-                var nbb_cell_id = 37;
+                var nbb_cell_id = 42;
                 var nbb_unformatted_code = "axs[0].legend()";
                 var nbb_formatted_code = "axs[0].legend()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1892,7 +1242,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 </script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1909,7 +1259,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 var element = document.currentScript.previousSibling.previousSibling;
 
             setTimeout(function() {
-                var nbb_cell_id = 38;
+                var nbb_cell_id = 40;
                 var nbb_unformatted_code = "fig.savefig(os.path.join(PAPER_ROOT, \"figures\", \"xsmc_psmc.pdf\"))";
                 var nbb_formatted_code = "fig.savefig(os.path.join(PAPER_ROOT, \"figures\", \"xsmc_psmc.pdf\"))";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1929,8 +1279,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 </div>
 <div class="section" id="Additional-diagnostics">
 <h2>Additional diagnostics<a class="headerlink" href="#Additional-diagnostics" title="Permalink to this headline">¶</a></h2>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1939,38 +1289,6 @@ var element = document.currentScript.previousSibling.previousSibling;
     <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="n">b</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/paper_psmc_56_0.png" src="../_images/paper_psmc_56_0.png" />
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-
-            setTimeout(function() {
-                var nbb_cell_id = 39;
-                var nbb_unformatted_code = "b = np.linspace(4, 12, 32)\nfor d in np.array(sampled_heights)[..., 0], true_data:\n    plt.hist(np.log(d).reshape(-1), bins=b, density=True, alpha=0.5)";
-                var nbb_formatted_code = "b = np.linspace(4, 12, 32)\nfor d in np.array(sampled_heights)[..., 0], true_data:\n    plt.hist(np.log(d).reshape(-1), bins=b, density=True, alpha=0.5)";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-
-</script></div>
 </div>
 </div>
 </div>
@@ -2054,14 +1372,14 @@ var element = document.currentScript.previousSibling.previousSibling;
         <li class="right" >
           <a href="simulation.html" title="Bayesian vs MAP"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">xsmc 0.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">xsmc 1.0.4.dev3+g6ae67c3.d20201023 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="index.html" >Reproducible figures and tables from paper</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Comparison of XSMC and PSMC</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Caleb Ki and Jonathan Terhorst.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
     </div>
   </body>
 </html>
