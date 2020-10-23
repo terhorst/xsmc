@@ -24,7 +24,6 @@ extensions = [
         "xsmc._viterbi",
         ["xsmc/_viterbi.pyx"] + tskit_sourcefiles,
         language="c++",
-        libraries=["gsl", "gslcblas"],
         include_dirs=include_dirs,
     ),
     Extension(
@@ -45,7 +44,6 @@ setup(
         "scipy>=1.5.0",
         "matplotlib>=3.0.0",
         "tskit>=0.3.1",
-        "msprime",
     ],
     packages=find_packages(),
     ext_modules=extensions,

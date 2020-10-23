@@ -1,4 +1,3 @@
-from gsl cimport *
 from libc.math cimport INFINITY, isinf
 from libc.stdint cimport int32_t
 from libc.stdio cimport printf
@@ -10,6 +9,7 @@ from libcpp.queue cimport queue
 from libcpp.unordered_map cimport unordered_map
 from libcpp.unordered_set cimport unordered_set
 from libcpp.vector cimport vector
+from scipy.special.cython_special cimport gammaln
 
 from xsmc._tskit cimport *
 
@@ -21,6 +21,10 @@ cdef extern from "<cmath>" namespace "std" nogil:
     double fmax(double, double)
     double exp(double)
     double log(double)
+
+cdef extern from "LambertW.h" namespace "utl" nogil:
+    double LambertW0(const double)
+    double LambertWm1(const double)
 
 ###### Typedefs
 # data structures used to represent functions of the form
