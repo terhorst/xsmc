@@ -3,11 +3,10 @@ import warnings
 import msprime as msp
 import numpy as np
 import pytest
-from scipy.integrate import quad
-from scipy.interpolate import PPoly
-
 import tskit
 import xsmc._viterbi
+from scipy.integrate import quad
+from scipy.interpolate import PPoly
 from xsmc.size_history import SizeHistory
 
 

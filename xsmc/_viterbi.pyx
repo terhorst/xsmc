@@ -8,7 +8,8 @@ import _tskit
 import numpy as np
 from typing import List, NamedTuple
 
-from .segmentation import Segment, Segmentation, SizeHistory
+from .segmentation import Segment, Segmentation
+from .size_history import SizeHistory
 
 cdef struct obs_iter:
     int ell, L, w  # current position, total obs, window size

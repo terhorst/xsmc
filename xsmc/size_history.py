@@ -1,6 +1,8 @@
 from typing import NamedTuple
 
 import numpy as np
+import scipy.interpolate
+import tskit
 from scipy.interpolate import PPoly
 
 
@@ -30,13 +32,13 @@ class SizeHistory(NamedTuple):
 
     def draw(self, axis=None) -> "matplotlib.axes.Axis":
         """Plot this size history.
-
+        
         Args:
             axis: Axis on which to draw plot. If None, `matplotlib.pyplot.gca()` is used.
 
         Returns:
             Axis plot was drawn on.
-
+            
         Note:
             Plots on a log-log scale.
         """
@@ -53,7 +55,7 @@ class SizeHistory(NamedTuple):
         "Return size history scaled by reference effective population size N0."
         return SizeHistory(t=self.t * N0, Ne=self.Ne * N0)
 
-    def simulate(self, **kwargs) -> "tskit.TreeSequence":
+    def simulate(self, **kwargs) -> tskit.TreeSequence:
         """Simulate (using msprime) under demographic represented by self.
 
         Args:

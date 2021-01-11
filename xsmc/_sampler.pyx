@@ -3,13 +3,16 @@
 # cython: language=c++
 # distutils: extra_compile_args=['-O2', '-Wno-unused-but-set-variable']
 
-import numpy as np
 from logging import getLogger
 from typing import List, Tuple
-import tskit
+
 import _tskit
+import numpy as np
 import scipy.special
-from scipy.special.cython_special cimport gammaln, xlogy
+import tskit
+from scipy.special.cython_special cimport
+
+gammaln, xlogy
 
 DEF DEBUG = 0
 

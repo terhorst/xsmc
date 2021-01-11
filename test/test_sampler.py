@@ -5,9 +5,8 @@ from functools import partial
 import msprime as msp
 import numpy as np
 import pytest
-from scipy.special import logsumexp
-
 import xsmc
+from scipy.special import logsumexp
 from xsmc.sampler import XSMCSampler
 
 
@@ -47,7 +46,7 @@ def test_Q_1():
 def test_Q_2():
     Xcs = np.cumsum([[2, 1]], 1)
     deltas = [1, 5]
-    es = XSMCSampler(Xcs, deltas, theta, rho, True)
+    es = XSMCSampler(Xcs, deltas, theta, rho, False)
     p_X = logsumexp([es.log_P(0, 2), es.log_P(0, 1) + es.log_P(1, 2)])
     np.testing.assert_allclose(p_X, es.log_Q[0])
 
@@ -58,7 +57,7 @@ def big_data():
         sample_size=50,
         recombination_rate=1e-8,
         mutation_rate=1e-9,
-        length=1e5,
+        length=1e7,
         Ne=1e4,
     )
 
@@ -66,7 +65,6 @@ def big_data():
 @pytest.fixture
 def data():
     import msprime as msp
-
     import xsmc
 
     return msp.simulate(
@@ -82,7 +80,6 @@ def data():
 @pytest.fixture
 def tiny_data():
     import msprime as msp
-
     import xsmc
 
     return msp.simulate(
@@ -95,22 +92,19 @@ def tiny_data():
     )
 
 
-def test_theta_equals_0(big_data):
-    with pytest.raises(ValueError):
-        p = xsmc.XSMC(big_data, 0, [1, 2, 3], theta=0.0, rho_over_theta=0.0).sample(
-            k=5, seed=1
-        )
-
-
-def test_rho_equals_0(big_data):
-    with pytest.raises(ValueError):
-        p = xsmc.XSMC(big_data, 0, [1, 2, 3], theta=1, rho_over_theta=0.0).sample(
-            k=5, seed=1
-        )
+def test_rho_equals_0(big_data, caplog):
+    p = xsmc.XSMC(big_data, 0, [1, 2, 3], theta=1, rho_over_theta=0.0).sample(
+        k=5, seed=1
+    )
+    for pp in p:
+        assert pp.segments.shape[1] == 1
+        assert pp.segments[0, 0] == 0.0
+        assert pp.segments[1, 0] == big_data.get_sequence_length()
+    assert "rho=0" in caplog.text
 
 
 def test_multiple_panel(data):
-    p = xsmc.XSMC(data, 0, [1, 2, 3], theta=1, rho_over_theta=1.0).sample(k=1, seed=1)
+    p = xsmc.XSMC(data, 0, [1, 2, 3], theta=1, rho_over_theta=0.0).sample(k=1, seed=1)
     # print(p.segments[1])
 
 
@@ -131,18 +125,22 @@ def test_bug():
         sample_size=40,
         recombination_rate=1.4e-8,
         mutation_rate=1.4e-8,
-        length=1e5,
+        length=1e7,
         Ne=1e4,
         demographic_events=[],
         random_seed=1,
     )
     L = data.get_sequence_length()
+
+    logging.getLogger("xsmc").setLevel(logging.DEBUG)
     focal = 0
     panel = list(range(1, 19))
     xs = [xsmc.XSMC(data, focal, panel, rho_over_theta=1.0, w=100, robust=True)]
     with ThreadPoolExecutor() as p:
         futs = [p.submit(x.sample, k=1, seed=1) for i, x in enumerate(xs)]
         paths = [f.result() for f in futs]
+
+    print(paths[0][0].panel_inds[-1], paths[0][0].segments[:1, -1])
 
 
 def _compositions(n, k):
@@ -174,7 +172,6 @@ def sampler():
     import itertools
 
     from scipy.special import logsumexp
-
     from xsmc.sampler import XSMCSampler
 
     H = 5
@@ -188,7 +185,7 @@ def sampler():
 
 def test_log_Q_last(sampler):
     n = sampler.n
-    np.testing.assert_allclose(sampler.log_Q[n - 1], logsumexp(sampler.log_P(n - 1, n)))
+    assert sampler.log_Q[n - 1] == logsumexp(sampler.log_P(n - 1, n))
 
 
 def test_log_Q_exact(sampler):

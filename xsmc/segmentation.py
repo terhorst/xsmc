@@ -1,9 +1,12 @@
-import logging
-from typing import List, NamedTuple, Tuple
-
+from typing import NamedTuple
 import numpy as np
+from typing import Tuple, List
 import scipy.interpolate
+import tskit
+
 from scipy.interpolate import PPoly
+
+import logging
 
 logger = logging.getLogger(__name__)
 
@@ -24,9 +27,6 @@ class Segment(NamedTuple):
     mutations: float
 
 
-# FIXME too much duplicated code between Segmentation and ArraySegmentation. Abstract to a base class.
-
-
 class Segmentation(NamedTuple):
     """A path through a haplotype copying model.
 
@@ -39,7 +39,7 @@ class Segmentation(NamedTuple):
     panel: List[int]
 
     def rescale(self, x: float) -> "Segmentation":
-        "Return a new segmentation where each height is multiplied by `x`."
+        "Return a new segmentation where each height is multiplied by x."
         return self._replace(
             segments=[s._replace(height=s.height * x) for s in self.segments],
             panel=self.panel,
@@ -51,9 +51,6 @@ class Segmentation(NamedTuple):
         Args:
             axis: Axis on which to draw plot. If `None`, current axis is used.
             kwargs: Additional arguments passed to `axis.plot()`.
-
-        Notes:
-            Only plots segment heights. Segment haplotype is currently ignored.
         """
         if axis is None:
             import matplotlib.pyplot
@@ -66,11 +63,7 @@ class Segmentation(NamedTuple):
         axis.plot(x, y, drawstyle="steps-post", **kwargs)
 
     def to_pp(self) -> PPoly:
-        """Return a piecewise polynomial representation of this segmentation.
-
-        Notes:
-            Only represents segments heights. Identity of haplotype panel is currently ignored.
-        """
+        "Return a piecewise polynomial representation of this segmentation. Only really makes sense for panels of size 1."
         x = np.array(
             [self.segments[0].interval[0]] + [s.interval[1] for s in self.segments]
         )
@@ -79,7 +72,7 @@ class Segmentation(NamedTuple):
 
     @classmethod
     def from_ts(
-        cls, ts: "tskit.TreeSequence", focal: int, panel: List[int]
+        cls, ts: tskit.TreeSequence, focal: int, panel: List[int]
     ) -> "Segmentation":
         """Return a segmentation consisting of the genealogical MRCA of `focal` among `panel`.
 
@@ -90,10 +83,6 @@ class Segmentation(NamedTuple):
 
         Returns:
             Computed segmentation.
-
-        Notes:
-            The returned segmentation is not necessarily unique. If there is >1 GMRCA for a given IBD segment, one is
-            chosen arbitrarily.
         """
         full_truth = []
         for t in ts.trees():
@@ -195,3 +184,5 @@ class ArraySegmentation(NamedTuple):
                 )
             )
         return Segmentation(segments=segments, panel=self.panel)
+
+

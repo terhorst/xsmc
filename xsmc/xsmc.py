@@ -11,7 +11,8 @@ import xsmc._sampler
 
 from . import _viterbi
 from .sampler import XSMCSampler
-from .segmentation import ArraySegmentation, Segmentation, SizeHistory
+from .segmentation import ArraySegmentation, Segmentation
+from .size_history import SizeHistory
 from .supporting import watterson
 
 logger = logging.getLogger(__name__)
@@ -51,7 +52,11 @@ class XSMC:
             logger.debug("Estimated θ=%f", self.theta)
         self.rho = self.theta * self.rho_over_theta
         if self.w is None:
-            self.w = int(1.0 / (10 * self.rho))
+            if self.rho == 0.:
+                logger.warning("Got rho=0; is this really what you want?")
+                self.w = 100
+            else:
+                self.w = int(1.0 / (10 * self.rho))
             logger.debug("Setting window size w=%f", self.w)
         self._sampler = None
 
@@ -107,7 +112,9 @@ class XSMC:
     def sample_heights(self, j: int, k: int, seed: Union[int, None]) -> np.ndarray:
         return self.sampler.sample_heights(j, k, seed)
 
-    def viterbi(self, beta: float = None) -> Segmentation:
+    def viterbi(self, beta: float = None,
+                eta: SizeHistory = SizeHistory(t=np.array([0.0, np.inf]), Ne=np.array([1.0]))
+                ) -> Segmentation:
         """Compute the maximum *a posteriori* (a.k.a. Viterbi) path in haplotype copying model.
 
         Args:
@@ -116,7 +123,6 @@ class XSMC:
         Returns:
             A segmentation containing the MAP path.
         """
-        eta: SizeHistory = SizeHistory(t=np.array([0.0, np.inf]), Ne=np.array([1.0]))
         return _viterbi.viterbi_path(
             ts=self.ts,
             focal=self.focal,
