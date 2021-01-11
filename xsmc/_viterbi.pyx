@@ -3,19 +3,16 @@
 # cython: language=c++
 # distutils: extra_compile_args=['-O3', '-Wno-unused-but-set-variable', '-ffast-math']
 
+import tskit
+import _tskit
+import numpy as np
 from typing import List, NamedTuple
 
-import numpy as np
-
-import xsmc._tskit
-
-from .segmentation import Segment, Segmentation
-from .size_history import SizeHistory
-
+from .segmentation import Segment, Segmentation, SizeHistory
 
 cdef struct obs_iter:
     int ell, L, w  # current position, total obs, window size
-    tsk_vargen_t vg
+    tsk_vargen_t* vg
     tsk_variant_t *var
     int err
     int32_t* mismatches
@@ -31,11 +28,11 @@ cdef int get_next_obs(obs_iter *state) nogil:
     while (state.err == 1) and (state.var.site.position / state.w < 1 + state.ell):
         for h in range(1, n + 1):
             state.mismatches[h - 1] += <int32_t>(gt[0] != gt[h])
-        state.err = tsk_vargen_next(&state.vg, &state.var)
+        state.err = tsk_vargen_next(state.vg, &state.var)
     state.ell += 1
     return 1
 
-def viterbi_path(LightweightTableCollection lwtc,
+def viterbi_path(ts: tskit.TreeSequence,
                  focal: int,
                  panel: List[int],
                  eta: SizeHistory,
@@ -60,6 +57,15 @@ def viterbi_path(LightweightTableCollection lwtc,
     Returns:
         The maximum *a posteriori* segmentation under specified parameters.
     '''
+    # Take the passed-in tree sequence and export/import the tables in order
+    # to get a tree sequence that is binary compatble with whatever version of
+    # tskit was used to compile the software (which could be different).
+    cdef LightweightTableCollection lwt = LightweightTableCollection()
+    lwt.fromdict(ts.dump_tables().asdict())
+    cdef tsk_treeseq_t _ts
+    cdef int err = tsk_treeseq_init(&_ts, lwt.tables, 0)
+    check_error(err)
+
     assert theta > 0
     assert rho > 0
     cdef piecewise_func q
@@ -86,18 +92,11 @@ def viterbi_path(LightweightTableCollection lwtc,
     cdef vector[backtrace] F_t
     F_t.resize(n)
 
-    cdef tsk_treeseq_t ts
-    cdef int err
-    err = tsk_treeseq_init(&ts, lwtc.tables, TSK_BUILD_INDEXES)
-    assert err == 0
-    cdef double L = tsk_treeseq_get_sequence_length(&ts)
-    cdef tsk_size_t S = tsk_treeseq_get_num_sites(&ts);
-
     # cp is the backtrace list of changepoints: (pos, hap)
     cdef backtrace b
     cdef vector[backtrace] cp
     cdef vector[backtrace] bt
-    cp.reserve(S)
+    cp.reserve(ts.get_num_sites())
 
     assert eta.t[0] == 0.
     assert np.isinf(eta.t[-1])
@@ -123,25 +122,27 @@ def viterbi_path(LightweightTableCollection lwtc,
     cdef vector[int] positions
     cdef int pos = 0
     positions.push_back(pos)
-    cdef int L_w = <int>(L // w)
+    cdef int L_w = <int>(ts.get_sequence_length() // w)
     i = -1
 
     # Initialize the variant generator for our sample. the focal haplotype has
     # genotype index 0, and the panel haps have genotype indices 1, ..., n + 1
+    cdef tsk_vargen_t _vg
+    cdef vector[tsk_id_t] _samples = [focal] + panel
+    err = tsk_vargen_init(&_vg, &_ts, _samples.data(), _samples.size(), NULL, 0)
+
     cdef obs_iter state
     state.w = w
     state.L = L_w
     state.ell = 0
     state.err = 1
+    state.vg = &_vg
+    assert n + 1 == state.vg.num_samples
     cdef int32_t[:] mismatches = np.zeros(n, dtype=np.int32)
     state.mismatches = &mismatches[0]
 
-    cdef tsk_id_t[:] samples = np.array([focal] + list(panel), dtype=np.int32)
-    err = tsk_vargen_init(&state.vg, &ts, &samples[0], 1 + len(panel), NULL, 0)
-    assert n + 1 == state.vg.num_samples
-    assert err == 0
-    state.err = tsk_vargen_next(&state.vg, &state.var)
-    assert state.err == 1
+    state.err = tsk_vargen_next(state.vg, &state.var)
+
     err = get_next_obs(&state)
     with nogil:
         while err == 1:
@@ -164,7 +165,7 @@ def viterbi_path(LightweightTableCollection lwtc,
                         y_i = state.mismatches[j]
                         C[j][k].f.c[0] += theta_ + rho_
                         C[j][k].f.c[1] += y_i
-                        C[j][k].f.c[2] += gammaln(1 + y_i) - y_i * log_theta
+                        C[j][k].f.c[2] += gsl_sf_lngamma(1 + y_i) - y_i * log_theta
                     C[j][k].f.k += 1
 
             # loop 2: compute minimal cost function for recombination at this position
@@ -215,11 +216,9 @@ def viterbi_path(LightweightTableCollection lwtc,
 
 
 #### SUPPORT FUNCTIONS
-
+from cython.operator cimport dereference as deref, preincrement as inc
 cimport cython
-from cython.operator cimport dereference as deref
-from cython.operator cimport preincrement as inc
-
+from gsl cimport *
 
 # test functions, used for testing only
 cdef vector[piecewise_func] _monotone_decreasing_case(
@@ -469,6 +468,7 @@ cdef double _root(int branch, double a, double b, double c) nogil:
     cdef double x, h_star, log_x, w
     w = INFINITY
     cdef int status = -1
+    cdef gsl_sf_result result
     # if c/b is huge this can overflow
     log_x = log(-a / b) + c / b
     log_mx = log(a / b) + c / b
@@ -481,18 +481,16 @@ cdef double _root(int branch, double a, double b, double c) nogil:
     else:
         x = -a * exp(c / b) / b
         if branch == 0:
-            w = LambertW0(x)
-            # status = gsl_sf_lambert_W0_e(x, &result)
+            status = gsl_sf_lambert_W0_e(x, &result)
         elif branch == -1:
-            w = LambertWm1(x)
-            # status = gsl_sf_lambert_Wm1_e(x, &result)
-        # if status != 0:
-        #     h_star = b * (1 + log(a) - log(b)) + c
-        #     printf('*** branch=%d a=%.20f b=%.20f c=%.20f x=%.20f\n h_star=%.16f\n',
-        #            branch, a, b, c, x, h_star)
-        #     printf('*** status=%d\n result.val=%.10f result.err=%.10f\n',
-        #            status, result.val, result.err)
-        # w = result.val
+            status = gsl_sf_lambert_Wm1_e(x, &result)
+        if status != 0:
+            h_star = b * (1 + log(a) - log(b)) + c
+            printf('*** branch=%d a=%.20f b=%.20f c=%.20f x=%.20f\n h_star=%.16f\n',
+                   branch, a, b, c, x, h_star)
+            printf('*** status=%d\n result.val=%.10f result.err=%.10f\n',
+                   status, result.val, result.err)
+        w = result.val
     return w - c / b
 
 

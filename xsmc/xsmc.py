@@ -1,17 +1,17 @@
 "Exact Bayesian and frequentist decoding of the sequentially Markov coalescent"
 
 import logging
-from dataclasses import InitVar, dataclass
+from dataclasses import dataclass
 from typing import List, Union
 
 import numpy as np
 
+import tskit
 import xsmc._sampler
 
 from . import _viterbi
 from .sampler import XSMCSampler
-from .segmentation import ArraySegmentation, Segmentation
-from .size_history import SizeHistory
+from .segmentation import ArraySegmentation, Segmentation, SizeHistory
 from .supporting import watterson
 
 logger = logging.getLogger(__name__)
@@ -29,15 +29,15 @@ class XSMC:
         theta: Population-scaled mutation rate. If None, Watterson's estimator is used.
         rho_over_theta: Ratio of recombination to mutation rates.
         w: Window size. Observations are binned into windows of this size. Recombinations are assumed to occur between
-            adjacent bins, but not within them. If None, try to calculate a sensible default based on `rho`.
+            adjacent bins, but not within them.
         robust: If True, use robust model in which bins are classified as either segregating or nonsegregating, as in PSMC.
             Otherwise, allow for any number of mutations per bin.
 
     Notes:
         The height of segments returned by this class are expressed in coalescent units. To convert to generations,
-        rescale them by `2 * self.theta / (4 * mu)`, where `mu` is the biological mutation rate.
+        rescale them by `self.theta / (4 * mu)`, where `mu` is the biological mutation rate.
     """
-    ts: InitVar["tskit.TreeSequence"]
+    ts: tskit.TreeSequence
     focal: int
     panel: List[int]
     theta: float = None
@@ -45,24 +45,19 @@ class XSMC:
     w: int = None
     robust: bool = False
 
-    def __post_init__(self, ts):
-        # This handles the task of converting from the passed-in tree sequence to our internal version. (These could be based off of different libraries).
-        self.L = ts.get_sequence_length()
-        tables = ts.dump_tables()
-        self._lwtc = xsmc._tskit.LightweightTableCollection()
-        self._lwtc.fromdict(tables.asdict())
+    def __post_init__(self):
         if self.theta is None:
-            self.theta = watterson(ts)
+            self.theta = watterson(self.ts)
             logger.debug("Estimated θ=%f", self.theta)
-        if self.theta == 0.0:
-            raise ValueError("theta must be positive")
-        if self.rho_over_theta <= 0.0:
-            raise ValueError("rho_over_theta must be positive")
         self.rho = self.theta * self.rho_over_theta
         if self.w is None:
-            self.w = 1 + int(1 / (10 * self.rho))
+            self.w = int(1.0 / (10 * self.rho))
             logger.debug("Setting window size w=%f", self.w)
         self._sampler = None
+
+    @property
+    def L(self):
+        return self.ts.get_sequence_length()
 
     @property
     def H(self):
@@ -71,7 +66,7 @@ class XSMC:
     @property
     def sampler(self):
         if self._sampler is None:
-            X = xsmc._sampler.get_mismatches(self._lwtc, self.focal, self.panel, self.w)
+            X = xsmc._sampler.get_mismatches(self.ts, self.focal, self.panel, self.w)
             deltas = np.ones_like(X[0])
             # Perform sampling
             assert deltas.shape[0] == X.shape[1]
@@ -96,7 +91,7 @@ class XSMC:
             A list of `k` posterior samples for the positional min-TMRCA of `focal` with `panel`.
 
         Notes:
-            If sampling many paths at once, it is more efficient to set `k > 1` than to call `sample()`
+            If sampling many paths at once, it is more efficient to set `k > 1` than to call `sample_paths()`
             repeatedly.
         """
         prime = False
@@ -123,7 +118,7 @@ class XSMC:
         """
         eta: SizeHistory = SizeHistory(t=np.array([0.0, np.inf]), Ne=np.array([1.0]))
         return _viterbi.viterbi_path(
-            lwtc=self._lwtc,
+            ts=self.ts,
             focal=self.focal,
             panel=self.panel,
             eta=eta,
