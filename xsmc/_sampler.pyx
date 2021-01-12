@@ -10,9 +10,7 @@ import _tskit
 import numpy as np
 import scipy.special
 import tskit
-from scipy.special.cython_special cimport
-
-gammaln, xlogy
+from scipy.special.cython_special cimport gammaln, xlogy
 
 DEF DEBUG = 0
 
@@ -109,6 +107,8 @@ def get_mismatches(
                 y_i = <int>(var.genotypes.i8[h + 1] != var.genotypes.i8[0])
                 X[h, i] += y_i
             err = tsk_vargen_next(&_vg, &var)
+    tsk_vargen_free(&_vg)
+    tsk_treeseq_free(&_ts)
     return X_np
 
 

@@ -5,7 +5,6 @@ from dataclasses import dataclass
 from typing import List, Union
 
 import numpy as np
-
 import tskit
 import xsmc._sampler
 
@@ -14,6 +13,7 @@ from .sampler import XSMCSampler
 from .segmentation import ArraySegmentation, Segmentation
 from .size_history import SizeHistory
 from .supporting import watterson
+from .arg import make_trunk
 
 logger = logging.getLogger(__name__)
 
@@ -123,10 +123,12 @@ class XSMC:
         Returns:
             A segmentation containing the MAP path.
         """
+        trunk = make_trunk(self.panel, 1 + self.L // self.w)
         return _viterbi.viterbi_path(
             ts=self.ts,
             focal=self.focal,
             panel=self.panel,
+            arg=trunk,
             eta=eta,
             theta=self.theta,
             rho=self.rho,
@@ -134,3 +136,4 @@ class XSMC:
             robust=self.robust,
             beta=beta,
         )
+    

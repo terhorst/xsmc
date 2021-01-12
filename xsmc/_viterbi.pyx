@@ -34,15 +34,16 @@ cdef int get_next_obs(obs_iter *state) nogil:
     return 1
 
 def viterbi_path(ts: tskit.TreeSequence,
-                 focal: int,
-                 panel: List[int],
-                 eta: SizeHistory,
-                 theta: float,
-                 rho: float,
-                 beta,
-                 robust: bool,
-                 w: int,
-                 ) -> Segmentation:
+           focal: int,
+           panel: List[int],
+           arg: tskit.TreeSequence,
+           eta: SizeHistory,
+           theta: float,
+           rho: float,
+           beta,
+           robust: bool,
+           w: int,
+           ) -> Segmentation:
     '''Compute optimal segmentation for renewal approximation to sequentially
     Markov coalescent.
 
@@ -105,21 +106,11 @@ def viterbi_path(ts: tskit.TreeSequence,
     assert np.all(eta.Ne > 0), "Ne cannot be 0."
     assert np.all(np.isfinite(eta.Ne)), "Ne must be finite"
     coal_rate = np.array([eta(tt) for tt in eta.t[:-1]])
-    cdef vector[piecewise_func] prior = piecewise_const_log_pi(
+    cdef vector[piecewise_func] log_pi = piecewise_const_log_pi(
         coal_rate.astype(np.float64),
         eta.t[1:].astype(np.float64),
         beta_
     )
-    # i_p += 1
-    # C are the cost functions for each haplotype
-    cdef vector[vector[piecewise_func]] C
-    cdef piecewise_func f
-    for j in range(n):
-        C.push_back(prior)
-        # subtract off one x because the first prior is not length-biased
-        for k in range(C[j].size()):
-            C[j][k].f.c[1] -= 1.
-
     cdef vector[int] positions
     cdef int pos = 0
     positions.push_back(pos)
@@ -141,8 +132,28 @@ def viterbi_path(ts: tskit.TreeSequence,
     assert n + 1 == state.vg.num_samples
     cdef int32_t[:] mismatches = np.zeros(n, dtype=np.int32)
     state.mismatches = &mismatches[0]
-
     state.err = tsk_vargen_next(state.vg, &state.var)
+    
+    # Initialize the tree sequence iterator for the arg
+    cdef LightweightTableCollection lwt_arg = LightweightTableCollection()
+    lwt_arg.fromdict(arg.dump_tables().asdict())
+    cdef tsk_treeseq_t _arg_ts
+    err = tsk_treeseq_init(&_arg_ts, lwt_arg.tables, 0)
+    check_error(err)
+    cdef tsk_tree_t _arg_tree
+    err = tsk_tree_init(&_arg_tree, &_arg_ts, 0);
+    check_error(err)
+    cdef vector[vector[piecewise_func]] priors = arg_prior(log_pi, &_arg_tree)
+
+    # i_p += 1
+    # C are the cost functions for each haplotype
+    cdef vector[vector[piecewise_func]] C
+    cdef piecewise_func f
+    for j in range(n):
+        C.push_back(priors.at(j))
+        # subtract off one x because the first prior is not length-biased
+        for k in range(C[j].size()):
+            C[j][k].f.c[1] -= 1.
 
     err = get_next_obs(&state)
     with nogil:
@@ -150,6 +161,9 @@ def viterbi_path(ts: tskit.TreeSequence,
             # proceed to next variant
             # loop1: increment all the current ibd tracts
             i += 1
+            while _arg_tree.right < i:
+                tsk_tree_next(&_arg_tree)  # FIXME assert ret == 1
+                priors = arg_prior(log_pi, &_arg_tree)
             pos = state.ell
             delta = pos - positions.back()  # = 1
             positions.push_back(pos)
@@ -190,7 +204,7 @@ def viterbi_path(ts: tskit.TreeSequence,
             # loop 3
             # compute piecewise min and eliminate any duplicate pieces
             for j in range(n):
-                 C[j] = compact(piecewise_min(prior, b.m.f, C[j]))
+                 C[j] = compact(piecewise_min(priors.at(j), b.m.f, C[j]))
 
             err = get_next_obs(&state)
 
@@ -199,6 +213,11 @@ def viterbi_path(ts: tskit.TreeSequence,
             bt.push_back(cp.back())
             while bt.back().pos >= 0:
                 bt.push_back(cp[bt.back().pos])
+
+        tsk_tree_free(&_arg_tree)
+        tsk_vargen_free(&_vg)
+        tsk_treeseq_free(&_ts)
+        tsk_treeseq_free(&_arg_ts)
 
     ret = [[panel[b.hap], positions[b.pos + 1], np.exp(-b.m.x), b.s] for b in reversed(bt)]
     # print('cp', cp)
@@ -529,6 +548,48 @@ cdef minimum min_f(const func f, const interval t) nogil:
         if f_star < ret.f:
             ret.f = f_star
             ret.x = x_star
+    return ret
+
+cdef vector[vector[piecewise_func]] arg_prior(const vector[piecewise_func] &log_pi, tsk_tree_t* tree) nogil:
+    cdef vector[vector[piecewise_func]] ret
+    cdef int num_samples = tsk_treeseq_get_num_samples(tree.tree_sequence)
+    ret.resize(num_samples)
+    cdef tsk_size_t i
+    cdef tsk_id_t u, p
+    cdef double t
+    for i in range(num_samples):
+        tsk_tree_get_parent(tree, tree.samples[i], &u)
+        if u == TSK_NULL:  # root parent means "trunk lineage"
+            ret[i] = log_pi
+        else:
+            tsk_tree_get_time(tree, u, &t)
+            ret[i] = truncate_prior(log_pi, t)
+    return ret
+
+cdef vector[piecewise_func] truncate_prior(const vector[piecewise_func] &prior, double t) nogil:
+    # given piecewise constant rate prior and time t, define the rate to be 0. more anciently than
+    # time t. Thus, focal lineage has infinite cost of coalescing prior to that time (as when
+    # threading onto an arg, above the coalescence time of a particular lineage.
+    cdef vector[piecewise_func] ret
+    ret.reserve(prior.size())
+    cdef piecewise_func f
+    cdef double tau = -log(t)
+    f.t[0] = -INFINITY
+    f.t[1] = tau
+    f.f.c[0] = 0.
+    f.f.c[1] = 0.
+    f.f.c[2] = INFINITY
+    ret.push_back(f)
+    cdef int i
+    while prior.at(i).t[1] < tau:
+        i += 1
+    f = prior.at(i)
+    f.t[0] = tau
+    ret.push_back(f)
+    i += 1
+    while i < prior.size():
+        ret.push_back(prior.at(i))
+        i += 1
     return ret
 
 # for piecewise constant coalescent function
