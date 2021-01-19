@@ -128,14 +128,14 @@ class XSMC:
         """
         trunk = make_trunk(self.panel, 1 + self.L // self.w)
         return _viterbi.viterbi_path(
-            ts=self.ts,
-            focal=self.focal,
-            panel=self.panel,
-            arg=trunk,
-            eta=eta,
-            theta=self.theta,
-            rho=self.rho,
-            w=self.w,
-            robust=self.robust,
-            beta=beta,
+            self.ts,
+            self.focal,
+            self.panel,
+            trunk,
+            eta,
+            self.theta,
+            self.rho,
+            beta,
+            self.robust,
+            self.w,
         )

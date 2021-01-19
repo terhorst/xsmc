@@ -3,7 +3,7 @@
 # cython: language=c++
 # distutils: extra_compile_args=['-O2', '-Wno-unused-but-set-variable', '-ffast-math']
 
-DEF DEBUG = 1
+DEF DEBUG = 0
 
 from typing import List, NamedTuple, Union
 
