@@ -345,7 +345,7 @@ cdef piecewise_func pmin(func f, func g, interval t) nogil:
                 # assert x_star > 0
                 r = -log(x_star)  # solution of a e^-x + c = 0
                 return _monotone_decreasing_case(f, g, t, r)
-    if a == 0:
+    elif a == 0:
         # y = b x + c
         if b > 0:
             return pmin(g, f, t)
@@ -422,6 +422,9 @@ cdef piecewise_func pmin(func f, func g, interval t) nogil:
                 # case 6: r1 < t.a
                 elif r1 <= t[0]:
                     return f_is_greater
+    with gil:
+        print("fell through -- this should never happen!")
+        raise
 
 cdef piecewise_func pointwise_min(
     const piecewise_func prior,
@@ -458,6 +461,9 @@ cdef piecewise_func pointwise_min(
         intv[0] = prior_intv[0]
         intv[1] = min(cost_intv[1], prior_intv[1])
         tmp = pmin(prior_f, cost_f, intv)
+        if DEBUG:
+            with gil:
+                print("got from pmin:", tmp)
         ret.f.insert(ret.f.end(), tmp.f.begin(), tmp.f.end())
         ret.t.insert(ret.t.end(), tmp.t.begin(), tmp.t.end() - 1)
         prior_intv[0] = intv[1]
@@ -477,6 +483,9 @@ cdef piecewise_func pointwise_min(
     intv[0] = prior_intv[0]
     intv[1] = min(cost_intv[1], prior_intv[1])
     tmp = pmin(prior_f, cost_f, intv)
+    if DEBUG:
+        with gil:
+            print("got from final pmin:", tmp)
     ret.f.insert(ret.f.end(), tmp.f.begin(), tmp.f.end())
     ret.t.insert(ret.t.end(), tmp.t.begin(), tmp.t.end())
     if DEBUG:
