@@ -13,3 +13,5 @@ venv
 .eggs
 *.swp
 dist
+xsmc/_sampler.cpp
+xsmc/_viterbi.cpp
