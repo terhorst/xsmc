@@ -3,7 +3,7 @@
 # cython: language=c++
 # distutils: extra_compile_args=['-O2', '-Wno-unused-but-set-variable', '-ffast-math']
 
-DEF DEBUG = 0
+DEF DEBUG = 1
 
 import tskit
 import _tskit
@@ -458,7 +458,7 @@ cdef piecewise_func pointwise_min(
     while isfinite(prior_intv[1]) or isfinite(cost_intv[1]):
         if DEBUG:
             with gil:
-                assert prior_intv[0] == cost_intv[0]
+                assert prior_intv[0] == cost_intv[0], ('prior and cost do not keep the contract', prior_intv, cost_intv)
         intv[0] = prior_intv[0]
         intv[1] = min(cost_intv[1], prior_intv[1])
         tmp = pmin(prior_f, cost_f, intv)
@@ -700,10 +700,8 @@ cdef piecewise_func compact(const piecewise_func &C) nogil:
     return ret
 
 cdef void check_piecewise(const piecewise_func &v):
-    assert len(v.f) == len(v.t) - 1
-    assert v.t[0] == -INFINITY
-    assert v.t.back() == INFINITY
-    assert sorted(v.t) == list(v.t)
+    assert len(v.f) == len(v.t) - 1, "len(v.f) != len(v.t) - 1"
+    assert sorted(v.t) == list(v.t), "v.t not in sort order"
     return
     # cdef float t1last
     # for i in range(v.t.size()):
