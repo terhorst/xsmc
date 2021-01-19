@@ -3,7 +3,7 @@
 # cython: language=c++
 # distutils: extra_compile_args=['-O2', '-Wno-unused-but-set-variable', '-ffast-math']
 
-DEF DEBUG = 1
+DEF DEBUG = 0
 
 import tskit
 import _tskit
@@ -282,18 +282,16 @@ cdef piecewise_func _monotone_decreasing_case(
         # the function is always -
         ret.f.push_back(f)
         ret.t.push_back(t[1])
-        return ret
     elif r >= t[1]:
         # the function is always +
         ret.f.push_back(g)
         ret.t.push_back(t[1])
-        return ret
     else: # the function is + on [a, r) and and - on (r, b]
         ret.f.push_back(g)
         ret.f.push_back(f)
         ret.t.push_back(r)
         ret.t.push_back(t[1])
-    return ret
+    return compact(ret)
 
 @cython.cdivision(True)
 cdef piecewise_func pmin(func f, func g, interval t) nogil:
@@ -399,7 +397,7 @@ cdef piecewise_func pmin(func f, func g, interval t) nogil:
                     ret.t.push_back(t[0])
                     ret.t.push_back(r0)
                     ret.t.push_back(t[1])
-                    return ret
+                    return compact(ret)
                 # case 3: both roots in interval
                 elif t[0] <= r0 <= r1 <= t[1]:
                     ret.f.push_back(g)
@@ -409,7 +407,7 @@ cdef piecewise_func pmin(func f, func g, interval t) nogil:
                     ret.t.push_back(r0)
                     ret.t.push_back(r1)
                     ret.t.push_back(t[1])
-                    return ret
+                    return compact(ret)
                 # case 4: r0 <= t.a < t[1] < r1
                 # so the function is negative on t => f is minimal
                 elif r0 <= t[0] <= t[1] <= r1:
@@ -421,7 +419,7 @@ cdef piecewise_func pmin(func f, func g, interval t) nogil:
                     ret.t.push_back(t[0])
                     ret.t.push_back(r1)
                     ret.t.push_back(t[1])
-                    return ret
+                    return compact(ret)
                 # case 6: r1 < t.a
                 elif r1 <= t[0]:
                     return f_is_greater
@@ -662,6 +660,7 @@ cdef piecewise_func piecewise_const_log_pi(double[:] a, double[:] t, double beta
 
 
 cdef piecewise_func compact(const piecewise_func &C) nogil:
+    cdef double TOL = 1e-8
     if DEBUG:
         with gil:
             try:
@@ -674,13 +673,15 @@ cdef piecewise_func compact(const piecewise_func &C) nogil:
     cdef piecewise_func ret
     if C.f.size() == 0:
         return ret
+    ret.f.reserve(C.f.size())
+    ret.t.reserve(C.t.size())
     q = C.f.at(0)
     t = C.t.at(0)
     for i in range(1, C.f.size()):
         q0 = C.f.at(i)
         t0 = C.t.at(i)
         # if memcmp(&q, &q0, sizeof(func)) != 0:  this approach does not work. or rather, it's overly conservative.
-        if (t == t0) or (q.c[0] == q0.c[0] and q.c[1] == q0.c[1] and q.c[2] == q0.c[2] and q.k == q0.k):
+        if fabs(t - t0) < TOL or (q.c[0] == q0.c[0] and q.c[1] == q0.c[1] and q.c[2] == q0.c[2] and q.k == q0.k):
             continue
         ret.f.push_back(q)
         ret.t.push_back(t)
