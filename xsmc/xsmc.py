@@ -8,12 +8,12 @@ import numpy as np
 
 import tskit
 import xsmc._sampler
+import xsmc.arg
 
 from . import _viterbi
-import xsmc.arg
 from .sampler import XSMCSampler
 from .segmentation import ArraySegmentation, Segmentation
-from .size_history import SizeHistory, KINGMAN
+from .size_history import KINGMAN, SizeHistory
 from .supporting import watterson
 
 logger = logging.getLogger(__name__)
@@ -81,9 +81,10 @@ class XSMC:
             robust=self.robust,
             eps=1e-4,
         )
-        
 
-    def sample(self, focal: int, panel: List[int], k: int = 1, seed: int = None) -> List[Segmentation]:
+    def sample(
+        self, focal: int, panel: List[int], k: int = 1, seed: int = None
+    ) -> List[Segmentation]:
         r"""Sample path(s) from the posterior distribution.
 
         Args:
@@ -137,12 +138,12 @@ class XSMC:
             self.robust,
             self.w,
         )
-    
+
     def arg(
         self,
         haps: List[int],
     ) -> tskit.TreeSequence:
-        '''
+        """
         Construct an ancestral recombination graph by iteratively threading haps onto tree sequence.
 
         Args:
@@ -158,12 +159,23 @@ class XSMC:
             (haps[0], haps[1]) tree sequence. And so forth.
 
             The length of the returned tree sequence will be ts.get_sequence_length() // self.w.
-        '''
-        scaffold = xsmc.arg.make_trunk([haps[0]], self.ts.get_sequence_length() // self.w)
+        """
+        scaffold = xsmc.arg.make_trunk(
+            [haps[0]], self.ts.get_sequence_length() // self.w
+        )
         for i in range(1, len(haps)):
             panel = haps[:i]
             seg = _viterbi.viterbi_path(
-                self.ts, haps[i], panel, scaffold, self.eta, self.theta, self.rho, beta=None, robust=False, w=self.w
+                self.ts,
+                haps[i],
+                panel,
+                scaffold,
+                self.eta,
+                self.theta,
+                self.rho,
+                beta=None,
+                robust=False,
+                w=self.w,
             )
             scaffold = xsmc.arg.thread(scaffold, seg)
         return scaffold

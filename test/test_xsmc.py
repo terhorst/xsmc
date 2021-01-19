@@ -4,6 +4,7 @@ import pytest
 
 import xsmc
 
+
 @pytest.fixture
 def ts():
     return msp.simulate(
@@ -14,10 +15,11 @@ def ts():
 @pytest.fixture
 def x(ts):
     return xsmc.XSMC(ts)
-    
+
 
 def test_sample_paths_1(x):
     return x.sample(0, [1], k=100)
+
 
 def test_sample_paths_2(x):
     x.sample(0, [1, 2], k=100)
@@ -25,6 +27,7 @@ def test_sample_paths_2(x):
 
 def test_viterbi_1(x):
     x.viterbi(0, [1])
+
 
 def test_arg_1(x):
     return x.arg([2, 3, 1])

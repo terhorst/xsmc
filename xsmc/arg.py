@@ -4,8 +4,8 @@ import intervals as I
 
 import tskit
 
-from .segmentation import Segmentation
 from ._viterbi import viterbi_path
+from .segmentation import Segmentation
 from .size_history import KINGMAN, SizeHistory
 
 
@@ -73,13 +73,15 @@ def thread(
         i for which scaffold.individual(scaffold.node(i)).metadata['sample_id'].
     """
     # FIXME this algorithm is very inefficient
-    sample_map = {scaffold.individual(scaffold.node(node).individual).metadata['sample_id']: node
-                  for node in scaffold.samples()}
+    sample_map = {
+        scaffold.individual(scaffold.node(node).individual).metadata["sample_id"]: node
+        for node in scaffold.samples()
+    }
     ret = scaffold.dump_tables()
     new_edges = ret.edges
     new_edges.reset()
     # the labeled leaf nodes / haplotypes in our sample
-    ind = ret.individuals.add_row(metadata={'sample_id': segmentation.focal})
+    ind = ret.individuals.add_row(metadata={"sample_id": segmentation.focal})
     n = ret.nodes.add_row(time=0.0, flags=tskit.NODE_IS_SAMPLE, individual=ind)
     i = 0
     for h, (left, right), t, _ in segmentation.segments:
@@ -150,5 +152,3 @@ def thread(
     ret.simplify()
     # print(ret.tree_sequence().draw_text())
     return ret.tree_sequence()
-
-

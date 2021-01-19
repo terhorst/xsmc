@@ -114,12 +114,12 @@ def test_multiple_panel(data):
 def test_multithreaded(big_data):
     from concurrent.futures import ThreadPoolExecutor
 
-    xs = [
-        xsmc.XSMC(big_data)
-        for i in range(big_data.get_sample_size() // 2)
-    ]
+    xs = [xsmc.XSMC(big_data) for i in range(big_data.get_sample_size() // 2)]
     with ThreadPoolExecutor() as p:
-        futs = [p.submit(x.sample,  2 * i, [2 * i + 1], k=100, seed=i) for i, x in enumerate(xs)]
+        futs = [
+            p.submit(x.sample, 2 * i, [2 * i + 1], k=100, seed=i)
+            for i, x in enumerate(xs)
+        ]
         res = [f.result() for f in futs]
 
 
