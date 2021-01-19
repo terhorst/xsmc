@@ -1,0 +1,1 @@
+../tskit/c/subprojects/kastore/kastore.c
