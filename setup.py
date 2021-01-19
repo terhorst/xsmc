@@ -32,6 +32,7 @@ extensions = [
         ["xsmc/_viterbi.pyx"] + tskit_sourcefiles,
         language="c++",
         libraries=["gsl", "gslcblas"],
+        extra_compile_args=["-D_GLIBCXX_DEBUG"],
         include_dirs=include_dirs,
     ),
     Extension(

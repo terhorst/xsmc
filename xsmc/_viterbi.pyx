@@ -3,7 +3,7 @@
 # cython: language=c++
 # distutils: extra_compile_args=['-O2', '-Wno-unused-but-set-variable', '-ffast-math']
 
-DEF DEBUG = 0
+DEF DEBUG = 1
 
 import tskit
 import _tskit
@@ -435,6 +435,10 @@ cdef piecewise_func pointwise_min(
         with gil:
             check_piecewise(prior)
             check_piecewise(cost)
+            print('in pointwise_min')
+            print("---> prior", prior)
+            print("---> F_t", F_t)
+            print("---> cost", cost)
     cdef int i = 0, j = 0
     cdef interval prior_intv, cost_intv, intv
     cdef func prior_f, cost_f
@@ -732,6 +736,10 @@ def test_pointwise_min(prior, double F_t, cost):
     _cost.t.push_back(np.inf)
     print(_prior, _cost)
     return pointwise_min(_prior, F_t, _cost)
+
+
+def test_pointwise_min_new_fmt(prior, double F_t, cost):
+    return pointwise_min(prior, F_t, cost)
 
 
 def test_pmin(f, g, t, f_k=0, g_k=1):
