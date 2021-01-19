@@ -766,7 +766,6 @@ def test_pointwise_min(prior, double F_t, cost):
         _cost.f[i].k = p['k']
         _cost.t[i] = p['t'][0]
     _cost.t.push_back(np.inf)
-    print(_prior, _cost)
     return pointwise_min(_prior, F_t, _cost)
 
 
