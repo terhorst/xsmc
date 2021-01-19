@@ -10,6 +10,8 @@ import numpy as np
 import sh
 from scipy.interpolate import PPoly
 
+import tskit
+
 psmc = sh.Command(os.environ.get("PSMC_PATH", "psmc"))
 
 __version__ = (
@@ -36,7 +38,7 @@ class PSMCPosterior:
 
 
 def _gen_psmcfa(
-    ts: "tskit.TreeSequence",
+    ts: tskit.TreeSequence,
     contig: str,
     nodes: Tuple[int, int],
     out: TextIO,
@@ -83,7 +85,7 @@ def _parse_psmc(out) -> List[PSMCResult]:
                 if line.startswith("RS")
             ]
         )
-        ret.append(dict(theta=theta, rho=rho, t=np.array(t), Ne=np.array(lam)))
+        ret.append(dict(theta=theta, rho=rho, t=np.array(t), Ne=1.0 / np.array(lam)))
     return ret
 
 
@@ -129,7 +131,7 @@ class msPSMC:
          data: List of `(tree sequence, (hap1, hap2))` pairs.
     """
 
-    data: List[Tuple["tskit.TreeSequence", Tuple[int, int]]]
+    data: List[Tuple[tskit.TreeSequence, Tuple[int, int]]]
     w: int = 100
 
     def __post_init__(self):

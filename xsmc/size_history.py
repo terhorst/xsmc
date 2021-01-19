@@ -2,8 +2,9 @@ from typing import NamedTuple
 
 import numpy as np
 import scipy.interpolate
-import tskit
 from scipy.interpolate import PPoly
+
+import tskit
 
 
 class SizeHistory(NamedTuple):
@@ -32,13 +33,13 @@ class SizeHistory(NamedTuple):
 
     def draw(self, axis=None) -> "matplotlib.axes.Axis":
         """Plot this size history.
-        
+
         Args:
             axis: Axis on which to draw plot. If None, `matplotlib.pyplot.gca()` is used.
 
         Returns:
             Axis plot was drawn on.
-            
+
         Note:
             Plots on a log-log scale.
         """
@@ -82,6 +83,6 @@ class SizeHistory(NamedTuple):
         cinf = np.eye(pc.c.shape[0])[:, -1:] * pc.c[-1, -1]
         ret = PPoly(c=np.append(pc.c, cinf, axis=1), x=np.append(pc.x, np.inf))
         return ret
-    
-    
-KINGMAN = SizeHistory(Ne=np.ones(1), t=np.array([0., np.inf]))
+
+
+KINGMAN = SizeHistory(Ne=np.ones(1), t=np.array([0.0, np.inf]))

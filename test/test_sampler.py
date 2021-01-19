@@ -5,8 +5,9 @@ from functools import partial
 import msprime as msp
 import numpy as np
 import pytest
-import xsmc
 from scipy.special import logsumexp
+
+import xsmc
 from xsmc.sampler import XSMCSampler
 
 
@@ -65,6 +66,7 @@ def big_data():
 @pytest.fixture
 def data():
     import msprime as msp
+
     import xsmc
 
     return msp.simulate(
@@ -80,6 +82,7 @@ def data():
 @pytest.fixture
 def tiny_data():
     import msprime as msp
+
     import xsmc
 
     return msp.simulate(
@@ -172,6 +175,7 @@ def sampler():
     import itertools
 
     from scipy.special import logsumexp
+
     from xsmc.sampler import XSMCSampler
 
     H = 5

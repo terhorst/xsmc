@@ -1,6 +1,7 @@
 import msprime as msp
 import numpy as np
 import pytest
+
 import xsmc
 
 

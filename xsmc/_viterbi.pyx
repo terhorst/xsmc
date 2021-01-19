@@ -5,13 +5,16 @@
 
 DEF DEBUG = 1
 
-import tskit
+from typing import List, NamedTuple, Union
+
 import _tskit
 import numpy as np
-from typing import List, NamedTuple, Union
+
+import tskit
 
 from .segmentation import Segment, Segmentation
 from .size_history import SizeHistory
+
 
 cdef struct obs_iter:
     int ell, L, w  # current position, total obs, window size
@@ -265,9 +268,12 @@ def viterbi_path(
 
 
 #### SUPPORT FUNCTIONS
-from cython.operator cimport dereference as deref, preincrement as inc
+
 cimport cython
+from cython.operator cimport dereference as deref
+from cython.operator cimport preincrement as inc
 from gsl cimport *
+
 
 # test functions, used for testing only
 cdef piecewise_func _monotone_decreasing_case(
@@ -465,19 +471,33 @@ cdef piecewise_func pointwise_min(
         if DEBUG:
             with gil:
                 print("got from pmin:", tmp)
+                print("inserting %s into %s"  % (ret.f, tmp.f))
         ret.f.insert(ret.f.end(), tmp.f.begin(), tmp.f.end())
+        if DEBUG:
+            with gil:
+                print("inserting %s into %s"  % (ret.t, tmp.t))
         ret.t.insert(ret.t.end(), tmp.t.begin(), tmp.t.end() - 1)
+        
         prior_intv[0] = intv[1]
         cost_intv[0] = intv[1]
         if prior_intv[1] == intv[1]:
+            if DEBUG:
+                with gil:
+                    print("prior increment i=%d prior.f=%s prior.t=%s" % (i, prior.f, prior.t))
             i += 1
             prior_f = prior.f.at(i)
             prior_intv[1] = prior.t.at(i + 1)
             prior_f.c[2] += F_t
         if cost_intv[1] == intv[1]:
+            if DEBUG:
+                with gil:
+                    print("cost increment j=%d cost_intv=%s intv=%s cost.f=%s cost.t=%s" % (j, cost_intv, intv, cost.f, cost.t))
             j += 1
             cost_f = cost.f.at(j)
             cost_intv[1] = cost.t.at(j + 1)
+            if DEBUG:
+                with gil:
+                    print("finished cost increment j=%d cost_intv=%s intv=%s cost_f=%s" % (j, cost_intv, intv, cost_f))
         if DEBUG:
             with gil:
                 print('pointwise_min', i, j, cost_intv, cost_f, prior_intv, prior_f, tmp, ret)

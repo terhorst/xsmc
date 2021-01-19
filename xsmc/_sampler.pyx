@@ -9,7 +9,9 @@ from typing import List, Tuple
 import _tskit
 import numpy as np
 import scipy.special
+
 import tskit
+
 from scipy.special.cython_special cimport gammaln, xlogy
 
 DEF DEBUG = 0

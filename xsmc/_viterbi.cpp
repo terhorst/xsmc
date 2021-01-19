@@ -619,11 +619,20 @@ static CYTHON_INLINE float __PYX_NAN() {
 #define __PYX_HAVE__xsmc___viterbi
 #define __PYX_HAVE_API__xsmc___viterbi
 /* Early includes */
+#include <stdint.h>
+#include "tskit.h"
+#include "gsl/gsl_errno.h"
+#include "gsl/gsl_sf_result.h"
+#include "gsl/gsl_sf_lambert.h"
+#include "gsl/gsl_sf_gamma.h"
+#include <math.h>
+#include <string.h>
+#include <stdio.h>
+#include <algorithm>
 #include "ios"
 #include "new"
 #include "stdexcept"
 #include "typeinfo"
-#include <vector>
 #include <utility>
 
     #if __cplusplus > 199711L
@@ -639,16 +648,7 @@ static CYTHON_INLINE float __PYX_NAN() {
 #include <queue>
 #include <unordered_map>
 #include <unordered_set>
-#include <string.h>
-#include <algorithm>
-#include <stdio.h>
-#include <stdint.h>
-#include <math.h>
-#include "gsl/gsl_errno.h"
-#include "gsl/gsl_sf_result.h"
-#include "gsl/gsl_sf_lambert.h"
-#include "gsl/gsl_sf_gamma.h"
-#include "tskit.h"
+#include <vector>
 #include <cmath>
 #include "pythread.h"
 #include <stdlib.h>
@@ -1036,7 +1036,7 @@ struct __pyx_t_4xsmc_8_viterbi_backtrace;
 typedef struct __pyx_t_4xsmc_8_viterbi_backtrace __pyx_t_4xsmc_8_viterbi_backtrace;
 struct __pyx_t_4xsmc_8_viterbi_obs_iter;
 
-/* "xsmc/_viterbi.pxd":36
+/* "xsmc/_viterbi.pxd":37
  * # data structures used to represent functions of the form
  * # c[0] exp(-x) + c[1] x + c[2], t[0] <= x < t[1]
  * ctypedef double[2] interval             # <<<<<<<<<<<<<<
@@ -1045,7 +1045,7 @@ struct __pyx_t_4xsmc_8_viterbi_obs_iter;
  */
 typedef double __pyx_t_4xsmc_8_viterbi_interval[2];
 
-/* "xsmc/_viterbi.pxd":38
+/* "xsmc/_viterbi.pxd":39
  * ctypedef double[2] interval
  * 
  * ctypedef struct func:             # <<<<<<<<<<<<<<
@@ -1057,7 +1057,7 @@ struct __pyx_t_4xsmc_8_viterbi_func {
   int k;
 };
 
-/* "xsmc/_viterbi.pxd":42
+/* "xsmc/_viterbi.pxd":43
  *     int k
  * 
  * ctypedef struct piecewise_func:             # <<<<<<<<<<<<<<
@@ -1069,7 +1069,7 @@ struct __pyx_t_4xsmc_8_viterbi_piecewise_func {
   std::vector<double>  t;
 };
 
-/* "xsmc/_viterbi.pxd":46
+/* "xsmc/_viterbi.pxd":47
  *     vector[double] t
  * 
  * ctypedef struct minimum:             # <<<<<<<<<<<<<<
@@ -1081,7 +1081,7 @@ struct __pyx_t_4xsmc_8_viterbi_minimum {
   double x;
 };
 
-/* "xsmc/_viterbi.pxd":49
+/* "xsmc/_viterbi.pxd":50
  *     double f, x
  * 
  * ctypedef struct backtrace:             # <<<<<<<<<<<<<<
@@ -1095,8 +1095,8 @@ struct __pyx_t_4xsmc_8_viterbi_backtrace {
   __pyx_t_4xsmc_8_viterbi_minimum m;
 };
 
-/* "xsmc/_viterbi.pyx":16
- * from .size_history import SizeHistory
+/* "xsmc/_viterbi.pyx":19
+ * 
  * 
  * cdef struct obs_iter:             # <<<<<<<<<<<<<<
  *     int ell, L, w  # current position, total obs, window size
@@ -1112,7 +1112,7 @@ struct __pyx_t_4xsmc_8_viterbi_obs_iter {
   int32_t *mismatches;
 };
 
-/* "_tskit.pxd":80
+/* "_tskit.pxd":81
  * 
  * cdef extern:
  *     ctypedef class xsmc._lwtc.LightweightTableCollection [object LightweightTableCollection]:             # <<<<<<<<<<<<<<
@@ -2003,7 +2003,25 @@ static PyObject *__pyx_memoryview_assign_item_from_object(struct __pyx_memoryvie
 static PyObject *__pyx_memoryviewslice_convert_item_to_object(struct __pyx_memoryviewslice_obj *__pyx_v_self, char *__pyx_v_itemp); /* proto*/
 static PyObject *__pyx_memoryviewslice_assign_item_from_object(struct __pyx_memoryviewslice_obj *__pyx_v_self, char *__pyx_v_itemp, PyObject *__pyx_v_value); /* proto*/
 
-/* Module declarations from 'libcpp.vector' */
+/* Module declarations from 'libc.stdint' */
+
+/* Module declarations from 'libcpp' */
+
+/* Module declarations from 'xsmc._lwtc' */
+
+/* Module declarations from 'xsmc._tskit' */
+static PyTypeObject *__pyx_ptype_4xsmc_6_tskit_LightweightTableCollection = 0;
+static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int); /*proto*/
+
+/* Module declarations from 'xsmc.gsl' */
+
+/* Module declarations from 'libc.math' */
+
+/* Module declarations from 'libc.string' */
+
+/* Module declarations from 'libc.stdio' */
+
+/* Module declarations from 'libcpp.algorithm' */
 
 /* Module declarations from 'libcpp.utility' */
 
@@ -2015,25 +2033,7 @@ static PyObject *__pyx_memoryviewslice_assign_item_from_object(struct __pyx_memo
 
 /* Module declarations from 'libcpp.unordered_set' */
 
-/* Module declarations from 'libc.string' */
-
-/* Module declarations from 'libcpp' */
-
-/* Module declarations from 'libcpp.algorithm' */
-
-/* Module declarations from 'libc.stdio' */
-
-/* Module declarations from 'libc.stdint' */
-
-/* Module declarations from 'libc.math' */
-
-/* Module declarations from 'xsmc.gsl' */
-
-/* Module declarations from 'xsmc._lwtc' */
-
-/* Module declarations from 'xsmc._tskit' */
-static PyTypeObject *__pyx_ptype_4xsmc_6_tskit_LightweightTableCollection = 0;
-static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int); /*proto*/
+/* Module declarations from 'libcpp.vector' */
 
 /* Module declarations from 'cython.view' */
 
@@ -2224,7 +2224,7 @@ static const char __pyx_k_shape[] = "shape";
 static const char __pyx_k_start[] = "start";
 static const char __pyx_k_state[] = "state";
 static const char __pyx_k_theta[] = "theta";
-static const char __pyx_k_tskit[] = "tskit";
+static const char __pyx_k_tskit[] = "_tskit";
 static const char __pyx_k_zeros[] = "zeros";
 static const char __pyx_k_arg_ts[] = "_arg_ts";
 static const char __pyx_k_asdict[] = "asdict";
@@ -2257,7 +2257,7 @@ static const char __pyx_k_prior_3[] = "_prior";
 static const char __pyx_k_samples[] = "_samples";
 static const char __pyx_k_seg_pos[] = "seg_pos";
 static const char __pyx_k_theta_2[] = "theta_";
-static const char __pyx_k_tskit_2[] = "_tskit";
+static const char __pyx_k_tskit_2[] = "tskit";
 static const char __pyx_k_Ellipsis[] = "Ellipsis";
 static const char __pyx_k_KeyError[] = "KeyError";
 static const char __pyx_k_arg_tree[] = "_arg_tree";
@@ -2324,6 +2324,7 @@ static const char __pyx_k_pyx_unpickle_Enum[] = "__pyx_unpickle_Enum";
 static const char __pyx_k_test_pmin_new_fmt[] = "test_pmin_new_fmt";
 static const char __pyx_k_xsmc__viterbi_pyx[] = "xsmc/_viterbi.pyx";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
+static const char __pyx_k_inserting_s_into_s[] = "inserting %s into %s";
 static const char __pyx_k_pointwise_min_done[] = "pointwise_min done";
 static const char __pyx_k_strided_and_direct[] = "<strided and direct>";
 static const char __pyx_k_test_pointwise_min[] = "test_pointwise_min";
@@ -2355,11 +2356,14 @@ static const char __pyx_k_Invalid_mode_expected_c_or_fortr[] = "Invalid mode, ex
 static const char __pyx_k_No_value_specified_for_struct_at[] = "No value specified for struct attribute 'f'";
 static const char __pyx_k_Out_of_bounds_on_buffer_access_a[] = "Out of bounds on buffer access (axis %d)";
 static const char __pyx_k_Unable_to_convert_item_to_object[] = "Unable to convert item to object";
+static const char __pyx_k_cost_increment_j_d_cost_intv_s_i[] = "cost increment j=%d cost_intv=%s intv=%s cost.f=%s cost.t=%s";
 static const char __pyx_k_fell_through_this_should_never_h[] = "fell through -- this should never happen!";
+static const char __pyx_k_finished_cost_increment_j_d_cost[] = "finished cost increment j=%d cost_intv=%s intv=%s cost_f=%s";
 static const char __pyx_k_focal_haplotype_cannot_be_a_memb[] = "focal haplotype cannot be a member of panel";
 static const char __pyx_k_got_differing_extents_in_dimensi[] = "got differing extents in dimension %d (got %d and %d)";
 static const char __pyx_k_no_default___reduce___due_to_non[] = "no default __reduce__ due to non-trivial __cinit__";
 static const char __pyx_k_prior_and_cost_do_not_keep_the_c[] = "prior and cost do not keep the contract";
+static const char __pyx_k_prior_increment_i_d_prior_f_s_pr[] = "prior increment i=%d prior.f=%s prior.t=%s";
 static const char __pyx_k_unable_to_allocate_shape_and_str[] = "unable to allocate shape and strides.";
 static const char __pyx_k_No_value_specified_for_struct_at_2[] = "No value specified for struct attribute 'x'";
 static const char __pyx_k_No_value_specified_for_struct_at_3[] = "No value specified for struct attribute 'hap'";
@@ -2444,6 +2448,7 @@ static PyObject *__pyx_kp_s_contiguous_and_indirect;
 static PyObject *__pyx_kp_s_cost;
 static PyObject *__pyx_n_s_cost_2;
 static PyObject *__pyx_n_s_cost_3;
+static PyObject *__pyx_kp_s_cost_increment_j_d_cost_intv_s_i;
 static PyObject *__pyx_n_s_cp;
 static PyObject *__pyx_n_s_delta;
 static PyObject *__pyx_n_s_dict;
@@ -2463,6 +2468,7 @@ static PyObject *__pyx_n_s_f_2;
 static PyObject *__pyx_n_s_f_k;
 static PyObject *__pyx_kp_s_fell_through_this_should_never_h;
 static PyObject *__pyx_n_s_file;
+static PyObject *__pyx_kp_s_finished_cost_increment_j_d_cost;
 static PyObject *__pyx_n_s_flags;
 static PyObject *__pyx_n_s_float64;
 static PyObject *__pyx_n_s_focal;
@@ -2489,6 +2495,7 @@ static PyObject *__pyx_n_s_id;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_kp_s_in_pointwise_min;
 static PyObject *__pyx_n_s_inf;
+static PyObject *__pyx_kp_s_inserting_s_into_s;
 static PyObject *__pyx_n_s_int32;
 static PyObject *__pyx_n_s_interval;
 static PyObject *__pyx_n_s_intv;
@@ -2534,6 +2541,7 @@ static PyObject *__pyx_kp_s_prior;
 static PyObject *__pyx_n_s_prior_2;
 static PyObject *__pyx_n_s_prior_3;
 static PyObject *__pyx_kp_s_prior_and_cost_do_not_keep_the_c;
+static PyObject *__pyx_kp_s_prior_increment_i_d_prior_f_s_pr;
 static PyObject *__pyx_n_s_priors;
 static PyObject *__pyx_n_s_pyx_PickleError;
 static PyObject *__pyx_n_s_pyx_checksum;
@@ -2732,7 +2740,7 @@ static PyObject *__pyx_codeobj__52;
 static PyObject *__pyx_codeobj__59;
 /* Late includes */
 
-/* "xsmc/_viterbi.pyx":23
+/* "xsmc/_viterbi.pyx":26
  *     int32_t* mismatches
  * 
  * cdef int get_next_obs(obs_iter *state) nogil:             # <<<<<<<<<<<<<<
@@ -2755,7 +2763,7 @@ static int __pyx_f_4xsmc_8_viterbi_get_next_obs(struct __pyx_t_4xsmc_8_viterbi_o
   int __pyx_t_7;
   long __pyx_t_8;
 
-  /* "xsmc/_viterbi.pyx":25
+  /* "xsmc/_viterbi.pyx":28
  * cdef int get_next_obs(obs_iter *state) nogil:
  *     cdef int h
  *     cdef int np1 = state.vg.num_samples             # <<<<<<<<<<<<<<
@@ -2765,7 +2773,7 @@ static int __pyx_f_4xsmc_8_viterbi_get_next_obs(struct __pyx_t_4xsmc_8_viterbi_o
   __pyx_t_1 = __pyx_v_state->vg->num_samples;
   __pyx_v_np1 = __pyx_t_1;
 
-  /* "xsmc/_viterbi.pyx":26
+  /* "xsmc/_viterbi.pyx":29
  *     cdef int h
  *     cdef int np1 = state.vg.num_samples
  *     cdef int n = np1 - 1             # <<<<<<<<<<<<<<
@@ -2774,7 +2782,7 @@ static int __pyx_f_4xsmc_8_viterbi_get_next_obs(struct __pyx_t_4xsmc_8_viterbi_o
  */
   __pyx_v_n = (__pyx_v_np1 - 1);
 
-  /* "xsmc/_viterbi.pyx":27
+  /* "xsmc/_viterbi.pyx":30
  *     cdef int np1 = state.vg.num_samples
  *     cdef int n = np1 - 1
  *     cdef int8_t* gt = state.var.genotypes.i8             # <<<<<<<<<<<<<<
@@ -2784,7 +2792,7 @@ static int __pyx_f_4xsmc_8_viterbi_get_next_obs(struct __pyx_t_4xsmc_8_viterbi_o
   __pyx_t_2 = __pyx_v_state->var->genotypes.i8;
   __pyx_v_gt = __pyx_t_2;
 
-  /* "xsmc/_viterbi.pyx":28
+  /* "xsmc/_viterbi.pyx":31
  *     cdef int n = np1 - 1
  *     cdef int8_t* gt = state.var.genotypes.i8
  *     memset(state.mismatches, 0, sizeof(int32_t) * n)             # <<<<<<<<<<<<<<
@@ -2793,7 +2801,7 @@ static int __pyx_f_4xsmc_8_viterbi_get_next_obs(struct __pyx_t_4xsmc_8_viterbi_o
  */
   (void)(memset(__pyx_v_state->mismatches, 0, ((sizeof(int32_t)) * __pyx_v_n)));
 
-  /* "xsmc/_viterbi.pyx":29
+  /* "xsmc/_viterbi.pyx":32
  *     cdef int8_t* gt = state.var.genotypes.i8
  *     memset(state.mismatches, 0, sizeof(int32_t) * n)
  *     if state.ell > state.L:             # <<<<<<<<<<<<<<
@@ -2803,7 +2811,7 @@ static int __pyx_f_4xsmc_8_viterbi_get_next_obs(struct __pyx_t_4xsmc_8_viterbi_o
   __pyx_t_3 = ((__pyx_v_state->ell > __pyx_v_state->L) != 0);
   if (__pyx_t_3) {
 
-    /* "xsmc/_viterbi.pyx":30
+    /* "xsmc/_viterbi.pyx":33
  *     memset(state.mismatches, 0, sizeof(int32_t) * n)
  *     if state.ell > state.L:
  *         return 0             # <<<<<<<<<<<<<<
@@ -2813,7 +2821,7 @@ static int __pyx_f_4xsmc_8_viterbi_get_next_obs(struct __pyx_t_4xsmc_8_viterbi_o
     __pyx_r = 0;
     goto __pyx_L0;
 
-    /* "xsmc/_viterbi.pyx":29
+    /* "xsmc/_viterbi.pyx":32
  *     cdef int8_t* gt = state.var.genotypes.i8
  *     memset(state.mismatches, 0, sizeof(int32_t) * n)
  *     if state.ell > state.L:             # <<<<<<<<<<<<<<
@@ -2822,7 +2830,7 @@ static int __pyx_f_4xsmc_8_viterbi_get_next_obs(struct __pyx_t_4xsmc_8_viterbi_o
  */
   }
 
-  /* "xsmc/_viterbi.pyx":31
+  /* "xsmc/_viterbi.pyx":34
  *     if state.ell > state.L:
  *         return 0
  *     while (state.err == 1) and (state.var.site.position / state.w < 1 + state.ell):             # <<<<<<<<<<<<<<
@@ -2841,7 +2849,7 @@ static int __pyx_f_4xsmc_8_viterbi_get_next_obs(struct __pyx_t_4xsmc_8_viterbi_o
     __pyx_L6_bool_binop_done:;
     if (!__pyx_t_3) break;
 
-    /* "xsmc/_viterbi.pyx":32
+    /* "xsmc/_viterbi.pyx":35
  *         return 0
  *     while (state.err == 1) and (state.var.site.position / state.w < 1 + state.ell):
  *         for h in range(1, n + 1):             # <<<<<<<<<<<<<<
@@ -2853,7 +2861,7 @@ static int __pyx_f_4xsmc_8_viterbi_get_next_obs(struct __pyx_t_4xsmc_8_viterbi_o
     for (__pyx_t_7 = 1; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
       __pyx_v_h = __pyx_t_7;
 
-      /* "xsmc/_viterbi.pyx":33
+      /* "xsmc/_viterbi.pyx":36
  *     while (state.err == 1) and (state.var.site.position / state.w < 1 + state.ell):
  *         for h in range(1, n + 1):
  *             state.mismatches[h - 1] += <int32_t>(gt[0] != gt[h])             # <<<<<<<<<<<<<<
@@ -2864,7 +2872,7 @@ static int __pyx_f_4xsmc_8_viterbi_get_next_obs(struct __pyx_t_4xsmc_8_viterbi_o
       (__pyx_v_state->mismatches[__pyx_t_8]) = ((__pyx_v_state->mismatches[__pyx_t_8]) + ((int32_t)((__pyx_v_gt[0]) != (__pyx_v_gt[__pyx_v_h]))));
     }
 
-    /* "xsmc/_viterbi.pyx":34
+    /* "xsmc/_viterbi.pyx":37
  *         for h in range(1, n + 1):
  *             state.mismatches[h - 1] += <int32_t>(gt[0] != gt[h])
  *         state.err = tsk_vargen_next(state.vg, &state.var)             # <<<<<<<<<<<<<<
@@ -2874,7 +2882,7 @@ static int __pyx_f_4xsmc_8_viterbi_get_next_obs(struct __pyx_t_4xsmc_8_viterbi_o
     __pyx_v_state->err = tsk_vargen_next(__pyx_v_state->vg, (&__pyx_v_state->var));
   }
 
-  /* "xsmc/_viterbi.pyx":35
+  /* "xsmc/_viterbi.pyx":38
  *             state.mismatches[h - 1] += <int32_t>(gt[0] != gt[h])
  *         state.err = tsk_vargen_next(state.vg, &state.var)
  *     state.ell += 1             # <<<<<<<<<<<<<<
@@ -2883,7 +2891,7 @@ static int __pyx_f_4xsmc_8_viterbi_get_next_obs(struct __pyx_t_4xsmc_8_viterbi_o
  */
   __pyx_v_state->ell = (__pyx_v_state->ell + 1);
 
-  /* "xsmc/_viterbi.pyx":36
+  /* "xsmc/_viterbi.pyx":39
  *         state.err = tsk_vargen_next(state.vg, &state.var)
  *     state.ell += 1
  *     return 1             # <<<<<<<<<<<<<<
@@ -2893,7 +2901,7 @@ static int __pyx_f_4xsmc_8_viterbi_get_next_obs(struct __pyx_t_4xsmc_8_viterbi_o
   __pyx_r = 1;
   goto __pyx_L0;
 
-  /* "xsmc/_viterbi.pyx":23
+  /* "xsmc/_viterbi.pyx":26
  *     int32_t* mismatches
  * 
  * cdef int get_next_obs(obs_iter *state) nogil:             # <<<<<<<<<<<<<<
@@ -2906,7 +2914,7 @@ static int __pyx_f_4xsmc_8_viterbi_get_next_obs(struct __pyx_t_4xsmc_8_viterbi_o
   return __pyx_r;
 }
 
-/* "xsmc/_viterbi.pyx":38
+/* "xsmc/_viterbi.pyx":41
  *     return 1
  * 
  * def viterbi_path(             # <<<<<<<<<<<<<<
@@ -2974,59 +2982,59 @@ static PyObject *__pyx_pw_4xsmc_8_viterbi_1viterbi_path(PyObject *__pyx_self, Py
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_focal)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, 1); __PYX_ERR(0, 38, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, 1); __PYX_ERR(0, 41, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_panel)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, 2); __PYX_ERR(0, 38, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, 2); __PYX_ERR(0, 41, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_scaffold)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, 3); __PYX_ERR(0, 38, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, 3); __PYX_ERR(0, 41, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_eta)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, 4); __PYX_ERR(0, 38, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, 4); __PYX_ERR(0, 41, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (likely((values[5] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_theta)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, 5); __PYX_ERR(0, 38, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, 5); __PYX_ERR(0, 41, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  6:
         if (likely((values[6] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_rho)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, 6); __PYX_ERR(0, 38, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, 6); __PYX_ERR(0, 41, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  7:
         if (likely((values[7] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_beta)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, 7); __PYX_ERR(0, 38, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, 7); __PYX_ERR(0, 41, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  8:
         if (likely((values[8] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_robust)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, 8); __PYX_ERR(0, 38, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, 8); __PYX_ERR(0, 41, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  9:
         if (likely((values[9] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_w)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, 9); __PYX_ERR(0, 38, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, 9); __PYX_ERR(0, 41, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "viterbi_path") < 0)) __PYX_ERR(0, 38, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "viterbi_path") < 0)) __PYX_ERR(0, 41, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 10) {
       goto __pyx_L5_argtuple_error;
@@ -3047,15 +3055,15 @@ static PyObject *__pyx_pw_4xsmc_8_viterbi_1viterbi_path(PyObject *__pyx_self, Py
     __pyx_v_panel = values[2];
     __pyx_v_scaffold = values[3];
     __pyx_v_eta = values[4];
-    __pyx_v_theta = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_theta == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 44, __pyx_L3_error)
-    __pyx_v_rho = __pyx_PyFloat_AsDouble(values[6]); if (unlikely((__pyx_v_rho == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 45, __pyx_L3_error)
+    __pyx_v_theta = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_theta == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 47, __pyx_L3_error)
+    __pyx_v_rho = __pyx_PyFloat_AsDouble(values[6]); if (unlikely((__pyx_v_rho == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 48, __pyx_L3_error)
     __pyx_v_beta = values[7];
-    __pyx_v_robust = __Pyx_PyObject_IsTrue(values[8]); if (unlikely((__pyx_v_robust == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 47, __pyx_L3_error)
+    __pyx_v_robust = __Pyx_PyObject_IsTrue(values[8]); if (unlikely((__pyx_v_robust == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 50, __pyx_L3_error)
     __pyx_v_w = values[9];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 38, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("viterbi_path", 1, 10, 10, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 41, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("xsmc._viterbi.viterbi_path", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3193,28 +3201,28 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   __Pyx_RefNannySetupContext("viterbi_path", 0);
   __Pyx_INCREF(__pyx_v_beta);
 
-  /* "xsmc/_viterbi.pyx":76
+  /* "xsmc/_viterbi.pyx":79
  *     # to get a tree sequence that is binary compatble with whatever version of
  *     # tskit was used to compile the software (which could be different).
  *     cdef LightweightTableCollection lwt = LightweightTableCollection()             # <<<<<<<<<<<<<<
  *     lwt.fromdict(ts.dump_tables().asdict())
  *     cdef tsk_treeseq_t _ts
  */
-  __pyx_t_1 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_4xsmc_6_tskit_LightweightTableCollection)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_4xsmc_6_tskit_LightweightTableCollection)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_lwt = ((LightweightTableCollection *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "xsmc/_viterbi.pyx":77
+  /* "xsmc/_viterbi.pyx":80
  *     # tskit was used to compile the software (which could be different).
  *     cdef LightweightTableCollection lwt = LightweightTableCollection()
  *     lwt.fromdict(ts.dump_tables().asdict())             # <<<<<<<<<<<<<<
  *     cdef tsk_treeseq_t _ts
  *     cdef int err = tsk_treeseq_init(&_ts, lwt.tables, 0)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_lwt), __pyx_n_s_fromdict); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_lwt), __pyx_n_s_fromdict); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_dump_tables); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_dump_tables); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -3228,10 +3236,10 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   }
   __pyx_t_4 = (__pyx_t_6) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 77, __pyx_L1_error)
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_asdict); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_asdict); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = NULL;
@@ -3246,7 +3254,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   }
   __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 77, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_5 = NULL;
@@ -3262,12 +3270,12 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   __pyx_t_1 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_5, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3);
   __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "xsmc/_viterbi.pyx":79
+  /* "xsmc/_viterbi.pyx":82
  *     lwt.fromdict(ts.dump_tables().asdict())
  *     cdef tsk_treeseq_t _ts
  *     cdef int err = tsk_treeseq_init(&_ts, lwt.tables, 0)             # <<<<<<<<<<<<<<
@@ -3276,7 +3284,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_err = tsk_treeseq_init((&__pyx_v__ts), __pyx_v_lwt->tables, 0);
 
-  /* "xsmc/_viterbi.pyx":80
+  /* "xsmc/_viterbi.pyx":83
  *     cdef tsk_treeseq_t _ts
  *     cdef int err = tsk_treeseq_init(&_ts, lwt.tables, 0)
  *     check_error(err)             # <<<<<<<<<<<<<<
@@ -3285,7 +3293,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   __pyx_f_4xsmc_6_tskit_check_error(__pyx_v_err);
 
-  /* "xsmc/_viterbi.pyx":82
+  /* "xsmc/_viterbi.pyx":85
  *     check_error(err)
  * 
  *     assert theta > 0             # <<<<<<<<<<<<<<
@@ -3296,12 +3304,12 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   if (unlikely(!Py_OptimizeFlag)) {
     if (unlikely(!((__pyx_v_theta > 0.0) != 0))) {
       PyErr_SetNone(PyExc_AssertionError);
-      __PYX_ERR(0, 82, __pyx_L1_error)
+      __PYX_ERR(0, 85, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "xsmc/_viterbi.pyx":83
+  /* "xsmc/_viterbi.pyx":86
  * 
  *     assert theta > 0
  *     assert rho > 0             # <<<<<<<<<<<<<<
@@ -3312,12 +3320,12 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   if (unlikely(!Py_OptimizeFlag)) {
     if (unlikely(!((__pyx_v_rho > 0.0) != 0))) {
       PyErr_SetNone(PyExc_AssertionError);
-      __PYX_ERR(0, 83, __pyx_L1_error)
+      __PYX_ERR(0, 86, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "xsmc/_viterbi.pyx":84
+  /* "xsmc/_viterbi.pyx":87
  *     assert theta > 0
  *     assert rho > 0
  *     assert scaffold.get_sequence_length() >= ts.get_sequence_length() // w             # <<<<<<<<<<<<<<
@@ -3326,7 +3334,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   #ifndef CYTHON_WITHOUT_ASSERTIONS
   if (unlikely(!Py_OptimizeFlag)) {
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_scaffold, __pyx_n_s_get_sequence_length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 84, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_scaffold, __pyx_n_s_get_sequence_length); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 87, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -3340,10 +3348,10 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
     }
     __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_get_sequence_length); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 84, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_get_sequence_length); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 87, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
@@ -3357,57 +3365,57 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
     }
     __pyx_t_2 = (__pyx_t_5) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 84, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 87, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = PyNumber_FloorDivide(__pyx_t_2, __pyx_v_w); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 84, __pyx_L1_error)
+    __pyx_t_3 = PyNumber_FloorDivide(__pyx_t_2, __pyx_v_w); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 87, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 84, __pyx_L1_error)
+    __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 87, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 84, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 87, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if (unlikely(!__pyx_t_7)) {
       PyErr_SetNone(PyExc_AssertionError);
-      __PYX_ERR(0, 84, __pyx_L1_error)
+      __PYX_ERR(0, 87, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "xsmc/_viterbi.pyx":85
+  /* "xsmc/_viterbi.pyx":88
  *     assert rho > 0
  *     assert scaffold.get_sequence_length() >= ts.get_sequence_length() // w
  *     cdef double rho_ = w * rho             # <<<<<<<<<<<<<<
  *     cdef double theta_ = w * theta
  *     if beta is None:
  */
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_rho); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_rho); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyNumber_Multiply(__pyx_v_w, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_v_w, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_rho_ = __pyx_t_8;
 
-  /* "xsmc/_viterbi.pyx":86
+  /* "xsmc/_viterbi.pyx":89
  *     assert scaffold.get_sequence_length() >= ts.get_sequence_length() // w
  *     cdef double rho_ = w * rho
  *     cdef double theta_ = w * theta             # <<<<<<<<<<<<<<
  *     if beta is None:
  *         beta = -np.log(rho_)
  */
-  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_theta); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_theta); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = PyNumber_Multiply(__pyx_v_w, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(__pyx_v_w, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_theta_ = __pyx_t_8;
 
-  /* "xsmc/_viterbi.pyx":87
+  /* "xsmc/_viterbi.pyx":90
  *     cdef double rho_ = w * rho
  *     cdef double theta_ = w * theta
  *     if beta is None:             # <<<<<<<<<<<<<<
@@ -3418,19 +3426,19 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   __pyx_t_9 = (__pyx_t_7 != 0);
   if (__pyx_t_9) {
 
-    /* "xsmc/_viterbi.pyx":88
+    /* "xsmc/_viterbi.pyx":91
  *     cdef double theta_ = w * theta
  *     if beta is None:
  *         beta = -np.log(rho_)             # <<<<<<<<<<<<<<
  *     cdef double beta_ = beta
  *     cdef double log_theta = log(theta_)
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 88, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_log); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = PyFloat_FromDouble(__pyx_v_rho_); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 88, __pyx_L1_error)
+    __pyx_t_3 = PyFloat_FromDouble(__pyx_v_rho_); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
@@ -3445,16 +3453,16 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
     __pyx_t_2 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_5, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Negative(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Negative(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF_SET(__pyx_v_beta, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "xsmc/_viterbi.pyx":87
+    /* "xsmc/_viterbi.pyx":90
  *     cdef double rho_ = w * rho
  *     cdef double theta_ = w * theta
  *     if beta is None:             # <<<<<<<<<<<<<<
@@ -3463,17 +3471,17 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   }
 
-  /* "xsmc/_viterbi.pyx":89
+  /* "xsmc/_viterbi.pyx":92
  *     if beta is None:
  *         beta = -np.log(rho_)
  *     cdef double beta_ = beta             # <<<<<<<<<<<<<<
  *     cdef double log_theta = log(theta_)
  *     cdef int i, j, k, y_i
  */
-  __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_v_beta); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_v_beta); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 92, __pyx_L1_error)
   __pyx_v_beta_ = __pyx_t_8;
 
-  /* "xsmc/_viterbi.pyx":90
+  /* "xsmc/_viterbi.pyx":93
  *         beta = -np.log(rho_)
  *     cdef double beta_ = beta
  *     cdef double log_theta = log(theta_)             # <<<<<<<<<<<<<<
@@ -3482,31 +3490,31 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_log_theta = std::log(__pyx_v_theta_);
 
-  /* "xsmc/_viterbi.pyx":94
+  /* "xsmc/_viterbi.pyx":97
  *     cdef interval intv
  * 
  *     if focal in panel:             # <<<<<<<<<<<<<<
  *         raise ValueError("focal haplotype cannot be a member of panel")
  *     if len(panel) == 0:
  */
-  __pyx_t_9 = (__Pyx_PySequence_ContainsTF(__pyx_v_focal, __pyx_v_panel, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_9 = (__Pyx_PySequence_ContainsTF(__pyx_v_focal, __pyx_v_panel, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 97, __pyx_L1_error)
   __pyx_t_7 = (__pyx_t_9 != 0);
   if (unlikely(__pyx_t_7)) {
 
-    /* "xsmc/_viterbi.pyx":95
+    /* "xsmc/_viterbi.pyx":98
  * 
  *     if focal in panel:
  *         raise ValueError("focal haplotype cannot be a member of panel")             # <<<<<<<<<<<<<<
  *     if len(panel) == 0:
  *         raise ValueError("empty panel")
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 95, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 98, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 95, __pyx_L1_error)
+    __PYX_ERR(0, 98, __pyx_L1_error)
 
-    /* "xsmc/_viterbi.pyx":94
+    /* "xsmc/_viterbi.pyx":97
  *     cdef interval intv
  * 
  *     if focal in panel:             # <<<<<<<<<<<<<<
@@ -3515,31 +3523,31 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   }
 
-  /* "xsmc/_viterbi.pyx":96
+  /* "xsmc/_viterbi.pyx":99
  *     if focal in panel:
  *         raise ValueError("focal haplotype cannot be a member of panel")
  *     if len(panel) == 0:             # <<<<<<<<<<<<<<
  *         raise ValueError("empty panel")
  * 
  */
-  __pyx_t_10 = PyObject_Length(__pyx_v_panel); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_10 = PyObject_Length(__pyx_v_panel); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 99, __pyx_L1_error)
   __pyx_t_7 = ((__pyx_t_10 == 0) != 0);
   if (unlikely(__pyx_t_7)) {
 
-    /* "xsmc/_viterbi.pyx":97
+    /* "xsmc/_viterbi.pyx":100
  *         raise ValueError("focal haplotype cannot be a member of panel")
  *     if len(panel) == 0:
  *         raise ValueError("empty panel")             # <<<<<<<<<<<<<<
  * 
  *     cdef unordered_map[tsk_id_t, int] panel_
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 97, __pyx_L1_error)
+    __PYX_ERR(0, 100, __pyx_L1_error)
 
-    /* "xsmc/_viterbi.pyx":96
+    /* "xsmc/_viterbi.pyx":99
  *     if focal in panel:
  *         raise ValueError("focal haplotype cannot be a member of panel")
  *     if len(panel) == 0:             # <<<<<<<<<<<<<<
@@ -3548,7 +3556,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   }
 
-  /* "xsmc/_viterbi.pyx":100
+  /* "xsmc/_viterbi.pyx":103
  * 
  *     cdef unordered_map[tsk_id_t, int] panel_
  *     for i, tid in enumerate(panel):             # <<<<<<<<<<<<<<
@@ -3560,26 +3568,26 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
     __pyx_t_1 = __pyx_v_panel; __Pyx_INCREF(__pyx_t_1); __pyx_t_10 = 0;
     __pyx_t_12 = NULL;
   } else {
-    __pyx_t_10 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_panel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
+    __pyx_t_10 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_panel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 103, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_12 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 100, __pyx_L1_error)
+    __pyx_t_12 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 103, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_12)) {
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_10 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_10); __Pyx_INCREF(__pyx_t_2); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 100, __pyx_L1_error)
+        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_10); __Pyx_INCREF(__pyx_t_2); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 103, __pyx_L1_error)
         #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 100, __pyx_L1_error)
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 103, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         #endif
       } else {
         if (__pyx_t_10 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_10); __Pyx_INCREF(__pyx_t_2); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 100, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_10); __Pyx_INCREF(__pyx_t_2); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 103, __pyx_L1_error)
         #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 100, __pyx_L1_error)
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 103, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         #endif
       }
@@ -3589,7 +3597,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 100, __pyx_L1_error)
+          else __PYX_ERR(0, 103, __pyx_L1_error)
         }
         break;
       }
@@ -3600,17 +3608,17 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
     __pyx_v_i = __pyx_t_11;
     __pyx_t_11 = (__pyx_t_11 + 1);
 
-    /* "xsmc/_viterbi.pyx":101
+    /* "xsmc/_viterbi.pyx":104
  *     cdef unordered_map[tsk_id_t, int] panel_
  *     for i, tid in enumerate(panel):
  *         panel_[tid] = i             # <<<<<<<<<<<<<<
  * 
  *     # Minimal cost over each haplotype
  */
-    __pyx_t_13 = __Pyx_PyInt_As_int32_t(__pyx_v_tid); if (unlikely((__pyx_t_13 == ((tsk_id_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 101, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyInt_As_int32_t(__pyx_v_tid); if (unlikely((__pyx_t_13 == ((tsk_id_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 104, __pyx_L1_error)
     (__pyx_v_panel_[__pyx_t_13]) = __pyx_v_i;
 
-    /* "xsmc/_viterbi.pyx":100
+    /* "xsmc/_viterbi.pyx":103
  * 
  *     cdef unordered_map[tsk_id_t, int] panel_
  *     for i, tid in enumerate(panel):             # <<<<<<<<<<<<<<
@@ -3620,17 +3628,17 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "xsmc/_viterbi.pyx":104
+  /* "xsmc/_viterbi.pyx":107
  * 
  *     # Minimal cost over each haplotype
  *     cdef int n = len(panel)             # <<<<<<<<<<<<<<
  *     cdef minimum F_t_j
  *     cdef vector[backtrace] F_t
  */
-  __pyx_t_10 = PyObject_Length(__pyx_v_panel); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_10 = PyObject_Length(__pyx_v_panel); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 107, __pyx_L1_error)
   __pyx_v_n = __pyx_t_10;
 
-  /* "xsmc/_viterbi.pyx":107
+  /* "xsmc/_viterbi.pyx":110
  *     cdef minimum F_t_j
  *     cdef vector[backtrace] F_t
  *     F_t.resize(n)             # <<<<<<<<<<<<<<
@@ -3641,17 +3649,17 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
     __pyx_v_F_t.resize(__pyx_v_n);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 107, __pyx_L1_error)
+    __PYX_ERR(0, 110, __pyx_L1_error)
   }
 
-  /* "xsmc/_viterbi.pyx":113
+  /* "xsmc/_viterbi.pyx":116
  *     cdef vector[backtrace] cp
  *     cdef vector[backtrace] bt
  *     cp.reserve(ts.get_num_sites())             # <<<<<<<<<<<<<<
  * 
  *     assert eta.t[0] == 0.
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_get_num_sites); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_get_num_sites); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -3665,14 +3673,14 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_14 = __Pyx_PyInt_As_size_t(__pyx_t_1); if (unlikely((__pyx_t_14 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyInt_As_size_t(__pyx_t_1); if (unlikely((__pyx_t_14 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_cp.reserve(__pyx_t_14);
 
-  /* "xsmc/_viterbi.pyx":115
+  /* "xsmc/_viterbi.pyx":118
  *     cp.reserve(ts.get_num_sites())
  * 
  *     assert eta.t[0] == 0.             # <<<<<<<<<<<<<<
@@ -3681,24 +3689,24 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   #ifndef CYTHON_WITHOUT_ASSERTIONS
   if (unlikely(!Py_OptimizeFlag)) {
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_eta, __pyx_n_s_t); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_eta, __pyx_n_s_t); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 115, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 118, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyFloat_EqObjC(__pyx_t_2, __pyx_float_0_, 0., 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFloat_EqObjC(__pyx_t_2, __pyx_float_0_, 0., 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 115, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 118, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (unlikely(!__pyx_t_7)) {
       PyErr_SetNone(PyExc_AssertionError);
-      __PYX_ERR(0, 115, __pyx_L1_error)
+      __PYX_ERR(0, 118, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "xsmc/_viterbi.pyx":116
+  /* "xsmc/_viterbi.pyx":119
  * 
  *     assert eta.t[0] == 0.
  *     assert np.isinf(eta.t[-1])             # <<<<<<<<<<<<<<
@@ -3707,14 +3715,14 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   #ifndef CYTHON_WITHOUT_ASSERTIONS
   if (unlikely(!Py_OptimizeFlag)) {
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 116, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 119, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_isinf); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 116, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_isinf); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 119, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_eta, __pyx_n_s_t); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 116, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_eta, __pyx_n_s_t); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 119, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_2, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 116, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_2, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 119, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_2 = NULL;
@@ -3730,19 +3738,19 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
     __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_2, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 116, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 116, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 119, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (unlikely(!__pyx_t_7)) {
       PyErr_SetNone(PyExc_AssertionError);
-      __PYX_ERR(0, 116, __pyx_L1_error)
+      __PYX_ERR(0, 119, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "xsmc/_viterbi.pyx":118
+  /* "xsmc/_viterbi.pyx":121
  *     assert np.isinf(eta.t[-1])
  * 
  *     assert np.all(eta.Ne > 0), "Ne cannot be 0."             # <<<<<<<<<<<<<<
@@ -3751,14 +3759,14 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   #ifndef CYTHON_WITHOUT_ASSERTIONS
   if (unlikely(!Py_OptimizeFlag)) {
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 121, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_all); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_all); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 121, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_eta, __pyx_n_s_Ne); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_eta, __pyx_n_s_Ne); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 121, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = PyObject_RichCompare(__pyx_t_3, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __pyx_t_2 = PyObject_RichCompare(__pyx_t_3, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 121, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
@@ -3773,19 +3781,19 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
     __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_3, __pyx_t_2) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_2);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 121, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (unlikely(!__pyx_t_7)) {
       PyErr_SetObject(PyExc_AssertionError, __pyx_kp_s_Ne_cannot_be_0);
-      __PYX_ERR(0, 118, __pyx_L1_error)
+      __PYX_ERR(0, 121, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "xsmc/_viterbi.pyx":119
+  /* "xsmc/_viterbi.pyx":122
  * 
  *     assert np.all(eta.Ne > 0), "Ne cannot be 0."
  *     assert np.all(np.isfinite(eta.Ne)), "Ne must be finite"             # <<<<<<<<<<<<<<
@@ -3794,17 +3802,17 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   #ifndef CYTHON_WITHOUT_ASSERTIONS
   if (unlikely(!Py_OptimizeFlag)) {
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 122, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_all); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_all); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 122, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 122, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_isfinite); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_isfinite); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 122, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_eta, __pyx_n_s_Ne); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_eta, __pyx_n_s_Ne); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 122, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_6 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
@@ -3819,7 +3827,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
     __pyx_t_5 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_6, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 119, __pyx_L1_error)
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 122, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_4 = NULL;
@@ -3835,44 +3843,44 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
     __pyx_t_1 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_4, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 122, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (unlikely(!__pyx_t_7)) {
       PyErr_SetObject(PyExc_AssertionError, __pyx_kp_s_Ne_must_be_finite);
-      __PYX_ERR(0, 119, __pyx_L1_error)
+      __PYX_ERR(0, 122, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "xsmc/_viterbi.pyx":120
+  /* "xsmc/_viterbi.pyx":123
  *     assert np.all(eta.Ne > 0), "Ne cannot be 0."
  *     assert np.all(np.isfinite(eta.Ne)), "Ne must be finite"
  *     coal_rate = np.array([eta(tt) for tt in eta.t[:-1]])             # <<<<<<<<<<<<<<
  *     cdef func q
  *     cdef piecewise_func log_pi = piecewise_const_log_pi(
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 120, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 120, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 120, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_eta, __pyx_n_s_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 120, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_eta, __pyx_n_s_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_PyObject_GetSlice(__pyx_t_4, 0, -1L, NULL, NULL, &__pyx_slice__3, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 120, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetSlice(__pyx_t_4, 0, -1L, NULL, NULL, &__pyx_slice__3, 0, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (likely(PyList_CheckExact(__pyx_t_3)) || PyTuple_CheckExact(__pyx_t_3)) {
     __pyx_t_4 = __pyx_t_3; __Pyx_INCREF(__pyx_t_4); __pyx_t_10 = 0;
     __pyx_t_12 = NULL;
   } else {
-    __pyx_t_10 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 120, __pyx_L1_error)
+    __pyx_t_10 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 123, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_12 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 120, __pyx_L1_error)
+    __pyx_t_12 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 123, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   for (;;) {
@@ -3880,17 +3888,17 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
       if (likely(PyList_CheckExact(__pyx_t_4))) {
         if (__pyx_t_10 >= PyList_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_3); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 120, __pyx_L1_error)
+        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_3); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 123, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 120, __pyx_L1_error)
+        __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 123, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         #endif
       } else {
         if (__pyx_t_10 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_3); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 120, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_3); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 123, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 120, __pyx_L1_error)
+        __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 123, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         #endif
       }
@@ -3900,7 +3908,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 120, __pyx_L1_error)
+          else __PYX_ERR(0, 123, __pyx_L1_error)
         }
         break;
       }
@@ -3921,10 +3929,10 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
     }
     __pyx_t_3 = (__pyx_t_15) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_15, __pyx_v_tt) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_v_tt);
     __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 120, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 123, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_3))) __PYX_ERR(0, 120, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_3))) __PYX_ERR(0, 123, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -3941,24 +3949,24 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   __pyx_t_1 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_4, __pyx_t_2) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_2);
   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 120, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_v_coal_rate = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "xsmc/_viterbi.pyx":123
+  /* "xsmc/_viterbi.pyx":126
  *     cdef func q
  *     cdef piecewise_func log_pi = piecewise_const_log_pi(
  *         coal_rate.astype(np.float64),             # <<<<<<<<<<<<<<
  *         eta.t[1:].astype(np.float64),
  *         beta_
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_coal_rate, __pyx_n_s_astype); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_coal_rate, __pyx_n_s_astype); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_float64); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_float64); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -3974,30 +3982,30 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_2, __pyx_t_4) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_4);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 123, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "xsmc/_viterbi.pyx":124
+  /* "xsmc/_viterbi.pyx":127
  *     cdef piecewise_func log_pi = piecewise_const_log_pi(
  *         coal_rate.astype(np.float64),
  *         eta.t[1:].astype(np.float64),             # <<<<<<<<<<<<<<
  *         beta_
  *     )
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_eta, __pyx_n_s_t); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_eta, __pyx_n_s_t); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_4 = __Pyx_PyObject_GetSlice(__pyx_t_5, 1, 0, NULL, NULL, &__pyx_slice__4, 1, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetSlice(__pyx_t_5, 1, 0, NULL, NULL, &__pyx_slice__4, 1, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_astype); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_astype); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float64); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float64); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = NULL;
@@ -4013,13 +4021,13 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   __pyx_t_1 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_4, __pyx_t_2) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_2);
   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 124, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_17 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_17.memview)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __pyx_t_17 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_17.memview)) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "xsmc/_viterbi.pyx":122
+  /* "xsmc/_viterbi.pyx":125
  *     coal_rate = np.array([eta(tt) for tt in eta.t[:-1]])
  *     cdef func q
  *     cdef piecewise_func log_pi = piecewise_const_log_pi(             # <<<<<<<<<<<<<<
@@ -4034,7 +4042,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   __pyx_t_17.memview = NULL;
   __pyx_t_17.data = NULL;
 
-  /* "xsmc/_viterbi.pyx":128
+  /* "xsmc/_viterbi.pyx":131
  *     )
  *     cdef vector[int] positions
  *     cdef int pos = 0             # <<<<<<<<<<<<<<
@@ -4043,7 +4051,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_pos = 0;
 
-  /* "xsmc/_viterbi.pyx":129
+  /* "xsmc/_viterbi.pyx":132
  *     cdef vector[int] positions
  *     cdef int pos = 0
  *     positions.push_back(pos)             # <<<<<<<<<<<<<<
@@ -4054,17 +4062,17 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
     __pyx_v_positions.push_back(__pyx_v_pos);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 129, __pyx_L1_error)
+    __PYX_ERR(0, 132, __pyx_L1_error)
   }
 
-  /* "xsmc/_viterbi.pyx":130
+  /* "xsmc/_viterbi.pyx":133
  *     cdef int pos = 0
  *     positions.push_back(pos)
  *     cdef int L_w = <int>(ts.get_sequence_length() // w)             # <<<<<<<<<<<<<<
  *     i = -1
  * 
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_get_sequence_length); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 130, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_get_sequence_length); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_2 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -4078,17 +4086,17 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   }
   __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 130, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyNumber_FloorDivide(__pyx_t_1, __pyx_v_w); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 130, __pyx_L1_error)
+  __pyx_t_5 = PyNumber_FloorDivide(__pyx_t_1, __pyx_v_w); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_t_5); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 130, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_t_5); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_v_L_w = ((int)__pyx_t_11);
 
-  /* "xsmc/_viterbi.pyx":131
+  /* "xsmc/_viterbi.pyx":134
  *     positions.push_back(pos)
  *     cdef int L_w = <int>(ts.get_sequence_length() // w)
  *     i = -1             # <<<<<<<<<<<<<<
@@ -4097,26 +4105,26 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_i = -1;
 
-  /* "xsmc/_viterbi.pyx":136
+  /* "xsmc/_viterbi.pyx":139
  *     # genotype index 0, and the panel haps have genotype indices 1, ..., n + 1
  *     cdef tsk_vargen_t _vg
  *     cdef vector[tsk_id_t] _samples = [focal] + panel             # <<<<<<<<<<<<<<
  *     err = tsk_vargen_init(&_vg, &_ts, _samples.data(), _samples.size(), NULL, 0)
  * 
  */
-  __pyx_t_5 = PyList_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_5 = PyList_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_INCREF(__pyx_v_focal);
   __Pyx_GIVEREF(__pyx_v_focal);
   PyList_SET_ITEM(__pyx_t_5, 0, __pyx_v_focal);
-  __pyx_t_1 = PyNumber_Add(__pyx_t_5, __pyx_v_panel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Add(__pyx_t_5, __pyx_v_panel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_18 = __pyx_convert_vector_from_py_tsk_id_t(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_18 = __pyx_convert_vector_from_py_tsk_id_t(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v__samples = __pyx_t_18;
 
-  /* "xsmc/_viterbi.pyx":137
+  /* "xsmc/_viterbi.pyx":140
  *     cdef tsk_vargen_t _vg
  *     cdef vector[tsk_id_t] _samples = [focal] + panel
  *     err = tsk_vargen_init(&_vg, &_ts, _samples.data(), _samples.size(), NULL, 0)             # <<<<<<<<<<<<<<
@@ -4125,17 +4133,17 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_err = tsk_vargen_init((&__pyx_v__vg), (&__pyx_v__ts), __pyx_v__samples.data(), __pyx_v__samples.size(), NULL, 0);
 
-  /* "xsmc/_viterbi.pyx":140
+  /* "xsmc/_viterbi.pyx":143
  * 
  *     cdef obs_iter state
  *     state.w = w             # <<<<<<<<<<<<<<
  *     state.L = L_w
  *     state.ell = 0
  */
-  __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_v_w); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 140, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyInt_As_int(__pyx_v_w); if (unlikely((__pyx_t_11 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 143, __pyx_L1_error)
   __pyx_v_state.w = __pyx_t_11;
 
-  /* "xsmc/_viterbi.pyx":141
+  /* "xsmc/_viterbi.pyx":144
  *     cdef obs_iter state
  *     state.w = w
  *     state.L = L_w             # <<<<<<<<<<<<<<
@@ -4144,7 +4152,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_state.L = __pyx_v_L_w;
 
-  /* "xsmc/_viterbi.pyx":142
+  /* "xsmc/_viterbi.pyx":145
  *     state.w = w
  *     state.L = L_w
  *     state.ell = 0             # <<<<<<<<<<<<<<
@@ -4153,7 +4161,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_state.ell = 0;
 
-  /* "xsmc/_viterbi.pyx":143
+  /* "xsmc/_viterbi.pyx":146
  *     state.L = L_w
  *     state.ell = 0
  *     state.err = 1             # <<<<<<<<<<<<<<
@@ -4162,7 +4170,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_state.err = 1;
 
-  /* "xsmc/_viterbi.pyx":144
+  /* "xsmc/_viterbi.pyx":147
  *     state.ell = 0
  *     state.err = 1
  *     state.vg = &_vg             # <<<<<<<<<<<<<<
@@ -4171,7 +4179,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_state.vg = (&__pyx_v__vg);
 
-  /* "xsmc/_viterbi.pyx":145
+  /* "xsmc/_viterbi.pyx":148
  *     state.err = 1
  *     state.vg = &_vg
  *     assert n + 1 == state.vg.num_samples             # <<<<<<<<<<<<<<
@@ -4182,51 +4190,51 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   if (unlikely(!Py_OptimizeFlag)) {
     if (unlikely(!(((__pyx_v_n + 1) == __pyx_v_state.vg->num_samples) != 0))) {
       PyErr_SetNone(PyExc_AssertionError);
-      __PYX_ERR(0, 145, __pyx_L1_error)
+      __PYX_ERR(0, 148, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "xsmc/_viterbi.pyx":146
+  /* "xsmc/_viterbi.pyx":149
  *     state.vg = &_vg
  *     assert n + 1 == state.vg.num_samples
  *     cdef int32_t[:] mismatches = np.zeros(n, dtype=np.int32)             # <<<<<<<<<<<<<<
  *     state.mismatches = &mismatches[0]
  *     state.err = tsk_vargen_next(state.vg, &state.var)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_int32); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_int32); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(0, 146, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_19 = __Pyx_PyObject_to_MemoryviewSlice_ds_nn_int32_t(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_19.memview)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_19 = __Pyx_PyObject_to_MemoryviewSlice_ds_nn_int32_t(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_19.memview)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_mismatches = __pyx_t_19;
   __pyx_t_19.memview = NULL;
   __pyx_t_19.data = NULL;
 
-  /* "xsmc/_viterbi.pyx":147
+  /* "xsmc/_viterbi.pyx":150
  *     assert n + 1 == state.vg.num_samples
  *     cdef int32_t[:] mismatches = np.zeros(n, dtype=np.int32)
  *     state.mismatches = &mismatches[0]             # <<<<<<<<<<<<<<
@@ -4237,7 +4245,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   if (__pyx_t_20 < 0) __pyx_t_20 += __pyx_v_mismatches.shape[0];
   __pyx_v_state.mismatches = (&(*((int32_t *) ( /* dim=0 */ (__pyx_v_mismatches.data + __pyx_t_20 * __pyx_v_mismatches.strides[0]) ))));
 
-  /* "xsmc/_viterbi.pyx":148
+  /* "xsmc/_viterbi.pyx":151
  *     cdef int32_t[:] mismatches = np.zeros(n, dtype=np.int32)
  *     state.mismatches = &mismatches[0]
  *     state.err = tsk_vargen_next(state.vg, &state.var)             # <<<<<<<<<<<<<<
@@ -4246,28 +4254,28 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_state.err = tsk_vargen_next(__pyx_v_state.vg, (&__pyx_v_state.var));
 
-  /* "xsmc/_viterbi.pyx":151
+  /* "xsmc/_viterbi.pyx":154
  * 
  *     # Initialize the tree sequence iterator for the arg
  *     cdef LightweightTableCollection lwt_arg = LightweightTableCollection()             # <<<<<<<<<<<<<<
  *     lwt_arg.fromdict(scaffold.dump_tables().asdict())
  *     cdef tsk_treeseq_t _arg_ts
  */
-  __pyx_t_3 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_4xsmc_6_tskit_LightweightTableCollection)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 151, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_4xsmc_6_tskit_LightweightTableCollection)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 154, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_v_lwt_arg = ((LightweightTableCollection *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "xsmc/_viterbi.pyx":152
+  /* "xsmc/_viterbi.pyx":155
  *     # Initialize the tree sequence iterator for the arg
  *     cdef LightweightTableCollection lwt_arg = LightweightTableCollection()
  *     lwt_arg.fromdict(scaffold.dump_tables().asdict())             # <<<<<<<<<<<<<<
  *     cdef tsk_treeseq_t _arg_ts
  *     err = tsk_treeseq_init(&_arg_ts, lwt_arg.tables, 0)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_lwt_arg), __pyx_n_s_fromdict); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_lwt_arg), __pyx_n_s_fromdict); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_scaffold, __pyx_n_s_dump_tables); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_scaffold, __pyx_n_s_dump_tables); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_6 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -4281,10 +4289,10 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   }
   __pyx_t_5 = (__pyx_t_6) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_6) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 152, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_asdict); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_asdict); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_5 = NULL;
@@ -4299,7 +4307,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   }
   __pyx_t_2 = (__pyx_t_5) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 152, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = NULL;
@@ -4315,12 +4323,12 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_4, __pyx_t_2) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_2);
   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 152, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "xsmc/_viterbi.pyx":154
+  /* "xsmc/_viterbi.pyx":157
  *     lwt_arg.fromdict(scaffold.dump_tables().asdict())
  *     cdef tsk_treeseq_t _arg_ts
  *     err = tsk_treeseq_init(&_arg_ts, lwt_arg.tables, 0)             # <<<<<<<<<<<<<<
@@ -4329,7 +4337,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_err = tsk_treeseq_init((&__pyx_v__arg_ts), __pyx_v_lwt_arg->tables, 0);
 
-  /* "xsmc/_viterbi.pyx":155
+  /* "xsmc/_viterbi.pyx":158
  *     cdef tsk_treeseq_t _arg_ts
  *     err = tsk_treeseq_init(&_arg_ts, lwt_arg.tables, 0)
  *     check_error(err)             # <<<<<<<<<<<<<<
@@ -4338,7 +4346,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   __pyx_f_4xsmc_6_tskit_check_error(__pyx_v_err);
 
-  /* "xsmc/_viterbi.pyx":157
+  /* "xsmc/_viterbi.pyx":160
  *     check_error(err)
  *     cdef tsk_tree_t _arg_tree
  *     err = tsk_tree_init(&_arg_tree, &_arg_ts, 0);             # <<<<<<<<<<<<<<
@@ -4347,7 +4355,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_err = tsk_tree_init((&__pyx_v__arg_tree), (&__pyx_v__arg_ts), 0);
 
-  /* "xsmc/_viterbi.pyx":158
+  /* "xsmc/_viterbi.pyx":161
  *     cdef tsk_tree_t _arg_tree
  *     err = tsk_tree_init(&_arg_tree, &_arg_ts, 0);
  *     check_error(err)             # <<<<<<<<<<<<<<
@@ -4356,7 +4364,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   __pyx_f_4xsmc_6_tskit_check_error(__pyx_v_err);
 
-  /* "xsmc/_viterbi.pyx":159
+  /* "xsmc/_viterbi.pyx":162
  *     err = tsk_tree_init(&_arg_tree, &_arg_ts, 0);
  *     check_error(err)
  *     tsk_tree_first(&_arg_tree)             # <<<<<<<<<<<<<<
@@ -4365,7 +4373,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   (void)(tsk_tree_first((&__pyx_v__arg_tree)));
 
-  /* "xsmc/_viterbi.pyx":160
+  /* "xsmc/_viterbi.pyx":163
  *     check_error(err)
  *     tsk_tree_first(&_arg_tree)
  *     cdef vector[piecewise_func] priors = arg_prior(log_pi, &_arg_tree)             # <<<<<<<<<<<<<<
@@ -4374,7 +4382,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_priors = __pyx_f_4xsmc_8_viterbi_arg_prior(__pyx_v_log_pi, (&__pyx_v__arg_tree));
 
-  /* "xsmc/_viterbi.pyx":165
+  /* "xsmc/_viterbi.pyx":168
  *     # C are the cost functions for each haplotype
  *     cdef vector[piecewise_func] C
  *     for j in range(n):             # <<<<<<<<<<<<<<
@@ -4386,7 +4394,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   for (__pyx_t_22 = 0; __pyx_t_22 < __pyx_t_21; __pyx_t_22+=1) {
     __pyx_v_j = __pyx_t_22;
 
-    /* "xsmc/_viterbi.pyx":166
+    /* "xsmc/_viterbi.pyx":169
  *     cdef vector[piecewise_func] C
  *     for j in range(n):
  *         C.push_back(priors.at(j))             # <<<<<<<<<<<<<<
@@ -4397,16 +4405,16 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
       __pyx_t_23 = __pyx_v_priors.at(__pyx_v_j);
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      __PYX_ERR(0, 166, __pyx_L1_error)
+      __PYX_ERR(0, 169, __pyx_L1_error)
     }
     try {
       __pyx_v_C.push_back(__pyx_t_23);
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      __PYX_ERR(0, 166, __pyx_L1_error)
+      __PYX_ERR(0, 169, __pyx_L1_error)
     }
 
-    /* "xsmc/_viterbi.pyx":168
+    /* "xsmc/_viterbi.pyx":171
  *         C.push_back(priors.at(j))
  *         # subtract off one x because the first prior is not length-biased
  *         for k in range(C.at(j).f.size()):             # <<<<<<<<<<<<<<
@@ -4417,14 +4425,14 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
       __pyx_t_24 = __pyx_v_C.at(__pyx_v_j);
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      __PYX_ERR(0, 168, __pyx_L1_error)
+      __PYX_ERR(0, 171, __pyx_L1_error)
     }
     __pyx_t_25 = __pyx_t_24->f.size();
     __pyx_t_26 = __pyx_t_25;
     for (__pyx_t_27 = 0; __pyx_t_27 < __pyx_t_26; __pyx_t_27+=1) {
       __pyx_v_k = __pyx_t_27;
 
-      /* "xsmc/_viterbi.pyx":169
+      /* "xsmc/_viterbi.pyx":172
  *         # subtract off one x because the first prior is not length-biased
  *         for k in range(C.at(j).f.size()):
  *             C.at(j).f.at(k).c[1] -= 1.             # <<<<<<<<<<<<<<
@@ -4435,20 +4443,20 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
         __pyx_t_28 = __pyx_v_C.at(__pyx_v_j);
       } catch(...) {
         __Pyx_CppExn2PyErr();
-        __PYX_ERR(0, 169, __pyx_L1_error)
+        __PYX_ERR(0, 172, __pyx_L1_error)
       }
       try {
         __pyx_t_29 = __pyx_t_28->f.at(__pyx_v_k);
       } catch(...) {
         __Pyx_CppExn2PyErr();
-        __PYX_ERR(0, 169, __pyx_L1_error)
+        __PYX_ERR(0, 172, __pyx_L1_error)
       }
       __pyx_t_30 = 1;
       (__pyx_t_29->c[__pyx_t_30]) = ((__pyx_t_29->c[__pyx_t_30]) - 1.);
     }
   }
 
-  /* "xsmc/_viterbi.pyx":171
+  /* "xsmc/_viterbi.pyx":174
  *             C.at(j).f.at(k).c[1] -= 1.
  * 
  *     err = get_next_obs(&state)             # <<<<<<<<<<<<<<
@@ -4457,7 +4465,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_err = __pyx_f_4xsmc_8_viterbi_get_next_obs((&__pyx_v_state));
 
-  /* "xsmc/_viterbi.pyx":172
+  /* "xsmc/_viterbi.pyx":175
  * 
  *     err = get_next_obs(&state)
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -4472,7 +4480,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
       #endif
       /*try:*/ {
 
-        /* "xsmc/_viterbi.pyx":173
+        /* "xsmc/_viterbi.pyx":176
  *     err = get_next_obs(&state)
  *     with nogil:
  *         while err == 1:             # <<<<<<<<<<<<<<
@@ -4483,7 +4491,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
           __pyx_t_7 = ((__pyx_v_err == 1) != 0);
           if (!__pyx_t_7) break;
 
-          /* "xsmc/_viterbi.pyx":177
+          /* "xsmc/_viterbi.pyx":180
  * 
  *             # loop1: increment all the current ibd tracts
  *             i += 1             # <<<<<<<<<<<<<<
@@ -4492,7 +4500,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
           __pyx_v_i = (__pyx_v_i + 1);
 
-          /* "xsmc/_viterbi.pyx":181
+          /* "xsmc/_viterbi.pyx":184
  *             #     with gil:
  *             #         print("*** i=", i)
  *             while _arg_tree.right < i:             # <<<<<<<<<<<<<<
@@ -4503,7 +4511,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
             __pyx_t_7 = ((__pyx_v__arg_tree.right < __pyx_v_i) != 0);
             if (!__pyx_t_7) break;
 
-            /* "xsmc/_viterbi.pyx":182
+            /* "xsmc/_viterbi.pyx":185
  *             #         print("*** i=", i)
  *             while _arg_tree.right < i:
  *                 tsk_tree_next(&_arg_tree)  # FIXME assert ret == 1             # <<<<<<<<<<<<<<
@@ -4512,7 +4520,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
             (void)(tsk_tree_next((&__pyx_v__arg_tree)));
 
-            /* "xsmc/_viterbi.pyx":183
+            /* "xsmc/_viterbi.pyx":186
  *             while _arg_tree.right < i:
  *                 tsk_tree_next(&_arg_tree)  # FIXME assert ret == 1
  *                 priors = arg_prior(log_pi, &_arg_tree)             # <<<<<<<<<<<<<<
@@ -4522,7 +4530,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
             __pyx_v_priors = __pyx_f_4xsmc_8_viterbi_arg_prior(__pyx_v_log_pi, (&__pyx_v__arg_tree));
           }
 
-          /* "xsmc/_viterbi.pyx":184
+          /* "xsmc/_viterbi.pyx":187
  *                 tsk_tree_next(&_arg_tree)  # FIXME assert ret == 1
  *                 priors = arg_prior(log_pi, &_arg_tree)
  *             pos = state.ell             # <<<<<<<<<<<<<<
@@ -4532,7 +4540,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
           __pyx_t_11 = __pyx_v_state.ell;
           __pyx_v_pos = __pyx_t_11;
 
-          /* "xsmc/_viterbi.pyx":185
+          /* "xsmc/_viterbi.pyx":188
  *                 priors = arg_prior(log_pi, &_arg_tree)
  *             pos = state.ell
  *             delta = pos - positions.back()  # = 1             # <<<<<<<<<<<<<<
@@ -4541,7 +4549,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
           __pyx_v_delta = (__pyx_v_pos - __pyx_v_positions.back());
 
-          /* "xsmc/_viterbi.pyx":186
+          /* "xsmc/_viterbi.pyx":189
  *             pos = state.ell
  *             delta = pos - positions.back()  # = 1
  *             positions.push_back(pos)             # <<<<<<<<<<<<<<
@@ -4558,10 +4566,10 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
             #ifdef WITH_THREAD
             __Pyx_PyGILState_Release(__pyx_gilstate_save);
             #endif
-            __PYX_ERR(0, 186, __pyx_L15_error)
+            __PYX_ERR(0, 189, __pyx_L15_error)
           }
 
-          /* "xsmc/_viterbi.pyx":187
+          /* "xsmc/_viterbi.pyx":190
  *             delta = pos - positions.back()  # = 1
  *             positions.push_back(pos)
  *             for j in range(n):             # <<<<<<<<<<<<<<
@@ -4573,7 +4581,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
           for (__pyx_t_22 = 0; __pyx_t_22 < __pyx_t_21; __pyx_t_22+=1) {
             __pyx_v_j = __pyx_t_22;
 
-            /* "xsmc/_viterbi.pyx":188
+            /* "xsmc/_viterbi.pyx":191
  *             positions.push_back(pos)
  *             for j in range(n):
  *                 for k in range(C.at(j).f.size()):             # <<<<<<<<<<<<<<
@@ -4590,14 +4598,14 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 188, __pyx_L15_error)
+              __PYX_ERR(0, 191, __pyx_L15_error)
             }
             __pyx_t_25 = __pyx_t_31->f.size();
             __pyx_t_26 = __pyx_t_25;
             for (__pyx_t_27 = 0; __pyx_t_27 < __pyx_t_26; __pyx_t_27+=1) {
               __pyx_v_k = __pyx_t_27;
 
-              /* "xsmc/_viterbi.pyx":189
+              /* "xsmc/_viterbi.pyx":192
  *             for j in range(n):
  *                 for k in range(C.at(j).f.size()):
  *                     if robust:             # <<<<<<<<<<<<<<
@@ -4607,7 +4615,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
               __pyx_t_7 = (__pyx_v_robust != 0);
               if (__pyx_t_7) {
 
-                /* "xsmc/_viterbi.pyx":192
+                /* "xsmc/_viterbi.pyx":195
  *                         # bernoulli obs, which adds contribution
  *                         # (1-min(y_i, 1)) * (-w theta x) + min(y_i, 1) log(w theta x)
  *                         y_i = min(1, state.mismatches[j])             # <<<<<<<<<<<<<<
@@ -4623,7 +4631,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                 }
                 __pyx_v_y_i = __pyx_t_33;
 
-                /* "xsmc/_viterbi.pyx":193
+                /* "xsmc/_viterbi.pyx":196
  *                         # (1-min(y_i, 1)) * (-w theta x) + min(y_i, 1) log(w theta x)
  *                         y_i = min(1, state.mismatches[j])
  *                         C.at(j).f.at(k).c[0] += ((1 - y_i) * theta_ + rho_)             # <<<<<<<<<<<<<<
@@ -4640,7 +4648,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 193, __pyx_L15_error)
+                  __PYX_ERR(0, 196, __pyx_L15_error)
                 }
                 try {
                   __pyx_t_35 = __pyx_t_34->f.at(__pyx_v_k);
@@ -4652,12 +4660,12 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 193, __pyx_L15_error)
+                  __PYX_ERR(0, 196, __pyx_L15_error)
                 }
                 __pyx_t_33 = 0;
                 (__pyx_t_35->c[__pyx_t_33]) = ((__pyx_t_35->c[__pyx_t_33]) + (((1 - __pyx_v_y_i) * __pyx_v_theta_) + __pyx_v_rho_));
 
-                /* "xsmc/_viterbi.pyx":194
+                /* "xsmc/_viterbi.pyx":197
  *                         y_i = min(1, state.mismatches[j])
  *                         C.at(j).f.at(k).c[0] += ((1 - y_i) * theta_ + rho_)
  *                         C.at(j).f.at(k).c[1] += y_i             # <<<<<<<<<<<<<<
@@ -4674,7 +4682,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 194, __pyx_L15_error)
+                  __PYX_ERR(0, 197, __pyx_L15_error)
                 }
                 try {
                   __pyx_t_37 = __pyx_t_36->f.at(__pyx_v_k);
@@ -4686,12 +4694,12 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 194, __pyx_L15_error)
+                  __PYX_ERR(0, 197, __pyx_L15_error)
                 }
                 __pyx_t_33 = 1;
                 (__pyx_t_37->c[__pyx_t_33]) = ((__pyx_t_37->c[__pyx_t_33]) + __pyx_v_y_i);
 
-                /* "xsmc/_viterbi.pyx":195
+                /* "xsmc/_viterbi.pyx":198
  *                         C.at(j).f.at(k).c[0] += ((1 - y_i) * theta_ + rho_)
  *                         C.at(j).f.at(k).c[1] += y_i
  *                         C.at(j).f.at(k).c[2] += -y_i * log_theta             # <<<<<<<<<<<<<<
@@ -4708,7 +4716,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 195, __pyx_L15_error)
+                  __PYX_ERR(0, 198, __pyx_L15_error)
                 }
                 try {
                   __pyx_t_39 = __pyx_t_38->f.at(__pyx_v_k);
@@ -4720,12 +4728,12 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 195, __pyx_L15_error)
+                  __PYX_ERR(0, 198, __pyx_L15_error)
                 }
                 __pyx_t_33 = 2;
                 (__pyx_t_39->c[__pyx_t_33]) = ((__pyx_t_39->c[__pyx_t_33]) + ((-__pyx_v_y_i) * __pyx_v_log_theta));
 
-                /* "xsmc/_viterbi.pyx":189
+                /* "xsmc/_viterbi.pyx":192
  *             for j in range(n):
  *                 for k in range(C.at(j).f.size()):
  *                     if robust:             # <<<<<<<<<<<<<<
@@ -4735,7 +4743,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                 goto __pyx_L25;
               }
 
-              /* "xsmc/_viterbi.pyx":197
+              /* "xsmc/_viterbi.pyx":200
  *                         C.at(j).f.at(k).c[2] += -y_i * log_theta
  *                     else:
  *                         y_i = state.mismatches[j]             # <<<<<<<<<<<<<<
@@ -4745,7 +4753,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
               /*else*/ {
                 __pyx_v_y_i = (__pyx_v_state.mismatches[__pyx_v_j]);
 
-                /* "xsmc/_viterbi.pyx":198
+                /* "xsmc/_viterbi.pyx":201
  *                     else:
  *                         y_i = state.mismatches[j]
  *                         C.at(j).f.at(k).c[0] += theta_ + rho_             # <<<<<<<<<<<<<<
@@ -4762,7 +4770,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 198, __pyx_L15_error)
+                  __PYX_ERR(0, 201, __pyx_L15_error)
                 }
                 try {
                   __pyx_t_41 = __pyx_t_40->f.at(__pyx_v_k);
@@ -4774,12 +4782,12 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 198, __pyx_L15_error)
+                  __PYX_ERR(0, 201, __pyx_L15_error)
                 }
                 __pyx_t_33 = 0;
                 (__pyx_t_41->c[__pyx_t_33]) = ((__pyx_t_41->c[__pyx_t_33]) + (__pyx_v_theta_ + __pyx_v_rho_));
 
-                /* "xsmc/_viterbi.pyx":199
+                /* "xsmc/_viterbi.pyx":202
  *                         y_i = state.mismatches[j]
  *                         C.at(j).f.at(k).c[0] += theta_ + rho_
  *                         C.at(j).f.at(k).c[1] += y_i             # <<<<<<<<<<<<<<
@@ -4796,7 +4804,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 199, __pyx_L15_error)
+                  __PYX_ERR(0, 202, __pyx_L15_error)
                 }
                 try {
                   __pyx_t_43 = __pyx_t_42->f.at(__pyx_v_k);
@@ -4808,12 +4816,12 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 199, __pyx_L15_error)
+                  __PYX_ERR(0, 202, __pyx_L15_error)
                 }
                 __pyx_t_33 = 1;
                 (__pyx_t_43->c[__pyx_t_33]) = ((__pyx_t_43->c[__pyx_t_33]) + __pyx_v_y_i);
 
-                /* "xsmc/_viterbi.pyx":200
+                /* "xsmc/_viterbi.pyx":203
  *                         C.at(j).f.at(k).c[0] += theta_ + rho_
  *                         C.at(j).f.at(k).c[1] += y_i
  *                         C.at(j).f.at(k).c[2] += gsl_sf_lngamma(1 + y_i) - y_i * log_theta             # <<<<<<<<<<<<<<
@@ -4830,7 +4838,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 200, __pyx_L15_error)
+                  __PYX_ERR(0, 203, __pyx_L15_error)
                 }
                 try {
                   __pyx_t_45 = __pyx_t_44->f.at(__pyx_v_k);
@@ -4842,14 +4850,14 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 200, __pyx_L15_error)
+                  __PYX_ERR(0, 203, __pyx_L15_error)
                 }
                 __pyx_t_33 = 2;
                 (__pyx_t_45->c[__pyx_t_33]) = ((__pyx_t_45->c[__pyx_t_33]) + (gsl_sf_lngamma((1 + __pyx_v_y_i)) - (__pyx_v_y_i * __pyx_v_log_theta)));
               }
               __pyx_L25:;
 
-              /* "xsmc/_viterbi.pyx":201
+              /* "xsmc/_viterbi.pyx":204
  *                         C.at(j).f.at(k).c[1] += y_i
  *                         C.at(j).f.at(k).c[2] += gsl_sf_lngamma(1 + y_i) - y_i * log_theta
  *                     C.at(j).f.at(k).k += 1             # <<<<<<<<<<<<<<
@@ -4866,7 +4874,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                 #ifdef WITH_THREAD
                 __Pyx_PyGILState_Release(__pyx_gilstate_save);
                 #endif
-                __PYX_ERR(0, 201, __pyx_L15_error)
+                __PYX_ERR(0, 204, __pyx_L15_error)
               }
               try {
                 __pyx_t_47 = __pyx_t_46->f.at(__pyx_v_k);
@@ -4878,13 +4886,13 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                 #ifdef WITH_THREAD
                 __Pyx_PyGILState_Release(__pyx_gilstate_save);
                 #endif
-                __PYX_ERR(0, 201, __pyx_L15_error)
+                __PYX_ERR(0, 204, __pyx_L15_error)
               }
               __pyx_t_47->k = (__pyx_t_47->k + 1);
             }
           }
 
-          /* "xsmc/_viterbi.pyx":207
+          /* "xsmc/_viterbi.pyx":210
  * 
  *             # loop 2: compute minimal cost function for recombination at this position
  *             for j in range(n):             # <<<<<<<<<<<<<<
@@ -4896,7 +4904,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
           for (__pyx_t_22 = 0; __pyx_t_22 < __pyx_t_21; __pyx_t_22+=1) {
             __pyx_v_j = __pyx_t_22;
 
-            /* "xsmc/_viterbi.pyx":208
+            /* "xsmc/_viterbi.pyx":211
  *             # loop 2: compute minimal cost function for recombination at this position
  *             for j in range(n):
  *                 F_t.at(j).m.f = INFINITY             # <<<<<<<<<<<<<<
@@ -4913,11 +4921,11 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 208, __pyx_L15_error)
+              __PYX_ERR(0, 211, __pyx_L15_error)
             }
             __pyx_t_48->m.f = INFINITY;
 
-            /* "xsmc/_viterbi.pyx":209
+            /* "xsmc/_viterbi.pyx":212
  *             for j in range(n):
  *                 F_t.at(j).m.f = INFINITY
  *                 for k in range(C.at(j).f.size()):             # <<<<<<<<<<<<<<
@@ -4934,14 +4942,14 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 209, __pyx_L15_error)
+              __PYX_ERR(0, 212, __pyx_L15_error)
             }
             __pyx_t_25 = __pyx_t_49->f.size();
             __pyx_t_26 = __pyx_t_25;
             for (__pyx_t_27 = 0; __pyx_t_27 < __pyx_t_26; __pyx_t_27+=1) {
               __pyx_v_k = __pyx_t_27;
 
-              /* "xsmc/_viterbi.pyx":210
+              /* "xsmc/_viterbi.pyx":213
  *                 F_t.at(j).m.f = INFINITY
  *                 for k in range(C.at(j).f.size()):
  *                     q = C.at(j).f.at(k)             # <<<<<<<<<<<<<<
@@ -4958,7 +4966,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                 #ifdef WITH_THREAD
                 __Pyx_PyGILState_Release(__pyx_gilstate_save);
                 #endif
-                __PYX_ERR(0, 210, __pyx_L15_error)
+                __PYX_ERR(0, 213, __pyx_L15_error)
               }
               try {
                 __pyx_t_51 = __pyx_t_50->f.at(__pyx_v_k);
@@ -4970,11 +4978,11 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                 #ifdef WITH_THREAD
                 __Pyx_PyGILState_Release(__pyx_gilstate_save);
                 #endif
-                __PYX_ERR(0, 210, __pyx_L15_error)
+                __PYX_ERR(0, 213, __pyx_L15_error)
               }
               __pyx_v_q = __pyx_t_51;
 
-              /* "xsmc/_viterbi.pyx":211
+              /* "xsmc/_viterbi.pyx":214
  *                 for k in range(C.at(j).f.size()):
  *                     q = C.at(j).f.at(k)
  *                     intv[0] = C.at(j).t.at(k)             # <<<<<<<<<<<<<<
@@ -4991,7 +4999,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                 #ifdef WITH_THREAD
                 __Pyx_PyGILState_Release(__pyx_gilstate_save);
                 #endif
-                __PYX_ERR(0, 211, __pyx_L15_error)
+                __PYX_ERR(0, 214, __pyx_L15_error)
               }
               try {
                 __pyx_t_53 = __pyx_t_52->t.at(__pyx_v_k);
@@ -5003,11 +5011,11 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                 #ifdef WITH_THREAD
                 __Pyx_PyGILState_Release(__pyx_gilstate_save);
                 #endif
-                __PYX_ERR(0, 211, __pyx_L15_error)
+                __PYX_ERR(0, 214, __pyx_L15_error)
               }
               (__pyx_v_intv[0]) = __pyx_t_53;
 
-              /* "xsmc/_viterbi.pyx":212
+              /* "xsmc/_viterbi.pyx":215
  *                     q = C.at(j).f.at(k)
  *                     intv[0] = C.at(j).t.at(k)
  *                     intv[1] = C.at(j).t.at(k + 1)             # <<<<<<<<<<<<<<
@@ -5024,7 +5032,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                 #ifdef WITH_THREAD
                 __Pyx_PyGILState_Release(__pyx_gilstate_save);
                 #endif
-                __PYX_ERR(0, 212, __pyx_L15_error)
+                __PYX_ERR(0, 215, __pyx_L15_error)
               }
               try {
                 __pyx_t_55 = __pyx_t_54->t.at((__pyx_v_k + 1));
@@ -5036,11 +5044,11 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                 #ifdef WITH_THREAD
                 __Pyx_PyGILState_Release(__pyx_gilstate_save);
                 #endif
-                __PYX_ERR(0, 212, __pyx_L15_error)
+                __PYX_ERR(0, 215, __pyx_L15_error)
               }
               (__pyx_v_intv[1]) = __pyx_t_55;
 
-              /* "xsmc/_viterbi.pyx":213
+              /* "xsmc/_viterbi.pyx":216
  *                     intv[0] = C.at(j).t.at(k)
  *                     intv[1] = C.at(j).t.at(k + 1)
  *                     F_t_j = min_f(q, intv)             # <<<<<<<<<<<<<<
@@ -5049,7 +5057,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
               __pyx_v_F_t_j = __pyx_f_4xsmc_8_viterbi_min_f(__pyx_v_q, __pyx_v_intv);
 
-              /* "xsmc/_viterbi.pyx":214
+              /* "xsmc/_viterbi.pyx":217
  *                     intv[1] = C.at(j).t.at(k + 1)
  *                     F_t_j = min_f(q, intv)
  *                     if F_t_j.f < F_t.at(j).m.f:             # <<<<<<<<<<<<<<
@@ -5066,12 +5074,12 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                 #ifdef WITH_THREAD
                 __Pyx_PyGILState_Release(__pyx_gilstate_save);
                 #endif
-                __PYX_ERR(0, 214, __pyx_L15_error)
+                __PYX_ERR(0, 217, __pyx_L15_error)
               }
               __pyx_t_7 = ((__pyx_v_F_t_j.f < __pyx_t_56->m.f) != 0);
               if (__pyx_t_7) {
 
-                /* "xsmc/_viterbi.pyx":215
+                /* "xsmc/_viterbi.pyx":218
  *                     F_t_j = min_f(q, intv)
  *                     if F_t_j.f < F_t.at(j).m.f:
  *                         F_t.at(j).m = F_t_j             # <<<<<<<<<<<<<<
@@ -5088,11 +5096,11 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 215, __pyx_L15_error)
+                  __PYX_ERR(0, 218, __pyx_L15_error)
                 }
                 __pyx_t_57->m = __pyx_v_F_t_j;
 
-                /* "xsmc/_viterbi.pyx":216
+                /* "xsmc/_viterbi.pyx":219
  *                     if F_t_j.f < F_t.at(j).m.f:
  *                         F_t.at(j).m = F_t_j
  *                         F_t.at(j).pos = i - q.k             # <<<<<<<<<<<<<<
@@ -5109,11 +5117,11 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 216, __pyx_L15_error)
+                  __PYX_ERR(0, 219, __pyx_L15_error)
                 }
                 __pyx_t_58->pos = (__pyx_v_i - __pyx_v_q.k);
 
-                /* "xsmc/_viterbi.pyx":217
+                /* "xsmc/_viterbi.pyx":220
  *                         F_t.at(j).m = F_t_j
  *                         F_t.at(j).pos = i - q.k
  *                         F_t.at(j).s = <int>q.c[1]             # <<<<<<<<<<<<<<
@@ -5130,11 +5138,11 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 217, __pyx_L15_error)
+                  __PYX_ERR(0, 220, __pyx_L15_error)
                 }
                 __pyx_t_59->s = ((int)(__pyx_v_q.c[1]));
 
-                /* "xsmc/_viterbi.pyx":218
+                /* "xsmc/_viterbi.pyx":221
  *                         F_t.at(j).pos = i - q.k
  *                         F_t.at(j).s = <int>q.c[1]
  *                         F_t.at(j).hap = j             # <<<<<<<<<<<<<<
@@ -5151,11 +5159,11 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 218, __pyx_L15_error)
+                  __PYX_ERR(0, 221, __pyx_L15_error)
                 }
                 __pyx_t_60->hap = __pyx_v_j;
 
-                /* "xsmc/_viterbi.pyx":214
+                /* "xsmc/_viterbi.pyx":217
  *                     intv[1] = C.at(j).t.at(k + 1)
  *                     F_t_j = min_f(q, intv)
  *                     if F_t_j.f < F_t.at(j).m.f:             # <<<<<<<<<<<<<<
@@ -5166,7 +5174,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
             }
           }
 
-          /* "xsmc/_viterbi.pyx":223
+          /* "xsmc/_viterbi.pyx":226
  *             #         print("Loop 2 F_t=", F_t)
  * 
  *             b.m.f = INFINITY             # <<<<<<<<<<<<<<
@@ -5175,7 +5183,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
           __pyx_v_b.m.f = INFINITY;
 
-          /* "xsmc/_viterbi.pyx":224
+          /* "xsmc/_viterbi.pyx":227
  * 
  *             b.m.f = INFINITY
  *             for j in range(n):             # <<<<<<<<<<<<<<
@@ -5187,7 +5195,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
           for (__pyx_t_22 = 0; __pyx_t_22 < __pyx_t_21; __pyx_t_22+=1) {
             __pyx_v_j = __pyx_t_22;
 
-            /* "xsmc/_viterbi.pyx":225
+            /* "xsmc/_viterbi.pyx":228
  *             b.m.f = INFINITY
  *             for j in range(n):
  *                 if F_t.at(j).m.f < b.m.f:             # <<<<<<<<<<<<<<
@@ -5204,12 +5212,12 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 225, __pyx_L15_error)
+              __PYX_ERR(0, 228, __pyx_L15_error)
             }
             __pyx_t_7 = ((__pyx_t_61->m.f < __pyx_v_b.m.f) != 0);
             if (__pyx_t_7) {
 
-              /* "xsmc/_viterbi.pyx":226
+              /* "xsmc/_viterbi.pyx":229
  *             for j in range(n):
  *                 if F_t.at(j).m.f < b.m.f:
  *                     b = F_t.at(j)             # <<<<<<<<<<<<<<
@@ -5226,11 +5234,11 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
                 #ifdef WITH_THREAD
                 __Pyx_PyGILState_Release(__pyx_gilstate_save);
                 #endif
-                __PYX_ERR(0, 226, __pyx_L15_error)
+                __PYX_ERR(0, 229, __pyx_L15_error)
               }
               __pyx_v_b = __pyx_t_62;
 
-              /* "xsmc/_viterbi.pyx":225
+              /* "xsmc/_viterbi.pyx":228
  *             b.m.f = INFINITY
  *             for j in range(n):
  *                 if F_t.at(j).m.f < b.m.f:             # <<<<<<<<<<<<<<
@@ -5240,7 +5248,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
             }
           }
 
-          /* "xsmc/_viterbi.pyx":227
+          /* "xsmc/_viterbi.pyx":230
  *                 if F_t.at(j).m.f < b.m.f:
  *                     b = F_t.at(j)
  *             cp.push_back(b)             # <<<<<<<<<<<<<<
@@ -5257,10 +5265,10 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
             #ifdef WITH_THREAD
             __Pyx_PyGILState_Release(__pyx_gilstate_save);
             #endif
-            __PYX_ERR(0, 227, __pyx_L15_error)
+            __PYX_ERR(0, 230, __pyx_L15_error)
           }
 
-          /* "xsmc/_viterbi.pyx":231
+          /* "xsmc/_viterbi.pyx":234
  *             # loop 3
  *             # compute piecewise min and eliminate any duplicate pieces
  *             for j in range(n):             # <<<<<<<<<<<<<<
@@ -5272,7 +5280,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
           for (__pyx_t_22 = 0; __pyx_t_22 < __pyx_t_21; __pyx_t_22+=1) {
             __pyx_v_j = __pyx_t_22;
 
-            /* "xsmc/_viterbi.pyx":232
+            /* "xsmc/_viterbi.pyx":235
  *             # compute piecewise min and eliminate any duplicate pieces
  *             for j in range(n):
  *                  C[j] = compact(pointwise_min(priors.at(j), b.m.f, C.at(j)))             # <<<<<<<<<<<<<<
@@ -5289,7 +5297,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 232, __pyx_L15_error)
+              __PYX_ERR(0, 235, __pyx_L15_error)
             }
             try {
               __pyx_t_64 = __pyx_v_C.at(__pyx_v_j);
@@ -5301,12 +5309,12 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 232, __pyx_L15_error)
+              __PYX_ERR(0, 235, __pyx_L15_error)
             }
             (__pyx_v_C[__pyx_v_j]) = __pyx_f_4xsmc_8_viterbi_compact(__pyx_f_4xsmc_8_viterbi_pointwise_min(__pyx_t_63, __pyx_v_b.m.f, __pyx_t_64));
           }
 
-          /* "xsmc/_viterbi.pyx":238
+          /* "xsmc/_viterbi.pyx":241
  *             #         print("Loop 3 C=", C)
  * 
  *             err = get_next_obs(&state)             # <<<<<<<<<<<<<<
@@ -5316,7 +5324,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
           __pyx_v_err = __pyx_f_4xsmc_8_viterbi_get_next_obs((&__pyx_v_state));
         }
 
-        /* "xsmc/_viterbi.pyx":241
+        /* "xsmc/_viterbi.pyx":244
  * 
  *         # loop ends; compute backtrace
  *         if i >= 0:             # <<<<<<<<<<<<<<
@@ -5326,7 +5334,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
         __pyx_t_7 = ((__pyx_v_i >= 0) != 0);
         if (__pyx_t_7) {
 
-          /* "xsmc/_viterbi.pyx":242
+          /* "xsmc/_viterbi.pyx":245
  *         # loop ends; compute backtrace
  *         if i >= 0:
  *             bt.push_back(cp.back())             # <<<<<<<<<<<<<<
@@ -5343,10 +5351,10 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
             #ifdef WITH_THREAD
             __Pyx_PyGILState_Release(__pyx_gilstate_save);
             #endif
-            __PYX_ERR(0, 242, __pyx_L15_error)
+            __PYX_ERR(0, 245, __pyx_L15_error)
           }
 
-          /* "xsmc/_viterbi.pyx":243
+          /* "xsmc/_viterbi.pyx":246
  *         if i >= 0:
  *             bt.push_back(cp.back())
  *             while bt.back().pos >= 0:             # <<<<<<<<<<<<<<
@@ -5357,7 +5365,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
             __pyx_t_7 = ((__pyx_v_bt.back().pos >= 0) != 0);
             if (!__pyx_t_7) break;
 
-            /* "xsmc/_viterbi.pyx":244
+            /* "xsmc/_viterbi.pyx":247
  *             bt.push_back(cp.back())
  *             while bt.back().pos >= 0:
  *                 bt.push_back(cp[bt.back().pos])             # <<<<<<<<<<<<<<
@@ -5374,11 +5382,11 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 244, __pyx_L15_error)
+              __PYX_ERR(0, 247, __pyx_L15_error)
             }
           }
 
-          /* "xsmc/_viterbi.pyx":241
+          /* "xsmc/_viterbi.pyx":244
  * 
  *         # loop ends; compute backtrace
  *         if i >= 0:             # <<<<<<<<<<<<<<
@@ -5387,7 +5395,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
         }
 
-        /* "xsmc/_viterbi.pyx":246
+        /* "xsmc/_viterbi.pyx":249
  *                 bt.push_back(cp[bt.back().pos])
  * 
  *         tsk_tree_free(&_arg_tree)             # <<<<<<<<<<<<<<
@@ -5396,7 +5404,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
         (void)(tsk_tree_free((&__pyx_v__arg_tree)));
 
-        /* "xsmc/_viterbi.pyx":247
+        /* "xsmc/_viterbi.pyx":250
  * 
  *         tsk_tree_free(&_arg_tree)
  *         tsk_vargen_free(&_vg)             # <<<<<<<<<<<<<<
@@ -5405,7 +5413,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
         (void)(tsk_vargen_free((&__pyx_v__vg)));
 
-        /* "xsmc/_viterbi.pyx":248
+        /* "xsmc/_viterbi.pyx":251
  *         tsk_tree_free(&_arg_tree)
  *         tsk_vargen_free(&_vg)
  *         tsk_treeseq_free(&_ts)             # <<<<<<<<<<<<<<
@@ -5414,7 +5422,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
         (void)(tsk_treeseq_free((&__pyx_v__ts)));
 
-        /* "xsmc/_viterbi.pyx":249
+        /* "xsmc/_viterbi.pyx":252
  *         tsk_vargen_free(&_vg)
  *         tsk_treeseq_free(&_ts)
  *         tsk_treeseq_free(&_arg_ts)             # <<<<<<<<<<<<<<
@@ -5424,7 +5432,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
         (void)(tsk_treeseq_free((&__pyx_v__arg_ts)));
       }
 
-      /* "xsmc/_viterbi.pyx":172
+      /* "xsmc/_viterbi.pyx":175
  * 
  *     err = get_next_obs(&state)
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -5450,27 +5458,27 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
       }
   }
 
-  /* "xsmc/_viterbi.pyx":251
+  /* "xsmc/_viterbi.pyx":254
  *         tsk_treeseq_free(&_arg_ts)
  * 
  *     ret = [[panel[b.hap], positions[b.pos + 1], np.exp(-b.m.x), b.s] for b in reversed(bt)]             # <<<<<<<<<<<<<<
  *     # print('cp', cp)
  *     # print('backtrace', bt)
  */
-  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 251, __pyx_L1_error)
+  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __pyx_convert_vector_to_py___pyx_t_4xsmc_8_viterbi_backtrace(__pyx_v_bt); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 251, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_vector_to_py___pyx_t_4xsmc_8_viterbi_backtrace(__pyx_v_bt); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_reversed, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 251, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_reversed, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (likely(PyList_CheckExact(__pyx_t_2)) || PyTuple_CheckExact(__pyx_t_2)) {
     __pyx_t_1 = __pyx_t_2; __Pyx_INCREF(__pyx_t_1); __pyx_t_10 = 0;
     __pyx_t_12 = NULL;
   } else {
-    __pyx_t_10 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 251, __pyx_L1_error)
+    __pyx_t_10 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_12 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 251, __pyx_L1_error)
+    __pyx_t_12 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 254, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   for (;;) {
@@ -5478,17 +5486,17 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
       if (likely(PyList_CheckExact(__pyx_t_1))) {
         if (__pyx_t_10 >= PyList_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_10); __Pyx_INCREF(__pyx_t_2); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 251, __pyx_L1_error)
+        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_10); __Pyx_INCREF(__pyx_t_2); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 254, __pyx_L1_error)
         #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 251, __pyx_L1_error)
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 254, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         #endif
       } else {
         if (__pyx_t_10 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_10); __Pyx_INCREF(__pyx_t_2); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 251, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_10); __Pyx_INCREF(__pyx_t_2); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 254, __pyx_L1_error)
         #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 251, __pyx_L1_error)
+        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 254, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         #endif
       }
@@ -5498,25 +5506,25 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 251, __pyx_L1_error)
+          else __PYX_ERR(0, 254, __pyx_L1_error)
         }
         break;
       }
       __Pyx_GOTREF(__pyx_t_2);
     }
-    __pyx_t_65 = __pyx_convert__from_py___pyx_t_4xsmc_8_viterbi_backtrace(__pyx_t_2); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 251, __pyx_L1_error)
+    __pyx_t_65 = __pyx_convert__from_py___pyx_t_4xsmc_8_viterbi_backtrace(__pyx_t_2); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_v_b = __pyx_t_65;
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_panel, __pyx_v_b.hap, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 251, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_panel, __pyx_v_b.hap, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyInt_From_int((__pyx_v_positions[(__pyx_v_b.pos + 1)])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 251, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_From_int((__pyx_v_positions[(__pyx_v_b.pos + 1)])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 251, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_exp); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 251, __pyx_L1_error)
+    __pyx_t_15 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_exp); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_15);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyFloat_FromDouble((-__pyx_v_b.m.x)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 251, __pyx_L1_error)
+    __pyx_t_6 = PyFloat_FromDouble((-__pyx_v_b.m.x)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_66 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_15))) {
@@ -5531,12 +5539,12 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
     __pyx_t_5 = (__pyx_t_66) ? __Pyx_PyObject_Call2Args(__pyx_t_15, __pyx_t_66, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_15, __pyx_t_6);
     __Pyx_XDECREF(__pyx_t_66); __pyx_t_66 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 251, __pyx_L1_error)
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-    __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_b.s); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 251, __pyx_L1_error)
+    __pyx_t_15 = __Pyx_PyInt_From_int(__pyx_v_b.s); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_15);
-    __pyx_t_6 = PyList_New(4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 251, __pyx_L1_error)
+    __pyx_t_6 = PyList_New(4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_2);
     PyList_SET_ITEM(__pyx_t_6, 0, __pyx_t_2);
@@ -5550,54 +5558,54 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
     __pyx_t_4 = 0;
     __pyx_t_5 = 0;
     __pyx_t_15 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_t_6))) __PYX_ERR(0, 251, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_t_6))) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_ret = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "xsmc/_viterbi.pyx":256
+  /* "xsmc/_viterbi.pyx":259
  *     # print('postions', positions)
  *     # print('ret', ret)
  *     seg_pos = [r[1] for r in ret] + [L_w]             # <<<<<<<<<<<<<<
  *     return Segmentation(
  *         segments=[
  */
-  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_1 = __pyx_v_ret; __Pyx_INCREF(__pyx_t_1); __pyx_t_10 = 0;
   for (;;) {
     if (__pyx_t_10 >= PyList_GET_SIZE(__pyx_t_1)) break;
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_6 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_10); __Pyx_INCREF(__pyx_t_6); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 256, __pyx_L1_error)
+    __pyx_t_6 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_10); __Pyx_INCREF(__pyx_t_6); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 259, __pyx_L1_error)
     #else
-    __pyx_t_6 = PySequence_ITEM(__pyx_t_1, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 256, __pyx_L1_error)
+    __pyx_t_6 = PySequence_ITEM(__pyx_t_1, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 259, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     #endif
     __Pyx_XDECREF_SET(__pyx_v_r, __pyx_t_6);
     __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_GetItemInt(__pyx_v_r, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 256, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_GetItemInt(__pyx_v_r, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 259, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_t_6))) __PYX_ERR(0, 256, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_t_6))) __PYX_ERR(0, 259, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_L_w); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_L_w); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = PyList_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __pyx_t_6 = PyList_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_1);
   PyList_SET_ITEM(__pyx_t_6, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_v_seg_pos = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "xsmc/_viterbi.pyx":257
+  /* "xsmc/_viterbi.pyx":260
  *     # print('ret', ret)
  *     seg_pos = [r[1] for r in ret] + [L_w]
  *     return Segmentation(             # <<<<<<<<<<<<<<
@@ -5605,33 +5613,33 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  *             Segment(hap=h, interval=w * np.array(p), height=x, mutations=s)
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_Segmentation); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_Segmentation); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "xsmc/_viterbi.pyx":258
+  /* "xsmc/_viterbi.pyx":261
  *     seg_pos = [r[1] for r in ret] + [L_w]
  *     return Segmentation(
  *         segments=[             # <<<<<<<<<<<<<<
  *             Segment(hap=h, interval=w * np.array(p), height=x, mutations=s)
  *             for (h, _, x, s), p in zip(ret, zip(seg_pos[:-1], seg_pos[1:]))
  */
-  __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "xsmc/_viterbi.pyx":260
+  /* "xsmc/_viterbi.pyx":263
  *         segments=[
  *             Segment(hap=h, interval=w * np.array(p), height=x, mutations=s)
  *             for (h, _, x, s), p in zip(ret, zip(seg_pos[:-1], seg_pos[1:]))             # <<<<<<<<<<<<<<
  *         ],
  *         panel=panel
  */
-  __pyx_t_15 = __Pyx_PyList_GetSlice(__pyx_v_seg_pos, 0, -1L); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_15 = __Pyx_PyList_GetSlice(__pyx_v_seg_pos, 0, -1L); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
-  __pyx_t_5 = __Pyx_PyList_GetSlice(__pyx_v_seg_pos, 1, PY_SSIZE_T_MAX); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyList_GetSlice(__pyx_v_seg_pos, 1, PY_SSIZE_T_MAX); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_15);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_15);
@@ -5639,10 +5647,10 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_5);
   __pyx_t_15 = 0;
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_zip, __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_zip, __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_v_ret);
   __Pyx_GIVEREF(__pyx_v_ret);
@@ -5650,16 +5658,16 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   __Pyx_GIVEREF(__pyx_t_5);
   PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_5);
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_zip, __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_zip, __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (likely(PyList_CheckExact(__pyx_t_5)) || PyTuple_CheckExact(__pyx_t_5)) {
     __pyx_t_4 = __pyx_t_5; __Pyx_INCREF(__pyx_t_4); __pyx_t_10 = 0;
     __pyx_t_12 = NULL;
   } else {
-    __pyx_t_10 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 260, __pyx_L1_error)
+    __pyx_t_10 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 263, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_12 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 260, __pyx_L1_error)
+    __pyx_t_12 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 263, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   for (;;) {
@@ -5667,17 +5675,17 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
       if (likely(PyList_CheckExact(__pyx_t_4))) {
         if (__pyx_t_10 >= PyList_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_5); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 260, __pyx_L1_error)
+        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_5); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 263, __pyx_L1_error)
         #else
-        __pyx_t_5 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 260, __pyx_L1_error)
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 263, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         #endif
       } else {
         if (__pyx_t_10 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_5); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 260, __pyx_L1_error)
+        __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_5); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 263, __pyx_L1_error)
         #else
-        __pyx_t_5 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 260, __pyx_L1_error)
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 263, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         #endif
       }
@@ -5687,7 +5695,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 260, __pyx_L1_error)
+          else __PYX_ERR(0, 263, __pyx_L1_error)
         }
         break;
       }
@@ -5699,7 +5707,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 260, __pyx_L1_error)
+        __PYX_ERR(0, 263, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -5712,15 +5720,15 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
       __Pyx_INCREF(__pyx_t_15);
       __Pyx_INCREF(__pyx_t_2);
       #else
-      __pyx_t_15 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 260, __pyx_L1_error)
+      __pyx_t_15 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_15);
-      __pyx_t_2 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 260, __pyx_L1_error)
+      __pyx_t_2 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       #endif
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_66 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_66)) __PYX_ERR(0, 260, __pyx_L1_error)
+      __pyx_t_66 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_66)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_66);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __pyx_t_67 = Py_TYPE(__pyx_t_66)->tp_iternext;
@@ -5728,7 +5736,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
       __Pyx_GOTREF(__pyx_t_15);
       index = 1; __pyx_t_2 = __pyx_t_67(__pyx_t_66); if (unlikely(!__pyx_t_2)) goto __pyx_L45_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_2);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_67(__pyx_t_66), 2) < 0) __PYX_ERR(0, 260, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_67(__pyx_t_66), 2) < 0) __PYX_ERR(0, 263, __pyx_L1_error)
       __pyx_t_67 = NULL;
       __Pyx_DECREF(__pyx_t_66); __pyx_t_66 = 0;
       goto __pyx_L46_unpacking_done;
@@ -5736,7 +5744,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
       __Pyx_DECREF(__pyx_t_66); __pyx_t_66 = 0;
       __pyx_t_67 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 260, __pyx_L1_error)
+      __PYX_ERR(0, 263, __pyx_L1_error)
       __pyx_L46_unpacking_done:;
     }
     if ((likely(PyTuple_CheckExact(__pyx_t_15))) || (PyList_CheckExact(__pyx_t_15))) {
@@ -5745,7 +5753,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
       if (unlikely(size != 4)) {
         if (size > 4) __Pyx_RaiseTooManyValuesError(4);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 260, __pyx_L1_error)
+        __PYX_ERR(0, 263, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -5768,7 +5776,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
         Py_ssize_t i;
         PyObject** temps[4] = {&__pyx_t_66,&__pyx_t_68,&__pyx_t_69,&__pyx_t_70};
         for (i=0; i < 4; i++) {
-          PyObject* item = PySequence_ITEM(sequence, i); if (unlikely(!item)) __PYX_ERR(0, 260, __pyx_L1_error)
+          PyObject* item = PySequence_ITEM(sequence, i); if (unlikely(!item)) __PYX_ERR(0, 263, __pyx_L1_error)
           __Pyx_GOTREF(item);
           *(temps[i]) = item;
         }
@@ -5778,7 +5786,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
     } else {
       Py_ssize_t index = -1;
       PyObject** temps[4] = {&__pyx_t_66,&__pyx_t_68,&__pyx_t_69,&__pyx_t_70};
-      __pyx_t_71 = PyObject_GetIter(__pyx_t_15); if (unlikely(!__pyx_t_71)) __PYX_ERR(0, 260, __pyx_L1_error)
+      __pyx_t_71 = PyObject_GetIter(__pyx_t_15); if (unlikely(!__pyx_t_71)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_71);
       __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
       __pyx_t_67 = Py_TYPE(__pyx_t_71)->tp_iternext;
@@ -5787,7 +5795,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
         __Pyx_GOTREF(item);
         *(temps[index]) = item;
       }
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_67(__pyx_t_71), 4) < 0) __PYX_ERR(0, 260, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_67(__pyx_t_71), 4) < 0) __PYX_ERR(0, 263, __pyx_L1_error)
       __pyx_t_67 = NULL;
       __Pyx_DECREF(__pyx_t_71); __pyx_t_71 = 0;
       goto __pyx_L48_unpacking_done;
@@ -5795,7 +5803,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
       __Pyx_DECREF(__pyx_t_71); __pyx_t_71 = 0;
       __pyx_t_67 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 260, __pyx_L1_error)
+      __PYX_ERR(0, 263, __pyx_L1_error)
       __pyx_L48_unpacking_done:;
     }
     __Pyx_XDECREF_SET(__pyx_v_h, __pyx_t_66);
@@ -5809,21 +5817,21 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
     __Pyx_XDECREF_SET(__pyx_v_p, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "xsmc/_viterbi.pyx":259
+    /* "xsmc/_viterbi.pyx":262
  *     return Segmentation(
  *         segments=[
  *             Segment(hap=h, interval=w * np.array(p), height=x, mutations=s)             # <<<<<<<<<<<<<<
  *             for (h, _, x, s), p in zip(ret, zip(seg_pos[:-1], seg_pos[1:]))
  *         ],
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_Segment); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 259, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_Segment); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 262, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_2 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 259, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 262, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_hap, __pyx_v_h) < 0) __PYX_ERR(0, 259, __pyx_L1_error)
-    __Pyx_GetModuleGlobalName(__pyx_t_70, __pyx_n_s_np); if (unlikely(!__pyx_t_70)) __PYX_ERR(0, 259, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_hap, __pyx_v_h) < 0) __PYX_ERR(0, 262, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_70, __pyx_n_s_np); if (unlikely(!__pyx_t_70)) __PYX_ERR(0, 262, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_70);
-    __pyx_t_69 = __Pyx_PyObject_GetAttrStr(__pyx_t_70, __pyx_n_s_array); if (unlikely(!__pyx_t_69)) __PYX_ERR(0, 259, __pyx_L1_error)
+    __pyx_t_69 = __Pyx_PyObject_GetAttrStr(__pyx_t_70, __pyx_n_s_array); if (unlikely(!__pyx_t_69)) __PYX_ERR(0, 262, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_69);
     __Pyx_DECREF(__pyx_t_70); __pyx_t_70 = 0;
     __pyx_t_70 = NULL;
@@ -5838,24 +5846,24 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
     }
     __pyx_t_15 = (__pyx_t_70) ? __Pyx_PyObject_Call2Args(__pyx_t_69, __pyx_t_70, __pyx_v_p) : __Pyx_PyObject_CallOneArg(__pyx_t_69, __pyx_v_p);
     __Pyx_XDECREF(__pyx_t_70); __pyx_t_70 = 0;
-    if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 259, __pyx_L1_error)
+    if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 262, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_15);
     __Pyx_DECREF(__pyx_t_69); __pyx_t_69 = 0;
-    __pyx_t_69 = PyNumber_Multiply(__pyx_v_w, __pyx_t_15); if (unlikely(!__pyx_t_69)) __PYX_ERR(0, 259, __pyx_L1_error)
+    __pyx_t_69 = PyNumber_Multiply(__pyx_v_w, __pyx_t_15); if (unlikely(!__pyx_t_69)) __PYX_ERR(0, 262, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_69);
     __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-    if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_interval, __pyx_t_69) < 0) __PYX_ERR(0, 259, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_interval, __pyx_t_69) < 0) __PYX_ERR(0, 262, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_69); __pyx_t_69 = 0;
-    if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_height, __pyx_v_x) < 0) __PYX_ERR(0, 259, __pyx_L1_error)
-    if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_mutations, __pyx_v_s) < 0) __PYX_ERR(0, 259, __pyx_L1_error)
-    __pyx_t_69 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_69)) __PYX_ERR(0, 259, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_height, __pyx_v_x) < 0) __PYX_ERR(0, 262, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_mutations, __pyx_v_s) < 0) __PYX_ERR(0, 262, __pyx_L1_error)
+    __pyx_t_69 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_69)) __PYX_ERR(0, 262, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_69);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_t_69))) __PYX_ERR(0, 258, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_t_69))) __PYX_ERR(0, 261, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_69); __pyx_t_69 = 0;
 
-    /* "xsmc/_viterbi.pyx":260
+    /* "xsmc/_viterbi.pyx":263
  *         segments=[
  *             Segment(hap=h, interval=w * np.array(p), height=x, mutations=s)
  *             for (h, _, x, s), p in zip(ret, zip(seg_pos[:-1], seg_pos[1:]))             # <<<<<<<<<<<<<<
@@ -5864,26 +5872,26 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
  */
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_segments, __pyx_t_3) < 0) __PYX_ERR(0, 258, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_segments, __pyx_t_3) < 0) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "xsmc/_viterbi.pyx":262
+  /* "xsmc/_viterbi.pyx":265
  *             for (h, _, x, s), p in zip(ret, zip(seg_pos[:-1], seg_pos[1:]))
  *         ],
  *         panel=panel             # <<<<<<<<<<<<<<
  *     )
  * 
  */
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_panel, __pyx_v_panel) < 0) __PYX_ERR(0, 258, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_panel, __pyx_v_panel) < 0) __PYX_ERR(0, 261, __pyx_L1_error)
 
-  /* "xsmc/_viterbi.pyx":257
+  /* "xsmc/_viterbi.pyx":260
  *     # print('ret', ret)
  *     seg_pos = [r[1] for r in ret] + [L_w]
  *     return Segmentation(             # <<<<<<<<<<<<<<
  *         segments=[
  *             Segment(hap=h, interval=w * np.array(p), height=x, mutations=s)
  */
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -5891,7 +5899,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "xsmc/_viterbi.pyx":38
+  /* "xsmc/_viterbi.pyx":41
  *     return 1
  * 
  * def viterbi_path(             # <<<<<<<<<<<<<<
@@ -5939,7 +5947,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_viterbi_path(CYTHON_UNUSED PyObject *_
   return __pyx_r;
 }
 
-/* "xsmc/_viterbi.pyx":273
+/* "xsmc/_viterbi.pyx":279
  * 
  * # test functions, used for testing only
  * cdef piecewise_func _monotone_decreasing_case(             # <<<<<<<<<<<<<<
@@ -5955,7 +5963,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi__monotone_
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
 
-  /* "xsmc/_viterbi.pyx":280
+  /* "xsmc/_viterbi.pyx":286
  *     '''
  *     cdef piecewise_func ret
  *     ret.t.push_back(t[0])             # <<<<<<<<<<<<<<
@@ -5972,10 +5980,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi__monotone_
     #ifdef WITH_THREAD
     __Pyx_PyGILState_Release(__pyx_gilstate_save);
     #endif
-    __PYX_ERR(0, 280, __pyx_L1_error)
+    __PYX_ERR(0, 286, __pyx_L1_error)
   }
 
-  /* "xsmc/_viterbi.pyx":281
+  /* "xsmc/_viterbi.pyx":287
  *     cdef piecewise_func ret
  *     ret.t.push_back(t[0])
  *     if r <= t[0]:             # <<<<<<<<<<<<<<
@@ -5985,7 +5993,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi__monotone_
   __pyx_t_1 = ((__pyx_v_r <= (__pyx_v_t[0])) != 0);
   if (__pyx_t_1) {
 
-    /* "xsmc/_viterbi.pyx":283
+    /* "xsmc/_viterbi.pyx":289
  *     if r <= t[0]:
  *         # the function is always -
  *         ret.f.push_back(f)             # <<<<<<<<<<<<<<
@@ -6002,10 +6010,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi__monotone_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 283, __pyx_L1_error)
+      __PYX_ERR(0, 289, __pyx_L1_error)
     }
 
-    /* "xsmc/_viterbi.pyx":284
+    /* "xsmc/_viterbi.pyx":290
  *         # the function is always -
  *         ret.f.push_back(f)
  *         ret.t.push_back(t[1])             # <<<<<<<<<<<<<<
@@ -6022,10 +6030,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi__monotone_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 284, __pyx_L1_error)
+      __PYX_ERR(0, 290, __pyx_L1_error)
     }
 
-    /* "xsmc/_viterbi.pyx":281
+    /* "xsmc/_viterbi.pyx":287
  *     cdef piecewise_func ret
  *     ret.t.push_back(t[0])
  *     if r <= t[0]:             # <<<<<<<<<<<<<<
@@ -6035,7 +6043,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi__monotone_
     goto __pyx_L3;
   }
 
-  /* "xsmc/_viterbi.pyx":285
+  /* "xsmc/_viterbi.pyx":291
  *         ret.f.push_back(f)
  *         ret.t.push_back(t[1])
  *     elif r >= t[1]:             # <<<<<<<<<<<<<<
@@ -6045,7 +6053,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi__monotone_
   __pyx_t_1 = ((__pyx_v_r >= (__pyx_v_t[1])) != 0);
   if (__pyx_t_1) {
 
-    /* "xsmc/_viterbi.pyx":287
+    /* "xsmc/_viterbi.pyx":293
  *     elif r >= t[1]:
  *         # the function is always +
  *         ret.f.push_back(g)             # <<<<<<<<<<<<<<
@@ -6062,10 +6070,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi__monotone_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 287, __pyx_L1_error)
+      __PYX_ERR(0, 293, __pyx_L1_error)
     }
 
-    /* "xsmc/_viterbi.pyx":288
+    /* "xsmc/_viterbi.pyx":294
  *         # the function is always +
  *         ret.f.push_back(g)
  *         ret.t.push_back(t[1])             # <<<<<<<<<<<<<<
@@ -6082,10 +6090,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi__monotone_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 288, __pyx_L1_error)
+      __PYX_ERR(0, 294, __pyx_L1_error)
     }
 
-    /* "xsmc/_viterbi.pyx":285
+    /* "xsmc/_viterbi.pyx":291
  *         ret.f.push_back(f)
  *         ret.t.push_back(t[1])
  *     elif r >= t[1]:             # <<<<<<<<<<<<<<
@@ -6095,7 +6103,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi__monotone_
     goto __pyx_L3;
   }
 
-  /* "xsmc/_viterbi.pyx":290
+  /* "xsmc/_viterbi.pyx":296
  *         ret.t.push_back(t[1])
  *     else: # the function is + on [a, r) and and - on (r, b]
  *         ret.f.push_back(g)             # <<<<<<<<<<<<<<
@@ -6113,10 +6121,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi__monotone_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 290, __pyx_L1_error)
+      __PYX_ERR(0, 296, __pyx_L1_error)
     }
 
-    /* "xsmc/_viterbi.pyx":291
+    /* "xsmc/_viterbi.pyx":297
  *     else: # the function is + on [a, r) and and - on (r, b]
  *         ret.f.push_back(g)
  *         ret.f.push_back(f)             # <<<<<<<<<<<<<<
@@ -6133,10 +6141,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi__monotone_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 291, __pyx_L1_error)
+      __PYX_ERR(0, 297, __pyx_L1_error)
     }
 
-    /* "xsmc/_viterbi.pyx":292
+    /* "xsmc/_viterbi.pyx":298
  *         ret.f.push_back(g)
  *         ret.f.push_back(f)
  *         ret.t.push_back(r)             # <<<<<<<<<<<<<<
@@ -6153,10 +6161,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi__monotone_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 292, __pyx_L1_error)
+      __PYX_ERR(0, 298, __pyx_L1_error)
     }
 
-    /* "xsmc/_viterbi.pyx":293
+    /* "xsmc/_viterbi.pyx":299
  *         ret.f.push_back(f)
  *         ret.t.push_back(r)
  *         ret.t.push_back(t[1])             # <<<<<<<<<<<<<<
@@ -6173,12 +6181,12 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi__monotone_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 293, __pyx_L1_error)
+      __PYX_ERR(0, 299, __pyx_L1_error)
     }
   }
   __pyx_L3:;
 
-  /* "xsmc/_viterbi.pyx":294
+  /* "xsmc/_viterbi.pyx":300
  *         ret.t.push_back(r)
  *         ret.t.push_back(t[1])
  *     return compact(ret)             # <<<<<<<<<<<<<<
@@ -6188,7 +6196,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi__monotone_
   __pyx_r = __pyx_f_4xsmc_8_viterbi_compact(__pyx_v_ret);
   goto __pyx_L0;
 
-  /* "xsmc/_viterbi.pyx":273
+  /* "xsmc/_viterbi.pyx":279
  * 
  * # test functions, used for testing only
  * cdef piecewise_func _monotone_decreasing_case(             # <<<<<<<<<<<<<<
@@ -6204,7 +6212,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi__monotone_
   return __pyx_r;
 }
 
-/* "xsmc/_viterbi.pyx":297
+/* "xsmc/_viterbi.pyx":303
  * 
  * @cython.cdivision(True)
  * cdef piecewise_func pmin(func f, func g, interval t) nogil:             # <<<<<<<<<<<<<<
@@ -6244,7 +6252,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
   #endif
   __Pyx_RefNannySetupContext("pmin", 1);
 
-  /* "xsmc/_viterbi.pyx":298
+  /* "xsmc/_viterbi.pyx":304
  * @cython.cdivision(True)
  * cdef piecewise_func pmin(func f, func g, interval t) nogil:
  *     '''             # <<<<<<<<<<<<<<
@@ -6253,7 +6261,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
   /*try:*/ {
 
-    /* "xsmc/_viterbi.pyx":301
+    /* "xsmc/_viterbi.pyx":307
  *     pointwise min of f, g on the interval t
  *     '''
  *     cdef double a = f.c[0] - g.c[0]             # <<<<<<<<<<<<<<
@@ -6262,7 +6270,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
     __pyx_v_a = ((__pyx_v_f.c[0]) - (__pyx_v_g.c[0]));
 
-    /* "xsmc/_viterbi.pyx":302
+    /* "xsmc/_viterbi.pyx":308
  *     '''
  *     cdef double a = f.c[0] - g.c[0]
  *     cdef double b = f.c[1] - g.c[1]             # <<<<<<<<<<<<<<
@@ -6271,7 +6279,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
     __pyx_v_b = ((__pyx_v_f.c[1]) - (__pyx_v_g.c[1]));
 
-    /* "xsmc/_viterbi.pyx":303
+    /* "xsmc/_viterbi.pyx":309
  *     cdef double a = f.c[0] - g.c[0]
  *     cdef double b = f.c[1] - g.c[1]
  *     cdef double c = f.c[2] - g.c[2]             # <<<<<<<<<<<<<<
@@ -6280,7 +6288,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
     __pyx_v_c = ((__pyx_v_f.c[2]) - (__pyx_v_g.c[2]));
 
-    /* "xsmc/_viterbi.pyx":309
+    /* "xsmc/_viterbi.pyx":315
  * 
  *     cdef piecewise_func f_is_greater
  *     f_is_greater.f.push_back(g)             # <<<<<<<<<<<<<<
@@ -6297,10 +6305,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 309, __pyx_L4_error)
+      __PYX_ERR(0, 315, __pyx_L4_error)
     }
 
-    /* "xsmc/_viterbi.pyx":310
+    /* "xsmc/_viterbi.pyx":316
  *     cdef piecewise_func f_is_greater
  *     f_is_greater.f.push_back(g)
  *     f_is_greater.t.push_back(t[0])             # <<<<<<<<<<<<<<
@@ -6317,10 +6325,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 310, __pyx_L4_error)
+      __PYX_ERR(0, 316, __pyx_L4_error)
     }
 
-    /* "xsmc/_viterbi.pyx":311
+    /* "xsmc/_viterbi.pyx":317
  *     f_is_greater.f.push_back(g)
  *     f_is_greater.t.push_back(t[0])
  *     f_is_greater.t.push_back(t[1])             # <<<<<<<<<<<<<<
@@ -6337,10 +6345,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 311, __pyx_L4_error)
+      __PYX_ERR(0, 317, __pyx_L4_error)
     }
 
-    /* "xsmc/_viterbi.pyx":314
+    /* "xsmc/_viterbi.pyx":320
  * 
  *     cdef piecewise_func g_is_greater
  *     g_is_greater.f.push_back(f)             # <<<<<<<<<<<<<<
@@ -6357,10 +6365,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 314, __pyx_L4_error)
+      __PYX_ERR(0, 320, __pyx_L4_error)
     }
 
-    /* "xsmc/_viterbi.pyx":315
+    /* "xsmc/_viterbi.pyx":321
  *     cdef piecewise_func g_is_greater
  *     g_is_greater.f.push_back(f)
  *     g_is_greater.t.push_back(t[0])             # <<<<<<<<<<<<<<
@@ -6377,10 +6385,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 315, __pyx_L4_error)
+      __PYX_ERR(0, 321, __pyx_L4_error)
     }
 
-    /* "xsmc/_viterbi.pyx":316
+    /* "xsmc/_viterbi.pyx":322
  *     g_is_greater.f.push_back(f)
  *     g_is_greater.t.push_back(t[0])
  *     g_is_greater.t.push_back(t[1])             # <<<<<<<<<<<<<<
@@ -6397,10 +6405,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 316, __pyx_L4_error)
+      __PYX_ERR(0, 322, __pyx_L4_error)
     }
 
-    /* "xsmc/_viterbi.pyx":319
+    /* "xsmc/_viterbi.pyx":325
  * 
  *     if DEBUG:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -6413,22 +6421,22 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
         #endif
         /*try:*/ {
 
-          /* "xsmc/_viterbi.pyx":320
+          /* "xsmc/_viterbi.pyx":326
  *     if DEBUG:
  *         with gil:
  *             print("taking the piecewise min of f=%s g=%s t=(%f,%f)" % (f, g, t[0], t[1]))             # <<<<<<<<<<<<<<
  *             print("a=%g b=%g c=%g" % (a, b, c))
  * 
  */
-          __pyx_t_1 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_f); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 320, __pyx_L7_error)
+          __pyx_t_1 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_f); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_2 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_g); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 320, __pyx_L7_error)
+          __pyx_t_2 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_g); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 326, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_2);
-          __pyx_t_3 = PyFloat_FromDouble((__pyx_v_t[0])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 320, __pyx_L7_error)
+          __pyx_t_3 = PyFloat_FromDouble((__pyx_v_t[0])); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 326, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_4 = PyFloat_FromDouble((__pyx_v_t[1])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 320, __pyx_L7_error)
+          __pyx_t_4 = PyFloat_FromDouble((__pyx_v_t[1])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 326, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_5 = PyTuple_New(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 320, __pyx_L7_error)
+          __pyx_t_5 = PyTuple_New(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 326, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_5);
           __Pyx_GIVEREF(__pyx_t_1);
           PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_1);
@@ -6442,26 +6450,26 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
           __pyx_t_2 = 0;
           __pyx_t_3 = 0;
           __pyx_t_4 = 0;
-          __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_taking_the_piecewise_min_of_f_s, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 320, __pyx_L7_error)
+          __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_taking_the_piecewise_min_of_f_s, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 326, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          if (__Pyx_PrintOne(0, __pyx_t_4) < 0) __PYX_ERR(0, 320, __pyx_L7_error)
+          if (__Pyx_PrintOne(0, __pyx_t_4) < 0) __PYX_ERR(0, 326, __pyx_L7_error)
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "xsmc/_viterbi.pyx":321
+          /* "xsmc/_viterbi.pyx":327
  *         with gil:
  *             print("taking the piecewise min of f=%s g=%s t=(%f,%f)" % (f, g, t[0], t[1]))
  *             print("a=%g b=%g c=%g" % (a, b, c))             # <<<<<<<<<<<<<<
  * 
  * 
  */
-          __pyx_t_4 = PyFloat_FromDouble(__pyx_v_a); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 321, __pyx_L7_error)
+          __pyx_t_4 = PyFloat_FromDouble(__pyx_v_a); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 327, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_5 = PyFloat_FromDouble(__pyx_v_b); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 321, __pyx_L7_error)
+          __pyx_t_5 = PyFloat_FromDouble(__pyx_v_b); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 327, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_3 = PyFloat_FromDouble(__pyx_v_c); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 321, __pyx_L7_error)
+          __pyx_t_3 = PyFloat_FromDouble(__pyx_v_c); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 327, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 321, __pyx_L7_error)
+          __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 327, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_GIVEREF(__pyx_t_4);
           PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_4);
@@ -6472,14 +6480,14 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
           __pyx_t_4 = 0;
           __pyx_t_5 = 0;
           __pyx_t_3 = 0;
-          __pyx_t_3 = __Pyx_PyString_Format(__pyx_kp_s_a_g_b_g_c_g, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 321, __pyx_L7_error)
+          __pyx_t_3 = __Pyx_PyString_Format(__pyx_kp_s_a_g_b_g_c_g, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 327, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-          if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 321, __pyx_L7_error)
+          if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 327, __pyx_L7_error)
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         }
 
-        /* "xsmc/_viterbi.pyx":319
+        /* "xsmc/_viterbi.pyx":325
  * 
  *     if DEBUG:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -6503,7 +6511,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
         }
     }
 
-    /* "xsmc/_viterbi.pyx":325
+    /* "xsmc/_viterbi.pyx":331
  * 
  *     # strategy: find the roots of h = f - g
  *     if f.c[2] == INFINITY:             # <<<<<<<<<<<<<<
@@ -6513,7 +6521,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
     __pyx_t_6 = (((__pyx_v_f.c[2]) == INFINITY) != 0);
     if (__pyx_t_6) {
 
-      /* "xsmc/_viterbi.pyx":326
+      /* "xsmc/_viterbi.pyx":332
  *     # strategy: find the roots of h = f - g
  *     if f.c[2] == INFINITY:
  *         return f_is_greater             # <<<<<<<<<<<<<<
@@ -6523,7 +6531,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
       __pyx_r = __pyx_v_f_is_greater;
       goto __pyx_L3_return;
 
-      /* "xsmc/_viterbi.pyx":325
+      /* "xsmc/_viterbi.pyx":331
  * 
  *     # strategy: find the roots of h = f - g
  *     if f.c[2] == INFINITY:             # <<<<<<<<<<<<<<
@@ -6532,7 +6540,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
     }
 
-    /* "xsmc/_viterbi.pyx":327
+    /* "xsmc/_viterbi.pyx":333
  *     if f.c[2] == INFINITY:
  *         return f_is_greater
  *     if g.c[2] == INFINITY:             # <<<<<<<<<<<<<<
@@ -6542,7 +6550,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
     __pyx_t_6 = (((__pyx_v_g.c[2]) == INFINITY) != 0);
     if (__pyx_t_6) {
 
-      /* "xsmc/_viterbi.pyx":328
+      /* "xsmc/_viterbi.pyx":334
  *         return f_is_greater
  *     if g.c[2] == INFINITY:
  *         return g_is_greater             # <<<<<<<<<<<<<<
@@ -6552,7 +6560,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
       __pyx_r = __pyx_v_g_is_greater;
       goto __pyx_L3_return;
 
-      /* "xsmc/_viterbi.pyx":327
+      /* "xsmc/_viterbi.pyx":333
  *     if f.c[2] == INFINITY:
  *         return f_is_greater
  *     if g.c[2] == INFINITY:             # <<<<<<<<<<<<<<
@@ -6561,7 +6569,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
     }
 
-    /* "xsmc/_viterbi.pyx":329
+    /* "xsmc/_viterbi.pyx":335
  *     if g.c[2] == INFINITY:
  *         return g_is_greater
  *     if b == 0:             # <<<<<<<<<<<<<<
@@ -6571,7 +6579,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
     __pyx_t_6 = ((__pyx_v_b == 0.0) != 0);
     if (__pyx_t_6) {
 
-      /* "xsmc/_viterbi.pyx":330
+      /* "xsmc/_viterbi.pyx":336
  *         return g_is_greater
  *     if b == 0:
  *         if a == 0:             # <<<<<<<<<<<<<<
@@ -6581,7 +6589,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
       __pyx_t_6 = ((__pyx_v_a == 0.0) != 0);
       if (__pyx_t_6) {
 
-        /* "xsmc/_viterbi.pyx":332
+        /* "xsmc/_viterbi.pyx":338
  *         if a == 0:
  *             # the function is constant
  *             if c > 0:  # h > 0 => f is greater             # <<<<<<<<<<<<<<
@@ -6591,7 +6599,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
         __pyx_t_6 = ((__pyx_v_c > 0.0) != 0);
         if (__pyx_t_6) {
 
-          /* "xsmc/_viterbi.pyx":333
+          /* "xsmc/_viterbi.pyx":339
  *             # the function is constant
  *             if c > 0:  # h > 0 => f is greater
  *                 return f_is_greater             # <<<<<<<<<<<<<<
@@ -6601,7 +6609,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
           __pyx_r = __pyx_v_f_is_greater;
           goto __pyx_L3_return;
 
-          /* "xsmc/_viterbi.pyx":332
+          /* "xsmc/_viterbi.pyx":338
  *         if a == 0:
  *             # the function is constant
  *             if c > 0:  # h > 0 => f is greater             # <<<<<<<<<<<<<<
@@ -6610,7 +6618,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
         }
 
-        /* "xsmc/_viterbi.pyx":335
+        /* "xsmc/_viterbi.pyx":341
  *                 return f_is_greater
  *             else:
  *                 return g_is_greater             # <<<<<<<<<<<<<<
@@ -6622,7 +6630,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
           goto __pyx_L3_return;
         }
 
-        /* "xsmc/_viterbi.pyx":330
+        /* "xsmc/_viterbi.pyx":336
  *         return g_is_greater
  *     if b == 0:
  *         if a == 0:             # <<<<<<<<<<<<<<
@@ -6631,7 +6639,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
       }
 
-      /* "xsmc/_viterbi.pyx":337
+      /* "xsmc/_viterbi.pyx":343
  *                 return g_is_greater
  *         else:  # a e^(-x) + c == 0
  *             if a < 0:             # <<<<<<<<<<<<<<
@@ -6642,7 +6650,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
         __pyx_t_6 = ((__pyx_v_a < 0.0) != 0);
         if (__pyx_t_6) {
 
-          /* "xsmc/_viterbi.pyx":338
+          /* "xsmc/_viterbi.pyx":344
  *         else:  # a e^(-x) + c == 0
  *             if a < 0:
  *                 return pmin(g, f, t)             # <<<<<<<<<<<<<<
@@ -6652,7 +6660,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
           __pyx_r = __pyx_f_4xsmc_8_viterbi_pmin(__pyx_v_g, __pyx_v_f, __pyx_v_t);
           goto __pyx_L3_return;
 
-          /* "xsmc/_viterbi.pyx":337
+          /* "xsmc/_viterbi.pyx":343
  *                 return g_is_greater
  *         else:  # a e^(-x) + c == 0
  *             if a < 0:             # <<<<<<<<<<<<<<
@@ -6661,7 +6669,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
         }
 
-        /* "xsmc/_viterbi.pyx":340
+        /* "xsmc/_viterbi.pyx":346
  *                 return pmin(g, f, t)
  *             # assume a > 0
  *             elif c >= 0:             # <<<<<<<<<<<<<<
@@ -6671,7 +6679,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
         __pyx_t_6 = ((__pyx_v_c >= 0.0) != 0);
         if (__pyx_t_6) {
 
-          /* "xsmc/_viterbi.pyx":342
+          /* "xsmc/_viterbi.pyx":348
  *             elif c >= 0:
  *                 # the function is always +, so g is smaller
  *                 return f_is_greater             # <<<<<<<<<<<<<<
@@ -6681,7 +6689,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
           __pyx_r = __pyx_v_f_is_greater;
           goto __pyx_L3_return;
 
-          /* "xsmc/_viterbi.pyx":340
+          /* "xsmc/_viterbi.pyx":346
  *                 return pmin(g, f, t)
  *             # assume a > 0
  *             elif c >= 0:             # <<<<<<<<<<<<<<
@@ -6690,7 +6698,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
         }
 
-        /* "xsmc/_viterbi.pyx":345
+        /* "xsmc/_viterbi.pyx":351
  *             else:
  *                 # as a > 0, c <= 0 the function is decreasing
  *                 x_star = -c / a             # <<<<<<<<<<<<<<
@@ -6700,7 +6708,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
         /*else*/ {
           __pyx_v_x_star = ((-__pyx_v_c) / __pyx_v_a);
 
-          /* "xsmc/_viterbi.pyx":347
+          /* "xsmc/_viterbi.pyx":353
  *                 x_star = -c / a
  *                 # assert x_star > 0
  *                 r = -log(x_star)  # solution of a e^-x + c = 0             # <<<<<<<<<<<<<<
@@ -6709,7 +6717,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
           __pyx_v_r = (-std::log(__pyx_v_x_star));
 
-          /* "xsmc/_viterbi.pyx":348
+          /* "xsmc/_viterbi.pyx":354
  *                 # assert x_star > 0
  *                 r = -log(x_star)  # solution of a e^-x + c = 0
  *                 return _monotone_decreasing_case(f, g, t, r)             # <<<<<<<<<<<<<<
@@ -6721,7 +6729,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
         }
       }
 
-      /* "xsmc/_viterbi.pyx":329
+      /* "xsmc/_viterbi.pyx":335
  *     if g.c[2] == INFINITY:
  *         return g_is_greater
  *     if b == 0:             # <<<<<<<<<<<<<<
@@ -6730,7 +6738,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
     }
 
-    /* "xsmc/_viterbi.pyx":349
+    /* "xsmc/_viterbi.pyx":355
  *                 r = -log(x_star)  # solution of a e^-x + c = 0
  *                 return _monotone_decreasing_case(f, g, t, r)
  *     elif a == 0:             # <<<<<<<<<<<<<<
@@ -6740,7 +6748,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
     __pyx_t_6 = ((__pyx_v_a == 0.0) != 0);
     if (__pyx_t_6) {
 
-      /* "xsmc/_viterbi.pyx":351
+      /* "xsmc/_viterbi.pyx":357
  *     elif a == 0:
  *         # y = b x + c
  *         if b > 0:             # <<<<<<<<<<<<<<
@@ -6750,7 +6758,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
       __pyx_t_6 = ((__pyx_v_b > 0.0) != 0);
       if (__pyx_t_6) {
 
-        /* "xsmc/_viterbi.pyx":352
+        /* "xsmc/_viterbi.pyx":358
  *         # y = b x + c
  *         if b > 0:
  *             return pmin(g, f, t)             # <<<<<<<<<<<<<<
@@ -6760,7 +6768,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
         __pyx_r = __pyx_f_4xsmc_8_viterbi_pmin(__pyx_v_g, __pyx_v_f, __pyx_v_t);
         goto __pyx_L3_return;
 
-        /* "xsmc/_viterbi.pyx":351
+        /* "xsmc/_viterbi.pyx":357
  *     elif a == 0:
  *         # y = b x + c
  *         if b > 0:             # <<<<<<<<<<<<<<
@@ -6769,7 +6777,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
       }
 
-      /* "xsmc/_viterbi.pyx":354
+      /* "xsmc/_viterbi.pyx":360
  *             return pmin(g, f, t)
  *         else:
  *             r = -c / b             # <<<<<<<<<<<<<<
@@ -6779,7 +6787,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
       /*else*/ {
         __pyx_v_r = ((-__pyx_v_c) / __pyx_v_b);
 
-        /* "xsmc/_viterbi.pyx":355
+        /* "xsmc/_viterbi.pyx":361
  *         else:
  *             r = -c / b
  *             return _monotone_decreasing_case(f, g, t, r)             # <<<<<<<<<<<<<<
@@ -6790,7 +6798,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
         goto __pyx_L3_return;
       }
 
-      /* "xsmc/_viterbi.pyx":349
+      /* "xsmc/_viterbi.pyx":355
  *                 r = -log(x_star)  # solution of a e^-x + c = 0
  *                 return _monotone_decreasing_case(f, g, t, r)
  *     elif a == 0:             # <<<<<<<<<<<<<<
@@ -6799,7 +6807,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
     }
 
-    /* "xsmc/_viterbi.pyx":357
+    /* "xsmc/_viterbi.pyx":363
  *             return _monotone_decreasing_case(f, g, t, r)
  *     else:
  *         if a < 0:             # <<<<<<<<<<<<<<
@@ -6810,7 +6818,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
       __pyx_t_6 = ((__pyx_v_a < 0.0) != 0);
       if (__pyx_t_6) {
 
-        /* "xsmc/_viterbi.pyx":358
+        /* "xsmc/_viterbi.pyx":364
  *     else:
  *         if a < 0:
  *             return pmin(g, f, t)             # <<<<<<<<<<<<<<
@@ -6820,7 +6828,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
         __pyx_r = __pyx_f_4xsmc_8_viterbi_pmin(__pyx_v_g, __pyx_v_f, __pyx_v_t);
         goto __pyx_L3_return;
 
-        /* "xsmc/_viterbi.pyx":357
+        /* "xsmc/_viterbi.pyx":363
  *             return _monotone_decreasing_case(f, g, t, r)
  *     else:
  *         if a < 0:             # <<<<<<<<<<<<<<
@@ -6829,7 +6837,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
       }
 
-      /* "xsmc/_viterbi.pyx":360
+      /* "xsmc/_viterbi.pyx":366
  *             return pmin(g, f, t)
  *         # a > 0
  *         elif b < 0:             # <<<<<<<<<<<<<<
@@ -6839,7 +6847,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
       __pyx_t_6 = ((__pyx_v_b < 0.0) != 0);
       if (__pyx_t_6) {
 
-        /* "xsmc/_viterbi.pyx":363
+        /* "xsmc/_viterbi.pyx":369
  *             # f' = -a exp(-x) + b so a > 0, b < 0 => f is monotone decreasing
  *             # solve a exp(-x) + b x + c == 0
  *             r = _root(0, a, b, c)             # <<<<<<<<<<<<<<
@@ -6848,7 +6856,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
         __pyx_v_r = __pyx_f_4xsmc_8_viterbi__root(0, __pyx_v_a, __pyx_v_b, __pyx_v_c);
 
-        /* "xsmc/_viterbi.pyx":364
+        /* "xsmc/_viterbi.pyx":370
  *             # solve a exp(-x) + b x + c == 0
  *             r = _root(0, a, b, c)
  *             return _monotone_decreasing_case(f, g, t, r)             # <<<<<<<<<<<<<<
@@ -6858,7 +6866,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
         __pyx_r = __pyx_f_4xsmc_8_viterbi__monotone_decreasing_case(__pyx_v_f, __pyx_v_g, __pyx_v_t, __pyx_v_r);
         goto __pyx_L3_return;
 
-        /* "xsmc/_viterbi.pyx":360
+        /* "xsmc/_viterbi.pyx":366
  *             return pmin(g, f, t)
  *         # a > 0
  *         elif b < 0:             # <<<<<<<<<<<<<<
@@ -6867,7 +6875,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
       }
 
-      /* "xsmc/_viterbi.pyx":369
+      /* "xsmc/_viterbi.pyx":375
  *             # f'' = a exp(-x) > 0 so f is convex
  *             # solve f'(x*) = -a exp(-x) + b = 0
  *             x_star = -log(b / a)             # <<<<<<<<<<<<<<
@@ -6877,7 +6885,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
       /*else*/ {
         __pyx_v_x_star = (-std::log((__pyx_v_b / __pyx_v_a)));
 
-        /* "xsmc/_viterbi.pyx":371
+        /* "xsmc/_viterbi.pyx":377
  *             x_star = -log(b / a)
  *             # h_star = a * exp(-x_star) + b * x_star + c
  *             h_star = b * (1 + log(a) - log(b)) + c             # <<<<<<<<<<<<<<
@@ -6886,7 +6894,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
         __pyx_v_h_star = ((__pyx_v_b * ((1.0 + std::log(__pyx_v_a)) - std::log(__pyx_v_b))) + __pyx_v_c);
 
-        /* "xsmc/_viterbi.pyx":374
+        /* "xsmc/_viterbi.pyx":380
  *             # if DEBUG:
  *             #     printf("a:%f b:%f c:%f h_star:%f\n", a, b, c, h_star)
  *             if h_star > 0:  # minimum > 0, so f > g             # <<<<<<<<<<<<<<
@@ -6896,7 +6904,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
         __pyx_t_6 = ((__pyx_v_h_star > 0.0) != 0);
         if (__pyx_t_6) {
 
-          /* "xsmc/_viterbi.pyx":375
+          /* "xsmc/_viterbi.pyx":381
  *             #     printf("a:%f b:%f c:%f h_star:%f\n", a, b, c, h_star)
  *             if h_star > 0:  # minimum > 0, so f > g
  *                 return f_is_greater             # <<<<<<<<<<<<<<
@@ -6906,7 +6914,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
           __pyx_r = __pyx_v_f_is_greater;
           goto __pyx_L3_return;
 
-          /* "xsmc/_viterbi.pyx":374
+          /* "xsmc/_viterbi.pyx":380
  *             # if DEBUG:
  *             #     printf("a:%f b:%f c:%f h_star:%f\n", a, b, c, h_star)
  *             if h_star > 0:  # minimum > 0, so f > g             # <<<<<<<<<<<<<<
@@ -6915,7 +6923,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
         }
 
-        /* "xsmc/_viterbi.pyx":379
+        /* "xsmc/_viterbi.pyx":385
  *                 # minimum < 0, but f is convex and -> oo at +-oo.
  *                 # so it has two real roots.
  *                 r0 = _root(0, a, b, c)             # <<<<<<<<<<<<<<
@@ -6925,7 +6933,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
         /*else*/ {
           __pyx_v_r0 = __pyx_f_4xsmc_8_viterbi__root(0, __pyx_v_a, __pyx_v_b, __pyx_v_c);
 
-          /* "xsmc/_viterbi.pyx":380
+          /* "xsmc/_viterbi.pyx":386
  *                 # so it has two real roots.
  *                 r0 = _root(0, a, b, c)
  *                 r1 = _root(-1, a, b, c)             # <<<<<<<<<<<<<<
@@ -6934,7 +6942,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
           __pyx_v_r1 = __pyx_f_4xsmc_8_viterbi__root(-1, __pyx_v_a, __pyx_v_b, __pyx_v_c);
 
-          /* "xsmc/_viterbi.pyx":382
+          /* "xsmc/_viterbi.pyx":388
  *                 r1 = _root(-1, a, b, c)
  *                 if DEBUG:
  *                     printf("r0:%f r1:%f a:%f b:%f c:%f t[0]:%f t[1]:%f\n", r0, r1, a, b, c, t[0], t[1])             # <<<<<<<<<<<<<<
@@ -6943,7 +6951,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
           (void)(printf(((char const *)"r0:%f r1:%f a:%f b:%f c:%f t[0]:%f t[1]:%f\n"), __pyx_v_r0, __pyx_v_r1, __pyx_v_a, __pyx_v_b, __pyx_v_c, (__pyx_v_t[0]), (__pyx_v_t[1])));
 
-          /* "xsmc/_viterbi.pyx":384
+          /* "xsmc/_viterbi.pyx":390
  *                     printf("r0:%f r1:%f a:%f b:%f c:%f t[0]:%f t[1]:%f\n", r0, r1, a, b, c, t[0], t[1])
  *                 # order the roots r0 < r1
  *                 r = r1             # <<<<<<<<<<<<<<
@@ -6952,7 +6960,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
           __pyx_v_r = __pyx_v_r1;
 
-          /* "xsmc/_viterbi.pyx":385
+          /* "xsmc/_viterbi.pyx":391
  *                 # order the roots r0 < r1
  *                 r = r1
  *                 r1 = max(r0, r)             # <<<<<<<<<<<<<<
@@ -6968,7 +6976,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
           }
           __pyx_v_r1 = __pyx_t_9;
 
-          /* "xsmc/_viterbi.pyx":386
+          /* "xsmc/_viterbi.pyx":392
  *                 r = r1
  *                 r1 = max(r0, r)
  *                 r0 = min(r0, r)             # <<<<<<<<<<<<<<
@@ -6984,7 +6992,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
           }
           __pyx_v_r0 = __pyx_t_8;
 
-          /* "xsmc/_viterbi.pyx":391
+          /* "xsmc/_viterbi.pyx":397
  *                 # case 1: t.b <= r0 implies that the function is
  *                 # positive on all of t, meaning g is smaller
  *                 if t[1] <= r0:             # <<<<<<<<<<<<<<
@@ -6994,7 +7002,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
           __pyx_t_6 = (((__pyx_v_t[1]) <= __pyx_v_r0) != 0);
           if (__pyx_t_6) {
 
-            /* "xsmc/_viterbi.pyx":392
+            /* "xsmc/_viterbi.pyx":398
  *                 # positive on all of t, meaning g is smaller
  *                 if t[1] <= r0:
  *                     return f_is_greater             # <<<<<<<<<<<<<<
@@ -7004,7 +7012,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
             __pyx_r = __pyx_v_f_is_greater;
             goto __pyx_L3_return;
 
-            /* "xsmc/_viterbi.pyx":391
+            /* "xsmc/_viterbi.pyx":397
  *                 # case 1: t.b <= r0 implies that the function is
  *                 # positive on all of t, meaning g is smaller
  *                 if t[1] <= r0:             # <<<<<<<<<<<<<<
@@ -7013,7 +7021,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
           }
 
-          /* "xsmc/_viterbi.pyx":394
+          /* "xsmc/_viterbi.pyx":400
  *                     return f_is_greater
  *                 # case 2: t.a < r0 < t[1] < r1
  *                 elif t[0] <= r0 <= t[1] <= r1:             # <<<<<<<<<<<<<<
@@ -7030,7 +7038,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
           __pyx_t_10 = (__pyx_t_6 != 0);
           if (__pyx_t_10) {
 
-            /* "xsmc/_viterbi.pyx":395
+            /* "xsmc/_viterbi.pyx":401
  *                 # case 2: t.a < r0 < t[1] < r1
  *                 elif t[0] <= r0 <= t[1] <= r1:
  *                     ret.f.push_back(g)             # <<<<<<<<<<<<<<
@@ -7047,10 +7055,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 395, __pyx_L4_error)
+              __PYX_ERR(0, 401, __pyx_L4_error)
             }
 
-            /* "xsmc/_viterbi.pyx":396
+            /* "xsmc/_viterbi.pyx":402
  *                 elif t[0] <= r0 <= t[1] <= r1:
  *                     ret.f.push_back(g)
  *                     ret.f.push_back(f)             # <<<<<<<<<<<<<<
@@ -7067,10 +7075,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 396, __pyx_L4_error)
+              __PYX_ERR(0, 402, __pyx_L4_error)
             }
 
-            /* "xsmc/_viterbi.pyx":397
+            /* "xsmc/_viterbi.pyx":403
  *                     ret.f.push_back(g)
  *                     ret.f.push_back(f)
  *                     ret.t.push_back(t[0])             # <<<<<<<<<<<<<<
@@ -7087,10 +7095,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 397, __pyx_L4_error)
+              __PYX_ERR(0, 403, __pyx_L4_error)
             }
 
-            /* "xsmc/_viterbi.pyx":398
+            /* "xsmc/_viterbi.pyx":404
  *                     ret.f.push_back(f)
  *                     ret.t.push_back(t[0])
  *                     ret.t.push_back(r0)             # <<<<<<<<<<<<<<
@@ -7107,10 +7115,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 398, __pyx_L4_error)
+              __PYX_ERR(0, 404, __pyx_L4_error)
             }
 
-            /* "xsmc/_viterbi.pyx":399
+            /* "xsmc/_viterbi.pyx":405
  *                     ret.t.push_back(t[0])
  *                     ret.t.push_back(r0)
  *                     ret.t.push_back(t[1])             # <<<<<<<<<<<<<<
@@ -7127,10 +7135,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 399, __pyx_L4_error)
+              __PYX_ERR(0, 405, __pyx_L4_error)
             }
 
-            /* "xsmc/_viterbi.pyx":400
+            /* "xsmc/_viterbi.pyx":406
  *                     ret.t.push_back(r0)
  *                     ret.t.push_back(t[1])
  *                     return compact(ret)             # <<<<<<<<<<<<<<
@@ -7140,7 +7148,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
             __pyx_r = __pyx_f_4xsmc_8_viterbi_compact(__pyx_v_ret);
             goto __pyx_L3_return;
 
-            /* "xsmc/_viterbi.pyx":394
+            /* "xsmc/_viterbi.pyx":400
  *                     return f_is_greater
  *                 # case 2: t.a < r0 < t[1] < r1
  *                 elif t[0] <= r0 <= t[1] <= r1:             # <<<<<<<<<<<<<<
@@ -7149,7 +7157,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
           }
 
-          /* "xsmc/_viterbi.pyx":402
+          /* "xsmc/_viterbi.pyx":408
  *                     return compact(ret)
  *                 # case 3: both roots in interval
  *                 elif t[0] <= r0 <= r1 <= t[1]:             # <<<<<<<<<<<<<<
@@ -7166,7 +7174,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
           __pyx_t_6 = (__pyx_t_10 != 0);
           if (__pyx_t_6) {
 
-            /* "xsmc/_viterbi.pyx":403
+            /* "xsmc/_viterbi.pyx":409
  *                 # case 3: both roots in interval
  *                 elif t[0] <= r0 <= r1 <= t[1]:
  *                     ret.f.push_back(g)             # <<<<<<<<<<<<<<
@@ -7183,10 +7191,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 403, __pyx_L4_error)
+              __PYX_ERR(0, 409, __pyx_L4_error)
             }
 
-            /* "xsmc/_viterbi.pyx":404
+            /* "xsmc/_viterbi.pyx":410
  *                 elif t[0] <= r0 <= r1 <= t[1]:
  *                     ret.f.push_back(g)
  *                     ret.f.push_back(f)             # <<<<<<<<<<<<<<
@@ -7203,10 +7211,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 404, __pyx_L4_error)
+              __PYX_ERR(0, 410, __pyx_L4_error)
             }
 
-            /* "xsmc/_viterbi.pyx":405
+            /* "xsmc/_viterbi.pyx":411
  *                     ret.f.push_back(g)
  *                     ret.f.push_back(f)
  *                     ret.f.push_back(g)             # <<<<<<<<<<<<<<
@@ -7223,10 +7231,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 405, __pyx_L4_error)
+              __PYX_ERR(0, 411, __pyx_L4_error)
             }
 
-            /* "xsmc/_viterbi.pyx":406
+            /* "xsmc/_viterbi.pyx":412
  *                     ret.f.push_back(f)
  *                     ret.f.push_back(g)
  *                     ret.t.push_back(t[0])             # <<<<<<<<<<<<<<
@@ -7243,10 +7251,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 406, __pyx_L4_error)
+              __PYX_ERR(0, 412, __pyx_L4_error)
             }
 
-            /* "xsmc/_viterbi.pyx":407
+            /* "xsmc/_viterbi.pyx":413
  *                     ret.f.push_back(g)
  *                     ret.t.push_back(t[0])
  *                     ret.t.push_back(r0)             # <<<<<<<<<<<<<<
@@ -7263,10 +7271,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 407, __pyx_L4_error)
+              __PYX_ERR(0, 413, __pyx_L4_error)
             }
 
-            /* "xsmc/_viterbi.pyx":408
+            /* "xsmc/_viterbi.pyx":414
  *                     ret.t.push_back(t[0])
  *                     ret.t.push_back(r0)
  *                     ret.t.push_back(r1)             # <<<<<<<<<<<<<<
@@ -7283,10 +7291,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 408, __pyx_L4_error)
+              __PYX_ERR(0, 414, __pyx_L4_error)
             }
 
-            /* "xsmc/_viterbi.pyx":409
+            /* "xsmc/_viterbi.pyx":415
  *                     ret.t.push_back(r0)
  *                     ret.t.push_back(r1)
  *                     ret.t.push_back(t[1])             # <<<<<<<<<<<<<<
@@ -7303,10 +7311,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 409, __pyx_L4_error)
+              __PYX_ERR(0, 415, __pyx_L4_error)
             }
 
-            /* "xsmc/_viterbi.pyx":410
+            /* "xsmc/_viterbi.pyx":416
  *                     ret.t.push_back(r1)
  *                     ret.t.push_back(t[1])
  *                     return compact(ret)             # <<<<<<<<<<<<<<
@@ -7316,7 +7324,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
             __pyx_r = __pyx_f_4xsmc_8_viterbi_compact(__pyx_v_ret);
             goto __pyx_L3_return;
 
-            /* "xsmc/_viterbi.pyx":402
+            /* "xsmc/_viterbi.pyx":408
  *                     return compact(ret)
  *                 # case 3: both roots in interval
  *                 elif t[0] <= r0 <= r1 <= t[1]:             # <<<<<<<<<<<<<<
@@ -7325,7 +7333,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
           }
 
-          /* "xsmc/_viterbi.pyx":413
+          /* "xsmc/_viterbi.pyx":419
  *                 # case 4: r0 <= t.a < t[1] < r1
  *                 # so the function is negative on t => f is minimal
  *                 elif r0 <= t[0] <= t[1] <= r1:             # <<<<<<<<<<<<<<
@@ -7342,7 +7350,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
           __pyx_t_10 = (__pyx_t_6 != 0);
           if (__pyx_t_10) {
 
-            /* "xsmc/_viterbi.pyx":414
+            /* "xsmc/_viterbi.pyx":420
  *                 # so the function is negative on t => f is minimal
  *                 elif r0 <= t[0] <= t[1] <= r1:
  *                     return g_is_greater             # <<<<<<<<<<<<<<
@@ -7352,7 +7360,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
             __pyx_r = __pyx_v_g_is_greater;
             goto __pyx_L3_return;
 
-            /* "xsmc/_viterbi.pyx":413
+            /* "xsmc/_viterbi.pyx":419
  *                 # case 4: r0 <= t.a < t[1] < r1
  *                 # so the function is negative on t => f is minimal
  *                 elif r0 <= t[0] <= t[1] <= r1:             # <<<<<<<<<<<<<<
@@ -7361,7 +7369,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
           }
 
-          /* "xsmc/_viterbi.pyx":416
+          /* "xsmc/_viterbi.pyx":422
  *                     return g_is_greater
  *                 # case 5: r0 <= t.a < r1 < t.b
  *                 elif r0 <= t[0] <= r1 <= t[1]:             # <<<<<<<<<<<<<<
@@ -7378,7 +7386,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
           __pyx_t_6 = (__pyx_t_10 != 0);
           if (__pyx_t_6) {
 
-            /* "xsmc/_viterbi.pyx":417
+            /* "xsmc/_viterbi.pyx":423
  *                 # case 5: r0 <= t.a < r1 < t.b
  *                 elif r0 <= t[0] <= r1 <= t[1]:
  *                     ret.f.push_back(f)             # <<<<<<<<<<<<<<
@@ -7395,10 +7403,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 417, __pyx_L4_error)
+              __PYX_ERR(0, 423, __pyx_L4_error)
             }
 
-            /* "xsmc/_viterbi.pyx":418
+            /* "xsmc/_viterbi.pyx":424
  *                 elif r0 <= t[0] <= r1 <= t[1]:
  *                     ret.f.push_back(f)
  *                     ret.f.push_back(g)             # <<<<<<<<<<<<<<
@@ -7415,10 +7423,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 418, __pyx_L4_error)
+              __PYX_ERR(0, 424, __pyx_L4_error)
             }
 
-            /* "xsmc/_viterbi.pyx":419
+            /* "xsmc/_viterbi.pyx":425
  *                     ret.f.push_back(f)
  *                     ret.f.push_back(g)
  *                     ret.t.push_back(t[0])             # <<<<<<<<<<<<<<
@@ -7435,10 +7443,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 419, __pyx_L4_error)
+              __PYX_ERR(0, 425, __pyx_L4_error)
             }
 
-            /* "xsmc/_viterbi.pyx":420
+            /* "xsmc/_viterbi.pyx":426
  *                     ret.f.push_back(g)
  *                     ret.t.push_back(t[0])
  *                     ret.t.push_back(r1)             # <<<<<<<<<<<<<<
@@ -7455,10 +7463,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 420, __pyx_L4_error)
+              __PYX_ERR(0, 426, __pyx_L4_error)
             }
 
-            /* "xsmc/_viterbi.pyx":421
+            /* "xsmc/_viterbi.pyx":427
  *                     ret.t.push_back(t[0])
  *                     ret.t.push_back(r1)
  *                     ret.t.push_back(t[1])             # <<<<<<<<<<<<<<
@@ -7475,10 +7483,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 421, __pyx_L4_error)
+              __PYX_ERR(0, 427, __pyx_L4_error)
             }
 
-            /* "xsmc/_viterbi.pyx":422
+            /* "xsmc/_viterbi.pyx":428
  *                     ret.t.push_back(r1)
  *                     ret.t.push_back(t[1])
  *                     return compact(ret)             # <<<<<<<<<<<<<<
@@ -7488,7 +7496,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
             __pyx_r = __pyx_f_4xsmc_8_viterbi_compact(__pyx_v_ret);
             goto __pyx_L3_return;
 
-            /* "xsmc/_viterbi.pyx":416
+            /* "xsmc/_viterbi.pyx":422
  *                     return g_is_greater
  *                 # case 5: r0 <= t.a < r1 < t.b
  *                 elif r0 <= t[0] <= r1 <= t[1]:             # <<<<<<<<<<<<<<
@@ -7497,7 +7505,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  */
           }
 
-          /* "xsmc/_viterbi.pyx":424
+          /* "xsmc/_viterbi.pyx":430
  *                     return compact(ret)
  *                 # case 6: r1 < t.a
  *                 elif r1 <= t[0]:             # <<<<<<<<<<<<<<
@@ -7507,7 +7515,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
           __pyx_t_6 = ((__pyx_v_r1 <= (__pyx_v_t[0])) != 0);
           if (__pyx_t_6) {
 
-            /* "xsmc/_viterbi.pyx":425
+            /* "xsmc/_viterbi.pyx":431
  *                 # case 6: r1 < t.a
  *                 elif r1 <= t[0]:
  *                     return f_is_greater             # <<<<<<<<<<<<<<
@@ -7517,7 +7525,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
             __pyx_r = __pyx_v_f_is_greater;
             goto __pyx_L3_return;
 
-            /* "xsmc/_viterbi.pyx":424
+            /* "xsmc/_viterbi.pyx":430
  *                     return compact(ret)
  *                 # case 6: r1 < t.a
  *                 elif r1 <= t[0]:             # <<<<<<<<<<<<<<
@@ -7529,7 +7537,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
       }
     }
 
-    /* "xsmc/_viterbi.pyx":426
+    /* "xsmc/_viterbi.pyx":432
  *                 elif r1 <= t[0]:
  *                     return f_is_greater
  *     with gil:             # <<<<<<<<<<<<<<
@@ -7542,26 +7550,26 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
         #endif
         /*try:*/ {
 
-          /* "xsmc/_viterbi.pyx":427
+          /* "xsmc/_viterbi.pyx":433
  *                     return f_is_greater
  *     with gil:
  *         print("fell through -- this should never happen!")             # <<<<<<<<<<<<<<
  *         raise
  * 
  */
-          if (__Pyx_PrintOne(0, __pyx_kp_s_fell_through_this_should_never_h) < 0) __PYX_ERR(0, 427, __pyx_L20_error)
+          if (__Pyx_PrintOne(0, __pyx_kp_s_fell_through_this_should_never_h) < 0) __PYX_ERR(0, 433, __pyx_L20_error)
 
-          /* "xsmc/_viterbi.pyx":428
+          /* "xsmc/_viterbi.pyx":434
  *     with gil:
  *         print("fell through -- this should never happen!")
  *         raise             # <<<<<<<<<<<<<<
  * 
  * cdef piecewise_func pointwise_min(
  */
-          __Pyx_ReraiseException(); __PYX_ERR(0, 428, __pyx_L20_error)
+          __Pyx_ReraiseException(); __PYX_ERR(0, 434, __pyx_L20_error)
         }
 
-        /* "xsmc/_viterbi.pyx":426
+        /* "xsmc/_viterbi.pyx":432
  *                 elif r1 <= t[0]:
  *                     return f_is_greater
  *     with gil:             # <<<<<<<<<<<<<<
@@ -7579,7 +7587,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
     }
   }
 
-  /* "xsmc/_viterbi.pyx":298
+  /* "xsmc/_viterbi.pyx":304
  * @cython.cdivision(True)
  * cdef piecewise_func pmin(func f, func g, interval t) nogil:
  *     '''             # <<<<<<<<<<<<<<
@@ -7601,7 +7609,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
     }
   }
 
-  /* "xsmc/_viterbi.pyx":297
+  /* "xsmc/_viterbi.pyx":303
  * 
  * @cython.cdivision(True)
  * cdef piecewise_func pmin(func f, func g, interval t) nogil:             # <<<<<<<<<<<<<<
@@ -7627,7 +7635,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
   return __pyx_r;
 }
 
-/* "xsmc/_viterbi.pyx":430
+/* "xsmc/_viterbi.pyx":436
  *         raise
  * 
  * cdef piecewise_func pointwise_min(             # <<<<<<<<<<<<<<
@@ -7662,13 +7670,13 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
   double __pyx_t_13;
   double __pyx_t_14;
   double __pyx_t_15;
-  __Pyx_FakeReference<__pyx_t_4xsmc_8_viterbi_func> __pyx_t_16;
-  __Pyx_FakeReference<double> __pyx_t_17;
-  __Pyx_FakeReference<__pyx_t_4xsmc_8_viterbi_func> __pyx_t_18;
-  __Pyx_FakeReference<double> __pyx_t_19;
+  PyObject *__pyx_t_16 = NULL;
+  __Pyx_FakeReference<__pyx_t_4xsmc_8_viterbi_func> __pyx_t_17;
+  __Pyx_FakeReference<double> __pyx_t_18;
+  PyObject *__pyx_t_19 = NULL;
   PyObject *__pyx_t_20 = NULL;
-  PyObject *__pyx_t_21 = NULL;
-  PyObject *__pyx_t_22 = NULL;
+  __Pyx_FakeReference<__pyx_t_4xsmc_8_viterbi_func> __pyx_t_21;
+  __Pyx_FakeReference<double> __pyx_t_22;
   PyObject *__pyx_t_23 = NULL;
   PyObject *__pyx_t_24 = NULL;
   PyObject *__pyx_t_25 = NULL;
@@ -7680,7 +7688,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
   #endif
   __Pyx_RefNannySetupContext("pointwise_min", 1);
 
-  /* "xsmc/_viterbi.pyx":435
+  /* "xsmc/_viterbi.pyx":441
  *     const piecewise_func cost
  * ) nogil:
  *     '''             # <<<<<<<<<<<<<<
@@ -7689,7 +7697,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
  */
   /*try:*/ {
 
-    /* "xsmc/_viterbi.pyx":439
+    /* "xsmc/_viterbi.pyx":445
  *     '''
  *     if DEBUG:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -7702,7 +7710,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
         #endif
         /*try:*/ {
 
-          /* "xsmc/_viterbi.pyx":440
+          /* "xsmc/_viterbi.pyx":446
  *     if DEBUG:
  *         with gil:
  *             check_piecewise(prior)             # <<<<<<<<<<<<<<
@@ -7711,7 +7719,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
  */
           __pyx_f_4xsmc_8_viterbi_check_piecewise(__pyx_v_prior);
 
-          /* "xsmc/_viterbi.pyx":441
+          /* "xsmc/_viterbi.pyx":447
  *         with gil:
  *             check_piecewise(prior)
  *             check_piecewise(cost)             # <<<<<<<<<<<<<<
@@ -7720,25 +7728,25 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
  */
           __pyx_f_4xsmc_8_viterbi_check_piecewise(__pyx_v_cost);
 
-          /* "xsmc/_viterbi.pyx":442
+          /* "xsmc/_viterbi.pyx":448
  *             check_piecewise(prior)
  *             check_piecewise(cost)
  *             print('in pointwise_min')             # <<<<<<<<<<<<<<
  *             print("---> prior", prior)
  *             print("---> F_t", F_t)
  */
-          if (__Pyx_PrintOne(0, __pyx_kp_s_in_pointwise_min) < 0) __PYX_ERR(0, 442, __pyx_L7_error)
+          if (__Pyx_PrintOne(0, __pyx_kp_s_in_pointwise_min) < 0) __PYX_ERR(0, 448, __pyx_L7_error)
 
-          /* "xsmc/_viterbi.pyx":443
+          /* "xsmc/_viterbi.pyx":449
  *             check_piecewise(cost)
  *             print('in pointwise_min')
  *             print("---> prior", prior)             # <<<<<<<<<<<<<<
  *             print("---> F_t", F_t)
  *             print("---> cost", cost)
  */
-          __pyx_t_1 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_prior); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 443, __pyx_L7_error)
+          __pyx_t_1 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_prior); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 449, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 443, __pyx_L7_error)
+          __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 449, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_INCREF(__pyx_kp_s_prior);
           __Pyx_GIVEREF(__pyx_kp_s_prior);
@@ -7746,19 +7754,19 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
           __Pyx_GIVEREF(__pyx_t_1);
           PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_1);
           __pyx_t_1 = 0;
-          if (__Pyx_PrintOne(0, __pyx_t_2) < 0) __PYX_ERR(0, 443, __pyx_L7_error)
+          if (__Pyx_PrintOne(0, __pyx_t_2) < 0) __PYX_ERR(0, 449, __pyx_L7_error)
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "xsmc/_viterbi.pyx":444
+          /* "xsmc/_viterbi.pyx":450
  *             print('in pointwise_min')
  *             print("---> prior", prior)
  *             print("---> F_t", F_t)             # <<<<<<<<<<<<<<
  *             print("---> cost", cost)
  *     cdef int i = 0, j = 0
  */
-          __pyx_t_2 = PyFloat_FromDouble(__pyx_v_F_t); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 444, __pyx_L7_error)
+          __pyx_t_2 = PyFloat_FromDouble(__pyx_v_F_t); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 450, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_2);
-          __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 444, __pyx_L7_error)
+          __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 450, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_INCREF(__pyx_kp_s_F_t);
           __Pyx_GIVEREF(__pyx_kp_s_F_t);
@@ -7766,19 +7774,19 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
           __Pyx_GIVEREF(__pyx_t_2);
           PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_2);
           __pyx_t_2 = 0;
-          if (__Pyx_PrintOne(0, __pyx_t_1) < 0) __PYX_ERR(0, 444, __pyx_L7_error)
+          if (__Pyx_PrintOne(0, __pyx_t_1) < 0) __PYX_ERR(0, 450, __pyx_L7_error)
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "xsmc/_viterbi.pyx":445
+          /* "xsmc/_viterbi.pyx":451
  *             print("---> prior", prior)
  *             print("---> F_t", F_t)
  *             print("---> cost", cost)             # <<<<<<<<<<<<<<
  *     cdef int i = 0, j = 0
  *     cdef interval prior_intv, cost_intv, intv
  */
-          __pyx_t_1 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_cost); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 445, __pyx_L7_error)
+          __pyx_t_1 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_cost); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 451, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 445, __pyx_L7_error)
+          __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 451, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_INCREF(__pyx_kp_s_cost);
           __Pyx_GIVEREF(__pyx_kp_s_cost);
@@ -7786,11 +7794,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
           __Pyx_GIVEREF(__pyx_t_1);
           PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_1);
           __pyx_t_1 = 0;
-          if (__Pyx_PrintOne(0, __pyx_t_2) < 0) __PYX_ERR(0, 445, __pyx_L7_error)
+          if (__Pyx_PrintOne(0, __pyx_t_2) < 0) __PYX_ERR(0, 451, __pyx_L7_error)
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         }
 
-        /* "xsmc/_viterbi.pyx":439
+        /* "xsmc/_viterbi.pyx":445
  *     '''
  *     if DEBUG:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -7814,7 +7822,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
         }
     }
 
-    /* "xsmc/_viterbi.pyx":446
+    /* "xsmc/_viterbi.pyx":452
  *             print("---> F_t", F_t)
  *             print("---> cost", cost)
  *     cdef int i = 0, j = 0             # <<<<<<<<<<<<<<
@@ -7824,7 +7832,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
     __pyx_v_i = 0;
     __pyx_v_j = 0;
 
-    /* "xsmc/_viterbi.pyx":449
+    /* "xsmc/_viterbi.pyx":455
  *     cdef interval prior_intv, cost_intv, intv
  *     cdef func prior_f, cost_f
  *     prior_f = prior.f.at(i)             # <<<<<<<<<<<<<<
@@ -7841,11 +7849,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 449, __pyx_L4_error)
+      __PYX_ERR(0, 455, __pyx_L4_error)
     }
     __pyx_v_prior_f = __pyx_t_3;
 
-    /* "xsmc/_viterbi.pyx":450
+    /* "xsmc/_viterbi.pyx":456
  *     cdef func prior_f, cost_f
  *     prior_f = prior.f.at(i)
  *     prior_f.c[2] += F_t             # <<<<<<<<<<<<<<
@@ -7855,7 +7863,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
     __pyx_t_4 = 2;
     (__pyx_v_prior_f.c[__pyx_t_4]) = ((__pyx_v_prior_f.c[__pyx_t_4]) + __pyx_v_F_t);
 
-    /* "xsmc/_viterbi.pyx":451
+    /* "xsmc/_viterbi.pyx":457
  *     prior_f = prior.f.at(i)
  *     prior_f.c[2] += F_t
  *     cost_f = cost.f.at(j)             # <<<<<<<<<<<<<<
@@ -7872,11 +7880,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 451, __pyx_L4_error)
+      __PYX_ERR(0, 457, __pyx_L4_error)
     }
     __pyx_v_cost_f = __pyx_t_5;
 
-    /* "xsmc/_viterbi.pyx":453
+    /* "xsmc/_viterbi.pyx":459
  *     cost_f = cost.f.at(j)
  *     cdef piecewise_func ret, tmp
  *     prior_intv[0] = prior.t.at(i)             # <<<<<<<<<<<<<<
@@ -7893,11 +7901,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 453, __pyx_L4_error)
+      __PYX_ERR(0, 459, __pyx_L4_error)
     }
     (__pyx_v_prior_intv[0]) = __pyx_t_6;
 
-    /* "xsmc/_viterbi.pyx":454
+    /* "xsmc/_viterbi.pyx":460
  *     cdef piecewise_func ret, tmp
  *     prior_intv[0] = prior.t.at(i)
  *     prior_intv[1] = prior.t.at(i + 1)             # <<<<<<<<<<<<<<
@@ -7914,11 +7922,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 454, __pyx_L4_error)
+      __PYX_ERR(0, 460, __pyx_L4_error)
     }
     (__pyx_v_prior_intv[1]) = __pyx_t_7;
 
-    /* "xsmc/_viterbi.pyx":455
+    /* "xsmc/_viterbi.pyx":461
  *     prior_intv[0] = prior.t.at(i)
  *     prior_intv[1] = prior.t.at(i + 1)
  *     cost_intv[0] = cost.t.at(j)             # <<<<<<<<<<<<<<
@@ -7935,11 +7943,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 455, __pyx_L4_error)
+      __PYX_ERR(0, 461, __pyx_L4_error)
     }
     (__pyx_v_cost_intv[0]) = __pyx_t_8;
 
-    /* "xsmc/_viterbi.pyx":456
+    /* "xsmc/_viterbi.pyx":462
  *     prior_intv[1] = prior.t.at(i + 1)
  *     cost_intv[0] = cost.t.at(j)
  *     cost_intv[1] = cost.t.at(j + 1)             # <<<<<<<<<<<<<<
@@ -7956,11 +7964,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 456, __pyx_L4_error)
+      __PYX_ERR(0, 462, __pyx_L4_error)
     }
     (__pyx_v_cost_intv[1]) = __pyx_t_9;
 
-    /* "xsmc/_viterbi.pyx":457
+    /* "xsmc/_viterbi.pyx":463
  *     cost_intv[0] = cost.t.at(j)
  *     cost_intv[1] = cost.t.at(j + 1)
  *     intv[0] = prior_intv[0]             # <<<<<<<<<<<<<<
@@ -7969,7 +7977,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
  */
     (__pyx_v_intv[0]) = (__pyx_v_prior_intv[0]);
 
-    /* "xsmc/_viterbi.pyx":458
+    /* "xsmc/_viterbi.pyx":464
  *     cost_intv[1] = cost.t.at(j + 1)
  *     intv[0] = prior_intv[0]
  *     while isfinite(prior_intv[1]) or isfinite(cost_intv[1]):             # <<<<<<<<<<<<<<
@@ -7988,7 +7996,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
       __pyx_L11_bool_binop_done:;
       if (!__pyx_t_10) break;
 
-      /* "xsmc/_viterbi.pyx":460
+      /* "xsmc/_viterbi.pyx":466
  *     while isfinite(prior_intv[1]) or isfinite(cost_intv[1]):
  *         if DEBUG:
  *             with gil:             # <<<<<<<<<<<<<<
@@ -8001,7 +8009,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
           #endif
           /*try:*/ {
 
-            /* "xsmc/_viterbi.pyx":461
+            /* "xsmc/_viterbi.pyx":467
  *         if DEBUG:
  *             with gil:
  *                 assert prior_intv[0] == cost_intv[0], ('prior and cost do not keep the contract', prior_intv, cost_intv)             # <<<<<<<<<<<<<<
@@ -8011,11 +8019,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
             #ifndef CYTHON_WITHOUT_ASSERTIONS
             if (unlikely(!Py_OptimizeFlag)) {
               if (unlikely(!(((__pyx_v_prior_intv[0]) == (__pyx_v_cost_intv[0])) != 0))) {
-                __pyx_t_2 = __Pyx_carray_to_py_double(__pyx_v_prior_intv, 2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 461, __pyx_L16_error)
+                __pyx_t_2 = __Pyx_carray_to_py_double(__pyx_v_prior_intv, 2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 467, __pyx_L16_error)
                 __Pyx_GOTREF(__pyx_t_2);
-                __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_cost_intv, 2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 461, __pyx_L16_error)
+                __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_cost_intv, 2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 467, __pyx_L16_error)
                 __Pyx_GOTREF(__pyx_t_1);
-                __pyx_t_12 = PyTuple_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 461, __pyx_L16_error)
+                __pyx_t_12 = PyTuple_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 467, __pyx_L16_error)
                 __Pyx_GOTREF(__pyx_t_12);
                 __Pyx_INCREF(__pyx_kp_s_prior_and_cost_do_not_keep_the_c);
                 __Pyx_GIVEREF(__pyx_kp_s_prior_and_cost_do_not_keep_the_c);
@@ -8026,18 +8034,18 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
                 PyTuple_SET_ITEM(__pyx_t_12, 2, __pyx_t_1);
                 __pyx_t_2 = 0;
                 __pyx_t_1 = 0;
-                __pyx_t_1 = PyTuple_Pack(1, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 461, __pyx_L16_error)
+                __pyx_t_1 = PyTuple_Pack(1, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 467, __pyx_L16_error)
                 __Pyx_GOTREF(__pyx_t_1);
                 __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
                 PyErr_SetObject(PyExc_AssertionError, __pyx_t_1);
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-                __PYX_ERR(0, 461, __pyx_L16_error)
+                __PYX_ERR(0, 467, __pyx_L16_error)
               }
             }
             #endif
           }
 
-          /* "xsmc/_viterbi.pyx":460
+          /* "xsmc/_viterbi.pyx":466
  *     while isfinite(prior_intv[1]) or isfinite(cost_intv[1]):
  *         if DEBUG:
  *             with gil:             # <<<<<<<<<<<<<<
@@ -8061,7 +8069,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
           }
       }
 
-      /* "xsmc/_viterbi.pyx":462
+      /* "xsmc/_viterbi.pyx":468
  *             with gil:
  *                 assert prior_intv[0] == cost_intv[0], ('prior and cost do not keep the contract', prior_intv, cost_intv)
  *         intv[0] = prior_intv[0]             # <<<<<<<<<<<<<<
@@ -8070,7 +8078,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
  */
       (__pyx_v_intv[0]) = (__pyx_v_prior_intv[0]);
 
-      /* "xsmc/_viterbi.pyx":463
+      /* "xsmc/_viterbi.pyx":469
  *                 assert prior_intv[0] == cost_intv[0], ('prior and cost do not keep the contract', prior_intv, cost_intv)
  *         intv[0] = prior_intv[0]
  *         intv[1] = min(cost_intv[1], prior_intv[1])             # <<<<<<<<<<<<<<
@@ -8086,7 +8094,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
       }
       (__pyx_v_intv[1]) = __pyx_t_15;
 
-      /* "xsmc/_viterbi.pyx":464
+      /* "xsmc/_viterbi.pyx":470
  *         intv[0] = prior_intv[0]
  *         intv[1] = min(cost_intv[1], prior_intv[1])
  *         tmp = pmin(prior_f, cost_f, intv)             # <<<<<<<<<<<<<<
@@ -8095,12 +8103,12 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
  */
       __pyx_v_tmp = __pyx_f_4xsmc_8_viterbi_pmin(__pyx_v_prior_f, __pyx_v_cost_f, __pyx_v_intv);
 
-      /* "xsmc/_viterbi.pyx":466
+      /* "xsmc/_viterbi.pyx":472
  *         tmp = pmin(prior_f, cost_f, intv)
  *         if DEBUG:
  *             with gil:             # <<<<<<<<<<<<<<
  *                 print("got from pmin:", tmp)
- *         ret.f.insert(ret.f.end(), tmp.f.begin(), tmp.f.end())
+ *                 print("inserting %s into %s"  % (ret.f, tmp.f))
  */
       {
           #ifdef WITH_THREAD
@@ -8108,16 +8116,16 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
           #endif
           /*try:*/ {
 
-            /* "xsmc/_viterbi.pyx":467
+            /* "xsmc/_viterbi.pyx":473
  *         if DEBUG:
  *             with gil:
  *                 print("got from pmin:", tmp)             # <<<<<<<<<<<<<<
+ *                 print("inserting %s into %s"  % (ret.f, tmp.f))
  *         ret.f.insert(ret.f.end(), tmp.f.begin(), tmp.f.end())
- *         ret.t.insert(ret.t.end(), tmp.t.begin(), tmp.t.end() - 1)
  */
-            __pyx_t_1 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_tmp); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 467, __pyx_L21_error)
+            __pyx_t_1 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_tmp); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 473, __pyx_L21_error)
             __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 467, __pyx_L21_error)
+            __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 473, __pyx_L21_error)
             __Pyx_GOTREF(__pyx_t_12);
             __Pyx_INCREF(__pyx_kp_s_got_from_pmin);
             __Pyx_GIVEREF(__pyx_kp_s_got_from_pmin);
@@ -8125,16 +8133,41 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
             __Pyx_GIVEREF(__pyx_t_1);
             PyTuple_SET_ITEM(__pyx_t_12, 1, __pyx_t_1);
             __pyx_t_1 = 0;
-            if (__Pyx_PrintOne(0, __pyx_t_12) < 0) __PYX_ERR(0, 467, __pyx_L21_error)
+            if (__Pyx_PrintOne(0, __pyx_t_12) < 0) __PYX_ERR(0, 473, __pyx_L21_error)
             __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+
+            /* "xsmc/_viterbi.pyx":474
+ *             with gil:
+ *                 print("got from pmin:", tmp)
+ *                 print("inserting %s into %s"  % (ret.f, tmp.f))             # <<<<<<<<<<<<<<
+ *         ret.f.insert(ret.f.end(), tmp.f.begin(), tmp.f.end())
+ *         if DEBUG:
+ */
+            __pyx_t_12 = __pyx_convert_vector_to_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_ret.f); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 474, __pyx_L21_error)
+            __Pyx_GOTREF(__pyx_t_12);
+            __pyx_t_1 = __pyx_convert_vector_to_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_tmp.f); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 474, __pyx_L21_error)
+            __Pyx_GOTREF(__pyx_t_1);
+            __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 474, __pyx_L21_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            __Pyx_GIVEREF(__pyx_t_12);
+            PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_12);
+            __Pyx_GIVEREF(__pyx_t_1);
+            PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_1);
+            __pyx_t_12 = 0;
+            __pyx_t_1 = 0;
+            __pyx_t_1 = __Pyx_PyString_Format(__pyx_kp_s_inserting_s_into_s, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 474, __pyx_L21_error)
+            __Pyx_GOTREF(__pyx_t_1);
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+            if (__Pyx_PrintOne(0, __pyx_t_1) < 0) __PYX_ERR(0, 474, __pyx_L21_error)
+            __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           }
 
-          /* "xsmc/_viterbi.pyx":466
+          /* "xsmc/_viterbi.pyx":472
  *         tmp = pmin(prior_f, cost_f, intv)
  *         if DEBUG:
  *             with gil:             # <<<<<<<<<<<<<<
  *                 print("got from pmin:", tmp)
- *         ret.f.insert(ret.f.end(), tmp.f.begin(), tmp.f.end())
+ *                 print("inserting %s into %s"  % (ret.f, tmp.f))
  */
           /*finally:*/ {
             /*normal exit:*/{
@@ -8153,12 +8186,12 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
           }
       }
 
-      /* "xsmc/_viterbi.pyx":468
- *             with gil:
+      /* "xsmc/_viterbi.pyx":475
  *                 print("got from pmin:", tmp)
+ *                 print("inserting %s into %s"  % (ret.f, tmp.f))
  *         ret.f.insert(ret.f.end(), tmp.f.begin(), tmp.f.end())             # <<<<<<<<<<<<<<
- *         ret.t.insert(ret.t.end(), tmp.t.begin(), tmp.t.end() - 1)
- *         prior_intv[0] = intv[1]
+ *         if DEBUG:
+ *             with gil:
  */
       try {
         __pyx_v_ret.f.insert(__pyx_v_ret.f.end(), __pyx_v_tmp.f.begin(), __pyx_v_tmp.f.end());
@@ -8170,15 +8203,78 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
         #ifdef WITH_THREAD
         __Pyx_PyGILState_Release(__pyx_gilstate_save);
         #endif
-        __PYX_ERR(0, 468, __pyx_L4_error)
+        __PYX_ERR(0, 475, __pyx_L4_error)
       }
 
-      /* "xsmc/_viterbi.pyx":469
- *                 print("got from pmin:", tmp)
+      /* "xsmc/_viterbi.pyx":477
  *         ret.f.insert(ret.f.end(), tmp.f.begin(), tmp.f.end())
+ *         if DEBUG:
+ *             with gil:             # <<<<<<<<<<<<<<
+ *                 print("inserting %s into %s"  % (ret.t, tmp.t))
+ *         ret.t.insert(ret.t.end(), tmp.t.begin(), tmp.t.end() - 1)
+ */
+      {
+          #ifdef WITH_THREAD
+          PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
+          #endif
+          /*try:*/ {
+
+            /* "xsmc/_viterbi.pyx":478
+ *         if DEBUG:
+ *             with gil:
+ *                 print("inserting %s into %s"  % (ret.t, tmp.t))             # <<<<<<<<<<<<<<
+ *         ret.t.insert(ret.t.end(), tmp.t.begin(), tmp.t.end() - 1)
+ * 
+ */
+            __pyx_t_1 = __pyx_convert_vector_to_py_double(__pyx_v_ret.t); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 478, __pyx_L26_error)
+            __Pyx_GOTREF(__pyx_t_1);
+            __pyx_t_2 = __pyx_convert_vector_to_py_double(__pyx_v_tmp.t); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 478, __pyx_L26_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 478, __pyx_L26_error)
+            __Pyx_GOTREF(__pyx_t_12);
+            __Pyx_GIVEREF(__pyx_t_1);
+            PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_1);
+            __Pyx_GIVEREF(__pyx_t_2);
+            PyTuple_SET_ITEM(__pyx_t_12, 1, __pyx_t_2);
+            __pyx_t_1 = 0;
+            __pyx_t_2 = 0;
+            __pyx_t_2 = __Pyx_PyString_Format(__pyx_kp_s_inserting_s_into_s, __pyx_t_12); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 478, __pyx_L26_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+            if (__Pyx_PrintOne(0, __pyx_t_2) < 0) __PYX_ERR(0, 478, __pyx_L26_error)
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          }
+
+          /* "xsmc/_viterbi.pyx":477
+ *         ret.f.insert(ret.f.end(), tmp.f.begin(), tmp.f.end())
+ *         if DEBUG:
+ *             with gil:             # <<<<<<<<<<<<<<
+ *                 print("inserting %s into %s"  % (ret.t, tmp.t))
+ *         ret.t.insert(ret.t.end(), tmp.t.begin(), tmp.t.end() - 1)
+ */
+          /*finally:*/ {
+            /*normal exit:*/{
+              #ifdef WITH_THREAD
+              __Pyx_PyGILState_Release(__pyx_gilstate_save);
+              #endif
+              goto __pyx_L27;
+            }
+            __pyx_L26_error: {
+              #ifdef WITH_THREAD
+              __Pyx_PyGILState_Release(__pyx_gilstate_save);
+              #endif
+              goto __pyx_L4_error;
+            }
+            __pyx_L27:;
+          }
+      }
+
+      /* "xsmc/_viterbi.pyx":479
+ *             with gil:
+ *                 print("inserting %s into %s"  % (ret.t, tmp.t))
  *         ret.t.insert(ret.t.end(), tmp.t.begin(), tmp.t.end() - 1)             # <<<<<<<<<<<<<<
+ * 
  *         prior_intv[0] = intv[1]
- *         cost_intv[0] = intv[1]
  */
       try {
         __pyx_v_ret.t.insert(__pyx_v_ret.t.end(), __pyx_v_tmp.t.begin(), (__pyx_v_tmp.t.end() - 1));
@@ -8190,55 +8286,123 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
         #ifdef WITH_THREAD
         __Pyx_PyGILState_Release(__pyx_gilstate_save);
         #endif
-        __PYX_ERR(0, 469, __pyx_L4_error)
+        __PYX_ERR(0, 479, __pyx_L4_error)
       }
 
-      /* "xsmc/_viterbi.pyx":470
- *         ret.f.insert(ret.f.end(), tmp.f.begin(), tmp.f.end())
+      /* "xsmc/_viterbi.pyx":481
  *         ret.t.insert(ret.t.end(), tmp.t.begin(), tmp.t.end() - 1)
+ * 
  *         prior_intv[0] = intv[1]             # <<<<<<<<<<<<<<
  *         cost_intv[0] = intv[1]
  *         if prior_intv[1] == intv[1]:
  */
       (__pyx_v_prior_intv[0]) = (__pyx_v_intv[1]);
 
-      /* "xsmc/_viterbi.pyx":471
- *         ret.t.insert(ret.t.end(), tmp.t.begin(), tmp.t.end() - 1)
+      /* "xsmc/_viterbi.pyx":482
+ * 
  *         prior_intv[0] = intv[1]
  *         cost_intv[0] = intv[1]             # <<<<<<<<<<<<<<
  *         if prior_intv[1] == intv[1]:
- *             i += 1
+ *             if DEBUG:
  */
       (__pyx_v_cost_intv[0]) = (__pyx_v_intv[1]);
 
-      /* "xsmc/_viterbi.pyx":472
+      /* "xsmc/_viterbi.pyx":483
  *         prior_intv[0] = intv[1]
  *         cost_intv[0] = intv[1]
  *         if prior_intv[1] == intv[1]:             # <<<<<<<<<<<<<<
- *             i += 1
- *             prior_f = prior.f.at(i)
+ *             if DEBUG:
+ *                 with gil:
  */
       __pyx_t_10 = (((__pyx_v_prior_intv[1]) == (__pyx_v_intv[1])) != 0);
       if (__pyx_t_10) {
 
-        /* "xsmc/_viterbi.pyx":473
- *         cost_intv[0] = intv[1]
+        /* "xsmc/_viterbi.pyx":485
  *         if prior_intv[1] == intv[1]:
+ *             if DEBUG:
+ *                 with gil:             # <<<<<<<<<<<<<<
+ *                     print("prior increment i=%d prior.f=%s prior.t=%s" % (i, prior.f, prior.t))
+ *             i += 1
+ */
+        {
+            #ifdef WITH_THREAD
+            PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
+            #endif
+            /*try:*/ {
+
+              /* "xsmc/_viterbi.pyx":486
+ *             if DEBUG:
+ *                 with gil:
+ *                     print("prior increment i=%d prior.f=%s prior.t=%s" % (i, prior.f, prior.t))             # <<<<<<<<<<<<<<
+ *             i += 1
+ *             prior_f = prior.f.at(i)
+ */
+              __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 486, __pyx_L32_error)
+              __Pyx_GOTREF(__pyx_t_2);
+              __pyx_t_12 = __pyx_convert_vector_to_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_prior.f); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 486, __pyx_L32_error)
+              __Pyx_GOTREF(__pyx_t_12);
+              __pyx_t_1 = __pyx_convert_vector_to_py_double(__pyx_v_prior.t); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 486, __pyx_L32_error)
+              __Pyx_GOTREF(__pyx_t_1);
+              __pyx_t_16 = PyTuple_New(3); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 486, __pyx_L32_error)
+              __Pyx_GOTREF(__pyx_t_16);
+              __Pyx_GIVEREF(__pyx_t_2);
+              PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_2);
+              __Pyx_GIVEREF(__pyx_t_12);
+              PyTuple_SET_ITEM(__pyx_t_16, 1, __pyx_t_12);
+              __Pyx_GIVEREF(__pyx_t_1);
+              PyTuple_SET_ITEM(__pyx_t_16, 2, __pyx_t_1);
+              __pyx_t_2 = 0;
+              __pyx_t_12 = 0;
+              __pyx_t_1 = 0;
+              __pyx_t_1 = __Pyx_PyString_Format(__pyx_kp_s_prior_increment_i_d_prior_f_s_pr, __pyx_t_16); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 486, __pyx_L32_error)
+              __Pyx_GOTREF(__pyx_t_1);
+              __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+              if (__Pyx_PrintOne(0, __pyx_t_1) < 0) __PYX_ERR(0, 486, __pyx_L32_error)
+              __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+            }
+
+            /* "xsmc/_viterbi.pyx":485
+ *         if prior_intv[1] == intv[1]:
+ *             if DEBUG:
+ *                 with gil:             # <<<<<<<<<<<<<<
+ *                     print("prior increment i=%d prior.f=%s prior.t=%s" % (i, prior.f, prior.t))
+ *             i += 1
+ */
+            /*finally:*/ {
+              /*normal exit:*/{
+                #ifdef WITH_THREAD
+                __Pyx_PyGILState_Release(__pyx_gilstate_save);
+                #endif
+                goto __pyx_L33;
+              }
+              __pyx_L32_error: {
+                #ifdef WITH_THREAD
+                __Pyx_PyGILState_Release(__pyx_gilstate_save);
+                #endif
+                goto __pyx_L4_error;
+              }
+              __pyx_L33:;
+            }
+        }
+
+        /* "xsmc/_viterbi.pyx":487
+ *                 with gil:
+ *                     print("prior increment i=%d prior.f=%s prior.t=%s" % (i, prior.f, prior.t))
  *             i += 1             # <<<<<<<<<<<<<<
  *             prior_f = prior.f.at(i)
  *             prior_intv[1] = prior.t.at(i + 1)
  */
         __pyx_v_i = (__pyx_v_i + 1);
 
-        /* "xsmc/_viterbi.pyx":474
- *         if prior_intv[1] == intv[1]:
+        /* "xsmc/_viterbi.pyx":488
+ *                     print("prior increment i=%d prior.f=%s prior.t=%s" % (i, prior.f, prior.t))
  *             i += 1
  *             prior_f = prior.f.at(i)             # <<<<<<<<<<<<<<
  *             prior_intv[1] = prior.t.at(i + 1)
  *             prior_f.c[2] += F_t
  */
         try {
-          __pyx_t_16 = __pyx_v_prior.f.at(__pyx_v_i);
+          __pyx_t_17 = __pyx_v_prior.f.at(__pyx_v_i);
         } catch(...) {
           #ifdef WITH_THREAD
           PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
@@ -8247,11 +8411,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
           #ifdef WITH_THREAD
           __Pyx_PyGILState_Release(__pyx_gilstate_save);
           #endif
-          __PYX_ERR(0, 474, __pyx_L4_error)
+          __PYX_ERR(0, 488, __pyx_L4_error)
         }
-        __pyx_v_prior_f = __pyx_t_16;
+        __pyx_v_prior_f = __pyx_t_17;
 
-        /* "xsmc/_viterbi.pyx":475
+        /* "xsmc/_viterbi.pyx":489
  *             i += 1
  *             prior_f = prior.f.at(i)
  *             prior_intv[1] = prior.t.at(i + 1)             # <<<<<<<<<<<<<<
@@ -8259,7 +8423,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
  *         if cost_intv[1] == intv[1]:
  */
         try {
-          __pyx_t_17 = __pyx_v_prior.t.at((__pyx_v_i + 1));
+          __pyx_t_18 = __pyx_v_prior.t.at((__pyx_v_i + 1));
         } catch(...) {
           #ifdef WITH_THREAD
           PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
@@ -8268,57 +8432,135 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
           #ifdef WITH_THREAD
           __Pyx_PyGILState_Release(__pyx_gilstate_save);
           #endif
-          __PYX_ERR(0, 475, __pyx_L4_error)
+          __PYX_ERR(0, 489, __pyx_L4_error)
         }
-        (__pyx_v_prior_intv[1]) = __pyx_t_17;
+        (__pyx_v_prior_intv[1]) = __pyx_t_18;
 
-        /* "xsmc/_viterbi.pyx":476
+        /* "xsmc/_viterbi.pyx":490
  *             prior_f = prior.f.at(i)
  *             prior_intv[1] = prior.t.at(i + 1)
  *             prior_f.c[2] += F_t             # <<<<<<<<<<<<<<
  *         if cost_intv[1] == intv[1]:
- *             j += 1
+ *             if DEBUG:
  */
         __pyx_t_4 = 2;
         (__pyx_v_prior_f.c[__pyx_t_4]) = ((__pyx_v_prior_f.c[__pyx_t_4]) + __pyx_v_F_t);
 
-        /* "xsmc/_viterbi.pyx":472
+        /* "xsmc/_viterbi.pyx":483
  *         prior_intv[0] = intv[1]
  *         cost_intv[0] = intv[1]
  *         if prior_intv[1] == intv[1]:             # <<<<<<<<<<<<<<
- *             i += 1
- *             prior_f = prior.f.at(i)
+ *             if DEBUG:
+ *                 with gil:
  */
       }
 
-      /* "xsmc/_viterbi.pyx":477
+      /* "xsmc/_viterbi.pyx":491
  *             prior_intv[1] = prior.t.at(i + 1)
  *             prior_f.c[2] += F_t
  *         if cost_intv[1] == intv[1]:             # <<<<<<<<<<<<<<
- *             j += 1
- *             cost_f = cost.f.at(j)
+ *             if DEBUG:
+ *                 with gil:
  */
       __pyx_t_10 = (((__pyx_v_cost_intv[1]) == (__pyx_v_intv[1])) != 0);
       if (__pyx_t_10) {
 
-        /* "xsmc/_viterbi.pyx":478
- *             prior_f.c[2] += F_t
+        /* "xsmc/_viterbi.pyx":493
  *         if cost_intv[1] == intv[1]:
+ *             if DEBUG:
+ *                 with gil:             # <<<<<<<<<<<<<<
+ *                     print("cost increment j=%d cost_intv=%s intv=%s cost.f=%s cost.t=%s" % (j, cost_intv, intv, cost.f, cost.t))
+ *             j += 1
+ */
+        {
+            #ifdef WITH_THREAD
+            PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
+            #endif
+            /*try:*/ {
+
+              /* "xsmc/_viterbi.pyx":494
+ *             if DEBUG:
+ *                 with gil:
+ *                     print("cost increment j=%d cost_intv=%s intv=%s cost.f=%s cost.t=%s" % (j, cost_intv, intv, cost.f, cost.t))             # <<<<<<<<<<<<<<
+ *             j += 1
+ *             cost_f = cost.f.at(j)
+ */
+              __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 494, __pyx_L38_error)
+              __Pyx_GOTREF(__pyx_t_1);
+              __pyx_t_16 = __Pyx_carray_to_py_double(__pyx_v_cost_intv, 2); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 494, __pyx_L38_error)
+              __Pyx_GOTREF(__pyx_t_16);
+              __pyx_t_12 = __Pyx_carray_to_py_double(__pyx_v_intv, 2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 494, __pyx_L38_error)
+              __Pyx_GOTREF(__pyx_t_12);
+              __pyx_t_2 = __pyx_convert_vector_to_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_cost.f); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 494, __pyx_L38_error)
+              __Pyx_GOTREF(__pyx_t_2);
+              __pyx_t_19 = __pyx_convert_vector_to_py_double(__pyx_v_cost.t); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 494, __pyx_L38_error)
+              __Pyx_GOTREF(__pyx_t_19);
+              __pyx_t_20 = PyTuple_New(5); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 494, __pyx_L38_error)
+              __Pyx_GOTREF(__pyx_t_20);
+              __Pyx_GIVEREF(__pyx_t_1);
+              PyTuple_SET_ITEM(__pyx_t_20, 0, __pyx_t_1);
+              __Pyx_GIVEREF(__pyx_t_16);
+              PyTuple_SET_ITEM(__pyx_t_20, 1, __pyx_t_16);
+              __Pyx_GIVEREF(__pyx_t_12);
+              PyTuple_SET_ITEM(__pyx_t_20, 2, __pyx_t_12);
+              __Pyx_GIVEREF(__pyx_t_2);
+              PyTuple_SET_ITEM(__pyx_t_20, 3, __pyx_t_2);
+              __Pyx_GIVEREF(__pyx_t_19);
+              PyTuple_SET_ITEM(__pyx_t_20, 4, __pyx_t_19);
+              __pyx_t_1 = 0;
+              __pyx_t_16 = 0;
+              __pyx_t_12 = 0;
+              __pyx_t_2 = 0;
+              __pyx_t_19 = 0;
+              __pyx_t_19 = __Pyx_PyString_Format(__pyx_kp_s_cost_increment_j_d_cost_intv_s_i, __pyx_t_20); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 494, __pyx_L38_error)
+              __Pyx_GOTREF(__pyx_t_19);
+              __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
+              if (__Pyx_PrintOne(0, __pyx_t_19) < 0) __PYX_ERR(0, 494, __pyx_L38_error)
+              __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+            }
+
+            /* "xsmc/_viterbi.pyx":493
+ *         if cost_intv[1] == intv[1]:
+ *             if DEBUG:
+ *                 with gil:             # <<<<<<<<<<<<<<
+ *                     print("cost increment j=%d cost_intv=%s intv=%s cost.f=%s cost.t=%s" % (j, cost_intv, intv, cost.f, cost.t))
+ *             j += 1
+ */
+            /*finally:*/ {
+              /*normal exit:*/{
+                #ifdef WITH_THREAD
+                __Pyx_PyGILState_Release(__pyx_gilstate_save);
+                #endif
+                goto __pyx_L39;
+              }
+              __pyx_L38_error: {
+                #ifdef WITH_THREAD
+                __Pyx_PyGILState_Release(__pyx_gilstate_save);
+                #endif
+                goto __pyx_L4_error;
+              }
+              __pyx_L39:;
+            }
+        }
+
+        /* "xsmc/_viterbi.pyx":495
+ *                 with gil:
+ *                     print("cost increment j=%d cost_intv=%s intv=%s cost.f=%s cost.t=%s" % (j, cost_intv, intv, cost.f, cost.t))
  *             j += 1             # <<<<<<<<<<<<<<
  *             cost_f = cost.f.at(j)
  *             cost_intv[1] = cost.t.at(j + 1)
  */
         __pyx_v_j = (__pyx_v_j + 1);
 
-        /* "xsmc/_viterbi.pyx":479
- *         if cost_intv[1] == intv[1]:
+        /* "xsmc/_viterbi.pyx":496
+ *                     print("cost increment j=%d cost_intv=%s intv=%s cost.f=%s cost.t=%s" % (j, cost_intv, intv, cost.f, cost.t))
  *             j += 1
  *             cost_f = cost.f.at(j)             # <<<<<<<<<<<<<<
  *             cost_intv[1] = cost.t.at(j + 1)
- *         if DEBUG:
+ *             if DEBUG:
  */
         try {
-          __pyx_t_18 = __pyx_v_cost.f.at(__pyx_v_j);
+          __pyx_t_21 = __pyx_v_cost.f.at(__pyx_v_j);
         } catch(...) {
           #ifdef WITH_THREAD
           PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
@@ -8327,19 +8569,19 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
           #ifdef WITH_THREAD
           __Pyx_PyGILState_Release(__pyx_gilstate_save);
           #endif
-          __PYX_ERR(0, 479, __pyx_L4_error)
+          __PYX_ERR(0, 496, __pyx_L4_error)
         }
-        __pyx_v_cost_f = __pyx_t_18;
+        __pyx_v_cost_f = __pyx_t_21;
 
-        /* "xsmc/_viterbi.pyx":480
+        /* "xsmc/_viterbi.pyx":497
  *             j += 1
  *             cost_f = cost.f.at(j)
  *             cost_intv[1] = cost.t.at(j + 1)             # <<<<<<<<<<<<<<
- *         if DEBUG:
- *             with gil:
+ *             if DEBUG:
+ *                 with gil:
  */
         try {
-          __pyx_t_19 = __pyx_v_cost.t.at((__pyx_v_j + 1));
+          __pyx_t_22 = __pyx_v_cost.t.at((__pyx_v_j + 1));
         } catch(...) {
           #ifdef WITH_THREAD
           PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
@@ -8348,21 +8590,94 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
           #ifdef WITH_THREAD
           __Pyx_PyGILState_Release(__pyx_gilstate_save);
           #endif
-          __PYX_ERR(0, 480, __pyx_L4_error)
+          __PYX_ERR(0, 497, __pyx_L4_error)
         }
-        (__pyx_v_cost_intv[1]) = __pyx_t_19;
+        (__pyx_v_cost_intv[1]) = __pyx_t_22;
 
-        /* "xsmc/_viterbi.pyx":477
+        /* "xsmc/_viterbi.pyx":499
+ *             cost_intv[1] = cost.t.at(j + 1)
+ *             if DEBUG:
+ *                 with gil:             # <<<<<<<<<<<<<<
+ *                     print("finished cost increment j=%d cost_intv=%s intv=%s cost_f=%s" % (j, cost_intv, intv, cost_f))
+ *         if DEBUG:
+ */
+        {
+            #ifdef WITH_THREAD
+            PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
+            #endif
+            /*try:*/ {
+
+              /* "xsmc/_viterbi.pyx":500
+ *             if DEBUG:
+ *                 with gil:
+ *                     print("finished cost increment j=%d cost_intv=%s intv=%s cost_f=%s" % (j, cost_intv, intv, cost_f))             # <<<<<<<<<<<<<<
+ *         if DEBUG:
+ *             with gil:
+ */
+              __pyx_t_19 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 500, __pyx_L43_error)
+              __Pyx_GOTREF(__pyx_t_19);
+              __pyx_t_20 = __Pyx_carray_to_py_double(__pyx_v_cost_intv, 2); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 500, __pyx_L43_error)
+              __Pyx_GOTREF(__pyx_t_20);
+              __pyx_t_2 = __Pyx_carray_to_py_double(__pyx_v_intv, 2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 500, __pyx_L43_error)
+              __Pyx_GOTREF(__pyx_t_2);
+              __pyx_t_12 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_cost_f); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 500, __pyx_L43_error)
+              __Pyx_GOTREF(__pyx_t_12);
+              __pyx_t_16 = PyTuple_New(4); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 500, __pyx_L43_error)
+              __Pyx_GOTREF(__pyx_t_16);
+              __Pyx_GIVEREF(__pyx_t_19);
+              PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_19);
+              __Pyx_GIVEREF(__pyx_t_20);
+              PyTuple_SET_ITEM(__pyx_t_16, 1, __pyx_t_20);
+              __Pyx_GIVEREF(__pyx_t_2);
+              PyTuple_SET_ITEM(__pyx_t_16, 2, __pyx_t_2);
+              __Pyx_GIVEREF(__pyx_t_12);
+              PyTuple_SET_ITEM(__pyx_t_16, 3, __pyx_t_12);
+              __pyx_t_19 = 0;
+              __pyx_t_20 = 0;
+              __pyx_t_2 = 0;
+              __pyx_t_12 = 0;
+              __pyx_t_12 = __Pyx_PyString_Format(__pyx_kp_s_finished_cost_increment_j_d_cost, __pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 500, __pyx_L43_error)
+              __Pyx_GOTREF(__pyx_t_12);
+              __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+              if (__Pyx_PrintOne(0, __pyx_t_12) < 0) __PYX_ERR(0, 500, __pyx_L43_error)
+              __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+            }
+
+            /* "xsmc/_viterbi.pyx":499
+ *             cost_intv[1] = cost.t.at(j + 1)
+ *             if DEBUG:
+ *                 with gil:             # <<<<<<<<<<<<<<
+ *                     print("finished cost increment j=%d cost_intv=%s intv=%s cost_f=%s" % (j, cost_intv, intv, cost_f))
+ *         if DEBUG:
+ */
+            /*finally:*/ {
+              /*normal exit:*/{
+                #ifdef WITH_THREAD
+                __Pyx_PyGILState_Release(__pyx_gilstate_save);
+                #endif
+                goto __pyx_L44;
+              }
+              __pyx_L43_error: {
+                #ifdef WITH_THREAD
+                __Pyx_PyGILState_Release(__pyx_gilstate_save);
+                #endif
+                goto __pyx_L4_error;
+              }
+              __pyx_L44:;
+            }
+        }
+
+        /* "xsmc/_viterbi.pyx":491
  *             prior_intv[1] = prior.t.at(i + 1)
  *             prior_f.c[2] += F_t
  *         if cost_intv[1] == intv[1]:             # <<<<<<<<<<<<<<
- *             j += 1
- *             cost_f = cost.f.at(j)
+ *             if DEBUG:
+ *                 with gil:
  */
       }
 
-      /* "xsmc/_viterbi.pyx":482
- *             cost_intv[1] = cost.t.at(j + 1)
+      /* "xsmc/_viterbi.pyx":502
+ *                     print("finished cost increment j=%d cost_intv=%s intv=%s cost_f=%s" % (j, cost_intv, intv, cost_f))
  *         if DEBUG:
  *             with gil:             # <<<<<<<<<<<<<<
  *                 print('pointwise_min', i, j, cost_intv, cost_f, prior_intv, prior_f, tmp, ret)
@@ -8374,64 +8689,64 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
           #endif
           /*try:*/ {
 
-            /* "xsmc/_viterbi.pyx":483
+            /* "xsmc/_viterbi.pyx":503
  *         if DEBUG:
  *             with gil:
  *                 print('pointwise_min', i, j, cost_intv, cost_f, prior_intv, prior_f, tmp, ret)             # <<<<<<<<<<<<<<
  *     intv[0] = prior_intv[0]
  *     intv[1] = min(cost_intv[1], prior_intv[1])
  */
-            __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 483, __pyx_L28_error)
+            __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 503, __pyx_L48_error)
             __Pyx_GOTREF(__pyx_t_12);
-            __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 483, __pyx_L28_error)
-            __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_2 = __Pyx_carray_to_py_double(__pyx_v_cost_intv, 2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 483, __pyx_L28_error)
+            __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 503, __pyx_L48_error)
+            __Pyx_GOTREF(__pyx_t_16);
+            __pyx_t_2 = __Pyx_carray_to_py_double(__pyx_v_cost_intv, 2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 503, __pyx_L48_error)
             __Pyx_GOTREF(__pyx_t_2);
-            __pyx_t_20 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_cost_f); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 483, __pyx_L28_error)
+            __pyx_t_20 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_cost_f); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 503, __pyx_L48_error)
             __Pyx_GOTREF(__pyx_t_20);
-            __pyx_t_21 = __Pyx_carray_to_py_double(__pyx_v_prior_intv, 2); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 483, __pyx_L28_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __pyx_t_22 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_prior_f); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 483, __pyx_L28_error)
-            __Pyx_GOTREF(__pyx_t_22);
-            __pyx_t_23 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_tmp); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 483, __pyx_L28_error)
+            __pyx_t_19 = __Pyx_carray_to_py_double(__pyx_v_prior_intv, 2); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 503, __pyx_L48_error)
+            __Pyx_GOTREF(__pyx_t_19);
+            __pyx_t_1 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_prior_f); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 503, __pyx_L48_error)
+            __Pyx_GOTREF(__pyx_t_1);
+            __pyx_t_23 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_tmp); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 503, __pyx_L48_error)
             __Pyx_GOTREF(__pyx_t_23);
-            __pyx_t_24 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_ret); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 483, __pyx_L28_error)
+            __pyx_t_24 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_ret); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 503, __pyx_L48_error)
             __Pyx_GOTREF(__pyx_t_24);
-            __pyx_t_25 = PyTuple_New(9); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 483, __pyx_L28_error)
+            __pyx_t_25 = PyTuple_New(9); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 503, __pyx_L48_error)
             __Pyx_GOTREF(__pyx_t_25);
             __Pyx_INCREF(__pyx_n_s_pointwise_min);
             __Pyx_GIVEREF(__pyx_n_s_pointwise_min);
             PyTuple_SET_ITEM(__pyx_t_25, 0, __pyx_n_s_pointwise_min);
             __Pyx_GIVEREF(__pyx_t_12);
             PyTuple_SET_ITEM(__pyx_t_25, 1, __pyx_t_12);
-            __Pyx_GIVEREF(__pyx_t_1);
-            PyTuple_SET_ITEM(__pyx_t_25, 2, __pyx_t_1);
+            __Pyx_GIVEREF(__pyx_t_16);
+            PyTuple_SET_ITEM(__pyx_t_25, 2, __pyx_t_16);
             __Pyx_GIVEREF(__pyx_t_2);
             PyTuple_SET_ITEM(__pyx_t_25, 3, __pyx_t_2);
             __Pyx_GIVEREF(__pyx_t_20);
             PyTuple_SET_ITEM(__pyx_t_25, 4, __pyx_t_20);
-            __Pyx_GIVEREF(__pyx_t_21);
-            PyTuple_SET_ITEM(__pyx_t_25, 5, __pyx_t_21);
-            __Pyx_GIVEREF(__pyx_t_22);
-            PyTuple_SET_ITEM(__pyx_t_25, 6, __pyx_t_22);
+            __Pyx_GIVEREF(__pyx_t_19);
+            PyTuple_SET_ITEM(__pyx_t_25, 5, __pyx_t_19);
+            __Pyx_GIVEREF(__pyx_t_1);
+            PyTuple_SET_ITEM(__pyx_t_25, 6, __pyx_t_1);
             __Pyx_GIVEREF(__pyx_t_23);
             PyTuple_SET_ITEM(__pyx_t_25, 7, __pyx_t_23);
             __Pyx_GIVEREF(__pyx_t_24);
             PyTuple_SET_ITEM(__pyx_t_25, 8, __pyx_t_24);
             __pyx_t_12 = 0;
-            __pyx_t_1 = 0;
+            __pyx_t_16 = 0;
             __pyx_t_2 = 0;
             __pyx_t_20 = 0;
-            __pyx_t_21 = 0;
-            __pyx_t_22 = 0;
+            __pyx_t_19 = 0;
+            __pyx_t_1 = 0;
             __pyx_t_23 = 0;
             __pyx_t_24 = 0;
-            if (__Pyx_PrintOne(0, __pyx_t_25) < 0) __PYX_ERR(0, 483, __pyx_L28_error)
+            if (__Pyx_PrintOne(0, __pyx_t_25) < 0) __PYX_ERR(0, 503, __pyx_L48_error)
             __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
           }
 
-          /* "xsmc/_viterbi.pyx":482
- *             cost_intv[1] = cost.t.at(j + 1)
+          /* "xsmc/_viterbi.pyx":502
+ *                     print("finished cost increment j=%d cost_intv=%s intv=%s cost_f=%s" % (j, cost_intv, intv, cost_f))
  *         if DEBUG:
  *             with gil:             # <<<<<<<<<<<<<<
  *                 print('pointwise_min', i, j, cost_intv, cost_f, prior_intv, prior_f, tmp, ret)
@@ -8442,20 +8757,20 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              goto __pyx_L29;
+              goto __pyx_L49;
             }
-            __pyx_L28_error: {
+            __pyx_L48_error: {
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
               goto __pyx_L4_error;
             }
-            __pyx_L29:;
+            __pyx_L49:;
           }
       }
     }
 
-    /* "xsmc/_viterbi.pyx":484
+    /* "xsmc/_viterbi.pyx":504
  *             with gil:
  *                 print('pointwise_min', i, j, cost_intv, cost_f, prior_intv, prior_f, tmp, ret)
  *     intv[0] = prior_intv[0]             # <<<<<<<<<<<<<<
@@ -8464,7 +8779,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
  */
     (__pyx_v_intv[0]) = (__pyx_v_prior_intv[0]);
 
-    /* "xsmc/_viterbi.pyx":485
+    /* "xsmc/_viterbi.pyx":505
  *                 print('pointwise_min', i, j, cost_intv, cost_f, prior_intv, prior_f, tmp, ret)
  *     intv[0] = prior_intv[0]
  *     intv[1] = min(cost_intv[1], prior_intv[1])             # <<<<<<<<<<<<<<
@@ -8480,7 +8795,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
     }
     (__pyx_v_intv[1]) = __pyx_t_14;
 
-    /* "xsmc/_viterbi.pyx":486
+    /* "xsmc/_viterbi.pyx":506
  *     intv[0] = prior_intv[0]
  *     intv[1] = min(cost_intv[1], prior_intv[1])
  *     tmp = pmin(prior_f, cost_f, intv)             # <<<<<<<<<<<<<<
@@ -8489,7 +8804,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
  */
     __pyx_v_tmp = __pyx_f_4xsmc_8_viterbi_pmin(__pyx_v_prior_f, __pyx_v_cost_f, __pyx_v_intv);
 
-    /* "xsmc/_viterbi.pyx":488
+    /* "xsmc/_viterbi.pyx":508
  *     tmp = pmin(prior_f, cost_f, intv)
  *     if DEBUG:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -8502,16 +8817,16 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
         #endif
         /*try:*/ {
 
-          /* "xsmc/_viterbi.pyx":489
+          /* "xsmc/_viterbi.pyx":509
  *     if DEBUG:
  *         with gil:
  *             print("got from final pmin:", tmp)             # <<<<<<<<<<<<<<
  *     ret.f.insert(ret.f.end(), tmp.f.begin(), tmp.f.end())
  *     ret.t.insert(ret.t.end(), tmp.t.begin(), tmp.t.end())
  */
-          __pyx_t_25 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_tmp); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 489, __pyx_L31_error)
+          __pyx_t_25 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_tmp); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 509, __pyx_L51_error)
           __Pyx_GOTREF(__pyx_t_25);
-          __pyx_t_24 = PyTuple_New(2); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 489, __pyx_L31_error)
+          __pyx_t_24 = PyTuple_New(2); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 509, __pyx_L51_error)
           __Pyx_GOTREF(__pyx_t_24);
           __Pyx_INCREF(__pyx_kp_s_got_from_final_pmin);
           __Pyx_GIVEREF(__pyx_kp_s_got_from_final_pmin);
@@ -8519,11 +8834,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
           __Pyx_GIVEREF(__pyx_t_25);
           PyTuple_SET_ITEM(__pyx_t_24, 1, __pyx_t_25);
           __pyx_t_25 = 0;
-          if (__Pyx_PrintOne(0, __pyx_t_24) < 0) __PYX_ERR(0, 489, __pyx_L31_error)
+          if (__Pyx_PrintOne(0, __pyx_t_24) < 0) __PYX_ERR(0, 509, __pyx_L51_error)
           __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
         }
 
-        /* "xsmc/_viterbi.pyx":488
+        /* "xsmc/_viterbi.pyx":508
  *     tmp = pmin(prior_f, cost_f, intv)
  *     if DEBUG:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -8535,19 +8850,19 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
             #ifdef WITH_THREAD
             __Pyx_PyGILState_Release(__pyx_gilstate_save);
             #endif
-            goto __pyx_L32;
+            goto __pyx_L52;
           }
-          __pyx_L31_error: {
+          __pyx_L51_error: {
             #ifdef WITH_THREAD
             __Pyx_PyGILState_Release(__pyx_gilstate_save);
             #endif
             goto __pyx_L4_error;
           }
-          __pyx_L32:;
+          __pyx_L52:;
         }
     }
 
-    /* "xsmc/_viterbi.pyx":490
+    /* "xsmc/_viterbi.pyx":510
  *         with gil:
  *             print("got from final pmin:", tmp)
  *     ret.f.insert(ret.f.end(), tmp.f.begin(), tmp.f.end())             # <<<<<<<<<<<<<<
@@ -8564,10 +8879,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 490, __pyx_L4_error)
+      __PYX_ERR(0, 510, __pyx_L4_error)
     }
 
-    /* "xsmc/_viterbi.pyx":491
+    /* "xsmc/_viterbi.pyx":511
  *             print("got from final pmin:", tmp)
  *     ret.f.insert(ret.f.end(), tmp.f.begin(), tmp.f.end())
  *     ret.t.insert(ret.t.end(), tmp.t.begin(), tmp.t.end())             # <<<<<<<<<<<<<<
@@ -8584,10 +8899,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 491, __pyx_L4_error)
+      __PYX_ERR(0, 511, __pyx_L4_error)
     }
 
-    /* "xsmc/_viterbi.pyx":493
+    /* "xsmc/_viterbi.pyx":513
  *     ret.t.insert(ret.t.end(), tmp.t.begin(), tmp.t.end())
  *     if DEBUG:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -8600,30 +8915,30 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
         #endif
         /*try:*/ {
 
-          /* "xsmc/_viterbi.pyx":494
+          /* "xsmc/_viterbi.pyx":514
  *     if DEBUG:
  *         with gil:
  *             print('pointwise_min done', i, j, cost_intv, cost_f, prior_intv, prior_f, tmp, ret)             # <<<<<<<<<<<<<<
  *     return compact(ret)
  * 
  */
-          __pyx_t_24 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 494, __pyx_L34_error)
+          __pyx_t_24 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_24)) __PYX_ERR(0, 514, __pyx_L54_error)
           __Pyx_GOTREF(__pyx_t_24);
-          __pyx_t_25 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 494, __pyx_L34_error)
+          __pyx_t_25 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 514, __pyx_L54_error)
           __Pyx_GOTREF(__pyx_t_25);
-          __pyx_t_23 = __Pyx_carray_to_py_double(__pyx_v_cost_intv, 2); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 494, __pyx_L34_error)
+          __pyx_t_23 = __Pyx_carray_to_py_double(__pyx_v_cost_intv, 2); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 514, __pyx_L54_error)
           __Pyx_GOTREF(__pyx_t_23);
-          __pyx_t_22 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_cost_f); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 494, __pyx_L34_error)
-          __Pyx_GOTREF(__pyx_t_22);
-          __pyx_t_21 = __Pyx_carray_to_py_double(__pyx_v_prior_intv, 2); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 494, __pyx_L34_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_20 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_prior_f); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 494, __pyx_L34_error)
-          __Pyx_GOTREF(__pyx_t_20);
-          __pyx_t_2 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_tmp); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 494, __pyx_L34_error)
-          __Pyx_GOTREF(__pyx_t_2);
-          __pyx_t_1 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_ret); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 494, __pyx_L34_error)
+          __pyx_t_1 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_cost_f); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 514, __pyx_L54_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_12 = PyTuple_New(9); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 494, __pyx_L34_error)
+          __pyx_t_19 = __Pyx_carray_to_py_double(__pyx_v_prior_intv, 2); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 514, __pyx_L54_error)
+          __Pyx_GOTREF(__pyx_t_19);
+          __pyx_t_20 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_prior_f); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 514, __pyx_L54_error)
+          __Pyx_GOTREF(__pyx_t_20);
+          __pyx_t_2 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_tmp); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 514, __pyx_L54_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __pyx_t_16 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_ret); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 514, __pyx_L54_error)
+          __Pyx_GOTREF(__pyx_t_16);
+          __pyx_t_12 = PyTuple_New(9); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 514, __pyx_L54_error)
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_INCREF(__pyx_kp_s_pointwise_min_done);
           __Pyx_GIVEREF(__pyx_kp_s_pointwise_min_done);
@@ -8634,29 +8949,29 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
           PyTuple_SET_ITEM(__pyx_t_12, 2, __pyx_t_25);
           __Pyx_GIVEREF(__pyx_t_23);
           PyTuple_SET_ITEM(__pyx_t_12, 3, __pyx_t_23);
-          __Pyx_GIVEREF(__pyx_t_22);
-          PyTuple_SET_ITEM(__pyx_t_12, 4, __pyx_t_22);
-          __Pyx_GIVEREF(__pyx_t_21);
-          PyTuple_SET_ITEM(__pyx_t_12, 5, __pyx_t_21);
+          __Pyx_GIVEREF(__pyx_t_1);
+          PyTuple_SET_ITEM(__pyx_t_12, 4, __pyx_t_1);
+          __Pyx_GIVEREF(__pyx_t_19);
+          PyTuple_SET_ITEM(__pyx_t_12, 5, __pyx_t_19);
           __Pyx_GIVEREF(__pyx_t_20);
           PyTuple_SET_ITEM(__pyx_t_12, 6, __pyx_t_20);
           __Pyx_GIVEREF(__pyx_t_2);
           PyTuple_SET_ITEM(__pyx_t_12, 7, __pyx_t_2);
-          __Pyx_GIVEREF(__pyx_t_1);
-          PyTuple_SET_ITEM(__pyx_t_12, 8, __pyx_t_1);
+          __Pyx_GIVEREF(__pyx_t_16);
+          PyTuple_SET_ITEM(__pyx_t_12, 8, __pyx_t_16);
           __pyx_t_24 = 0;
           __pyx_t_25 = 0;
           __pyx_t_23 = 0;
-          __pyx_t_22 = 0;
-          __pyx_t_21 = 0;
+          __pyx_t_1 = 0;
+          __pyx_t_19 = 0;
           __pyx_t_20 = 0;
           __pyx_t_2 = 0;
-          __pyx_t_1 = 0;
-          if (__Pyx_PrintOne(0, __pyx_t_12) < 0) __PYX_ERR(0, 494, __pyx_L34_error)
+          __pyx_t_16 = 0;
+          if (__Pyx_PrintOne(0, __pyx_t_12) < 0) __PYX_ERR(0, 514, __pyx_L54_error)
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         }
 
-        /* "xsmc/_viterbi.pyx":493
+        /* "xsmc/_viterbi.pyx":513
  *     ret.t.insert(ret.t.end(), tmp.t.begin(), tmp.t.end())
  *     if DEBUG:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -8668,19 +8983,19 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
             #ifdef WITH_THREAD
             __Pyx_PyGILState_Release(__pyx_gilstate_save);
             #endif
-            goto __pyx_L35;
+            goto __pyx_L55;
           }
-          __pyx_L34_error: {
+          __pyx_L54_error: {
             #ifdef WITH_THREAD
             __Pyx_PyGILState_Release(__pyx_gilstate_save);
             #endif
             goto __pyx_L4_error;
           }
-          __pyx_L35:;
+          __pyx_L55:;
         }
     }
 
-    /* "xsmc/_viterbi.pyx":495
+    /* "xsmc/_viterbi.pyx":515
  *         with gil:
  *             print('pointwise_min done', i, j, cost_intv, cost_f, prior_intv, prior_f, tmp, ret)
  *     return compact(ret)             # <<<<<<<<<<<<<<
@@ -8691,7 +9006,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
     goto __pyx_L3_return;
   }
 
-  /* "xsmc/_viterbi.pyx":435
+  /* "xsmc/_viterbi.pyx":441
  *     const piecewise_func cost
  * ) nogil:
  *     '''             # <<<<<<<<<<<<<<
@@ -8713,7 +9028,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
     }
   }
 
-  /* "xsmc/_viterbi.pyx":430
+  /* "xsmc/_viterbi.pyx":436
  *         raise
  * 
  * cdef piecewise_func pointwise_min(             # <<<<<<<<<<<<<<
@@ -8728,9 +9043,9 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_12);
+  __Pyx_XDECREF(__pyx_t_16);
+  __Pyx_XDECREF(__pyx_t_19);
   __Pyx_XDECREF(__pyx_t_20);
-  __Pyx_XDECREF(__pyx_t_21);
-  __Pyx_XDECREF(__pyx_t_22);
   __Pyx_XDECREF(__pyx_t_23);
   __Pyx_XDECREF(__pyx_t_24);
   __Pyx_XDECREF(__pyx_t_25);
@@ -8743,7 +9058,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pointwise_
   return __pyx_r;
 }
 
-/* "xsmc/_viterbi.pyx":500
+/* "xsmc/_viterbi.pyx":520
  * 
  * @cython.cdivision(True)
  * cdef double _root(int branch, double a, double b, double c) nogil:             # <<<<<<<<<<<<<<
@@ -8764,7 +9079,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
   int __pyx_t_2;
   double __pyx_t_3;
 
-  /* "xsmc/_viterbi.pyx":503
+  /* "xsmc/_viterbi.pyx":523
  *     '''solve a e^(-x) + b x + c = 0'''
  *     cdef double x, h_star, log_x, w
  *     w = INFINITY             # <<<<<<<<<<<<<<
@@ -8773,7 +9088,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
  */
   __pyx_v_w = INFINITY;
 
-  /* "xsmc/_viterbi.pyx":504
+  /* "xsmc/_viterbi.pyx":524
  *     cdef double x, h_star, log_x, w
  *     w = INFINITY
  *     cdef int status = -1             # <<<<<<<<<<<<<<
@@ -8782,7 +9097,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
  */
   __pyx_v_status = -1;
 
-  /* "xsmc/_viterbi.pyx":507
+  /* "xsmc/_viterbi.pyx":527
  *     cdef gsl_sf_result result
  *     # if c/b is huge this can overflow
  *     log_x = log(-a / b) + c / b             # <<<<<<<<<<<<<<
@@ -8791,7 +9106,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
  */
   __pyx_v_log_x = (std::log(((-__pyx_v_a) / __pyx_v_b)) + (__pyx_v_c / __pyx_v_b));
 
-  /* "xsmc/_viterbi.pyx":508
+  /* "xsmc/_viterbi.pyx":528
  *     # if c/b is huge this can overflow
  *     log_x = log(-a / b) + c / b
  *     log_mx = log(a / b) + c / b             # <<<<<<<<<<<<<<
@@ -8800,7 +9115,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
  */
   __pyx_v_log_mx = (std::log((__pyx_v_a / __pyx_v_b)) + (__pyx_v_c / __pyx_v_b));
 
-  /* "xsmc/_viterbi.pyx":509
+  /* "xsmc/_viterbi.pyx":529
  *     log_x = log(-a / b) + c / b
  *     log_mx = log(a / b) + c / b
  *     if branch == 0 and -a / b > 0 and log_x > 20:             # <<<<<<<<<<<<<<
@@ -8824,7 +9139,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "xsmc/_viterbi.pyx":512
+    /* "xsmc/_viterbi.pyx":532
  *         # we are calling LambertW(x) for x > exp(20).
  *         # return the asymptotic approximation
  *         w = log_x - log(log_x)  # + o(1)             # <<<<<<<<<<<<<<
@@ -8833,7 +9148,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
  */
     __pyx_v_w = (__pyx_v_log_x - std::log(__pyx_v_log_x));
 
-    /* "xsmc/_viterbi.pyx":509
+    /* "xsmc/_viterbi.pyx":529
  *     log_x = log(-a / b) + c / b
  *     log_mx = log(a / b) + c / b
  *     if branch == 0 and -a / b > 0 and log_x > 20:             # <<<<<<<<<<<<<<
@@ -8843,7 +9158,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
     goto __pyx_L3;
   }
 
-  /* "xsmc/_viterbi.pyx":513
+  /* "xsmc/_viterbi.pyx":533
  *         # return the asymptotic approximation
  *         w = log_x - log(log_x)  # + o(1)
  *     elif branch == -1 and a / b > 0 and log_mx < -20:             # <<<<<<<<<<<<<<
@@ -8867,7 +9182,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
   __pyx_L7_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "xsmc/_viterbi.pyx":514
+    /* "xsmc/_viterbi.pyx":534
  *         w = log_x - log(log_x)  # + o(1)
  *     elif branch == -1 and a / b > 0 and log_mx < -20:
  *         w = log_mx - log(-log_mx)  # + o(1)             # <<<<<<<<<<<<<<
@@ -8876,7 +9191,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
  */
     __pyx_v_w = (__pyx_v_log_mx - std::log((-__pyx_v_log_mx)));
 
-    /* "xsmc/_viterbi.pyx":513
+    /* "xsmc/_viterbi.pyx":533
  *         # return the asymptotic approximation
  *         w = log_x - log(log_x)  # + o(1)
  *     elif branch == -1 and a / b > 0 and log_mx < -20:             # <<<<<<<<<<<<<<
@@ -8886,7 +9201,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
     goto __pyx_L3;
   }
 
-  /* "xsmc/_viterbi.pyx":516
+  /* "xsmc/_viterbi.pyx":536
  *         w = log_mx - log(-log_mx)  # + o(1)
  *     else:
  *         x = -a * exp(c / b) / b             # <<<<<<<<<<<<<<
@@ -8896,7 +9211,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
   /*else*/ {
     __pyx_v_x = (((-__pyx_v_a) * std::exp((__pyx_v_c / __pyx_v_b))) / __pyx_v_b);
 
-    /* "xsmc/_viterbi.pyx":517
+    /* "xsmc/_viterbi.pyx":537
  *     else:
  *         x = -a * exp(c / b) / b
  *         if branch == 0:             # <<<<<<<<<<<<<<
@@ -8906,7 +9221,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
     switch (__pyx_v_branch) {
       case 0:
 
-      /* "xsmc/_viterbi.pyx":518
+      /* "xsmc/_viterbi.pyx":538
  *         x = -a * exp(c / b) / b
  *         if branch == 0:
  *             status = gsl_sf_lambert_W0_e(x, &result)             # <<<<<<<<<<<<<<
@@ -8915,7 +9230,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
  */
       __pyx_v_status = gsl_sf_lambert_W0_e(__pyx_v_x, (&__pyx_v_result));
 
-      /* "xsmc/_viterbi.pyx":517
+      /* "xsmc/_viterbi.pyx":537
  *     else:
  *         x = -a * exp(c / b) / b
  *         if branch == 0:             # <<<<<<<<<<<<<<
@@ -8925,7 +9240,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
       break;
       case -1L:
 
-      /* "xsmc/_viterbi.pyx":520
+      /* "xsmc/_viterbi.pyx":540
  *             status = gsl_sf_lambert_W0_e(x, &result)
  *         elif branch == -1:
  *             status = gsl_sf_lambert_Wm1_e(x, &result)             # <<<<<<<<<<<<<<
@@ -8934,7 +9249,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
  */
       __pyx_v_status = gsl_sf_lambert_Wm1_e(__pyx_v_x, (&__pyx_v_result));
 
-      /* "xsmc/_viterbi.pyx":519
+      /* "xsmc/_viterbi.pyx":539
  *         if branch == 0:
  *             status = gsl_sf_lambert_W0_e(x, &result)
  *         elif branch == -1:             # <<<<<<<<<<<<<<
@@ -8945,7 +9260,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
       default: break;
     }
 
-    /* "xsmc/_viterbi.pyx":521
+    /* "xsmc/_viterbi.pyx":541
  *         elif branch == -1:
  *             status = gsl_sf_lambert_Wm1_e(x, &result)
  *         if status != 0:             # <<<<<<<<<<<<<<
@@ -8955,7 +9270,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
     __pyx_t_1 = ((__pyx_v_status != 0) != 0);
     if (__pyx_t_1) {
 
-      /* "xsmc/_viterbi.pyx":522
+      /* "xsmc/_viterbi.pyx":542
  *             status = gsl_sf_lambert_Wm1_e(x, &result)
  *         if status != 0:
  *             h_star = b * (1 + log(a) - log(b)) + c             # <<<<<<<<<<<<<<
@@ -8964,7 +9279,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
  */
       __pyx_v_h_star = ((__pyx_v_b * ((1.0 + std::log(__pyx_v_a)) - std::log(__pyx_v_b))) + __pyx_v_c);
 
-      /* "xsmc/_viterbi.pyx":523
+      /* "xsmc/_viterbi.pyx":543
  *         if status != 0:
  *             h_star = b * (1 + log(a) - log(b)) + c
  *             printf('*** branch=%d a=%.20f b=%.20f c=%.20f x=%.20f\n h_star=%.16f\n',             # <<<<<<<<<<<<<<
@@ -8973,7 +9288,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
  */
       (void)(printf(((char const *)"*** branch=%d a=%.20f b=%.20f c=%.20f x=%.20f\n h_star=%.16f\n"), __pyx_v_branch, __pyx_v_a, __pyx_v_b, __pyx_v_c, __pyx_v_x, __pyx_v_h_star));
 
-      /* "xsmc/_viterbi.pyx":525
+      /* "xsmc/_viterbi.pyx":545
  *             printf('*** branch=%d a=%.20f b=%.20f c=%.20f x=%.20f\n h_star=%.16f\n',
  *                    branch, a, b, c, x, h_star)
  *             printf('*** status=%d desc=%s\n*** result.val=%.10f result.err=%.10f\n',             # <<<<<<<<<<<<<<
@@ -8982,7 +9297,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
  */
       (void)(printf(((char const *)"*** status=%d desc=%s\n*** result.val=%.10f result.err=%.10f\n"), __pyx_v_status, gsl_strerror(__pyx_v_status), __pyx_v_result.val, __pyx_v_result.err));
 
-      /* "xsmc/_viterbi.pyx":521
+      /* "xsmc/_viterbi.pyx":541
  *         elif branch == -1:
  *             status = gsl_sf_lambert_Wm1_e(x, &result)
  *         if status != 0:             # <<<<<<<<<<<<<<
@@ -8991,7 +9306,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
  */
     }
 
-    /* "xsmc/_viterbi.pyx":527
+    /* "xsmc/_viterbi.pyx":547
  *             printf('*** status=%d desc=%s\n*** result.val=%.10f result.err=%.10f\n',
  *                    status, gsl_strerror(status), result.val, result.err)
  *         w = result.val             # <<<<<<<<<<<<<<
@@ -9003,7 +9318,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
   }
   __pyx_L3:;
 
-  /* "xsmc/_viterbi.pyx":528
+  /* "xsmc/_viterbi.pyx":548
  *                    status, gsl_strerror(status), result.val, result.err)
  *         w = result.val
  *     return w - c / b             # <<<<<<<<<<<<<<
@@ -9013,7 +9328,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
   __pyx_r = (__pyx_v_w - (__pyx_v_c / __pyx_v_b));
   goto __pyx_L0;
 
-  /* "xsmc/_viterbi.pyx":500
+  /* "xsmc/_viterbi.pyx":520
  * 
  * @cython.cdivision(True)
  * cdef double _root(int branch, double a, double b, double c) nogil:             # <<<<<<<<<<<<<<
@@ -9026,7 +9341,7 @@ static double __pyx_f_4xsmc_8_viterbi__root(int __pyx_v_branch, double __pyx_v_a
   return __pyx_r;
 }
 
-/* "xsmc/_viterbi.pyx":532
+/* "xsmc/_viterbi.pyx":552
  * 
  * @cython.cdivision(True)
  * cdef minimum min_f(const func f, const interval t) nogil:             # <<<<<<<<<<<<<<
@@ -9048,7 +9363,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
   int __pyx_t_2;
   double __pyx_t_3;
 
-  /* "xsmc/_viterbi.pyx":536
+  /* "xsmc/_viterbi.pyx":556
  *     cdef minimum ret
  *     cdef double x_star, f_star
  *     cdef double a = f.c[0]             # <<<<<<<<<<<<<<
@@ -9057,7 +9372,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
  */
   __pyx_v_a = (__pyx_v_f.c[0]);
 
-  /* "xsmc/_viterbi.pyx":537
+  /* "xsmc/_viterbi.pyx":557
  *     cdef double x_star, f_star
  *     cdef double a = f.c[0]
  *     cdef double b = f.c[1]             # <<<<<<<<<<<<<<
@@ -9066,7 +9381,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
  */
   __pyx_v_b = (__pyx_v_f.c[1]);
 
-  /* "xsmc/_viterbi.pyx":538
+  /* "xsmc/_viterbi.pyx":558
  *     cdef double a = f.c[0]
  *     cdef double b = f.c[1]
  *     cdef double c = f.c[2]             # <<<<<<<<<<<<<<
@@ -9075,7 +9390,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
  */
   __pyx_v_c = (__pyx_v_f.c[2]);
 
-  /* "xsmc/_viterbi.pyx":539
+  /* "xsmc/_viterbi.pyx":559
  *     cdef double b = f.c[1]
  *     cdef double c = f.c[2]
  *     if a == b == 0.:             # <<<<<<<<<<<<<<
@@ -9089,7 +9404,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "xsmc/_viterbi.pyx":540
+    /* "xsmc/_viterbi.pyx":560
  *     cdef double c = f.c[2]
  *     if a == b == 0.:
  *         ret.x = t[0]             # <<<<<<<<<<<<<<
@@ -9098,7 +9413,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
  */
     __pyx_v_ret.x = (__pyx_v_t[0]);
 
-    /* "xsmc/_viterbi.pyx":541
+    /* "xsmc/_viterbi.pyx":561
  *     if a == b == 0.:
  *         ret.x = t[0]
  *         ret.f = c             # <<<<<<<<<<<<<<
@@ -9107,7 +9422,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
  */
     __pyx_v_ret.f = __pyx_v_c;
 
-    /* "xsmc/_viterbi.pyx":542
+    /* "xsmc/_viterbi.pyx":562
  *         ret.x = t[0]
  *         ret.f = c
  *         return ret             # <<<<<<<<<<<<<<
@@ -9117,7 +9432,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
     __pyx_r = __pyx_v_ret;
     goto __pyx_L0;
 
-    /* "xsmc/_viterbi.pyx":539
+    /* "xsmc/_viterbi.pyx":559
  *     cdef double b = f.c[1]
  *     cdef double c = f.c[2]
  *     if a == b == 0.:             # <<<<<<<<<<<<<<
@@ -9126,7 +9441,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
  */
   }
 
-  /* "xsmc/_viterbi.pyx":543
+  /* "xsmc/_viterbi.pyx":563
  *         ret.f = c
  *         return ret
  *     cdef double e0 = a * exp(-t[0]) + c, e1 = a * exp(-t[1]) + c             # <<<<<<<<<<<<<<
@@ -9136,7 +9451,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
   __pyx_v_e0 = ((__pyx_v_a * std::exp((-(__pyx_v_t[0])))) + __pyx_v_c);
   __pyx_v_e1 = ((__pyx_v_a * std::exp((-(__pyx_v_t[1])))) + __pyx_v_c);
 
-  /* "xsmc/_viterbi.pyx":544
+  /* "xsmc/_viterbi.pyx":564
  *         return ret
  *     cdef double e0 = a * exp(-t[0]) + c, e1 = a * exp(-t[1]) + c
  *     if b != 0:             # <<<<<<<<<<<<<<
@@ -9146,7 +9461,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
   __pyx_t_2 = ((__pyx_v_b != 0.0) != 0);
   if (__pyx_t_2) {
 
-    /* "xsmc/_viterbi.pyx":546
+    /* "xsmc/_viterbi.pyx":566
  *     if b != 0:
  *         # can have t[i] = inf, which results ei = NaN
  *         e0 += b * t[0]             # <<<<<<<<<<<<<<
@@ -9155,7 +9470,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
  */
     __pyx_v_e0 = (__pyx_v_e0 + (__pyx_v_b * (__pyx_v_t[0])));
 
-    /* "xsmc/_viterbi.pyx":547
+    /* "xsmc/_viterbi.pyx":567
  *         # can have t[i] = inf, which results ei = NaN
  *         e0 += b * t[0]
  *         e1 += b * t[1]             # <<<<<<<<<<<<<<
@@ -9164,7 +9479,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
  */
     __pyx_v_e1 = (__pyx_v_e1 + (__pyx_v_b * (__pyx_v_t[1])));
 
-    /* "xsmc/_viterbi.pyx":544
+    /* "xsmc/_viterbi.pyx":564
  *         return ret
  *     cdef double e0 = a * exp(-t[0]) + c, e1 = a * exp(-t[1]) + c
  *     if b != 0:             # <<<<<<<<<<<<<<
@@ -9173,7 +9488,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
  */
   }
 
-  /* "xsmc/_viterbi.pyx":548
+  /* "xsmc/_viterbi.pyx":568
  *         e0 += b * t[0]
  *         e1 += b * t[1]
  *     if e0 < e1:             # <<<<<<<<<<<<<<
@@ -9183,7 +9498,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
   __pyx_t_2 = ((__pyx_v_e0 < __pyx_v_e1) != 0);
   if (__pyx_t_2) {
 
-    /* "xsmc/_viterbi.pyx":549
+    /* "xsmc/_viterbi.pyx":569
  *         e1 += b * t[1]
  *     if e0 < e1:
  *         ret.f = e0             # <<<<<<<<<<<<<<
@@ -9192,7 +9507,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
  */
     __pyx_v_ret.f = __pyx_v_e0;
 
-    /* "xsmc/_viterbi.pyx":550
+    /* "xsmc/_viterbi.pyx":570
  *     if e0 < e1:
  *         ret.f = e0
  *         ret.x = t[0]             # <<<<<<<<<<<<<<
@@ -9201,7 +9516,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
  */
     __pyx_v_ret.x = (__pyx_v_t[0]);
 
-    /* "xsmc/_viterbi.pyx":548
+    /* "xsmc/_viterbi.pyx":568
  *         e0 += b * t[0]
  *         e1 += b * t[1]
  *     if e0 < e1:             # <<<<<<<<<<<<<<
@@ -9211,7 +9526,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
     goto __pyx_L5;
   }
 
-  /* "xsmc/_viterbi.pyx":552
+  /* "xsmc/_viterbi.pyx":572
  *         ret.x = t[0]
  *     else:
  *         ret.f = e1             # <<<<<<<<<<<<<<
@@ -9221,7 +9536,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
   /*else*/ {
     __pyx_v_ret.f = __pyx_v_e1;
 
-    /* "xsmc/_viterbi.pyx":553
+    /* "xsmc/_viterbi.pyx":573
  *     else:
  *         ret.f = e1
  *         ret.x = t[1]             # <<<<<<<<<<<<<<
@@ -9232,7 +9547,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
   }
   __pyx_L5:;
 
-  /* "xsmc/_viterbi.pyx":554
+  /* "xsmc/_viterbi.pyx":574
  *         ret.f = e1
  *         ret.x = t[1]
  *     if b == 0 or b / a < 0:  # the function is monotone             # <<<<<<<<<<<<<<
@@ -9250,7 +9565,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
   __pyx_L7_bool_binop_done:;
   if (__pyx_t_2) {
 
-    /* "xsmc/_viterbi.pyx":555
+    /* "xsmc/_viterbi.pyx":575
  *         ret.x = t[1]
  *     if b == 0 or b / a < 0:  # the function is monotone
  *         return ret             # <<<<<<<<<<<<<<
@@ -9260,7 +9575,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
     __pyx_r = __pyx_v_ret;
     goto __pyx_L0;
 
-    /* "xsmc/_viterbi.pyx":554
+    /* "xsmc/_viterbi.pyx":574
  *         ret.f = e1
  *         ret.x = t[1]
  *     if b == 0 or b / a < 0:  # the function is monotone             # <<<<<<<<<<<<<<
@@ -9269,7 +9584,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
  */
   }
 
-  /* "xsmc/_viterbi.pyx":556
+  /* "xsmc/_viterbi.pyx":576
  *     if b == 0 or b / a < 0:  # the function is monotone
  *         return ret
  *     if t[0] <= -log(b / a) < t[1]:             # <<<<<<<<<<<<<<
@@ -9284,7 +9599,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
-    /* "xsmc/_viterbi.pyx":558
+    /* "xsmc/_viterbi.pyx":578
  *     if t[0] <= -log(b / a) < t[1]:
  *         # f' = -a exp(-x) + b == 0 => x* = -log(b / a)
  *         x_star = -log(b / a)             # <<<<<<<<<<<<<<
@@ -9293,7 +9608,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
  */
     __pyx_v_x_star = (-std::log((__pyx_v_b / __pyx_v_a)));
 
-    /* "xsmc/_viterbi.pyx":561
+    /* "xsmc/_viterbi.pyx":581
  *         # f_star = a * exp(log(b/a)) - b * log(b/a) + c
  *         #        = a * a / b - b * log(b / a) + c
  *         f_star = b * (1. + x_star) + c             # <<<<<<<<<<<<<<
@@ -9302,7 +9617,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
  */
     __pyx_v_f_star = ((__pyx_v_b * (1. + __pyx_v_x_star)) + __pyx_v_c);
 
-    /* "xsmc/_viterbi.pyx":562
+    /* "xsmc/_viterbi.pyx":582
  *         #        = a * a / b - b * log(b / a) + c
  *         f_star = b * (1. + x_star) + c
  *         if f_star < ret.f:             # <<<<<<<<<<<<<<
@@ -9312,7 +9627,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
     __pyx_t_1 = ((__pyx_v_f_star < __pyx_v_ret.f) != 0);
     if (__pyx_t_1) {
 
-      /* "xsmc/_viterbi.pyx":563
+      /* "xsmc/_viterbi.pyx":583
  *         f_star = b * (1. + x_star) + c
  *         if f_star < ret.f:
  *             ret.f = f_star             # <<<<<<<<<<<<<<
@@ -9321,7 +9636,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
  */
       __pyx_v_ret.f = __pyx_v_f_star;
 
-      /* "xsmc/_viterbi.pyx":564
+      /* "xsmc/_viterbi.pyx":584
  *         if f_star < ret.f:
  *             ret.f = f_star
  *             ret.x = x_star             # <<<<<<<<<<<<<<
@@ -9330,7 +9645,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
  */
       __pyx_v_ret.x = __pyx_v_x_star;
 
-      /* "xsmc/_viterbi.pyx":562
+      /* "xsmc/_viterbi.pyx":582
  *         #        = a * a / b - b * log(b / a) + c
  *         f_star = b * (1. + x_star) + c
  *         if f_star < ret.f:             # <<<<<<<<<<<<<<
@@ -9339,7 +9654,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
  */
     }
 
-    /* "xsmc/_viterbi.pyx":556
+    /* "xsmc/_viterbi.pyx":576
  *     if b == 0 or b / a < 0:  # the function is monotone
  *         return ret
  *     if t[0] <= -log(b / a) < t[1]:             # <<<<<<<<<<<<<<
@@ -9348,7 +9663,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
  */
   }
 
-  /* "xsmc/_viterbi.pyx":565
+  /* "xsmc/_viterbi.pyx":585
  *             ret.f = f_star
  *             ret.x = x_star
  *     return ret             # <<<<<<<<<<<<<<
@@ -9358,7 +9673,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
   __pyx_r = __pyx_v_ret;
   goto __pyx_L0;
 
-  /* "xsmc/_viterbi.pyx":532
+  /* "xsmc/_viterbi.pyx":552
  * 
  * @cython.cdivision(True)
  * cdef minimum min_f(const func f, const interval t) nogil:             # <<<<<<<<<<<<<<
@@ -9371,7 +9686,7 @@ static __pyx_t_4xsmc_8_viterbi_minimum __pyx_f_4xsmc_8_viterbi_min_f(__pyx_t_4xs
   return __pyx_r;
 }
 
-/* "xsmc/_viterbi.pyx":567
+/* "xsmc/_viterbi.pyx":587
  *     return ret
  * 
  * cdef vector[piecewise_func] arg_prior(const piecewise_func &log_pi, tsk_tree_t* tree) nogil:             # <<<<<<<<<<<<<<
@@ -9401,7 +9716,7 @@ static std::vector<__pyx_t_4xsmc_8_viterbi_piecewise_func>  __pyx_f_4xsmc_8_vite
   #endif
   __Pyx_RefNannySetupContext("arg_prior", 1);
 
-  /* "xsmc/_viterbi.pyx":568
+  /* "xsmc/_viterbi.pyx":588
  * 
  * cdef vector[piecewise_func] arg_prior(const piecewise_func &log_pi, tsk_tree_t* tree) nogil:
  *     cdef vector[piecewise_func] ret             # <<<<<<<<<<<<<<
@@ -9410,7 +9725,7 @@ static std::vector<__pyx_t_4xsmc_8_viterbi_piecewise_func>  __pyx_f_4xsmc_8_vite
  */
   /*try:*/ {
 
-    /* "xsmc/_viterbi.pyx":569
+    /* "xsmc/_viterbi.pyx":589
  * cdef vector[piecewise_func] arg_prior(const piecewise_func &log_pi, tsk_tree_t* tree) nogil:
  *     cdef vector[piecewise_func] ret
  *     cdef int num_samples = tsk_treeseq_get_num_samples(tree.tree_sequence)             # <<<<<<<<<<<<<<
@@ -9419,7 +9734,7 @@ static std::vector<__pyx_t_4xsmc_8_viterbi_piecewise_func>  __pyx_f_4xsmc_8_vite
  */
     __pyx_v_num_samples = tsk_treeseq_get_num_samples(__pyx_v_tree->tree_sequence);
 
-    /* "xsmc/_viterbi.pyx":570
+    /* "xsmc/_viterbi.pyx":590
  *     cdef vector[piecewise_func] ret
  *     cdef int num_samples = tsk_treeseq_get_num_samples(tree.tree_sequence)
  *     ret.resize(num_samples)             # <<<<<<<<<<<<<<
@@ -9436,10 +9751,10 @@ static std::vector<__pyx_t_4xsmc_8_viterbi_piecewise_func>  __pyx_f_4xsmc_8_vite
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 570, __pyx_L4_error)
+      __PYX_ERR(0, 590, __pyx_L4_error)
     }
 
-    /* "xsmc/_viterbi.pyx":574
+    /* "xsmc/_viterbi.pyx":594
  *     cdef tsk_id_t u, p
  *     cdef double t
  *     for i in range(num_samples):             # <<<<<<<<<<<<<<
@@ -9451,7 +9766,7 @@ static std::vector<__pyx_t_4xsmc_8_viterbi_piecewise_func>  __pyx_f_4xsmc_8_vite
     for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
       __pyx_v_i = __pyx_t_3;
 
-      /* "xsmc/_viterbi.pyx":575
+      /* "xsmc/_viterbi.pyx":595
  *     cdef double t
  *     for i in range(num_samples):
  *         tsk_tree_get_parent(tree, tree.samples[i], &u)             # <<<<<<<<<<<<<<
@@ -9460,7 +9775,7 @@ static std::vector<__pyx_t_4xsmc_8_viterbi_piecewise_func>  __pyx_f_4xsmc_8_vite
  */
       (void)(tsk_tree_get_parent(__pyx_v_tree, (__pyx_v_tree->samples[__pyx_v_i]), (&__pyx_v_u)));
 
-      /* "xsmc/_viterbi.pyx":576
+      /* "xsmc/_viterbi.pyx":596
  *     for i in range(num_samples):
  *         tsk_tree_get_parent(tree, tree.samples[i], &u)
  *         if u == TSK_NULL:  # root parent means "trunk lineage"             # <<<<<<<<<<<<<<
@@ -9470,7 +9785,7 @@ static std::vector<__pyx_t_4xsmc_8_viterbi_piecewise_func>  __pyx_f_4xsmc_8_vite
       __pyx_t_4 = ((__pyx_v_u == TSK_NULL) != 0);
       if (__pyx_t_4) {
 
-        /* "xsmc/_viterbi.pyx":577
+        /* "xsmc/_viterbi.pyx":597
  *         tsk_tree_get_parent(tree, tree.samples[i], &u)
  *         if u == TSK_NULL:  # root parent means "trunk lineage"
  *             ret[i] = log_pi             # <<<<<<<<<<<<<<
@@ -9479,7 +9794,7 @@ static std::vector<__pyx_t_4xsmc_8_viterbi_piecewise_func>  __pyx_f_4xsmc_8_vite
  */
         (__pyx_v_ret[__pyx_v_i]) = __pyx_v_log_pi;
 
-        /* "xsmc/_viterbi.pyx":576
+        /* "xsmc/_viterbi.pyx":596
  *     for i in range(num_samples):
  *         tsk_tree_get_parent(tree, tree.samples[i], &u)
  *         if u == TSK_NULL:  # root parent means "trunk lineage"             # <<<<<<<<<<<<<<
@@ -9489,7 +9804,7 @@ static std::vector<__pyx_t_4xsmc_8_viterbi_piecewise_func>  __pyx_f_4xsmc_8_vite
         goto __pyx_L8;
       }
 
-      /* "xsmc/_viterbi.pyx":579
+      /* "xsmc/_viterbi.pyx":599
  *             ret[i] = log_pi
  *         else:
  *             tsk_tree_get_time(tree, u, &t)             # <<<<<<<<<<<<<<
@@ -9499,7 +9814,7 @@ static std::vector<__pyx_t_4xsmc_8_viterbi_piecewise_func>  __pyx_f_4xsmc_8_vite
       /*else*/ {
         (void)(tsk_tree_get_time(__pyx_v_tree, __pyx_v_u, (&__pyx_v_t)));
 
-        /* "xsmc/_viterbi.pyx":580
+        /* "xsmc/_viterbi.pyx":600
  *         else:
  *             tsk_tree_get_time(tree, u, &t)
  *             ret[i] = truncate_prior(log_pi, t)             # <<<<<<<<<<<<<<
@@ -9511,7 +9826,7 @@ static std::vector<__pyx_t_4xsmc_8_viterbi_piecewise_func>  __pyx_f_4xsmc_8_vite
       __pyx_L8:;
     }
 
-    /* "xsmc/_viterbi.pyx":582
+    /* "xsmc/_viterbi.pyx":602
  *             ret[i] = truncate_prior(log_pi, t)
  *     if DEBUG:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -9524,25 +9839,25 @@ static std::vector<__pyx_t_4xsmc_8_viterbi_piecewise_func>  __pyx_f_4xsmc_8_vite
         #endif
         /*try:*/ {
 
-          /* "xsmc/_viterbi.pyx":583
+          /* "xsmc/_viterbi.pyx":603
  *     if DEBUG:
  *         with gil:
  *             print('---> arg_prior')             # <<<<<<<<<<<<<<
  *             print('----> log_pi=', log_pi)
  *             print('----> ret=', ret)
  */
-          if (__Pyx_PrintOne(0, __pyx_kp_s_arg_prior) < 0) __PYX_ERR(0, 583, __pyx_L10_error)
+          if (__Pyx_PrintOne(0, __pyx_kp_s_arg_prior) < 0) __PYX_ERR(0, 603, __pyx_L10_error)
 
-          /* "xsmc/_viterbi.pyx":584
+          /* "xsmc/_viterbi.pyx":604
  *         with gil:
  *             print('---> arg_prior')
  *             print('----> log_pi=', log_pi)             # <<<<<<<<<<<<<<
  *             print('----> ret=', ret)
  *     return ret
  */
-          __pyx_t_5 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_log_pi); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 584, __pyx_L10_error)
+          __pyx_t_5 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_log_pi); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 604, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 584, __pyx_L10_error)
+          __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 604, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_INCREF(__pyx_kp_s_log_pi);
           __Pyx_GIVEREF(__pyx_kp_s_log_pi);
@@ -9550,19 +9865,19 @@ static std::vector<__pyx_t_4xsmc_8_viterbi_piecewise_func>  __pyx_f_4xsmc_8_vite
           __Pyx_GIVEREF(__pyx_t_5);
           PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_5);
           __pyx_t_5 = 0;
-          if (__Pyx_PrintOne(0, __pyx_t_6) < 0) __PYX_ERR(0, 584, __pyx_L10_error)
+          if (__Pyx_PrintOne(0, __pyx_t_6) < 0) __PYX_ERR(0, 604, __pyx_L10_error)
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-          /* "xsmc/_viterbi.pyx":585
+          /* "xsmc/_viterbi.pyx":605
  *             print('---> arg_prior')
  *             print('----> log_pi=', log_pi)
  *             print('----> ret=', ret)             # <<<<<<<<<<<<<<
  *     return ret
  * 
  */
-          __pyx_t_6 = __pyx_convert_vector_to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_ret); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 585, __pyx_L10_error)
+          __pyx_t_6 = __pyx_convert_vector_to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_ret); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 605, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_6);
-          __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 585, __pyx_L10_error)
+          __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 605, __pyx_L10_error)
           __Pyx_GOTREF(__pyx_t_5);
           __Pyx_INCREF(__pyx_kp_s_ret);
           __Pyx_GIVEREF(__pyx_kp_s_ret);
@@ -9570,11 +9885,11 @@ static std::vector<__pyx_t_4xsmc_8_viterbi_piecewise_func>  __pyx_f_4xsmc_8_vite
           __Pyx_GIVEREF(__pyx_t_6);
           PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_6);
           __pyx_t_6 = 0;
-          if (__Pyx_PrintOne(0, __pyx_t_5) < 0) __PYX_ERR(0, 585, __pyx_L10_error)
+          if (__Pyx_PrintOne(0, __pyx_t_5) < 0) __PYX_ERR(0, 605, __pyx_L10_error)
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         }
 
-        /* "xsmc/_viterbi.pyx":582
+        /* "xsmc/_viterbi.pyx":602
  *             ret[i] = truncate_prior(log_pi, t)
  *     if DEBUG:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -9598,7 +9913,7 @@ static std::vector<__pyx_t_4xsmc_8_viterbi_piecewise_func>  __pyx_f_4xsmc_8_vite
         }
     }
 
-    /* "xsmc/_viterbi.pyx":586
+    /* "xsmc/_viterbi.pyx":606
  *             print('----> log_pi=', log_pi)
  *             print('----> ret=', ret)
  *     return ret             # <<<<<<<<<<<<<<
@@ -9609,7 +9924,7 @@ static std::vector<__pyx_t_4xsmc_8_viterbi_piecewise_func>  __pyx_f_4xsmc_8_vite
     goto __pyx_L3_return;
   }
 
-  /* "xsmc/_viterbi.pyx":568
+  /* "xsmc/_viterbi.pyx":588
  * 
  * cdef vector[piecewise_func] arg_prior(const piecewise_func &log_pi, tsk_tree_t* tree) nogil:
  *     cdef vector[piecewise_func] ret             # <<<<<<<<<<<<<<
@@ -9631,7 +9946,7 @@ static std::vector<__pyx_t_4xsmc_8_viterbi_piecewise_func>  __pyx_f_4xsmc_8_vite
     }
   }
 
-  /* "xsmc/_viterbi.pyx":567
+  /* "xsmc/_viterbi.pyx":587
  *     return ret
  * 
  * cdef vector[piecewise_func] arg_prior(const piecewise_func &log_pi, tsk_tree_t* tree) nogil:             # <<<<<<<<<<<<<<
@@ -9654,7 +9969,7 @@ static std::vector<__pyx_t_4xsmc_8_viterbi_piecewise_func>  __pyx_f_4xsmc_8_vite
   return __pyx_r;
 }
 
-/* "xsmc/_viterbi.pyx":588
+/* "xsmc/_viterbi.pyx":608
  *     return ret
  * 
  * cdef piecewise_func truncate_prior(const piecewise_func &prior, double t) nogil:             # <<<<<<<<<<<<<<
@@ -9685,7 +10000,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
   #endif
   __Pyx_RefNannySetupContext("truncate_prior", 1);
 
-  /* "xsmc/_viterbi.pyx":594
+  /* "xsmc/_viterbi.pyx":614
  * 
  *     #   [-inf, 1] tau=2
  *     cdef piecewise_func ret             # <<<<<<<<<<<<<<
@@ -9694,7 +10009,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
  */
   /*try:*/ {
 
-    /* "xsmc/_viterbi.pyx":597
+    /* "xsmc/_viterbi.pyx":617
  *     cdef func f
  *     cdef interval intv
  *     cdef double tau = -log(t)             # <<<<<<<<<<<<<<
@@ -9703,7 +10018,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
  */
     __pyx_v_tau = (-std::log(__pyx_v_t));
 
-    /* "xsmc/_viterbi.pyx":598
+    /* "xsmc/_viterbi.pyx":618
  *     cdef interval intv
  *     cdef double tau = -log(t)
  *     f.k = 0             # <<<<<<<<<<<<<<
@@ -9712,7 +10027,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
  */
     __pyx_v_f.k = 0;
 
-    /* "xsmc/_viterbi.pyx":599
+    /* "xsmc/_viterbi.pyx":619
  *     cdef double tau = -log(t)
  *     f.k = 0
  *     f.c[0] = 0.             # <<<<<<<<<<<<<<
@@ -9721,7 +10036,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
  */
     (__pyx_v_f.c[0]) = 0.;
 
-    /* "xsmc/_viterbi.pyx":600
+    /* "xsmc/_viterbi.pyx":620
  *     f.k = 0
  *     f.c[0] = 0.
  *     f.c[1] = 0.             # <<<<<<<<<<<<<<
@@ -9730,7 +10045,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
  */
     (__pyx_v_f.c[1]) = 0.;
 
-    /* "xsmc/_viterbi.pyx":601
+    /* "xsmc/_viterbi.pyx":621
  *     f.c[0] = 0.
  *     f.c[1] = 0.
  *     f.c[2] = INFINITY             # <<<<<<<<<<<<<<
@@ -9739,7 +10054,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
  */
     (__pyx_v_f.c[2]) = INFINITY;
 
-    /* "xsmc/_viterbi.pyx":602
+    /* "xsmc/_viterbi.pyx":622
  *     f.c[1] = 0.
  *     f.c[2] = INFINITY
  *     ret.f.push_back(f)             # <<<<<<<<<<<<<<
@@ -9756,10 +10071,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 602, __pyx_L4_error)
+      __PYX_ERR(0, 622, __pyx_L4_error)
     }
 
-    /* "xsmc/_viterbi.pyx":603
+    /* "xsmc/_viterbi.pyx":623
  *     f.c[2] = INFINITY
  *     ret.f.push_back(f)
  *     ret.t.push_back(-INFINITY)             # <<<<<<<<<<<<<<
@@ -9776,10 +10091,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 603, __pyx_L4_error)
+      __PYX_ERR(0, 623, __pyx_L4_error)
     }
 
-    /* "xsmc/_viterbi.pyx":604
+    /* "xsmc/_viterbi.pyx":624
  *     ret.f.push_back(f)
  *     ret.t.push_back(-INFINITY)
  *     ret.t.push_back(tau)             # <<<<<<<<<<<<<<
@@ -9796,10 +10111,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 604, __pyx_L4_error)
+      __PYX_ERR(0, 624, __pyx_L4_error)
     }
 
-    /* "xsmc/_viterbi.pyx":606
+    /* "xsmc/_viterbi.pyx":626
  *     ret.t.push_back(tau)
  *     cdef int i, j
  *     for i in range(prior.f.size()):             # <<<<<<<<<<<<<<
@@ -9811,7 +10126,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
     for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
       __pyx_v_i = __pyx_t_3;
 
-      /* "xsmc/_viterbi.pyx":607
+      /* "xsmc/_viterbi.pyx":627
  *     cdef int i, j
  *     for i in range(prior.f.size()):
  *         intv[0] = prior.t.at(i)             # <<<<<<<<<<<<<<
@@ -9828,11 +10143,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
         #ifdef WITH_THREAD
         __Pyx_PyGILState_Release(__pyx_gilstate_save);
         #endif
-        __PYX_ERR(0, 607, __pyx_L4_error)
+        __PYX_ERR(0, 627, __pyx_L4_error)
       }
       (__pyx_v_intv[0]) = __pyx_t_4;
 
-      /* "xsmc/_viterbi.pyx":608
+      /* "xsmc/_viterbi.pyx":628
  *     for i in range(prior.f.size()):
  *         intv[0] = prior.t.at(i)
  *         intv[1] = prior.t.at(i + 1)             # <<<<<<<<<<<<<<
@@ -9849,11 +10164,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
         #ifdef WITH_THREAD
         __Pyx_PyGILState_Release(__pyx_gilstate_save);
         #endif
-        __PYX_ERR(0, 608, __pyx_L4_error)
+        __PYX_ERR(0, 628, __pyx_L4_error)
       }
       (__pyx_v_intv[1]) = __pyx_t_5;
 
-      /* "xsmc/_viterbi.pyx":609
+      /* "xsmc/_viterbi.pyx":629
  *         intv[0] = prior.t.at(i)
  *         intv[1] = prior.t.at(i + 1)
  *         if intv[0] <= tau and tau < intv[1]:             # <<<<<<<<<<<<<<
@@ -9871,7 +10186,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
       __pyx_L9_bool_binop_done:;
       if (__pyx_t_6) {
 
-        /* "xsmc/_viterbi.pyx":610
+        /* "xsmc/_viterbi.pyx":630
  *         intv[1] = prior.t.at(i + 1)
  *         if intv[0] <= tau and tau < intv[1]:
  *             break             # <<<<<<<<<<<<<<
@@ -9880,7 +10195,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
  */
         goto __pyx_L7_break;
 
-        /* "xsmc/_viterbi.pyx":609
+        /* "xsmc/_viterbi.pyx":629
  *         intv[0] = prior.t.at(i)
  *         intv[1] = prior.t.at(i + 1)
  *         if intv[0] <= tau and tau < intv[1]:             # <<<<<<<<<<<<<<
@@ -9891,7 +10206,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
     }
     __pyx_L7_break:;
 
-    /* "xsmc/_viterbi.pyx":611
+    /* "xsmc/_viterbi.pyx":631
  *         if intv[0] <= tau and tau < intv[1]:
  *             break
  *     ret.f.insert(ret.f.end(), prior.f.begin() + i, prior.f.end())             # <<<<<<<<<<<<<<
@@ -9908,10 +10223,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 611, __pyx_L4_error)
+      __PYX_ERR(0, 631, __pyx_L4_error)
     }
 
-    /* "xsmc/_viterbi.pyx":612
+    /* "xsmc/_viterbi.pyx":632
  *             break
  *     ret.f.insert(ret.f.end(), prior.f.begin() + i, prior.f.end())
  *     ret.t.insert(ret.t.end(), prior.t.begin() + i + 1, prior.t.end())             # <<<<<<<<<<<<<<
@@ -9928,10 +10243,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 612, __pyx_L4_error)
+      __PYX_ERR(0, 632, __pyx_L4_error)
     }
 
-    /* "xsmc/_viterbi.pyx":614
+    /* "xsmc/_viterbi.pyx":634
  *     ret.t.insert(ret.t.end(), prior.t.begin() + i + 1, prior.t.end())
  *     if DEBUG:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -9944,7 +10259,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
         #endif
         /*try:*/ {
 
-          /* "xsmc/_viterbi.pyx":615
+          /* "xsmc/_viterbi.pyx":635
  *     if DEBUG:
  *         with gil:
  *             check_piecewise(ret)             # <<<<<<<<<<<<<<
@@ -9954,7 +10269,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
           __pyx_f_4xsmc_8_viterbi_check_piecewise(__pyx_v_ret);
         }
 
-        /* "xsmc/_viterbi.pyx":614
+        /* "xsmc/_viterbi.pyx":634
  *     ret.t.insert(ret.t.end(), prior.t.begin() + i + 1, prior.t.end())
  *     if DEBUG:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -9972,7 +10287,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
         }
     }
 
-    /* "xsmc/_viterbi.pyx":616
+    /* "xsmc/_viterbi.pyx":636
  *         with gil:
  *             check_piecewise(ret)
  *     return compact(ret)             # <<<<<<<<<<<<<<
@@ -9983,7 +10298,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
     goto __pyx_L3_return;
   }
 
-  /* "xsmc/_viterbi.pyx":594
+  /* "xsmc/_viterbi.pyx":614
  * 
  *     #   [-inf, 1] tau=2
  *     cdef piecewise_func ret             # <<<<<<<<<<<<<<
@@ -10005,7 +10320,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
     }
   }
 
-  /* "xsmc/_viterbi.pyx":588
+  /* "xsmc/_viterbi.pyx":608
  *     return ret
  * 
  * cdef piecewise_func truncate_prior(const piecewise_func &prior, double t) nogil:             # <<<<<<<<<<<<<<
@@ -10026,7 +10341,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_truncate_p
   return __pyx_r;
 }
 
-/* "xsmc/_viterbi.pyx":619
+/* "xsmc/_viterbi.pyx":639
  * 
  * # for piecewise constant coalescent function
  * cdef piecewise_func piecewise_const_log_pi(double[:] a, double[:] t, double beta) nogil:             # <<<<<<<<<<<<<<
@@ -10057,7 +10372,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
 
-  /* "xsmc/_viterbi.pyx":639
+  /* "xsmc/_viterbi.pyx":659
  * 
  *     cdef int32_t j, k
  *     cdef int32_t K = t.shape[0]             # <<<<<<<<<<<<<<
@@ -10066,7 +10381,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
  */
   __pyx_v_K = (__pyx_v_t.shape[0]);
 
-  /* "xsmc/_viterbi.pyx":640
+  /* "xsmc/_viterbi.pyx":660
  *     cdef int32_t j, k
  *     cdef int32_t K = t.shape[0]
  *     cdef double c_k = 0, tk1             # <<<<<<<<<<<<<<
@@ -10075,7 +10390,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
  */
   __pyx_v_c_k = 0.0;
 
-  /* "xsmc/_viterbi.pyx":642
+  /* "xsmc/_viterbi.pyx":662
  *     cdef double c_k = 0, tk1
  *     cdef piecewise_func ret
  *     ret.f.resize(K)             # <<<<<<<<<<<<<<
@@ -10092,10 +10407,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
     #ifdef WITH_THREAD
     __Pyx_PyGILState_Release(__pyx_gilstate_save);
     #endif
-    __PYX_ERR(0, 642, __pyx_L1_error)
+    __PYX_ERR(0, 662, __pyx_L1_error)
   }
 
-  /* "xsmc/_viterbi.pyx":643
+  /* "xsmc/_viterbi.pyx":663
  *     cdef piecewise_func ret
  *     ret.f.resize(K)
  *     ret.t.resize(K + 1)             # <<<<<<<<<<<<<<
@@ -10112,10 +10427,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
     #ifdef WITH_THREAD
     __Pyx_PyGILState_Release(__pyx_gilstate_save);
     #endif
-    __PYX_ERR(0, 643, __pyx_L1_error)
+    __PYX_ERR(0, 663, __pyx_L1_error)
   }
 
-  /* "xsmc/_viterbi.pyx":644
+  /* "xsmc/_viterbi.pyx":664
  *     ret.f.resize(K)
  *     ret.t.resize(K + 1)
  *     for k in range(K):             # <<<<<<<<<<<<<<
@@ -10127,7 +10442,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_k = __pyx_t_3;
 
-    /* "xsmc/_viterbi.pyx":645
+    /* "xsmc/_viterbi.pyx":665
  *     ret.t.resize(K + 1)
  *     for k in range(K):
  *         j = K - 1 - k             # <<<<<<<<<<<<<<
@@ -10136,7 +10451,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
  */
     __pyx_v_j = ((__pyx_v_K - 1) - __pyx_v_k);
 
-    /* "xsmc/_viterbi.pyx":646
+    /* "xsmc/_viterbi.pyx":666
  *     for k in range(K):
  *         j = K - 1 - k
  *         ret.f.at(j).k = 0             # <<<<<<<<<<<<<<
@@ -10153,11 +10468,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 646, __pyx_L1_error)
+      __PYX_ERR(0, 666, __pyx_L1_error)
     }
     __pyx_t_4->k = 0;
 
-    /* "xsmc/_viterbi.pyx":647
+    /* "xsmc/_viterbi.pyx":667
  *         j = K - 1 - k
  *         ret.f.at(j).k = 0
  *         if k == 0:             # <<<<<<<<<<<<<<
@@ -10167,7 +10482,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
     __pyx_t_5 = ((__pyx_v_k == 0) != 0);
     if (__pyx_t_5) {
 
-      /* "xsmc/_viterbi.pyx":648
+      /* "xsmc/_viterbi.pyx":668
  *         ret.f.at(j).k = 0
  *         if k == 0:
  *             tk1 = 0.             # <<<<<<<<<<<<<<
@@ -10176,7 +10491,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
  */
       __pyx_v_tk1 = 0.;
 
-      /* "xsmc/_viterbi.pyx":647
+      /* "xsmc/_viterbi.pyx":667
  *         j = K - 1 - k
  *         ret.f.at(j).k = 0
  *         if k == 0:             # <<<<<<<<<<<<<<
@@ -10186,7 +10501,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
       goto __pyx_L5;
     }
 
-    /* "xsmc/_viterbi.pyx":650
+    /* "xsmc/_viterbi.pyx":670
  *             tk1 = 0.
  *         else:
  *             tk1 = t[k - 1]             # <<<<<<<<<<<<<<
@@ -10200,7 +10515,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
     }
     __pyx_L5:;
 
-    /* "xsmc/_viterbi.pyx":651
+    /* "xsmc/_viterbi.pyx":671
  *         else:
  *             tk1 = t[k - 1]
  *         ret.f.at(j).c[0] = a[k]             # <<<<<<<<<<<<<<
@@ -10219,11 +10534,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 651, __pyx_L1_error)
+      __PYX_ERR(0, 671, __pyx_L1_error)
     }
     (__pyx_t_7->c[0]) = (*((double *) ( /* dim=0 */ (__pyx_v_a.data + __pyx_t_6 * __pyx_v_a.strides[0]) )));
 
-    /* "xsmc/_viterbi.pyx":652
+    /* "xsmc/_viterbi.pyx":672
  *             tk1 = t[k - 1]
  *         ret.f.at(j).c[0] = a[k]
  *         ret.f.at(j).c[1] = 2.             # <<<<<<<<<<<<<<
@@ -10240,11 +10555,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 652, __pyx_L1_error)
+      __PYX_ERR(0, 672, __pyx_L1_error)
     }
     (__pyx_t_8->c[1]) = 2.;
 
-    /* "xsmc/_viterbi.pyx":653
+    /* "xsmc/_viterbi.pyx":673
  *         ret.f.at(j).c[0] = a[k]
  *         ret.f.at(j).c[1] = 2.
  *         c_k -= a[k] * tk1             # <<<<<<<<<<<<<<
@@ -10255,7 +10570,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
     if (__pyx_t_6 < 0) __pyx_t_6 += __pyx_v_a.shape[0];
     __pyx_v_c_k = (__pyx_v_c_k - ((*((double *) ( /* dim=0 */ (__pyx_v_a.data + __pyx_t_6 * __pyx_v_a.strides[0]) ))) * __pyx_v_tk1));
 
-    /* "xsmc/_viterbi.pyx":654
+    /* "xsmc/_viterbi.pyx":674
  *         ret.f.at(j).c[1] = 2.
  *         c_k -= a[k] * tk1
  *         ret.f.at(j).c[2] = c_k - log(a[k]) + beta             # <<<<<<<<<<<<<<
@@ -10274,11 +10589,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 654, __pyx_L1_error)
+      __PYX_ERR(0, 674, __pyx_L1_error)
     }
     (__pyx_t_9->c[2]) = ((__pyx_v_c_k - std::log((*((double *) ( /* dim=0 */ (__pyx_v_a.data + __pyx_t_6 * __pyx_v_a.strides[0]) ))))) + __pyx_v_beta);
 
-    /* "xsmc/_viterbi.pyx":655
+    /* "xsmc/_viterbi.pyx":675
  *         c_k -= a[k] * tk1
  *         ret.f.at(j).c[2] = c_k - log(a[k]) + beta
  *         ret.f.at(j).k = 0             # <<<<<<<<<<<<<<
@@ -10295,11 +10610,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 655, __pyx_L1_error)
+      __PYX_ERR(0, 675, __pyx_L1_error)
     }
     __pyx_t_10->k = 0;
 
-    /* "xsmc/_viterbi.pyx":656
+    /* "xsmc/_viterbi.pyx":676
  *         ret.f.at(j).c[2] = c_k - log(a[k]) + beta
  *         ret.f.at(j).k = 0
  *         c_k += a[k] * t[k]             # <<<<<<<<<<<<<<
@@ -10312,7 +10627,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
     if (__pyx_t_11 < 0) __pyx_t_11 += __pyx_v_t.shape[0];
     __pyx_v_c_k = (__pyx_v_c_k + ((*((double *) ( /* dim=0 */ (__pyx_v_a.data + __pyx_t_6 * __pyx_v_a.strides[0]) ))) * (*((double *) ( /* dim=0 */ (__pyx_v_t.data + __pyx_t_11 * __pyx_v_t.strides[0]) )))));
 
-    /* "xsmc/_viterbi.pyx":657
+    /* "xsmc/_viterbi.pyx":677
  *         ret.f.at(j).k = 0
  *         c_k += a[k] * t[k]
  *         ret.t[j] = -log(t[k])             # <<<<<<<<<<<<<<
@@ -10324,7 +10639,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
     (__pyx_v_ret.t[__pyx_v_j]) = (-std::log((*((double *) ( /* dim=0 */ (__pyx_v_t.data + __pyx_t_11 * __pyx_v_t.strides[0]) )))));
   }
 
-  /* "xsmc/_viterbi.pyx":658
+  /* "xsmc/_viterbi.pyx":678
  *         c_k += a[k] * t[k]
  *         ret.t[j] = -log(t[k])
  *     ret.t[K] = INFINITY             # <<<<<<<<<<<<<<
@@ -10333,7 +10648,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
  */
   (__pyx_v_ret.t[__pyx_v_K]) = INFINITY;
 
-  /* "xsmc/_viterbi.pyx":659
+  /* "xsmc/_viterbi.pyx":679
  *         ret.t[j] = -log(t[k])
  *     ret.t[K] = INFINITY
  *     return ret             # <<<<<<<<<<<<<<
@@ -10343,7 +10658,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
   __pyx_r = __pyx_v_ret;
   goto __pyx_L0;
 
-  /* "xsmc/_viterbi.pyx":619
+  /* "xsmc/_viterbi.pyx":639
  * 
  * # for piecewise constant coalescent function
  * cdef piecewise_func piecewise_const_log_pi(double[:] a, double[:] t, double beta) nogil:             # <<<<<<<<<<<<<<
@@ -10359,7 +10674,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_piecewise_
   return __pyx_r;
 }
 
-/* "xsmc/_viterbi.pyx":662
+/* "xsmc/_viterbi.pyx":682
  * 
  * 
  * cdef piecewise_func compact(const piecewise_func &C) nogil:             # <<<<<<<<<<<<<<
@@ -10397,7 +10712,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
   #endif
   __Pyx_RefNannySetupContext("compact", 1);
 
-  /* "xsmc/_viterbi.pyx":663
+  /* "xsmc/_viterbi.pyx":683
  * 
  * cdef piecewise_func compact(const piecewise_func &C) nogil:
  *     cdef double TOL = 1e-8             # <<<<<<<<<<<<<<
@@ -10407,7 +10722,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
   /*try:*/ {
     __pyx_v_TOL = 1e-8;
 
-    /* "xsmc/_viterbi.pyx":665
+    /* "xsmc/_viterbi.pyx":685
  *     cdef double TOL = 1e-8
  *     if DEBUG:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -10420,7 +10735,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
         #endif
         /*try:*/ {
 
-          /* "xsmc/_viterbi.pyx":666
+          /* "xsmc/_viterbi.pyx":686
  *     if DEBUG:
  *         with gil:
  *             try:             # <<<<<<<<<<<<<<
@@ -10431,7 +10746,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
             (void)__pyx_t_1; (void)__pyx_t_2; (void)__pyx_t_3; /* mark used */
             /*try:*/ {
 
-              /* "xsmc/_viterbi.pyx":667
+              /* "xsmc/_viterbi.pyx":687
  *         with gil:
  *             try:
  *                 check_piecewise(C)             # <<<<<<<<<<<<<<
@@ -10440,7 +10755,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
  */
               __pyx_f_4xsmc_8_viterbi_check_piecewise(__pyx_v_C);
 
-              /* "xsmc/_viterbi.pyx":666
+              /* "xsmc/_viterbi.pyx":686
  *     if DEBUG:
  *         with gil:
  *             try:             # <<<<<<<<<<<<<<
@@ -10451,7 +10766,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
           }
         }
 
-        /* "xsmc/_viterbi.pyx":665
+        /* "xsmc/_viterbi.pyx":685
  *     cdef double TOL = 1e-8
  *     if DEBUG:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -10469,7 +10784,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
         }
     }
 
-    /* "xsmc/_viterbi.pyx":674
+    /* "xsmc/_viterbi.pyx":694
  *     cdef double t, t0
  *     cdef piecewise_func ret
  *     if C.f.size() == 0:             # <<<<<<<<<<<<<<
@@ -10479,7 +10794,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
     __pyx_t_4 = ((__pyx_v_C.f.size() == 0) != 0);
     if (__pyx_t_4) {
 
-      /* "xsmc/_viterbi.pyx":675
+      /* "xsmc/_viterbi.pyx":695
  *     cdef piecewise_func ret
  *     if C.f.size() == 0:
  *         return ret             # <<<<<<<<<<<<<<
@@ -10489,7 +10804,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
       __pyx_r = __pyx_v_ret;
       goto __pyx_L3_return;
 
-      /* "xsmc/_viterbi.pyx":674
+      /* "xsmc/_viterbi.pyx":694
  *     cdef double t, t0
  *     cdef piecewise_func ret
  *     if C.f.size() == 0:             # <<<<<<<<<<<<<<
@@ -10498,7 +10813,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
  */
     }
 
-    /* "xsmc/_viterbi.pyx":676
+    /* "xsmc/_viterbi.pyx":696
  *     if C.f.size() == 0:
  *         return ret
  *     ret.f.reserve(C.f.size())             # <<<<<<<<<<<<<<
@@ -10507,7 +10822,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
  */
     __pyx_v_ret.f.reserve(__pyx_v_C.f.size());
 
-    /* "xsmc/_viterbi.pyx":677
+    /* "xsmc/_viterbi.pyx":697
  *         return ret
  *     ret.f.reserve(C.f.size())
  *     ret.t.reserve(C.t.size())             # <<<<<<<<<<<<<<
@@ -10516,7 +10831,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
  */
     __pyx_v_ret.t.reserve(__pyx_v_C.t.size());
 
-    /* "xsmc/_viterbi.pyx":678
+    /* "xsmc/_viterbi.pyx":698
  *     ret.f.reserve(C.f.size())
  *     ret.t.reserve(C.t.size())
  *     q = C.f.at(0)             # <<<<<<<<<<<<<<
@@ -10533,11 +10848,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 678, __pyx_L4_error)
+      __PYX_ERR(0, 698, __pyx_L4_error)
     }
     __pyx_v_q = __pyx_t_5;
 
-    /* "xsmc/_viterbi.pyx":679
+    /* "xsmc/_viterbi.pyx":699
  *     ret.t.reserve(C.t.size())
  *     q = C.f.at(0)
  *     t = C.t.at(0)             # <<<<<<<<<<<<<<
@@ -10554,11 +10869,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 679, __pyx_L4_error)
+      __PYX_ERR(0, 699, __pyx_L4_error)
     }
     __pyx_v_t = __pyx_t_6;
 
-    /* "xsmc/_viterbi.pyx":680
+    /* "xsmc/_viterbi.pyx":700
  *     q = C.f.at(0)
  *     t = C.t.at(0)
  *     for i in range(1, C.f.size()):             # <<<<<<<<<<<<<<
@@ -10570,7 +10885,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
     for (__pyx_t_9 = 1; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_i = __pyx_t_9;
 
-      /* "xsmc/_viterbi.pyx":681
+      /* "xsmc/_viterbi.pyx":701
  *     t = C.t.at(0)
  *     for i in range(1, C.f.size()):
  *         q0 = C.f.at(i)             # <<<<<<<<<<<<<<
@@ -10587,11 +10902,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
         #ifdef WITH_THREAD
         __Pyx_PyGILState_Release(__pyx_gilstate_save);
         #endif
-        __PYX_ERR(0, 681, __pyx_L4_error)
+        __PYX_ERR(0, 701, __pyx_L4_error)
       }
       __pyx_v_q0 = __pyx_t_10;
 
-      /* "xsmc/_viterbi.pyx":682
+      /* "xsmc/_viterbi.pyx":702
  *     for i in range(1, C.f.size()):
  *         q0 = C.f.at(i)
  *         t0 = C.t.at(i)             # <<<<<<<<<<<<<<
@@ -10608,11 +10923,11 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
         #ifdef WITH_THREAD
         __Pyx_PyGILState_Release(__pyx_gilstate_save);
         #endif
-        __PYX_ERR(0, 682, __pyx_L4_error)
+        __PYX_ERR(0, 702, __pyx_L4_error)
       }
       __pyx_v_t0 = __pyx_t_11;
 
-      /* "xsmc/_viterbi.pyx":684
+      /* "xsmc/_viterbi.pyx":704
  *         t0 = C.t.at(i)
  *         # if memcmp(&q, &q0, sizeof(func)) != 0:  this approach does not work. or rather, it's overly conservative.
  *         if fabs(t - t0) < TOL or (q.c[0] == q0.c[0] and q.c[1] == q0.c[1] and q.c[2] == q0.c[2] and q.k == q0.k):             # <<<<<<<<<<<<<<
@@ -10648,7 +10963,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
       __pyx_L19_bool_binop_done:;
       if (__pyx_t_4) {
 
-        /* "xsmc/_viterbi.pyx":685
+        /* "xsmc/_viterbi.pyx":705
  *         # if memcmp(&q, &q0, sizeof(func)) != 0:  this approach does not work. or rather, it's overly conservative.
  *         if fabs(t - t0) < TOL or (q.c[0] == q0.c[0] and q.c[1] == q0.c[1] and q.c[2] == q0.c[2] and q.k == q0.k):
  *             continue             # <<<<<<<<<<<<<<
@@ -10657,7 +10972,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
  */
         goto __pyx_L16_continue;
 
-        /* "xsmc/_viterbi.pyx":684
+        /* "xsmc/_viterbi.pyx":704
  *         t0 = C.t.at(i)
  *         # if memcmp(&q, &q0, sizeof(func)) != 0:  this approach does not work. or rather, it's overly conservative.
  *         if fabs(t - t0) < TOL or (q.c[0] == q0.c[0] and q.c[1] == q0.c[1] and q.c[2] == q0.c[2] and q.k == q0.k):             # <<<<<<<<<<<<<<
@@ -10666,7 +10981,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
  */
       }
 
-      /* "xsmc/_viterbi.pyx":686
+      /* "xsmc/_viterbi.pyx":706
  *         if fabs(t - t0) < TOL or (q.c[0] == q0.c[0] and q.c[1] == q0.c[1] and q.c[2] == q0.c[2] and q.k == q0.k):
  *             continue
  *         ret.f.push_back(q)             # <<<<<<<<<<<<<<
@@ -10683,10 +10998,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
         #ifdef WITH_THREAD
         __Pyx_PyGILState_Release(__pyx_gilstate_save);
         #endif
-        __PYX_ERR(0, 686, __pyx_L4_error)
+        __PYX_ERR(0, 706, __pyx_L4_error)
       }
 
-      /* "xsmc/_viterbi.pyx":687
+      /* "xsmc/_viterbi.pyx":707
  *             continue
  *         ret.f.push_back(q)
  *         ret.t.push_back(t)             # <<<<<<<<<<<<<<
@@ -10703,10 +11018,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
         #ifdef WITH_THREAD
         __Pyx_PyGILState_Release(__pyx_gilstate_save);
         #endif
-        __PYX_ERR(0, 687, __pyx_L4_error)
+        __PYX_ERR(0, 707, __pyx_L4_error)
       }
 
-      /* "xsmc/_viterbi.pyx":688
+      /* "xsmc/_viterbi.pyx":708
  *         ret.f.push_back(q)
  *         ret.t.push_back(t)
  *         q = q0             # <<<<<<<<<<<<<<
@@ -10715,7 +11030,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
  */
       __pyx_v_q = __pyx_v_q0;
 
-      /* "xsmc/_viterbi.pyx":689
+      /* "xsmc/_viterbi.pyx":709
  *         ret.t.push_back(t)
  *         q = q0
  *         t = t0             # <<<<<<<<<<<<<<
@@ -10726,7 +11041,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
       __pyx_L16_continue:;
     }
 
-    /* "xsmc/_viterbi.pyx":690
+    /* "xsmc/_viterbi.pyx":710
  *         q = q0
  *         t = t0
  *     ret.f.push_back(q)             # <<<<<<<<<<<<<<
@@ -10743,10 +11058,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 690, __pyx_L4_error)
+      __PYX_ERR(0, 710, __pyx_L4_error)
     }
 
-    /* "xsmc/_viterbi.pyx":691
+    /* "xsmc/_viterbi.pyx":711
  *         t = t0
  *     ret.f.push_back(q)
  *     ret.t.push_back(t)             # <<<<<<<<<<<<<<
@@ -10763,10 +11078,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 691, __pyx_L4_error)
+      __PYX_ERR(0, 711, __pyx_L4_error)
     }
 
-    /* "xsmc/_viterbi.pyx":692
+    /* "xsmc/_viterbi.pyx":712
  *     ret.f.push_back(q)
  *     ret.t.push_back(t)
  *     ret.t.push_back(C.t.back())             # <<<<<<<<<<<<<<
@@ -10783,10 +11098,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
       #ifdef WITH_THREAD
       __Pyx_PyGILState_Release(__pyx_gilstate_save);
       #endif
-      __PYX_ERR(0, 692, __pyx_L4_error)
+      __PYX_ERR(0, 712, __pyx_L4_error)
     }
 
-    /* "xsmc/_viterbi.pyx":694
+    /* "xsmc/_viterbi.pyx":714
  *     ret.t.push_back(C.t.back())
  *     if DEBUG:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -10799,7 +11114,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
         #endif
         /*try:*/ {
 
-          /* "xsmc/_viterbi.pyx":695
+          /* "xsmc/_viterbi.pyx":715
  *     if DEBUG:
  *         with gil:
  *             try:             # <<<<<<<<<<<<<<
@@ -10810,7 +11125,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
             (void)__pyx_t_3; (void)__pyx_t_2; (void)__pyx_t_1; /* mark used */
             /*try:*/ {
 
-              /* "xsmc/_viterbi.pyx":696
+              /* "xsmc/_viterbi.pyx":716
  *         with gil:
  *             try:
  *                 check_piecewise(ret)             # <<<<<<<<<<<<<<
@@ -10819,7 +11134,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
  */
               __pyx_f_4xsmc_8_viterbi_check_piecewise(__pyx_v_ret);
 
-              /* "xsmc/_viterbi.pyx":695
+              /* "xsmc/_viterbi.pyx":715
  *     if DEBUG:
  *         with gil:
  *             try:             # <<<<<<<<<<<<<<
@@ -10830,7 +11145,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
           }
         }
 
-        /* "xsmc/_viterbi.pyx":694
+        /* "xsmc/_viterbi.pyx":714
  *     ret.t.push_back(C.t.back())
  *     if DEBUG:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -10848,7 +11163,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
         }
     }
 
-    /* "xsmc/_viterbi.pyx":700
+    /* "xsmc/_viterbi.pyx":720
  *                 print("compact/ret")
  *                 raise
  *     return ret             # <<<<<<<<<<<<<<
@@ -10859,7 +11174,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
     goto __pyx_L3_return;
   }
 
-  /* "xsmc/_viterbi.pyx":663
+  /* "xsmc/_viterbi.pyx":683
  * 
  * cdef piecewise_func compact(const piecewise_func &C) nogil:
  *     cdef double TOL = 1e-8             # <<<<<<<<<<<<<<
@@ -10881,7 +11196,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
     }
   }
 
-  /* "xsmc/_viterbi.pyx":662
+  /* "xsmc/_viterbi.pyx":682
  * 
  * 
  * cdef piecewise_func compact(const piecewise_func &C) nogil:             # <<<<<<<<<<<<<<
@@ -10902,7 +11217,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_compact(__
   return __pyx_r;
 }
 
-/* "xsmc/_viterbi.pyx":702
+/* "xsmc/_viterbi.pyx":722
  *     return ret
  * 
  * cdef void check_piecewise(const piecewise_func &v):             # <<<<<<<<<<<<<<
@@ -10924,7 +11239,7 @@ static void __pyx_f_4xsmc_8_viterbi_check_piecewise(__pyx_t_4xsmc_8_viterbi_piec
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("check_piecewise", 0);
 
-  /* "xsmc/_viterbi.pyx":703
+  /* "xsmc/_viterbi.pyx":723
  * 
  * cdef void check_piecewise(const piecewise_func &v):
  *     assert len(v.f) == len(v.t) - 1, "len(v.f) != len(v.t) - 1"             # <<<<<<<<<<<<<<
@@ -10933,22 +11248,22 @@ static void __pyx_f_4xsmc_8_viterbi_check_piecewise(__pyx_t_4xsmc_8_viterbi_piec
  */
   #ifndef CYTHON_WITHOUT_ASSERTIONS
   if (unlikely(!Py_OptimizeFlag)) {
-    __pyx_t_1 = __pyx_convert_vector_to_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_v.f); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 703, __pyx_L1_error)
+    __pyx_t_1 = __pyx_convert_vector_to_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_v.f); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 723, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 703, __pyx_L1_error)
+    __pyx_t_2 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 723, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __pyx_convert_vector_to_py_double(__pyx_v_v.t); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 703, __pyx_L1_error)
+    __pyx_t_1 = __pyx_convert_vector_to_py_double(__pyx_v_v.t); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 723, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_3 == ((Py_ssize_t)-1))) __PYX_ERR(0, 703, __pyx_L1_error)
+    __pyx_t_3 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_3 == ((Py_ssize_t)-1))) __PYX_ERR(0, 723, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (unlikely(!((__pyx_t_2 == (__pyx_t_3 - 1)) != 0))) {
       PyErr_SetObject(PyExc_AssertionError, __pyx_kp_s_len_v_f_len_v_t_1);
-      __PYX_ERR(0, 703, __pyx_L1_error)
+      __PYX_ERR(0, 723, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "xsmc/_viterbi.pyx":704
+  /* "xsmc/_viterbi.pyx":724
  * cdef void check_piecewise(const piecewise_func &v):
  *     assert len(v.f) == len(v.t) - 1, "len(v.f) != len(v.t) - 1"
  *     assert sorted(v.t) == list(v.t), "v.t not in sort order"             # <<<<<<<<<<<<<<
@@ -10957,32 +11272,32 @@ static void __pyx_f_4xsmc_8_viterbi_check_piecewise(__pyx_t_4xsmc_8_viterbi_piec
  */
   #ifndef CYTHON_WITHOUT_ASSERTIONS
   if (unlikely(!Py_OptimizeFlag)) {
-    __pyx_t_4 = __pyx_convert_vector_to_py_double(__pyx_v_v.t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 704, __pyx_L1_error)
+    __pyx_t_4 = __pyx_convert_vector_to_py_double(__pyx_v_v.t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 724, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = PySequence_List(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 704, __pyx_L1_error)
+    __pyx_t_5 = PySequence_List(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 724, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_1 = ((PyObject*)__pyx_t_5);
     __pyx_t_5 = 0;
-    __pyx_t_6 = PyList_Sort(__pyx_t_1); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 704, __pyx_L1_error)
-    __pyx_t_5 = __pyx_convert_vector_to_py_double(__pyx_v_v.t); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 704, __pyx_L1_error)
+    __pyx_t_6 = PyList_Sort(__pyx_t_1); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 724, __pyx_L1_error)
+    __pyx_t_5 = __pyx_convert_vector_to_py_double(__pyx_v_v.t); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 724, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = PySequence_List(__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 704, __pyx_L1_error)
+    __pyx_t_4 = PySequence_List(__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 724, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyObject_RichCompare(__pyx_t_1, __pyx_t_4, Py_EQ); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 704, __pyx_L1_error)
+    __pyx_t_5 = PyObject_RichCompare(__pyx_t_1, __pyx_t_4, Py_EQ); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 724, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 704, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 724, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (unlikely(!__pyx_t_7)) {
       PyErr_SetObject(PyExc_AssertionError, __pyx_kp_s_v_t_not_in_sort_order);
-      __PYX_ERR(0, 704, __pyx_L1_error)
+      __PYX_ERR(0, 724, __pyx_L1_error)
     }
   }
   #endif
 
-  /* "xsmc/_viterbi.pyx":705
+  /* "xsmc/_viterbi.pyx":725
  *     assert len(v.f) == len(v.t) - 1, "len(v.f) != len(v.t) - 1"
  *     assert sorted(v.t) == list(v.t), "v.t not in sort order"
  *     return             # <<<<<<<<<<<<<<
@@ -10991,7 +11306,7 @@ static void __pyx_f_4xsmc_8_viterbi_check_piecewise(__pyx_t_4xsmc_8_viterbi_piec
  */
   goto __pyx_L0;
 
-  /* "xsmc/_viterbi.pyx":702
+  /* "xsmc/_viterbi.pyx":722
  *     return ret
  * 
  * cdef void check_piecewise(const piecewise_func &v):             # <<<<<<<<<<<<<<
@@ -11009,7 +11324,7 @@ static void __pyx_f_4xsmc_8_viterbi_check_piecewise(__pyx_t_4xsmc_8_viterbi_piec
   __Pyx_RefNannyFinishContext();
 }
 
-/* "xsmc/_viterbi.pyx":718
+/* "xsmc/_viterbi.pyx":738
  * 
  * #### TESTING FUNCTIONS
  * def test_min_f(f, t):             # <<<<<<<<<<<<<<
@@ -11052,11 +11367,11 @@ static PyObject *__pyx_pw_4xsmc_8_viterbi_3test_min_f(PyObject *__pyx_self, PyOb
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_t)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("test_min_f", 1, 2, 2, 1); __PYX_ERR(0, 718, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("test_min_f", 1, 2, 2, 1); __PYX_ERR(0, 738, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "test_min_f") < 0)) __PYX_ERR(0, 718, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "test_min_f") < 0)) __PYX_ERR(0, 738, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -11069,7 +11384,7 @@ static PyObject *__pyx_pw_4xsmc_8_viterbi_3test_min_f(PyObject *__pyx_self, PyOb
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("test_min_f", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 718, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("test_min_f", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 738, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("xsmc._viterbi.test_min_f", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -11096,7 +11411,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_2test_min_f(CYTHON_UNUSED PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("test_min_f", 0);
 
-  /* "xsmc/_viterbi.pyx":721
+  /* "xsmc/_viterbi.pyx":741
  *     cdef func _f
  *     cdef interval _t
  *     for i in range(3):             # <<<<<<<<<<<<<<
@@ -11106,21 +11421,21 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_2test_min_f(CYTHON_UNUSED PyObject *__
   for (__pyx_t_1 = 0; __pyx_t_1 < 3; __pyx_t_1+=1) {
     __pyx_v_i = __pyx_t_1;
 
-    /* "xsmc/_viterbi.pyx":722
+    /* "xsmc/_viterbi.pyx":742
  *     cdef interval _t
  *     for i in range(3):
  *         _f.c[i] = f[i]             # <<<<<<<<<<<<<<
  *     for i in range(2):
  *         _t[i] = t[i]
  */
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_f, __pyx_v_i, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 722, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_f, __pyx_v_i, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 742, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 722, __pyx_L1_error)
+    __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 742, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     (__pyx_v__f.c[__pyx_v_i]) = __pyx_t_3;
   }
 
-  /* "xsmc/_viterbi.pyx":723
+  /* "xsmc/_viterbi.pyx":743
  *     for i in range(3):
  *         _f.c[i] = f[i]
  *     for i in range(2):             # <<<<<<<<<<<<<<
@@ -11130,21 +11445,21 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_2test_min_f(CYTHON_UNUSED PyObject *__
   for (__pyx_t_1 = 0; __pyx_t_1 < 2; __pyx_t_1+=1) {
     __pyx_v_i = __pyx_t_1;
 
-    /* "xsmc/_viterbi.pyx":724
+    /* "xsmc/_viterbi.pyx":744
  *         _f.c[i] = f[i]
  *     for i in range(2):
  *         _t[i] = t[i]             # <<<<<<<<<<<<<<
  *     return min_f(_f, _t)
  * 
  */
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_t, __pyx_v_i, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 724, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_t, __pyx_v_i, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 744, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 724, __pyx_L1_error)
+    __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 744, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     (__pyx_v__t[__pyx_v_i]) = __pyx_t_3;
   }
 
-  /* "xsmc/_viterbi.pyx":725
+  /* "xsmc/_viterbi.pyx":745
  *     for i in range(2):
  *         _t[i] = t[i]
  *     return min_f(_f, _t)             # <<<<<<<<<<<<<<
@@ -11152,13 +11467,13 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_2test_min_f(CYTHON_UNUSED PyObject *__
  * def test_piecewise_const_log_pi(a, t):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_minimum(__pyx_f_4xsmc_8_viterbi_min_f(__pyx_v__f, __pyx_v__t)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 725, __pyx_L1_error)
+  __pyx_t_2 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_minimum(__pyx_f_4xsmc_8_viterbi_min_f(__pyx_v__f, __pyx_v__t)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 745, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "xsmc/_viterbi.pyx":718
+  /* "xsmc/_viterbi.pyx":738
  * 
  * #### TESTING FUNCTIONS
  * def test_min_f(f, t):             # <<<<<<<<<<<<<<
@@ -11177,7 +11492,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_2test_min_f(CYTHON_UNUSED PyObject *__
   return __pyx_r;
 }
 
-/* "xsmc/_viterbi.pyx":727
+/* "xsmc/_viterbi.pyx":747
  *     return min_f(_f, _t)
  * 
  * def test_piecewise_const_log_pi(a, t):             # <<<<<<<<<<<<<<
@@ -11220,11 +11535,11 @@ static PyObject *__pyx_pw_4xsmc_8_viterbi_5test_piecewise_const_log_pi(PyObject 
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_t)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("test_piecewise_const_log_pi", 1, 2, 2, 1); __PYX_ERR(0, 727, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("test_piecewise_const_log_pi", 1, 2, 2, 1); __PYX_ERR(0, 747, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "test_piecewise_const_log_pi") < 0)) __PYX_ERR(0, 727, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "test_piecewise_const_log_pi") < 0)) __PYX_ERR(0, 747, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -11237,7 +11552,7 @@ static PyObject *__pyx_pw_4xsmc_8_viterbi_5test_piecewise_const_log_pi(PyObject 
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("test_piecewise_const_log_pi", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 727, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("test_piecewise_const_log_pi", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 747, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("xsmc._viterbi.test_piecewise_const_log_pi", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -11261,7 +11576,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_4test_piecewise_const_log_pi(CYTHON_UN
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("test_piecewise_const_log_pi", 0);
 
-  /* "xsmc/_viterbi.pyx":728
+  /* "xsmc/_viterbi.pyx":748
  * 
  * def test_piecewise_const_log_pi(a, t):
  *     return piecewise_const_log_pi(a, t, 0.)             # <<<<<<<<<<<<<<
@@ -11269,9 +11584,9 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_4test_piecewise_const_log_pi(CYTHON_UN
  * def test_pointwise_min(prior, double F_t, cost):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_a, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 728, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_t, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 728, __pyx_L1_error)
-  __pyx_t_3 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_f_4xsmc_8_viterbi_piecewise_const_log_pi(__pyx_t_1, __pyx_t_2, 0.)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 728, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_a, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 748, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_t, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 748, __pyx_L1_error)
+  __pyx_t_3 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_f_4xsmc_8_viterbi_piecewise_const_log_pi(__pyx_t_1, __pyx_t_2, 0.)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 748, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __PYX_XDEC_MEMVIEW(&__pyx_t_1, 1);
   __pyx_t_1.memview = NULL;
@@ -11283,7 +11598,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_4test_piecewise_const_log_pi(CYTHON_UN
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "xsmc/_viterbi.pyx":727
+  /* "xsmc/_viterbi.pyx":747
  *     return min_f(_f, _t)
  * 
  * def test_piecewise_const_log_pi(a, t):             # <<<<<<<<<<<<<<
@@ -11304,7 +11619,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_4test_piecewise_const_log_pi(CYTHON_UN
   return __pyx_r;
 }
 
-/* "xsmc/_viterbi.pyx":730
+/* "xsmc/_viterbi.pyx":750
  *     return piecewise_const_log_pi(a, t, 0.)
  * 
  * def test_pointwise_min(prior, double F_t, cost):             # <<<<<<<<<<<<<<
@@ -11350,17 +11665,17 @@ static PyObject *__pyx_pw_4xsmc_8_viterbi_7test_pointwise_min(PyObject *__pyx_se
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_F_t_2)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("test_pointwise_min", 1, 3, 3, 1); __PYX_ERR(0, 730, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("test_pointwise_min", 1, 3, 3, 1); __PYX_ERR(0, 750, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_cost_2)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("test_pointwise_min", 1, 3, 3, 2); __PYX_ERR(0, 730, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("test_pointwise_min", 1, 3, 3, 2); __PYX_ERR(0, 750, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "test_pointwise_min") < 0)) __PYX_ERR(0, 730, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "test_pointwise_min") < 0)) __PYX_ERR(0, 750, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -11370,12 +11685,12 @@ static PyObject *__pyx_pw_4xsmc_8_viterbi_7test_pointwise_min(PyObject *__pyx_se
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
     __pyx_v_prior = values[0];
-    __pyx_v_F_t = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_F_t == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 730, __pyx_L3_error)
+    __pyx_v_F_t = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_F_t == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 750, __pyx_L3_error)
     __pyx_v_cost = values[2];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("test_pointwise_min", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 730, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("test_pointwise_min", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 750, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("xsmc._viterbi.test_pointwise_min", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -11412,67 +11727,67 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_6test_pointwise_min(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("test_pointwise_min", 0);
 
-  /* "xsmc/_viterbi.pyx":732
+  /* "xsmc/_viterbi.pyx":752
  * def test_pointwise_min(prior, double F_t, cost):
  *     cdef piecewise_func _prior, _cost
  *     _prior.f.resize(len(prior))             # <<<<<<<<<<<<<<
  *     _prior.t.resize(len(prior))
  *     _cost.f.resize(len(cost))
  */
-  __pyx_t_1 = PyObject_Length(__pyx_v_prior); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 732, __pyx_L1_error)
+  __pyx_t_1 = PyObject_Length(__pyx_v_prior); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 752, __pyx_L1_error)
   try {
     __pyx_v__prior.f.resize(__pyx_t_1);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 732, __pyx_L1_error)
+    __PYX_ERR(0, 752, __pyx_L1_error)
   }
 
-  /* "xsmc/_viterbi.pyx":733
+  /* "xsmc/_viterbi.pyx":753
  *     cdef piecewise_func _prior, _cost
  *     _prior.f.resize(len(prior))
  *     _prior.t.resize(len(prior))             # <<<<<<<<<<<<<<
  *     _cost.f.resize(len(cost))
  *     _cost.t.resize(len(cost))
  */
-  __pyx_t_1 = PyObject_Length(__pyx_v_prior); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 733, __pyx_L1_error)
+  __pyx_t_1 = PyObject_Length(__pyx_v_prior); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 753, __pyx_L1_error)
   try {
     __pyx_v__prior.t.resize(__pyx_t_1);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 733, __pyx_L1_error)
+    __PYX_ERR(0, 753, __pyx_L1_error)
   }
 
-  /* "xsmc/_viterbi.pyx":734
+  /* "xsmc/_viterbi.pyx":754
  *     _prior.f.resize(len(prior))
  *     _prior.t.resize(len(prior))
  *     _cost.f.resize(len(cost))             # <<<<<<<<<<<<<<
  *     _cost.t.resize(len(cost))
  *     for i, p in enumerate(prior):
  */
-  __pyx_t_1 = PyObject_Length(__pyx_v_cost); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 734, __pyx_L1_error)
+  __pyx_t_1 = PyObject_Length(__pyx_v_cost); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 754, __pyx_L1_error)
   try {
     __pyx_v__cost.f.resize(__pyx_t_1);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 734, __pyx_L1_error)
+    __PYX_ERR(0, 754, __pyx_L1_error)
   }
 
-  /* "xsmc/_viterbi.pyx":735
+  /* "xsmc/_viterbi.pyx":755
  *     _prior.t.resize(len(prior))
  *     _cost.f.resize(len(cost))
  *     _cost.t.resize(len(cost))             # <<<<<<<<<<<<<<
  *     for i, p in enumerate(prior):
  *         for j in range(3):
  */
-  __pyx_t_1 = PyObject_Length(__pyx_v_cost); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 735, __pyx_L1_error)
+  __pyx_t_1 = PyObject_Length(__pyx_v_cost); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 755, __pyx_L1_error)
   try {
     __pyx_v__cost.t.resize(__pyx_t_1);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 735, __pyx_L1_error)
+    __PYX_ERR(0, 755, __pyx_L1_error)
   }
 
-  /* "xsmc/_viterbi.pyx":736
+  /* "xsmc/_viterbi.pyx":756
  *     _cost.f.resize(len(cost))
  *     _cost.t.resize(len(cost))
  *     for i, p in enumerate(prior):             # <<<<<<<<<<<<<<
@@ -11485,26 +11800,26 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_6test_pointwise_min(CYTHON_UNUSED PyOb
     __pyx_t_3 = __pyx_v_prior; __Pyx_INCREF(__pyx_t_3); __pyx_t_1 = 0;
     __pyx_t_4 = NULL;
   } else {
-    __pyx_t_1 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_prior); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 736, __pyx_L1_error)
+    __pyx_t_1 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_prior); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 756, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 736, __pyx_L1_error)
+    __pyx_t_4 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 756, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_4)) {
       if (likely(PyList_CheckExact(__pyx_t_3))) {
         if (__pyx_t_1 >= PyList_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_1); __Pyx_INCREF(__pyx_t_5); __pyx_t_1++; if (unlikely(0 < 0)) __PYX_ERR(0, 736, __pyx_L1_error)
+        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_1); __Pyx_INCREF(__pyx_t_5); __pyx_t_1++; if (unlikely(0 < 0)) __PYX_ERR(0, 756, __pyx_L1_error)
         #else
-        __pyx_t_5 = PySequence_ITEM(__pyx_t_3, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 736, __pyx_L1_error)
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_3, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 756, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         #endif
       } else {
         if (__pyx_t_1 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_1); __Pyx_INCREF(__pyx_t_5); __pyx_t_1++; if (unlikely(0 < 0)) __PYX_ERR(0, 736, __pyx_L1_error)
+        __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_1); __Pyx_INCREF(__pyx_t_5); __pyx_t_1++; if (unlikely(0 < 0)) __PYX_ERR(0, 756, __pyx_L1_error)
         #else
-        __pyx_t_5 = PySequence_ITEM(__pyx_t_3, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 736, __pyx_L1_error)
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_3, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 756, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         #endif
       }
@@ -11514,7 +11829,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_6test_pointwise_min(CYTHON_UNUSED PyOb
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 736, __pyx_L1_error)
+          else __PYX_ERR(0, 756, __pyx_L1_error)
         }
         break;
       }
@@ -11524,13 +11839,13 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_6test_pointwise_min(CYTHON_UNUSED PyOb
     __pyx_t_5 = 0;
     __Pyx_INCREF(__pyx_t_2);
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_2);
-    __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_t_2, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 736, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_t_2, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 756, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_2);
     __pyx_t_2 = __pyx_t_5;
     __pyx_t_5 = 0;
 
-    /* "xsmc/_viterbi.pyx":737
+    /* "xsmc/_viterbi.pyx":757
  *     _cost.t.resize(len(cost))
  *     for i, p in enumerate(prior):
  *         for j in range(3):             # <<<<<<<<<<<<<<
@@ -11540,56 +11855,56 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_6test_pointwise_min(CYTHON_UNUSED PyOb
     for (__pyx_t_6 = 0; __pyx_t_6 < 3; __pyx_t_6+=1) {
       __pyx_v_j = __pyx_t_6;
 
-      /* "xsmc/_viterbi.pyx":738
+      /* "xsmc/_viterbi.pyx":758
  *     for i, p in enumerate(prior):
  *         for j in range(3):
  *             _prior.f[i].c[j] = p['f'][j]             # <<<<<<<<<<<<<<
  *         _prior.f[i].k = p['k']
  *         _prior.t[i] = p['t'][0]
  */
-      __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_v_p, __pyx_n_s_f); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 738, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_v_p, __pyx_n_s_f); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 758, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_5, __pyx_v_j, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 738, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_5, __pyx_v_j, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 758, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_t_7); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 738, __pyx_L1_error)
+      __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_t_7); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 758, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_9 = __Pyx_PyInt_As_size_t(__pyx_v_i); if (unlikely((__pyx_t_9 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 738, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyInt_As_size_t(__pyx_v_i); if (unlikely((__pyx_t_9 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 758, __pyx_L1_error)
       ((__pyx_v__prior.f[__pyx_t_9]).c[__pyx_v_j]) = __pyx_t_8;
     }
 
-    /* "xsmc/_viterbi.pyx":739
+    /* "xsmc/_viterbi.pyx":759
  *         for j in range(3):
  *             _prior.f[i].c[j] = p['f'][j]
  *         _prior.f[i].k = p['k']             # <<<<<<<<<<<<<<
  *         _prior.t[i] = p['t'][0]
  *     _prior.t.push_back(np.inf)
  */
-    __pyx_t_7 = __Pyx_PyObject_Dict_GetItem(__pyx_v_p, __pyx_n_s_k); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 739, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Dict_GetItem(__pyx_v_p, __pyx_n_s_k); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 759, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_7); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 739, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_7); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 759, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_9 = __Pyx_PyInt_As_size_t(__pyx_v_i); if (unlikely((__pyx_t_9 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 739, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyInt_As_size_t(__pyx_v_i); if (unlikely((__pyx_t_9 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 759, __pyx_L1_error)
     (__pyx_v__prior.f[__pyx_t_9]).k = __pyx_t_10;
 
-    /* "xsmc/_viterbi.pyx":740
+    /* "xsmc/_viterbi.pyx":760
  *             _prior.f[i].c[j] = p['f'][j]
  *         _prior.f[i].k = p['k']
  *         _prior.t[i] = p['t'][0]             # <<<<<<<<<<<<<<
  *     _prior.t.push_back(np.inf)
  *     for i, p in enumerate(cost):
  */
-    __pyx_t_7 = __Pyx_PyObject_Dict_GetItem(__pyx_v_p, __pyx_n_s_t); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 740, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Dict_GetItem(__pyx_v_p, __pyx_n_s_t); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 760, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 740, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 760, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 740, __pyx_L1_error)
+    __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 760, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_11 = __Pyx_PyInt_As_size_t(__pyx_v_i); if (unlikely((__pyx_t_11 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 740, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyInt_As_size_t(__pyx_v_i); if (unlikely((__pyx_t_11 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 760, __pyx_L1_error)
     (__pyx_v__prior.t[__pyx_t_11]) = __pyx_t_8;
 
-    /* "xsmc/_viterbi.pyx":736
+    /* "xsmc/_viterbi.pyx":756
  *     _cost.f.resize(len(cost))
  *     _cost.t.resize(len(cost))
  *     for i, p in enumerate(prior):             # <<<<<<<<<<<<<<
@@ -11600,28 +11915,28 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_6test_pointwise_min(CYTHON_UNUSED PyOb
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "xsmc/_viterbi.pyx":741
+  /* "xsmc/_viterbi.pyx":761
  *         _prior.f[i].k = p['k']
  *         _prior.t[i] = p['t'][0]
  *     _prior.t.push_back(np.inf)             # <<<<<<<<<<<<<<
  *     for i, p in enumerate(cost):
  *         for j in range(3):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 741, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 761, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_inf); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 741, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_inf); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 761, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 741, __pyx_L1_error)
+  __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 761, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   try {
     __pyx_v__prior.t.push_back(__pyx_t_8);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 741, __pyx_L1_error)
+    __PYX_ERR(0, 761, __pyx_L1_error)
   }
 
-  /* "xsmc/_viterbi.pyx":742
+  /* "xsmc/_viterbi.pyx":762
  *         _prior.t[i] = p['t'][0]
  *     _prior.t.push_back(np.inf)
  *     for i, p in enumerate(cost):             # <<<<<<<<<<<<<<
@@ -11634,26 +11949,26 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_6test_pointwise_min(CYTHON_UNUSED PyOb
     __pyx_t_2 = __pyx_v_cost; __Pyx_INCREF(__pyx_t_2); __pyx_t_1 = 0;
     __pyx_t_4 = NULL;
   } else {
-    __pyx_t_1 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_cost); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 742, __pyx_L1_error)
+    __pyx_t_1 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_cost); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 762, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 742, __pyx_L1_error)
+    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 762, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_4)) {
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_1 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_1); __Pyx_INCREF(__pyx_t_5); __pyx_t_1++; if (unlikely(0 < 0)) __PYX_ERR(0, 742, __pyx_L1_error)
+        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_1); __Pyx_INCREF(__pyx_t_5); __pyx_t_1++; if (unlikely(0 < 0)) __PYX_ERR(0, 762, __pyx_L1_error)
         #else
-        __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 742, __pyx_L1_error)
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 762, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         #endif
       } else {
         if (__pyx_t_1 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_1); __Pyx_INCREF(__pyx_t_5); __pyx_t_1++; if (unlikely(0 < 0)) __PYX_ERR(0, 742, __pyx_L1_error)
+        __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_1); __Pyx_INCREF(__pyx_t_5); __pyx_t_1++; if (unlikely(0 < 0)) __PYX_ERR(0, 762, __pyx_L1_error)
         #else
-        __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 742, __pyx_L1_error)
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 762, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         #endif
       }
@@ -11663,7 +11978,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_6test_pointwise_min(CYTHON_UNUSED PyOb
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 742, __pyx_L1_error)
+          else __PYX_ERR(0, 762, __pyx_L1_error)
         }
         break;
       }
@@ -11673,13 +11988,13 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_6test_pointwise_min(CYTHON_UNUSED PyOb
     __pyx_t_5 = 0;
     __Pyx_INCREF(__pyx_t_3);
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_3);
-    __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_t_3, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 742, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_t_3, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 762, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_3);
     __pyx_t_3 = __pyx_t_5;
     __pyx_t_5 = 0;
 
-    /* "xsmc/_viterbi.pyx":743
+    /* "xsmc/_viterbi.pyx":763
  *     _prior.t.push_back(np.inf)
  *     for i, p in enumerate(cost):
  *         for j in range(3):             # <<<<<<<<<<<<<<
@@ -11689,56 +12004,56 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_6test_pointwise_min(CYTHON_UNUSED PyOb
     for (__pyx_t_6 = 0; __pyx_t_6 < 3; __pyx_t_6+=1) {
       __pyx_v_j = __pyx_t_6;
 
-      /* "xsmc/_viterbi.pyx":744
+      /* "xsmc/_viterbi.pyx":764
  *     for i, p in enumerate(cost):
  *         for j in range(3):
  *             _cost.f[i].c[j] = p['f'][j]             # <<<<<<<<<<<<<<
  *         _cost.f[i].k = p['k']
  *         _cost.t[i] = p['t'][0]
  */
-      __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_v_p, __pyx_n_s_f); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 744, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_v_p, __pyx_n_s_f); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 764, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_5, __pyx_v_j, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 744, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_5, __pyx_v_j, long, 1, __Pyx_PyInt_From_long, 0, 1, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 764, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_t_7); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 744, __pyx_L1_error)
+      __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_t_7); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 764, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_9 = __Pyx_PyInt_As_size_t(__pyx_v_i); if (unlikely((__pyx_t_9 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 744, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyInt_As_size_t(__pyx_v_i); if (unlikely((__pyx_t_9 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 764, __pyx_L1_error)
       ((__pyx_v__cost.f[__pyx_t_9]).c[__pyx_v_j]) = __pyx_t_8;
     }
 
-    /* "xsmc/_viterbi.pyx":745
+    /* "xsmc/_viterbi.pyx":765
  *         for j in range(3):
  *             _cost.f[i].c[j] = p['f'][j]
  *         _cost.f[i].k = p['k']             # <<<<<<<<<<<<<<
  *         _cost.t[i] = p['t'][0]
  *     _cost.t.push_back(np.inf)
  */
-    __pyx_t_7 = __Pyx_PyObject_Dict_GetItem(__pyx_v_p, __pyx_n_s_k); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 745, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Dict_GetItem(__pyx_v_p, __pyx_n_s_k); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 765, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_7); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 745, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_7); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 765, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_9 = __Pyx_PyInt_As_size_t(__pyx_v_i); if (unlikely((__pyx_t_9 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 745, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyInt_As_size_t(__pyx_v_i); if (unlikely((__pyx_t_9 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 765, __pyx_L1_error)
     (__pyx_v__cost.f[__pyx_t_9]).k = __pyx_t_10;
 
-    /* "xsmc/_viterbi.pyx":746
+    /* "xsmc/_viterbi.pyx":766
  *             _cost.f[i].c[j] = p['f'][j]
  *         _cost.f[i].k = p['k']
  *         _cost.t[i] = p['t'][0]             # <<<<<<<<<<<<<<
  *     _cost.t.push_back(np.inf)
  *     print(_prior, _cost)
  */
-    __pyx_t_7 = __Pyx_PyObject_Dict_GetItem(__pyx_v_p, __pyx_n_s_t); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 746, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Dict_GetItem(__pyx_v_p, __pyx_n_s_t); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 766, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 746, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 766, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 746, __pyx_L1_error)
+    __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 766, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_11 = __Pyx_PyInt_As_size_t(__pyx_v_i); if (unlikely((__pyx_t_11 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 746, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyInt_As_size_t(__pyx_v_i); if (unlikely((__pyx_t_11 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 766, __pyx_L1_error)
     (__pyx_v__cost.t[__pyx_t_11]) = __pyx_t_8;
 
-    /* "xsmc/_viterbi.pyx":742
+    /* "xsmc/_viterbi.pyx":762
  *         _prior.t[i] = p['t'][0]
  *     _prior.t.push_back(np.inf)
  *     for i, p in enumerate(cost):             # <<<<<<<<<<<<<<
@@ -11749,39 +12064,39 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_6test_pointwise_min(CYTHON_UNUSED PyOb
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "xsmc/_viterbi.pyx":747
+  /* "xsmc/_viterbi.pyx":767
  *         _cost.f[i].k = p['k']
  *         _cost.t[i] = p['t'][0]
  *     _cost.t.push_back(np.inf)             # <<<<<<<<<<<<<<
  *     print(_prior, _cost)
  *     return pointwise_min(_prior, F_t, _cost)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 747, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 767, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_inf); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 747, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_inf); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 767, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 747, __pyx_L1_error)
+  __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 767, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   try {
     __pyx_v__cost.t.push_back(__pyx_t_8);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 747, __pyx_L1_error)
+    __PYX_ERR(0, 767, __pyx_L1_error)
   }
 
-  /* "xsmc/_viterbi.pyx":748
+  /* "xsmc/_viterbi.pyx":768
  *         _cost.t[i] = p['t'][0]
  *     _cost.t.push_back(np.inf)
  *     print(_prior, _cost)             # <<<<<<<<<<<<<<
  *     return pointwise_min(_prior, F_t, _cost)
  * 
  */
-  __pyx_t_2 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v__prior); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 748, __pyx_L1_error)
+  __pyx_t_2 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v__prior); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 768, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v__cost); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 748, __pyx_L1_error)
+  __pyx_t_3 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v__cost); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 768, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 748, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 768, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2);
@@ -11789,10 +12104,10 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_6test_pointwise_min(CYTHON_UNUSED PyOb
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_3);
   __pyx_t_2 = 0;
   __pyx_t_3 = 0;
-  if (__Pyx_PrintOne(0, __pyx_t_5) < 0) __PYX_ERR(0, 748, __pyx_L1_error)
+  if (__Pyx_PrintOne(0, __pyx_t_5) < 0) __PYX_ERR(0, 768, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "xsmc/_viterbi.pyx":749
+  /* "xsmc/_viterbi.pyx":769
  *     _cost.t.push_back(np.inf)
  *     print(_prior, _cost)
  *     return pointwise_min(_prior, F_t, _cost)             # <<<<<<<<<<<<<<
@@ -11800,13 +12115,13 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_6test_pointwise_min(CYTHON_UNUSED PyOb
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_5 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_f_4xsmc_8_viterbi_pointwise_min(__pyx_v__prior, __pyx_v_F_t, __pyx_v__cost)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 749, __pyx_L1_error)
+  __pyx_t_5 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_f_4xsmc_8_viterbi_pointwise_min(__pyx_v__prior, __pyx_v_F_t, __pyx_v__cost)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 769, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_r = __pyx_t_5;
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "xsmc/_viterbi.pyx":730
+  /* "xsmc/_viterbi.pyx":750
  *     return piecewise_const_log_pi(a, t, 0.)
  * 
  * def test_pointwise_min(prior, double F_t, cost):             # <<<<<<<<<<<<<<
@@ -11830,7 +12145,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_6test_pointwise_min(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "xsmc/_viterbi.pyx":752
+/* "xsmc/_viterbi.pyx":772
  * 
  * 
  * def test_pointwise_min_new_fmt(prior, double F_t, cost):             # <<<<<<<<<<<<<<
@@ -11876,17 +12191,17 @@ static PyObject *__pyx_pw_4xsmc_8_viterbi_9test_pointwise_min_new_fmt(PyObject *
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_F_t_2)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("test_pointwise_min_new_fmt", 1, 3, 3, 1); __PYX_ERR(0, 752, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("test_pointwise_min_new_fmt", 1, 3, 3, 1); __PYX_ERR(0, 772, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_cost_2)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("test_pointwise_min_new_fmt", 1, 3, 3, 2); __PYX_ERR(0, 752, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("test_pointwise_min_new_fmt", 1, 3, 3, 2); __PYX_ERR(0, 772, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "test_pointwise_min_new_fmt") < 0)) __PYX_ERR(0, 752, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "test_pointwise_min_new_fmt") < 0)) __PYX_ERR(0, 772, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -11896,12 +12211,12 @@ static PyObject *__pyx_pw_4xsmc_8_viterbi_9test_pointwise_min_new_fmt(PyObject *
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
     __pyx_v_prior = values[0];
-    __pyx_v_F_t = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_F_t == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 752, __pyx_L3_error)
+    __pyx_v_F_t = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_F_t == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 772, __pyx_L3_error)
     __pyx_v_cost = values[2];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("test_pointwise_min_new_fmt", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 752, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("test_pointwise_min_new_fmt", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 772, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("xsmc._viterbi.test_pointwise_min_new_fmt", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -11925,7 +12240,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_8test_pointwise_min_new_fmt(CYTHON_UNU
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("test_pointwise_min_new_fmt", 0);
 
-  /* "xsmc/_viterbi.pyx":753
+  /* "xsmc/_viterbi.pyx":773
  * 
  * def test_pointwise_min_new_fmt(prior, double F_t, cost):
  *     return pointwise_min(prior, F_t, cost)             # <<<<<<<<<<<<<<
@@ -11933,15 +12248,15 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_8test_pointwise_min_new_fmt(CYTHON_UNU
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert__from_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_prior); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 753, __pyx_L1_error)
-  __pyx_t_2 = __pyx_convert__from_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_cost); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 753, __pyx_L1_error)
-  __pyx_t_3 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_f_4xsmc_8_viterbi_pointwise_min(__pyx_t_1, __pyx_v_F_t, __pyx_t_2)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 753, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert__from_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_prior); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 773, __pyx_L1_error)
+  __pyx_t_2 = __pyx_convert__from_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_cost); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 773, __pyx_L1_error)
+  __pyx_t_3 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_f_4xsmc_8_viterbi_pointwise_min(__pyx_t_1, __pyx_v_F_t, __pyx_t_2)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 773, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "xsmc/_viterbi.pyx":752
+  /* "xsmc/_viterbi.pyx":772
  * 
  * 
  * def test_pointwise_min_new_fmt(prior, double F_t, cost):             # <<<<<<<<<<<<<<
@@ -11960,7 +12275,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_8test_pointwise_min_new_fmt(CYTHON_UNU
   return __pyx_r;
 }
 
-/* "xsmc/_viterbi.pyx":756
+/* "xsmc/_viterbi.pyx":776
  * 
  * 
  * def test_pmin(f, g, t, f_k=0, g_k=1):             # <<<<<<<<<<<<<<
@@ -12014,13 +12329,13 @@ static PyObject *__pyx_pw_4xsmc_8_viterbi_11test_pmin(PyObject *__pyx_self, PyOb
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_g)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("test_pmin", 0, 3, 5, 1); __PYX_ERR(0, 756, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("test_pmin", 0, 3, 5, 1); __PYX_ERR(0, 776, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_t)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("test_pmin", 0, 3, 5, 2); __PYX_ERR(0, 756, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("test_pmin", 0, 3, 5, 2); __PYX_ERR(0, 776, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -12036,7 +12351,7 @@ static PyObject *__pyx_pw_4xsmc_8_viterbi_11test_pmin(PyObject *__pyx_self, PyOb
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "test_pmin") < 0)) __PYX_ERR(0, 756, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "test_pmin") < 0)) __PYX_ERR(0, 776, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -12059,7 +12374,7 @@ static PyObject *__pyx_pw_4xsmc_8_viterbi_11test_pmin(PyObject *__pyx_self, PyOb
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("test_pmin", 0, 3, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 756, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("test_pmin", 0, 3, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 776, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("xsmc._viterbi.test_pmin", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -12087,7 +12402,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_10test_pmin(CYTHON_UNUSED PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("test_pmin", 0);
 
-  /* "xsmc/_viterbi.pyx":760
+  /* "xsmc/_viterbi.pyx":780
  *     cdef func _f, _g
  *     cdef int i
  *     for i in range(2):             # <<<<<<<<<<<<<<
@@ -12097,21 +12412,21 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_10test_pmin(CYTHON_UNUSED PyObject *__
   for (__pyx_t_1 = 0; __pyx_t_1 < 2; __pyx_t_1+=1) {
     __pyx_v_i = __pyx_t_1;
 
-    /* "xsmc/_viterbi.pyx":761
+    /* "xsmc/_viterbi.pyx":781
  *     cdef int i
  *     for i in range(2):
  *         _t[i] = t[i]             # <<<<<<<<<<<<<<
  *     for i in range(3):
  *         _f.c[i] = f[i]
  */
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_t, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 761, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_t, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 781, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 761, __pyx_L1_error)
+    __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 781, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     (__pyx_v__t[__pyx_v_i]) = __pyx_t_3;
   }
 
-  /* "xsmc/_viterbi.pyx":762
+  /* "xsmc/_viterbi.pyx":782
  *     for i in range(2):
  *         _t[i] = t[i]
  *     for i in range(3):             # <<<<<<<<<<<<<<
@@ -12121,54 +12436,54 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_10test_pmin(CYTHON_UNUSED PyObject *__
   for (__pyx_t_1 = 0; __pyx_t_1 < 3; __pyx_t_1+=1) {
     __pyx_v_i = __pyx_t_1;
 
-    /* "xsmc/_viterbi.pyx":763
+    /* "xsmc/_viterbi.pyx":783
  *         _t[i] = t[i]
  *     for i in range(3):
  *         _f.c[i] = f[i]             # <<<<<<<<<<<<<<
  *         _g.c[i] = g[i]
  *     _f.k = f_k
  */
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_f, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 763, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_f, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 783, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 763, __pyx_L1_error)
+    __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 783, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     (__pyx_v__f.c[__pyx_v_i]) = __pyx_t_3;
 
-    /* "xsmc/_viterbi.pyx":764
+    /* "xsmc/_viterbi.pyx":784
  *     for i in range(3):
  *         _f.c[i] = f[i]
  *         _g.c[i] = g[i]             # <<<<<<<<<<<<<<
  *     _f.k = f_k
  *     _g.k = g_k
  */
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_g, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 764, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_g, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 784, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 764, __pyx_L1_error)
+    __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 784, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     (__pyx_v__g.c[__pyx_v_i]) = __pyx_t_3;
   }
 
-  /* "xsmc/_viterbi.pyx":765
+  /* "xsmc/_viterbi.pyx":785
  *         _f.c[i] = f[i]
  *         _g.c[i] = g[i]
  *     _f.k = f_k             # <<<<<<<<<<<<<<
  *     _g.k = g_k
  *     return pmin(_f, _g, _t)
  */
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_f_k); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 765, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_f_k); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 785, __pyx_L1_error)
   __pyx_v__f.k = __pyx_t_1;
 
-  /* "xsmc/_viterbi.pyx":766
+  /* "xsmc/_viterbi.pyx":786
  *         _g.c[i] = g[i]
  *     _f.k = f_k
  *     _g.k = g_k             # <<<<<<<<<<<<<<
  *     return pmin(_f, _g, _t)
  * 
  */
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_g_k); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 766, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_g_k); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 786, __pyx_L1_error)
   __pyx_v__g.k = __pyx_t_1;
 
-  /* "xsmc/_viterbi.pyx":767
+  /* "xsmc/_viterbi.pyx":787
  *     _f.k = f_k
  *     _g.k = g_k
  *     return pmin(_f, _g, _t)             # <<<<<<<<<<<<<<
@@ -12176,13 +12491,13 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_10test_pmin(CYTHON_UNUSED PyObject *__
  * def test_pmin_new_fmt(f, g, t):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_f_4xsmc_8_viterbi_pmin(__pyx_v__f, __pyx_v__g, __pyx_v__t)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 767, __pyx_L1_error)
+  __pyx_t_2 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_f_4xsmc_8_viterbi_pmin(__pyx_v__f, __pyx_v__g, __pyx_v__t)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 787, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "xsmc/_viterbi.pyx":756
+  /* "xsmc/_viterbi.pyx":776
  * 
  * 
  * def test_pmin(f, g, t, f_k=0, g_k=1):             # <<<<<<<<<<<<<<
@@ -12201,7 +12516,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_10test_pmin(CYTHON_UNUSED PyObject *__
   return __pyx_r;
 }
 
-/* "xsmc/_viterbi.pyx":769
+/* "xsmc/_viterbi.pyx":789
  *     return pmin(_f, _g, _t)
  * 
  * def test_pmin_new_fmt(f, g, t):             # <<<<<<<<<<<<<<
@@ -12247,17 +12562,17 @@ static PyObject *__pyx_pw_4xsmc_8_viterbi_13test_pmin_new_fmt(PyObject *__pyx_se
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_g)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("test_pmin_new_fmt", 1, 3, 3, 1); __PYX_ERR(0, 769, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("test_pmin_new_fmt", 1, 3, 3, 1); __PYX_ERR(0, 789, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_t)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("test_pmin_new_fmt", 1, 3, 3, 2); __PYX_ERR(0, 769, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("test_pmin_new_fmt", 1, 3, 3, 2); __PYX_ERR(0, 789, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "test_pmin_new_fmt") < 0)) __PYX_ERR(0, 769, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "test_pmin_new_fmt") < 0)) __PYX_ERR(0, 789, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -12272,7 +12587,7 @@ static PyObject *__pyx_pw_4xsmc_8_viterbi_13test_pmin_new_fmt(PyObject *__pyx_se
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("test_pmin_new_fmt", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 769, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("test_pmin_new_fmt", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 789, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("xsmc._viterbi.test_pmin_new_fmt", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -12298,17 +12613,17 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_12test_pmin_new_fmt(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("test_pmin_new_fmt", 0);
 
-  /* "xsmc/_viterbi.pyx":770
+  /* "xsmc/_viterbi.pyx":790
  * 
  * def test_pmin_new_fmt(f, g, t):
  *     cdef double[2] tt = t             # <<<<<<<<<<<<<<
  *     return pmin(f, g, tt)
  * 
  */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_t, __pyx_t_1, 2) < 0)) __PYX_ERR(0, 770, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_t, __pyx_t_1, 2) < 0)) __PYX_ERR(0, 790, __pyx_L1_error)
   memcpy(&(__pyx_v_tt[0]), __pyx_t_1, sizeof(__pyx_v_tt[0]) * (2));
 
-  /* "xsmc/_viterbi.pyx":771
+  /* "xsmc/_viterbi.pyx":791
  * def test_pmin_new_fmt(f, g, t):
  *     cdef double[2] tt = t
  *     return pmin(f, g, tt)             # <<<<<<<<<<<<<<
@@ -12316,15 +12631,15 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_12test_pmin_new_fmt(CYTHON_UNUSED PyOb
  * def test_root(k, a, b, c):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __pyx_convert__from_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_f); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 771, __pyx_L1_error)
-  __pyx_t_3 = __pyx_convert__from_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_g); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 771, __pyx_L1_error)
-  __pyx_t_4 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_f_4xsmc_8_viterbi_pmin(__pyx_t_2, __pyx_t_3, __pyx_v_tt)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 771, __pyx_L1_error)
+  __pyx_t_2 = __pyx_convert__from_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_f); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 791, __pyx_L1_error)
+  __pyx_t_3 = __pyx_convert__from_py___pyx_t_4xsmc_8_viterbi_func(__pyx_v_g); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 791, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_f_4xsmc_8_viterbi_pmin(__pyx_t_2, __pyx_t_3, __pyx_v_tt)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 791, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_r = __pyx_t_4;
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "xsmc/_viterbi.pyx":769
+  /* "xsmc/_viterbi.pyx":789
  *     return pmin(_f, _g, _t)
  * 
  * def test_pmin_new_fmt(f, g, t):             # <<<<<<<<<<<<<<
@@ -12343,7 +12658,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_12test_pmin_new_fmt(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "xsmc/_viterbi.pyx":773
+/* "xsmc/_viterbi.pyx":793
  *     return pmin(f, g, tt)
  * 
  * def test_root(k, a, b, c):             # <<<<<<<<<<<<<<
@@ -12392,23 +12707,23 @@ static PyObject *__pyx_pw_4xsmc_8_viterbi_15test_root(PyObject *__pyx_self, PyOb
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_a)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("test_root", 1, 4, 4, 1); __PYX_ERR(0, 773, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("test_root", 1, 4, 4, 1); __PYX_ERR(0, 793, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_b)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("test_root", 1, 4, 4, 2); __PYX_ERR(0, 773, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("test_root", 1, 4, 4, 2); __PYX_ERR(0, 793, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_c)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("test_root", 1, 4, 4, 3); __PYX_ERR(0, 773, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("test_root", 1, 4, 4, 3); __PYX_ERR(0, 793, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "test_root") < 0)) __PYX_ERR(0, 773, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "test_root") < 0)) __PYX_ERR(0, 793, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -12425,7 +12740,7 @@ static PyObject *__pyx_pw_4xsmc_8_viterbi_15test_root(PyObject *__pyx_self, PyOb
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("test_root", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 773, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("test_root", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 793, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("xsmc._viterbi.test_root", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -12451,7 +12766,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_14test_root(CYTHON_UNUSED PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("test_root", 0);
 
-  /* "xsmc/_viterbi.pyx":774
+  /* "xsmc/_viterbi.pyx":794
  * 
  * def test_root(k, a, b, c):
  *     return _root(k, a, b, c)             # <<<<<<<<<<<<<<
@@ -12459,17 +12774,17 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_14test_root(CYTHON_UNUSED PyObject *__
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_k); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 774, __pyx_L1_error)
-  __pyx_t_2 = __pyx_PyFloat_AsDouble(__pyx_v_a); if (unlikely((__pyx_t_2 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 774, __pyx_L1_error)
-  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_v_b); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 774, __pyx_L1_error)
-  __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_c); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 774, __pyx_L1_error)
-  __pyx_t_5 = PyFloat_FromDouble(__pyx_f_4xsmc_8_viterbi__root(__pyx_t_1, __pyx_t_2, __pyx_t_3, __pyx_t_4)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 774, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_k); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 794, __pyx_L1_error)
+  __pyx_t_2 = __pyx_PyFloat_AsDouble(__pyx_v_a); if (unlikely((__pyx_t_2 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 794, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_v_b); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 794, __pyx_L1_error)
+  __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_c); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 794, __pyx_L1_error)
+  __pyx_t_5 = PyFloat_FromDouble(__pyx_f_4xsmc_8_viterbi__root(__pyx_t_1, __pyx_t_2, __pyx_t_3, __pyx_t_4)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 794, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_r = __pyx_t_5;
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "xsmc/_viterbi.pyx":773
+  /* "xsmc/_viterbi.pyx":793
  *     return pmin(f, g, tt)
  * 
  * def test_root(k, a, b, c):             # <<<<<<<<<<<<<<
@@ -12488,7 +12803,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_14test_root(CYTHON_UNUSED PyObject *__
   return __pyx_r;
 }
 
-/* "xsmc/_viterbi.pyx":777
+/* "xsmc/_viterbi.pyx":797
  * 
  * 
  * def test_truncate_prior(prior, t):             # <<<<<<<<<<<<<<
@@ -12531,11 +12846,11 @@ static PyObject *__pyx_pw_4xsmc_8_viterbi_17test_truncate_prior(PyObject *__pyx_
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_t)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("test_truncate_prior", 1, 2, 2, 1); __PYX_ERR(0, 777, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("test_truncate_prior", 1, 2, 2, 1); __PYX_ERR(0, 797, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "test_truncate_prior") < 0)) __PYX_ERR(0, 777, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "test_truncate_prior") < 0)) __PYX_ERR(0, 797, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -12548,7 +12863,7 @@ static PyObject *__pyx_pw_4xsmc_8_viterbi_17test_truncate_prior(PyObject *__pyx_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("test_truncate_prior", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 777, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("test_truncate_prior", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 797, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("xsmc._viterbi.test_truncate_prior", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -12575,33 +12890,33 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_16test_truncate_prior(CYTHON_UNUSED Py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("test_truncate_prior", 0);
 
-  /* "xsmc/_viterbi.pyx":779
+  /* "xsmc/_viterbi.pyx":799
  * def test_truncate_prior(prior, t):
  *     cdef piecewise_func p
  *     p.f = prior['f']             # <<<<<<<<<<<<<<
  *     p.t = prior['t']
  *     return truncate_prior(prior, t)
  */
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_prior, __pyx_n_s_f); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 779, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_prior, __pyx_n_s_f); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 799, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __pyx_convert_vector_from_py___pyx_t_4xsmc_8_viterbi_func(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 779, __pyx_L1_error)
+  __pyx_t_2 = __pyx_convert_vector_from_py___pyx_t_4xsmc_8_viterbi_func(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 799, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_p.f = __pyx_t_2;
 
-  /* "xsmc/_viterbi.pyx":780
+  /* "xsmc/_viterbi.pyx":800
  *     cdef piecewise_func p
  *     p.f = prior['f']
  *     p.t = prior['t']             # <<<<<<<<<<<<<<
  *     return truncate_prior(prior, t)
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_prior, __pyx_n_s_t); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 780, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_prior, __pyx_n_s_t); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 800, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __pyx_convert_vector_from_py_double(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 780, __pyx_L1_error)
+  __pyx_t_3 = __pyx_convert_vector_from_py_double(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 800, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_p.t = __pyx_t_3;
 
-  /* "xsmc/_viterbi.pyx":781
+  /* "xsmc/_viterbi.pyx":801
  *     p.f = prior['f']
  *     p.t = prior['t']
  *     return truncate_prior(prior, t)             # <<<<<<<<<<<<<<
@@ -12609,15 +12924,15 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_16test_truncate_prior(CYTHON_UNUSED Py
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_4 = __pyx_convert__from_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_prior); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 781, __pyx_L1_error)
-  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_v_t); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 781, __pyx_L1_error)
-  __pyx_t_1 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_f_4xsmc_8_viterbi_truncate_prior(__pyx_t_4, __pyx_t_5)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 781, __pyx_L1_error)
+  __pyx_t_4 = __pyx_convert__from_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_prior); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 801, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_v_t); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 801, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_f_4xsmc_8_viterbi_truncate_prior(__pyx_t_4, __pyx_t_5)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 801, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "xsmc/_viterbi.pyx":777
+  /* "xsmc/_viterbi.pyx":797
  * 
  * 
  * def test_truncate_prior(prior, t):             # <<<<<<<<<<<<<<
@@ -12636,7 +12951,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_16test_truncate_prior(CYTHON_UNUSED Py
   return __pyx_r;
 }
 
-/* "xsmc/_viterbi.pyx":784
+/* "xsmc/_viterbi.pyx":804
  * 
  * 
  * def test_compact(func):             # <<<<<<<<<<<<<<
@@ -12667,20 +12982,20 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_18test_compact(CYTHON_UNUSED PyObject 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("test_compact", 0);
 
-  /* "xsmc/_viterbi.pyx":785
+  /* "xsmc/_viterbi.pyx":805
  * 
  * def test_compact(func):
  *     return compact(func)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert__from_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_func); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 785, __pyx_L1_error)
-  __pyx_t_2 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_f_4xsmc_8_viterbi_compact(__pyx_t_1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 785, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert__from_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_v_func); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 805, __pyx_L1_error)
+  __pyx_t_2 = __pyx_convert__to_py___pyx_t_4xsmc_8_viterbi_piecewise_func(__pyx_f_4xsmc_8_viterbi_compact(__pyx_t_1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 805, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "xsmc/_viterbi.pyx":784
+  /* "xsmc/_viterbi.pyx":804
  * 
  * 
  * def test_compact(func):             # <<<<<<<<<<<<<<
@@ -12698,7 +13013,7 @@ static PyObject *__pyx_pf_4xsmc_8_viterbi_18test_compact(CYTHON_UNUSED PyObject 
   return __pyx_r;
 }
 
-/* "_tskit.pxd":83
+/* "_tskit.pxd":84
  *         cdef tsk_table_collection_t *tables
  * 
  * cdef inline void check_error(int err) nogil:             # <<<<<<<<<<<<<<
@@ -12719,7 +13034,7 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
   #endif
   __Pyx_RefNannySetupContext("check_error", 1);
 
-  /* "_tskit.pxd":84
+  /* "_tskit.pxd":85
  * 
  * cdef inline void check_error(int err) nogil:
  *     cdef const char *error             # <<<<<<<<<<<<<<
@@ -12728,7 +13043,7 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
  */
   /*try:*/ {
 
-    /* "_tskit.pxd":85
+    /* "_tskit.pxd":86
  * cdef inline void check_error(int err) nogil:
  *     cdef const char *error
  *     if err != 0:             # <<<<<<<<<<<<<<
@@ -12738,7 +13053,7 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
     __pyx_t_1 = ((__pyx_v_err != 0) != 0);
     if (__pyx_t_1) {
 
-      /* "_tskit.pxd":86
+      /* "_tskit.pxd":87
  *     cdef const char *error
  *     if err != 0:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -12750,22 +13065,22 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
           #endif
           /*try:*/ {
 
-            /* "_tskit.pxd":87
+            /* "_tskit.pxd":88
  *     if err != 0:
  *         with gil:
  *             raise RuntimeError(tsk_strerror(err))             # <<<<<<<<<<<<<<
  */
-            __pyx_t_2 = __Pyx_PyBytes_FromString(tsk_strerror(__pyx_v_err)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 87, __pyx_L8_error)
+            __pyx_t_2 = __Pyx_PyBytes_FromString(tsk_strerror(__pyx_v_err)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 88, __pyx_L8_error)
             __Pyx_GOTREF(__pyx_t_2);
-            __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_RuntimeError, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 87, __pyx_L8_error)
+            __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_RuntimeError, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 88, __pyx_L8_error)
             __Pyx_GOTREF(__pyx_t_3);
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_Raise(__pyx_t_3, 0, 0, 0);
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-            __PYX_ERR(1, 87, __pyx_L8_error)
+            __PYX_ERR(1, 88, __pyx_L8_error)
           }
 
-          /* "_tskit.pxd":86
+          /* "_tskit.pxd":87
  *     cdef const char *error
  *     if err != 0:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -12781,7 +13096,7 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
           }
       }
 
-      /* "_tskit.pxd":85
+      /* "_tskit.pxd":86
  * cdef inline void check_error(int err) nogil:
  *     cdef const char *error
  *     if err != 0:             # <<<<<<<<<<<<<<
@@ -12791,7 +13106,7 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
     }
   }
 
-  /* "_tskit.pxd":84
+  /* "_tskit.pxd":85
  * 
  * cdef inline void check_error(int err) nogil:
  *     cdef const char *error             # <<<<<<<<<<<<<<
@@ -12814,7 +13129,7 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
     __pyx_L5:;
   }
 
-  /* "_tskit.pxd":83
+  /* "_tskit.pxd":84
  *         cdef tsk_table_collection_t *tables
  * 
  * cdef inline void check_error(int err) nogil:             # <<<<<<<<<<<<<<
@@ -29199,6 +29514,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_cost, __pyx_k_cost, sizeof(__pyx_k_cost), 0, 0, 1, 0},
   {&__pyx_n_s_cost_2, __pyx_k_cost_2, sizeof(__pyx_k_cost_2), 0, 0, 1, 1},
   {&__pyx_n_s_cost_3, __pyx_k_cost_3, sizeof(__pyx_k_cost_3), 0, 0, 1, 1},
+  {&__pyx_kp_s_cost_increment_j_d_cost_intv_s_i, __pyx_k_cost_increment_j_d_cost_intv_s_i, sizeof(__pyx_k_cost_increment_j_d_cost_intv_s_i), 0, 0, 1, 0},
   {&__pyx_n_s_cp, __pyx_k_cp, sizeof(__pyx_k_cp), 0, 0, 1, 1},
   {&__pyx_n_s_delta, __pyx_k_delta, sizeof(__pyx_k_delta), 0, 0, 1, 1},
   {&__pyx_n_s_dict, __pyx_k_dict, sizeof(__pyx_k_dict), 0, 0, 1, 1},
@@ -29218,6 +29534,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_f_k, __pyx_k_f_k, sizeof(__pyx_k_f_k), 0, 0, 1, 1},
   {&__pyx_kp_s_fell_through_this_should_never_h, __pyx_k_fell_through_this_should_never_h, sizeof(__pyx_k_fell_through_this_should_never_h), 0, 0, 1, 0},
   {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
+  {&__pyx_kp_s_finished_cost_increment_j_d_cost, __pyx_k_finished_cost_increment_j_d_cost, sizeof(__pyx_k_finished_cost_increment_j_d_cost), 0, 0, 1, 0},
   {&__pyx_n_s_flags, __pyx_k_flags, sizeof(__pyx_k_flags), 0, 0, 1, 1},
   {&__pyx_n_s_float64, __pyx_k_float64, sizeof(__pyx_k_float64), 0, 0, 1, 1},
   {&__pyx_n_s_focal, __pyx_k_focal, sizeof(__pyx_k_focal), 0, 0, 1, 1},
@@ -29244,6 +29561,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_kp_s_in_pointwise_min, __pyx_k_in_pointwise_min, sizeof(__pyx_k_in_pointwise_min), 0, 0, 1, 0},
   {&__pyx_n_s_inf, __pyx_k_inf, sizeof(__pyx_k_inf), 0, 0, 1, 1},
+  {&__pyx_kp_s_inserting_s_into_s, __pyx_k_inserting_s_into_s, sizeof(__pyx_k_inserting_s_into_s), 0, 0, 1, 0},
   {&__pyx_n_s_int32, __pyx_k_int32, sizeof(__pyx_k_int32), 0, 0, 1, 1},
   {&__pyx_n_s_interval, __pyx_k_interval, sizeof(__pyx_k_interval), 0, 0, 1, 1},
   {&__pyx_n_s_intv, __pyx_k_intv, sizeof(__pyx_k_intv), 0, 0, 1, 1},
@@ -29289,6 +29607,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_prior_2, __pyx_k_prior_2, sizeof(__pyx_k_prior_2), 0, 0, 1, 1},
   {&__pyx_n_s_prior_3, __pyx_k_prior_3, sizeof(__pyx_k_prior_3), 0, 0, 1, 1},
   {&__pyx_kp_s_prior_and_cost_do_not_keep_the_c, __pyx_k_prior_and_cost_do_not_keep_the_c, sizeof(__pyx_k_prior_and_cost_do_not_keep_the_c), 0, 0, 1, 0},
+  {&__pyx_kp_s_prior_increment_i_d_prior_f_s_pr, __pyx_k_prior_increment_i_d_prior_f_s_pr, sizeof(__pyx_k_prior_increment_i_d_prior_f_s_pr), 0, 0, 1, 0},
   {&__pyx_n_s_priors, __pyx_k_priors, sizeof(__pyx_k_priors), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_PickleError, __pyx_k_pyx_PickleError, sizeof(__pyx_k_pyx_PickleError), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_checksum, __pyx_k_pyx_checksum, sizeof(__pyx_k_pyx_checksum), 0, 0, 1, 1},
@@ -29369,12 +29688,12 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 32, __pyx_L1_error)
-  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 95, __pyx_L1_error)
-  __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(0, 100, __pyx_L1_error)
-  __pyx_builtin_reversed = __Pyx_GetBuiltinName(__pyx_n_s_reversed); if (!__pyx_builtin_reversed) __PYX_ERR(0, 251, __pyx_L1_error)
-  __pyx_builtin_zip = __Pyx_GetBuiltinName(__pyx_n_s_zip); if (!__pyx_builtin_zip) __PYX_ERR(0, 260, __pyx_L1_error)
-  __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 87, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 98, __pyx_L1_error)
+  __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(0, 103, __pyx_L1_error)
+  __pyx_builtin_reversed = __Pyx_GetBuiltinName(__pyx_n_s_reversed); if (!__pyx_builtin_reversed) __PYX_ERR(0, 254, __pyx_L1_error)
+  __pyx_builtin_zip = __Pyx_GetBuiltinName(__pyx_n_s_zip); if (!__pyx_builtin_zip) __PYX_ERR(0, 263, __pyx_L1_error)
+  __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 88, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(2, 14, __pyx_L1_error)
   __pyx_builtin_KeyError = __Pyx_GetBuiltinName(__pyx_n_s_KeyError); if (!__pyx_builtin_KeyError) __PYX_ERR(2, 18, __pyx_L1_error)
   __pyx_builtin_OverflowError = __Pyx_GetBuiltinName(__pyx_n_s_OverflowError); if (!__pyx_builtin_OverflowError) __PYX_ERR(2, 81, __pyx_L1_error)
@@ -29391,47 +29710,47 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "xsmc/_viterbi.pyx":95
+  /* "xsmc/_viterbi.pyx":98
  * 
  *     if focal in panel:
  *         raise ValueError("focal haplotype cannot be a member of panel")             # <<<<<<<<<<<<<<
  *     if len(panel) == 0:
  *         raise ValueError("empty panel")
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_focal_haplotype_cannot_be_a_memb); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 95, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_focal_haplotype_cannot_be_a_memb); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 98, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "xsmc/_viterbi.pyx":97
+  /* "xsmc/_viterbi.pyx":100
  *         raise ValueError("focal haplotype cannot be a member of panel")
  *     if len(panel) == 0:
  *         raise ValueError("empty panel")             # <<<<<<<<<<<<<<
  * 
  *     cdef unordered_map[tsk_id_t, int] panel_
  */
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_empty_panel); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_empty_panel); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 100, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "xsmc/_viterbi.pyx":120
+  /* "xsmc/_viterbi.pyx":123
  *     assert np.all(eta.Ne > 0), "Ne cannot be 0."
  *     assert np.all(np.isfinite(eta.Ne)), "Ne must be finite"
  *     coal_rate = np.array([eta(tt) for tt in eta.t[:-1]])             # <<<<<<<<<<<<<<
  *     cdef func q
  *     cdef piecewise_func log_pi = piecewise_const_log_pi(
  */
-  __pyx_slice__3 = PySlice_New(Py_None, __pyx_int_neg_1, Py_None); if (unlikely(!__pyx_slice__3)) __PYX_ERR(0, 120, __pyx_L1_error)
+  __pyx_slice__3 = PySlice_New(Py_None, __pyx_int_neg_1, Py_None); if (unlikely(!__pyx_slice__3)) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__3);
   __Pyx_GIVEREF(__pyx_slice__3);
 
-  /* "xsmc/_viterbi.pyx":124
+  /* "xsmc/_viterbi.pyx":127
  *     cdef piecewise_func log_pi = piecewise_const_log_pi(
  *         coal_rate.astype(np.float64),
  *         eta.t[1:].astype(np.float64),             # <<<<<<<<<<<<<<
  *         beta_
  *     )
  */
-  __pyx_slice__4 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__4)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __pyx_slice__4 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__4)) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__4);
   __Pyx_GIVEREF(__pyx_slice__4);
 
@@ -29718,124 +30037,124 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__31);
   __Pyx_GIVEREF(__pyx_tuple__31);
 
-  /* "xsmc/_viterbi.pyx":38
+  /* "xsmc/_viterbi.pyx":41
  *     return 1
  * 
  * def viterbi_path(             # <<<<<<<<<<<<<<
  *     ts: tskit.TreeSequence,
  *     focal: int,
  */
-  __pyx_tuple__33 = PyTuple_Pack(55, __pyx_n_s_ts, __pyx_n_s_focal, __pyx_n_s_panel, __pyx_n_s_scaffold, __pyx_n_s_eta, __pyx_n_s_theta, __pyx_n_s_rho, __pyx_n_s_beta, __pyx_n_s_robust, __pyx_n_s_w, __pyx_n_s_lwt, __pyx_n_s_ts_2, __pyx_n_s_err, __pyx_n_s_rho_2, __pyx_n_s_theta_2, __pyx_n_s_beta_2, __pyx_n_s_log_theta, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_k, __pyx_n_s_y_i, __pyx_n_s_intv, __pyx_n_s_panel_2, __pyx_n_s_tid, __pyx_n_s_n, __pyx_n_s_F_t_j, __pyx_n_s_F_t_2, __pyx_n_s_b, __pyx_n_s_cp, __pyx_n_s_bt, __pyx_n_s_coal_rate, __pyx_n_s_q, __pyx_n_s_log_pi_2, __pyx_n_s_positions, __pyx_n_s_pos, __pyx_n_s_L_w, __pyx_n_s_vg, __pyx_n_s_samples, __pyx_n_s_state, __pyx_n_s_mismatches, __pyx_n_s_lwt_arg, __pyx_n_s_arg_ts, __pyx_n_s_arg_tree, __pyx_n_s_priors, __pyx_n_s_C, __pyx_n_s_delta, __pyx_n_s_ret_2, __pyx_n_s_seg_pos, __pyx_n_s_tt, __pyx_n_s_r, __pyx_n_s_h, __pyx_n_s__32, __pyx_n_s_x, __pyx_n_s_s, __pyx_n_s_p); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_tuple__33 = PyTuple_Pack(55, __pyx_n_s_ts, __pyx_n_s_focal, __pyx_n_s_panel, __pyx_n_s_scaffold, __pyx_n_s_eta, __pyx_n_s_theta, __pyx_n_s_rho, __pyx_n_s_beta, __pyx_n_s_robust, __pyx_n_s_w, __pyx_n_s_lwt, __pyx_n_s_ts_2, __pyx_n_s_err, __pyx_n_s_rho_2, __pyx_n_s_theta_2, __pyx_n_s_beta_2, __pyx_n_s_log_theta, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_k, __pyx_n_s_y_i, __pyx_n_s_intv, __pyx_n_s_panel_2, __pyx_n_s_tid, __pyx_n_s_n, __pyx_n_s_F_t_j, __pyx_n_s_F_t_2, __pyx_n_s_b, __pyx_n_s_cp, __pyx_n_s_bt, __pyx_n_s_coal_rate, __pyx_n_s_q, __pyx_n_s_log_pi_2, __pyx_n_s_positions, __pyx_n_s_pos, __pyx_n_s_L_w, __pyx_n_s_vg, __pyx_n_s_samples, __pyx_n_s_state, __pyx_n_s_mismatches, __pyx_n_s_lwt_arg, __pyx_n_s_arg_ts, __pyx_n_s_arg_tree, __pyx_n_s_priors, __pyx_n_s_C, __pyx_n_s_delta, __pyx_n_s_ret_2, __pyx_n_s_seg_pos, __pyx_n_s_tt, __pyx_n_s_r, __pyx_n_s_h, __pyx_n_s__32, __pyx_n_s_x, __pyx_n_s_s, __pyx_n_s_p); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 41, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__33);
   __Pyx_GIVEREF(__pyx_tuple__33);
-  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(10, 0, 55, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_viterbi_path, 38, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(10, 0, 55, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_viterbi_path, 41, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 41, __pyx_L1_error)
 
-  /* "xsmc/_viterbi.pyx":718
+  /* "xsmc/_viterbi.pyx":738
  * 
  * #### TESTING FUNCTIONS
  * def test_min_f(f, t):             # <<<<<<<<<<<<<<
  *     cdef func _f
  *     cdef interval _t
  */
-  __pyx_tuple__35 = PyTuple_Pack(5, __pyx_n_s_f, __pyx_n_s_t, __pyx_n_s_f_2, __pyx_n_s_t_2, __pyx_n_s_i); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(0, 718, __pyx_L1_error)
+  __pyx_tuple__35 = PyTuple_Pack(5, __pyx_n_s_f, __pyx_n_s_t, __pyx_n_s_f_2, __pyx_n_s_t_2, __pyx_n_s_i); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(0, 738, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__35);
   __Pyx_GIVEREF(__pyx_tuple__35);
-  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__35, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_test_min_f, 718, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 718, __pyx_L1_error)
+  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__35, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_test_min_f, 738, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 738, __pyx_L1_error)
 
-  /* "xsmc/_viterbi.pyx":727
+  /* "xsmc/_viterbi.pyx":747
  *     return min_f(_f, _t)
  * 
  * def test_piecewise_const_log_pi(a, t):             # <<<<<<<<<<<<<<
  *     return piecewise_const_log_pi(a, t, 0.)
  * 
  */
-  __pyx_tuple__37 = PyTuple_Pack(2, __pyx_n_s_a, __pyx_n_s_t); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 727, __pyx_L1_error)
+  __pyx_tuple__37 = PyTuple_Pack(2, __pyx_n_s_a, __pyx_n_s_t); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 747, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__37);
   __Pyx_GIVEREF(__pyx_tuple__37);
-  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_test_piecewise_const_log_pi, 727, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 727, __pyx_L1_error)
+  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_test_piecewise_const_log_pi, 747, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 747, __pyx_L1_error)
 
-  /* "xsmc/_viterbi.pyx":730
+  /* "xsmc/_viterbi.pyx":750
  *     return piecewise_const_log_pi(a, t, 0.)
  * 
  * def test_pointwise_min(prior, double F_t, cost):             # <<<<<<<<<<<<<<
  *     cdef piecewise_func _prior, _cost
  *     _prior.f.resize(len(prior))
  */
-  __pyx_tuple__39 = PyTuple_Pack(8, __pyx_n_s_prior_2, __pyx_n_s_F_t_2, __pyx_n_s_cost_2, __pyx_n_s_prior_3, __pyx_n_s_cost_3, __pyx_n_s_i, __pyx_n_s_p, __pyx_n_s_j); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 730, __pyx_L1_error)
+  __pyx_tuple__39 = PyTuple_Pack(8, __pyx_n_s_prior_2, __pyx_n_s_F_t_2, __pyx_n_s_cost_2, __pyx_n_s_prior_3, __pyx_n_s_cost_3, __pyx_n_s_i, __pyx_n_s_p, __pyx_n_s_j); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 750, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__39);
   __Pyx_GIVEREF(__pyx_tuple__39);
-  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(3, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_test_pointwise_min, 730, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 730, __pyx_L1_error)
+  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(3, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_test_pointwise_min, 750, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 750, __pyx_L1_error)
 
-  /* "xsmc/_viterbi.pyx":752
+  /* "xsmc/_viterbi.pyx":772
  * 
  * 
  * def test_pointwise_min_new_fmt(prior, double F_t, cost):             # <<<<<<<<<<<<<<
  *     return pointwise_min(prior, F_t, cost)
  * 
  */
-  __pyx_tuple__41 = PyTuple_Pack(3, __pyx_n_s_prior_2, __pyx_n_s_F_t_2, __pyx_n_s_cost_2); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 752, __pyx_L1_error)
+  __pyx_tuple__41 = PyTuple_Pack(3, __pyx_n_s_prior_2, __pyx_n_s_F_t_2, __pyx_n_s_cost_2); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 772, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__41);
   __Pyx_GIVEREF(__pyx_tuple__41);
-  __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_test_pointwise_min_new_fmt, 752, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(0, 752, __pyx_L1_error)
+  __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_test_pointwise_min_new_fmt, 772, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(0, 772, __pyx_L1_error)
 
-  /* "xsmc/_viterbi.pyx":756
+  /* "xsmc/_viterbi.pyx":776
  * 
  * 
  * def test_pmin(f, g, t, f_k=0, g_k=1):             # <<<<<<<<<<<<<<
  *     cdef interval _t
  *     cdef func _f, _g
  */
-  __pyx_tuple__43 = PyTuple_Pack(9, __pyx_n_s_f, __pyx_n_s_g, __pyx_n_s_t, __pyx_n_s_f_k, __pyx_n_s_g_k, __pyx_n_s_t_2, __pyx_n_s_f_2, __pyx_n_s_g_2, __pyx_n_s_i); if (unlikely(!__pyx_tuple__43)) __PYX_ERR(0, 756, __pyx_L1_error)
+  __pyx_tuple__43 = PyTuple_Pack(9, __pyx_n_s_f, __pyx_n_s_g, __pyx_n_s_t, __pyx_n_s_f_k, __pyx_n_s_g_k, __pyx_n_s_t_2, __pyx_n_s_f_2, __pyx_n_s_g_2, __pyx_n_s_i); if (unlikely(!__pyx_tuple__43)) __PYX_ERR(0, 776, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__43);
   __Pyx_GIVEREF(__pyx_tuple__43);
-  __pyx_codeobj__44 = (PyObject*)__Pyx_PyCode_New(5, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__43, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_test_pmin, 756, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__44)) __PYX_ERR(0, 756, __pyx_L1_error)
+  __pyx_codeobj__44 = (PyObject*)__Pyx_PyCode_New(5, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__43, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_test_pmin, 776, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__44)) __PYX_ERR(0, 776, __pyx_L1_error)
 
-  /* "xsmc/_viterbi.pyx":769
+  /* "xsmc/_viterbi.pyx":789
  *     return pmin(_f, _g, _t)
  * 
  * def test_pmin_new_fmt(f, g, t):             # <<<<<<<<<<<<<<
  *     cdef double[2] tt = t
  *     return pmin(f, g, tt)
  */
-  __pyx_tuple__45 = PyTuple_Pack(4, __pyx_n_s_f, __pyx_n_s_g, __pyx_n_s_t, __pyx_n_s_tt); if (unlikely(!__pyx_tuple__45)) __PYX_ERR(0, 769, __pyx_L1_error)
+  __pyx_tuple__45 = PyTuple_Pack(4, __pyx_n_s_f, __pyx_n_s_g, __pyx_n_s_t, __pyx_n_s_tt); if (unlikely(!__pyx_tuple__45)) __PYX_ERR(0, 789, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__45);
   __Pyx_GIVEREF(__pyx_tuple__45);
-  __pyx_codeobj__46 = (PyObject*)__Pyx_PyCode_New(3, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__45, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_test_pmin_new_fmt, 769, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__46)) __PYX_ERR(0, 769, __pyx_L1_error)
+  __pyx_codeobj__46 = (PyObject*)__Pyx_PyCode_New(3, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__45, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_test_pmin_new_fmt, 789, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__46)) __PYX_ERR(0, 789, __pyx_L1_error)
 
-  /* "xsmc/_viterbi.pyx":773
+  /* "xsmc/_viterbi.pyx":793
  *     return pmin(f, g, tt)
  * 
  * def test_root(k, a, b, c):             # <<<<<<<<<<<<<<
  *     return _root(k, a, b, c)
  * 
  */
-  __pyx_tuple__47 = PyTuple_Pack(4, __pyx_n_s_k, __pyx_n_s_a, __pyx_n_s_b, __pyx_n_s_c); if (unlikely(!__pyx_tuple__47)) __PYX_ERR(0, 773, __pyx_L1_error)
+  __pyx_tuple__47 = PyTuple_Pack(4, __pyx_n_s_k, __pyx_n_s_a, __pyx_n_s_b, __pyx_n_s_c); if (unlikely(!__pyx_tuple__47)) __PYX_ERR(0, 793, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__47);
   __Pyx_GIVEREF(__pyx_tuple__47);
-  __pyx_codeobj__48 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__47, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_test_root, 773, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__48)) __PYX_ERR(0, 773, __pyx_L1_error)
+  __pyx_codeobj__48 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__47, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_test_root, 793, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__48)) __PYX_ERR(0, 793, __pyx_L1_error)
 
-  /* "xsmc/_viterbi.pyx":777
+  /* "xsmc/_viterbi.pyx":797
  * 
  * 
  * def test_truncate_prior(prior, t):             # <<<<<<<<<<<<<<
  *     cdef piecewise_func p
  *     p.f = prior['f']
  */
-  __pyx_tuple__49 = PyTuple_Pack(3, __pyx_n_s_prior_2, __pyx_n_s_t, __pyx_n_s_p); if (unlikely(!__pyx_tuple__49)) __PYX_ERR(0, 777, __pyx_L1_error)
+  __pyx_tuple__49 = PyTuple_Pack(3, __pyx_n_s_prior_2, __pyx_n_s_t, __pyx_n_s_p); if (unlikely(!__pyx_tuple__49)) __PYX_ERR(0, 797, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__49);
   __Pyx_GIVEREF(__pyx_tuple__49);
-  __pyx_codeobj__50 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__49, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_test_truncate_prior, 777, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__50)) __PYX_ERR(0, 777, __pyx_L1_error)
+  __pyx_codeobj__50 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__49, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_test_truncate_prior, 797, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__50)) __PYX_ERR(0, 797, __pyx_L1_error)
 
-  /* "xsmc/_viterbi.pyx":784
+  /* "xsmc/_viterbi.pyx":804
  * 
  * 
  * def test_compact(func):             # <<<<<<<<<<<<<<
  *     return compact(func)
  */
-  __pyx_tuple__51 = PyTuple_Pack(1, __pyx_n_s_func); if (unlikely(!__pyx_tuple__51)) __PYX_ERR(0, 784, __pyx_L1_error)
+  __pyx_tuple__51 = PyTuple_Pack(1, __pyx_n_s_func); if (unlikely(!__pyx_tuple__51)) __PYX_ERR(0, 804, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__51);
   __Pyx_GIVEREF(__pyx_tuple__51);
-  __pyx_codeobj__52 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__51, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_test_compact, 784, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__52)) __PYX_ERR(0, 784, __pyx_L1_error)
+  __pyx_codeobj__52 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__51, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__viterbi_pyx, __pyx_n_s_test_compact, 804, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__52)) __PYX_ERR(0, 804, __pyx_L1_error)
 
   /* "View.MemoryView":286
  *         return self.name
@@ -30030,10 +30349,10 @@ static int __Pyx_modinit_type_import_code(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_import_code", 0);
   /*--- Type import code ---*/
-  __pyx_t_1 = PyImport_ImportModule("xsmc._lwtc"); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 80, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("xsmc._lwtc"); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_ptype_4xsmc_6_tskit_LightweightTableCollection = __Pyx_ImportType(__pyx_t_1, "xsmc._lwtc", "LightweightTableCollection", sizeof(LightweightTableCollection), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_4xsmc_6_tskit_LightweightTableCollection) __PYX_ERR(1, 80, __pyx_L1_error)
+   if (!__pyx_ptype_4xsmc_6_tskit_LightweightTableCollection) __PYX_ERR(1, 81, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -30266,47 +30585,11 @@ if (!__Pyx_RefNanny) {
   /* "xsmc/_viterbi.pyx":8
  * DEF DEBUG = 1
  * 
- * import tskit             # <<<<<<<<<<<<<<
- * import _tskit
- * import numpy as np
- */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_tskit, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tskit, __pyx_t_1) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-  /* "xsmc/_viterbi.pyx":9
- * 
- * import tskit
- * import _tskit             # <<<<<<<<<<<<<<
- * import numpy as np
- * from typing import List, NamedTuple, Union
- */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_tskit_2, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tskit_2, __pyx_t_1) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-  /* "xsmc/_viterbi.pyx":10
- * import tskit
- * import _tskit
- * import numpy as np             # <<<<<<<<<<<<<<
- * from typing import List, NamedTuple, Union
- * 
- */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-  /* "xsmc/_viterbi.pyx":11
- * import _tskit
- * import numpy as np
  * from typing import List, NamedTuple, Union             # <<<<<<<<<<<<<<
  * 
- * from .segmentation import Segment, Segmentation
+ * import _tskit
  */
-  __pyx_t_1 = PyList_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_List);
   __Pyx_GIVEREF(__pyx_n_s_List);
@@ -30317,31 +30600,67 @@ if (!__Pyx_RefNanny) {
   __Pyx_INCREF(__pyx_n_s_Union);
   __Pyx_GIVEREF(__pyx_n_s_Union);
   PyList_SET_ITEM(__pyx_t_1, 2, __pyx_n_s_Union);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_typing, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_typing, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_List); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_List); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_List, __pyx_t_1) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_List, __pyx_t_1) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_NamedTuple); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_NamedTuple); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_NamedTuple, __pyx_t_1) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_NamedTuple, __pyx_t_1) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_Union); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_Union); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Union, __pyx_t_1) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Union, __pyx_t_1) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "xsmc/_viterbi.pyx":13
+  /* "xsmc/_viterbi.pyx":10
  * from typing import List, NamedTuple, Union
+ * 
+ * import _tskit             # <<<<<<<<<<<<<<
+ * import numpy as np
+ * 
+ */
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_tskit, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tskit, __pyx_t_2) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "xsmc/_viterbi.pyx":11
+ * 
+ * import _tskit
+ * import numpy as np             # <<<<<<<<<<<<<<
+ * 
+ * import tskit
+ */
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_2) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "xsmc/_viterbi.pyx":13
+ * import numpy as np
+ * 
+ * import tskit             # <<<<<<<<<<<<<<
+ * 
+ * from .segmentation import Segment, Segmentation
+ */
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_tskit_2, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tskit_2, __pyx_t_2) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "xsmc/_viterbi.pyx":15
+ * import tskit
  * 
  * from .segmentation import Segment, Segmentation             # <<<<<<<<<<<<<<
  * from .size_history import SizeHistory
  * 
  */
-  __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_Segment);
   __Pyx_GIVEREF(__pyx_n_s_Segment);
@@ -30349,157 +30668,157 @@ if (!__Pyx_RefNanny) {
   __Pyx_INCREF(__pyx_n_s_Segmentation);
   __Pyx_GIVEREF(__pyx_n_s_Segmentation);
   PyList_SET_ITEM(__pyx_t_2, 1, __pyx_n_s_Segmentation);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_segmentation, __pyx_t_2, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_segmentation, __pyx_t_2, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_Segment); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_Segment); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Segment, __pyx_t_2) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Segment, __pyx_t_2) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_Segmentation); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_Segmentation); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Segmentation, __pyx_t_2) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Segmentation, __pyx_t_2) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "xsmc/_viterbi.pyx":14
+  /* "xsmc/_viterbi.pyx":16
  * 
  * from .segmentation import Segment, Segmentation
  * from .size_history import SizeHistory             # <<<<<<<<<<<<<<
  * 
- * cdef struct obs_iter:
+ * 
  */
-  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 16, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_SizeHistory);
   __Pyx_GIVEREF(__pyx_n_s_SizeHistory);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_SizeHistory);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_size_history, __pyx_t_1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_size_history, __pyx_t_1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 16, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_SizeHistory); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_SizeHistory); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 16, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_SizeHistory, __pyx_t_1) < 0) __PYX_ERR(0, 14, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_SizeHistory, __pyx_t_1) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "xsmc/_viterbi.pyx":38
+  /* "xsmc/_viterbi.pyx":41
  *     return 1
  * 
  * def viterbi_path(             # <<<<<<<<<<<<<<
  *     ts: tskit.TreeSequence,
  *     focal: int,
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_1viterbi_path, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_1viterbi_path, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 41, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_viterbi_path, __pyx_t_2) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_viterbi_path, __pyx_t_2) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "xsmc/_viterbi.pyx":718
+  /* "xsmc/_viterbi.pyx":738
  * 
  * #### TESTING FUNCTIONS
  * def test_min_f(f, t):             # <<<<<<<<<<<<<<
  *     cdef func _f
  *     cdef interval _t
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_3test_min_f, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 718, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_3test_min_f, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 738, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test_min_f, __pyx_t_2) < 0) __PYX_ERR(0, 718, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test_min_f, __pyx_t_2) < 0) __PYX_ERR(0, 738, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "xsmc/_viterbi.pyx":727
+  /* "xsmc/_viterbi.pyx":747
  *     return min_f(_f, _t)
  * 
  * def test_piecewise_const_log_pi(a, t):             # <<<<<<<<<<<<<<
  *     return piecewise_const_log_pi(a, t, 0.)
  * 
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_5test_piecewise_const_log_pi, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 727, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_5test_piecewise_const_log_pi, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 747, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test_piecewise_const_log_pi, __pyx_t_2) < 0) __PYX_ERR(0, 727, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test_piecewise_const_log_pi, __pyx_t_2) < 0) __PYX_ERR(0, 747, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "xsmc/_viterbi.pyx":730
+  /* "xsmc/_viterbi.pyx":750
  *     return piecewise_const_log_pi(a, t, 0.)
  * 
  * def test_pointwise_min(prior, double F_t, cost):             # <<<<<<<<<<<<<<
  *     cdef piecewise_func _prior, _cost
  *     _prior.f.resize(len(prior))
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_7test_pointwise_min, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 730, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_7test_pointwise_min, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 750, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test_pointwise_min, __pyx_t_2) < 0) __PYX_ERR(0, 730, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test_pointwise_min, __pyx_t_2) < 0) __PYX_ERR(0, 750, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "xsmc/_viterbi.pyx":752
+  /* "xsmc/_viterbi.pyx":772
  * 
  * 
  * def test_pointwise_min_new_fmt(prior, double F_t, cost):             # <<<<<<<<<<<<<<
  *     return pointwise_min(prior, F_t, cost)
  * 
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_9test_pointwise_min_new_fmt, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 752, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_9test_pointwise_min_new_fmt, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 772, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test_pointwise_min_new_fmt, __pyx_t_2) < 0) __PYX_ERR(0, 752, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test_pointwise_min_new_fmt, __pyx_t_2) < 0) __PYX_ERR(0, 772, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "xsmc/_viterbi.pyx":756
+  /* "xsmc/_viterbi.pyx":776
  * 
  * 
  * def test_pmin(f, g, t, f_k=0, g_k=1):             # <<<<<<<<<<<<<<
  *     cdef interval _t
  *     cdef func _f, _g
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_11test_pmin, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 756, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_11test_pmin, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 776, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test_pmin, __pyx_t_2) < 0) __PYX_ERR(0, 756, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test_pmin, __pyx_t_2) < 0) __PYX_ERR(0, 776, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "xsmc/_viterbi.pyx":769
+  /* "xsmc/_viterbi.pyx":789
  *     return pmin(_f, _g, _t)
  * 
  * def test_pmin_new_fmt(f, g, t):             # <<<<<<<<<<<<<<
  *     cdef double[2] tt = t
  *     return pmin(f, g, tt)
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_13test_pmin_new_fmt, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 769, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_13test_pmin_new_fmt, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 789, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test_pmin_new_fmt, __pyx_t_2) < 0) __PYX_ERR(0, 769, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test_pmin_new_fmt, __pyx_t_2) < 0) __PYX_ERR(0, 789, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "xsmc/_viterbi.pyx":773
+  /* "xsmc/_viterbi.pyx":793
  *     return pmin(f, g, tt)
  * 
  * def test_root(k, a, b, c):             # <<<<<<<<<<<<<<
  *     return _root(k, a, b, c)
  * 
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_15test_root, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 773, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_15test_root, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 793, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test_root, __pyx_t_2) < 0) __PYX_ERR(0, 773, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test_root, __pyx_t_2) < 0) __PYX_ERR(0, 793, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "xsmc/_viterbi.pyx":777
+  /* "xsmc/_viterbi.pyx":797
  * 
  * 
  * def test_truncate_prior(prior, t):             # <<<<<<<<<<<<<<
  *     cdef piecewise_func p
  *     p.f = prior['f']
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_17test_truncate_prior, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 777, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_17test_truncate_prior, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 797, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test_truncate_prior, __pyx_t_2) < 0) __PYX_ERR(0, 777, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test_truncate_prior, __pyx_t_2) < 0) __PYX_ERR(0, 797, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "xsmc/_viterbi.pyx":784
+  /* "xsmc/_viterbi.pyx":804
  * 
  * 
  * def test_compact(func):             # <<<<<<<<<<<<<<
  *     return compact(func)
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_19test_compact, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 784, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_viterbi_19test_compact, NULL, __pyx_n_s_xsmc__viterbi); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 804, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test_compact, __pyx_t_2) < 0) __PYX_ERR(0, 784, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test_compact, __pyx_t_2) < 0) __PYX_ERR(0, 804, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "xsmc/_viterbi.pyx":1

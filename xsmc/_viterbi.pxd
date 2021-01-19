@@ -1,18 +1,19 @@
 from libcpp.iterator import back_inserter
-from libcpp.vector cimport vector
+
+from _tskit cimport *
+from gsl cimport *
+from libc.math cimport INFINITY, isfinite, isinf
+from libc.stdint cimport int32_t
+from libc.stdio cimport printf
+from libc.string cimport memcmp, memcpy, memset
+from libcpp cimport bool
+from libcpp.algorithm cimport lower_bound
 from libcpp.pair cimport pair
 from libcpp.queue cimport queue
 from libcpp.unordered_map cimport unordered_map
 from libcpp.unordered_set cimport unordered_set
-from libc.string cimport memcmp, memset, memcpy
-from libcpp.algorithm cimport lower_bound
-from libc.stdio cimport printf
-from libcpp cimport bool
-from libc.stdint cimport int32_t
-from libc.math cimport INFINITY, isinf, isfinite
-from gsl cimport *
+from libcpp.vector cimport vector
 
-from _tskit cimport *
 
 cdef extern from "<algorithm>" namespace "std" nogil:
     cdef OutputIter set_union[Iter1, Iter2, OutputIter](

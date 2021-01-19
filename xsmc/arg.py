@@ -1,7 +1,9 @@
 from typing import List, Sequence
+
 import intervals as I
 
 import tskit
+
 from .segmentation import Segmentation
 
 
@@ -45,14 +47,15 @@ def make_trunk(samples: List[int], sequence_length: int) -> tskit.TreeSequence:
     )
     for s in samples:
         i = tc.individuals.add_row(metadata={"sample_id": s})
-        n = tc.nodes.add_row(flags=tskit.NODE_IS_SAMPLE, individual=i, time=0.)  # TODO heterochronous?
+        n = tc.nodes.add_row(
+            flags=tskit.NODE_IS_SAMPLE, individual=i, time=0.0
+        )  # TODO heterochronous?
     assert n == len(samples) - 1
     return tc.tree_sequence()
 
 
 def thread(
-    scaffold: tskit.TableCollection,
-    segmentation: Segmentation
+    scaffold: tskit.TableCollection, segmentation: Segmentation
 ) -> tskit.TreeSequence:
     """Thread a new decoding into an existing scaffold.
 
@@ -77,7 +80,9 @@ def thread(
         # time interval. break the edge, insert a new node and three new edges
         # to mark the new coalescent event.
         assert left < right
-        sub_tables = scaffold.keep_intervals([(left, right)], simplify=False).dump_tables()
+        sub_tables = scaffold.keep_intervals(
+            [(left, right)], simplify=False
+        ).dump_tables()
         sub_nodes = sub_tables.nodes
         ancestral_nodes = I.IntervalDict()
         ancestral_nodes[I.closedopen(left, right)] = h

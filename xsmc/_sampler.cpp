@@ -620,6 +620,8 @@ static CYTHON_INLINE float __PYX_NAN() {
 #define __PYX_HAVE_API__xsmc___sampler
 /* Early includes */
 #include <math.h>
+#include <string.h>
+#include <stdio.h>
 #include "ios"
 #include "new"
 #include "stdexcept"
@@ -638,8 +640,6 @@ static CYTHON_INLINE float __PYX_NAN() {
     
 #include <unordered_map>
 #include <vector>
-#include <string.h>
-#include <stdio.h>
 #include <stdint.h>
 #include "tskit.h"
 #include <random>
@@ -1084,7 +1084,7 @@ struct __pyx_fuse_1__pyx_opt_args_5scipy_7special_14cython_special_spherical_kn 
 };
 struct __pyx_t_4xsmc_8_sampler_sampler_params;
 
-/* "xsmc/_sampler.pyx":22
+/* "xsmc/_sampler.pyx":24
  * cdef double NINF = float("-inf")
  * 
  * cdef struct sampler_params:             # <<<<<<<<<<<<<<
@@ -1099,7 +1099,7 @@ struct __pyx_t_4xsmc_8_sampler_sampler_params {
   bool use_cache;
 };
 
-/* "_tskit.pxd":80
+/* "_tskit.pxd":81
  * 
  * cdef extern:
  *     ctypedef class xsmc._lwtc.LightweightTableCollection [object LightweightTableCollection]:             # <<<<<<<<<<<<<<
@@ -1112,7 +1112,7 @@ struct LightweightTableCollection {
 };
 
 
-/* "xsmc/_sampler.pyx":263
+/* "xsmc/_sampler.pyx":265
  *     return paths
  * 
  * cdef class _SamplerProxy:             # <<<<<<<<<<<<<<
@@ -2049,19 +2049,19 @@ static PyObject *__pyx_memoryviewslice_assign_item_from_object(struct __pyx_memo
 
 /* Module declarations from 'libc.math' */
 
+/* Module declarations from 'libc.string' */
+
+/* Module declarations from 'libc.stdio' */
+
 /* Module declarations from 'libcpp' */
 
 /* Module declarations from 'libcpp.utility' */
 
 /* Module declarations from 'libcpp.unordered_map' */
 
-/* Module declarations from 'libcpp.vector' */
-
 /* Module declarations from 'libcpp.pair' */
 
-/* Module declarations from 'libc.string' */
-
-/* Module declarations from 'libc.stdio' */
+/* Module declarations from 'libcpp.vector' */
 
 /* Module declarations from 'scipy.special.cython_special' */
 static double (*__pyx_f_5scipy_7special_14cython_special_gammaln)(double, int __pyx_skip_dispatch); /*proto*/
@@ -2553,7 +2553,7 @@ static PyObject *__pyx_codeobj__24;
 static PyObject *__pyx_codeobj__31;
 /* Late includes */
 
-/* "xsmc/_sampler.pyx":36
+/* "xsmc/_sampler.pyx":38
  *     cdef void shuffle(vector[int]&, default_random_engine&)
  * 
  * cdef void log_P(double[:] out, int s, int t,             # <<<<<<<<<<<<<<
@@ -2580,7 +2580,7 @@ static void __pyx_f_4xsmc_8_sampler_log_P(__Pyx_memviewslice __pyx_v_out, int __
   Py_ssize_t __pyx_t_7;
   int __pyx_t_8;
 
-  /* "xsmc/_sampler.pyx":41
+  /* "xsmc/_sampler.pyx":43
  *     cdef int h, H, n, Xb, delta, u, v
  *     cdef double lg
  *     H = Xcs.shape[0]             # <<<<<<<<<<<<<<
@@ -2589,7 +2589,7 @@ static void __pyx_f_4xsmc_8_sampler_log_P(__Pyx_memviewslice __pyx_v_out, int __
  */
   __pyx_v_H = (__pyx_v_Xcs.shape[0]);
 
-  /* "xsmc/_sampler.pyx":42
+  /* "xsmc/_sampler.pyx":44
  *     cdef double lg
  *     H = Xcs.shape[0]
  *     n = Xcs.shape[1] - 1             # <<<<<<<<<<<<<<
@@ -2598,7 +2598,7 @@ static void __pyx_f_4xsmc_8_sampler_log_P(__Pyx_memviewslice __pyx_v_out, int __
  */
   __pyx_v_n = ((__pyx_v_Xcs.shape[1]) - 1);
 
-  /* "xsmc/_sampler.pyx":43
+  /* "xsmc/_sampler.pyx":45
  *     H = Xcs.shape[0]
  *     n = Xcs.shape[1] - 1
  *     delta = int(positions[t] - positions[s])             # <<<<<<<<<<<<<<
@@ -2611,7 +2611,7 @@ static void __pyx_f_4xsmc_8_sampler_log_P(__Pyx_memviewslice __pyx_v_out, int __
   if (__pyx_t_2 < 0) __pyx_t_2 += __pyx_v_positions.shape[0];
   __pyx_v_delta = ((int)((*((double *) ( /* dim=0 */ (__pyx_v_positions.data + __pyx_t_1 * __pyx_v_positions.strides[0]) ))) - (*((double *) ( /* dim=0 */ (__pyx_v_positions.data + __pyx_t_2 * __pyx_v_positions.strides[0]) )))));
 
-  /* "xsmc/_sampler.pyx":44
+  /* "xsmc/_sampler.pyx":46
  *     n = Xcs.shape[1] - 1
  *     delta = int(positions[t] - positions[s])
  *     u = int(s > 0)             # <<<<<<<<<<<<<<
@@ -2620,7 +2620,7 @@ static void __pyx_f_4xsmc_8_sampler_log_P(__Pyx_memviewslice __pyx_v_out, int __
  */
   __pyx_v_u = ((int)(__pyx_v_s > 0));
 
-  /* "xsmc/_sampler.pyx":45
+  /* "xsmc/_sampler.pyx":47
  *     delta = int(positions[t] - positions[s])
  *     u = int(s > 0)
  *     v = int(t < n)             # <<<<<<<<<<<<<<
@@ -2629,7 +2629,7 @@ static void __pyx_f_4xsmc_8_sampler_log_P(__Pyx_memviewslice __pyx_v_out, int __
  */
   __pyx_v_v = ((int)(__pyx_v_t < __pyx_v_n));
 
-  /* "xsmc/_sampler.pyx":47
+  /* "xsmc/_sampler.pyx":49
  *     v = int(t < n)
  *     cdef double x
  *     for h in range(H):             # <<<<<<<<<<<<<<
@@ -2641,7 +2641,7 @@ static void __pyx_f_4xsmc_8_sampler_log_P(__Pyx_memviewslice __pyx_v_out, int __
   for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
     __pyx_v_h = __pyx_t_5;
 
-    /* "xsmc/_sampler.pyx":48
+    /* "xsmc/_sampler.pyx":50
  *     cdef double x
  *     for h in range(H):
  *         Xb = Xcs[h, t] - Xcs[h, s]             # <<<<<<<<<<<<<<
@@ -2658,7 +2658,7 @@ static void __pyx_f_4xsmc_8_sampler_log_P(__Pyx_memviewslice __pyx_v_out, int __
     if (__pyx_t_7 < 0) __pyx_t_7 += __pyx_v_Xcs.shape[1];
     __pyx_v_Xb = ((*((long *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Xcs.data + __pyx_t_2 * __pyx_v_Xcs.strides[0]) ) + __pyx_t_1 * __pyx_v_Xcs.strides[1]) ))) - (*((long *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Xcs.data + __pyx_t_6 * __pyx_v_Xcs.strides[0]) ) + __pyx_t_7 * __pyx_v_Xcs.strides[1]) ))));
 
-    /* "xsmc/_sampler.pyx":49
+    /* "xsmc/_sampler.pyx":51
  *     for h in range(H):
  *         Xb = Xcs[h, t] - Xcs[h, s]
  *         lg = lgammacs[h, t] - lgammacs[h, s]             # <<<<<<<<<<<<<<
@@ -2675,7 +2675,7 @@ static void __pyx_f_4xsmc_8_sampler_log_P(__Pyx_memviewslice __pyx_v_out, int __
     if (__pyx_t_2 < 0) __pyx_t_2 += __pyx_v_lgammacs.shape[1];
     __pyx_v_lg = ((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_lgammacs.data + __pyx_t_7 * __pyx_v_lgammacs.strides[0]) ) + __pyx_t_6 * __pyx_v_lgammacs.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_lgammacs.data + __pyx_t_1 * __pyx_v_lgammacs.strides[0]) ) + __pyx_t_2 * __pyx_v_lgammacs.strides[1]) ))));
 
-    /* "xsmc/_sampler.pyx":58
+    /* "xsmc/_sampler.pyx":60
  *                       gammaln(1 + u + v + Xb)
  *                       )
  *         if params.robust:             # <<<<<<<<<<<<<<
@@ -2685,7 +2685,7 @@ static void __pyx_f_4xsmc_8_sampler_log_P(__Pyx_memviewslice __pyx_v_out, int __
     __pyx_t_8 = (__pyx_v_params.robust != 0);
     if (__pyx_t_8) {
 
-      /* "xsmc/_sampler.pyx":63
+      /* "xsmc/_sampler.pyx":65
  *                 + xlogy(v, params.rho)
  *                 - (1 + u + v + Xb) * log(H + delta * (params.rho + params.theta) - params.theta * Xb)
  *                 + gammaln(1 + u + v + Xb)             # <<<<<<<<<<<<<<
@@ -2694,7 +2694,7 @@ static void __pyx_f_4xsmc_8_sampler_log_P(__Pyx_memviewslice __pyx_v_out, int __
  */
       __pyx_v_x = ((((__pyx_v_Xb * log(__pyx_v_params.theta)) + __pyx_fuse_1__pyx_f_5scipy_7special_14cython_special_xlogy(__pyx_v_v, __pyx_v_params.rho, 0)) - ((((1 + __pyx_v_u) + __pyx_v_v) + __pyx_v_Xb) * log(((__pyx_v_H + (__pyx_v_delta * (__pyx_v_params.rho + __pyx_v_params.theta))) - (__pyx_v_params.theta * __pyx_v_Xb))))) + __pyx_f_5scipy_7special_14cython_special_gammaln((((1 + __pyx_v_u) + __pyx_v_v) + __pyx_v_Xb), 0));
 
-      /* "xsmc/_sampler.pyx":58
+      /* "xsmc/_sampler.pyx":60
  *                       gammaln(1 + u + v + Xb)
  *                       )
  *         if params.robust:             # <<<<<<<<<<<<<<
@@ -2704,7 +2704,7 @@ static void __pyx_f_4xsmc_8_sampler_log_P(__Pyx_memviewslice __pyx_v_out, int __
       goto __pyx_L5;
     }
 
-    /* "xsmc/_sampler.pyx":71
+    /* "xsmc/_sampler.pyx":73
  *                 - (1 + u + v + Xb) * log(H + delta * (params.rho + params.theta))
  *                 + gammaln(1 + u + v + Xb)
  *                 - lg             # <<<<<<<<<<<<<<
@@ -2713,7 +2713,7 @@ static void __pyx_f_4xsmc_8_sampler_log_P(__Pyx_memviewslice __pyx_v_out, int __
  */
     /*else*/ {
 
-      /* "xsmc/_sampler.pyx":70
+      /* "xsmc/_sampler.pyx":72
  *                 + xlogy(v, params.rho)
  *                 - (1 + u + v + Xb) * log(H + delta * (params.rho + params.theta))
  *                 + gammaln(1 + u + v + Xb)             # <<<<<<<<<<<<<<
@@ -2724,7 +2724,7 @@ static void __pyx_f_4xsmc_8_sampler_log_P(__Pyx_memviewslice __pyx_v_out, int __
     }
     __pyx_L5:;
 
-    /* "xsmc/_sampler.pyx":73
+    /* "xsmc/_sampler.pyx":75
  *                 - lg
  *             )
  *         out[h] = x             # <<<<<<<<<<<<<<
@@ -2736,7 +2736,7 @@ static void __pyx_f_4xsmc_8_sampler_log_P(__Pyx_memviewslice __pyx_v_out, int __
     *((double *) ( /* dim=0 */ (__pyx_v_out.data + __pyx_t_2 * __pyx_v_out.strides[0]) )) = __pyx_v_x;
   }
 
-  /* "xsmc/_sampler.pyx":36
+  /* "xsmc/_sampler.pyx":38
  *     cdef void shuffle(vector[int]&, default_random_engine&)
  * 
  * cdef void log_P(double[:] out, int s, int t,             # <<<<<<<<<<<<<<
@@ -2747,7 +2747,7 @@ static void __pyx_f_4xsmc_8_sampler_log_P(__Pyx_memviewslice __pyx_v_out, int __
   /* function exit code */
 }
 
-/* "xsmc/_sampler.pyx":75
+/* "xsmc/_sampler.pyx":77
  *         out[h] = x
  * 
  * def get_mismatches(             # <<<<<<<<<<<<<<
@@ -2797,23 +2797,23 @@ static PyObject *__pyx_pw_4xsmc_8_sampler_1get_mismatches(PyObject *__pyx_self, 
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_focal)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("get_mismatches", 1, 4, 4, 1); __PYX_ERR(0, 75, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("get_mismatches", 1, 4, 4, 1); __PYX_ERR(0, 77, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_panel)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("get_mismatches", 1, 4, 4, 2); __PYX_ERR(0, 75, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("get_mismatches", 1, 4, 4, 2); __PYX_ERR(0, 77, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_w)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("get_mismatches", 1, 4, 4, 3); __PYX_ERR(0, 75, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("get_mismatches", 1, 4, 4, 3); __PYX_ERR(0, 77, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_mismatches") < 0)) __PYX_ERR(0, 75, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "get_mismatches") < 0)) __PYX_ERR(0, 77, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -2826,11 +2826,11 @@ static PyObject *__pyx_pw_4xsmc_8_sampler_1get_mismatches(PyObject *__pyx_self, 
     __pyx_v_ts = values[0];
     __pyx_v_focal = values[1];
     __pyx_v_panel = values[2];
-    __pyx_v_w = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_w == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 79, __pyx_L3_error)
+    __pyx_v_w = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_w == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 81, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get_mismatches", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 75, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("get_mismatches", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 77, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("xsmc._sampler.get_mismatches", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2881,24 +2881,24 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_mismatches", 0);
 
-  /* "xsmc/_sampler.pyx":82
+  /* "xsmc/_sampler.pyx":84
  * ):
  *     '''Cumulate genotype matrix for use in sampling algorithm.'''
  *     H = len(panel)             # <<<<<<<<<<<<<<
  *     L = ts.get_sequence_length()
  *     L_w = int(np.floor(1. + L / w))
  */
-  __pyx_t_1 = PyObject_Length(__pyx_v_panel); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_1 = PyObject_Length(__pyx_v_panel); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 84, __pyx_L1_error)
   __pyx_v_H = __pyx_t_1;
 
-  /* "xsmc/_sampler.pyx":83
+  /* "xsmc/_sampler.pyx":85
  *     '''Cumulate genotype matrix for use in sampling algorithm.'''
  *     H = len(panel)
  *     L = ts.get_sequence_length()             # <<<<<<<<<<<<<<
  *     L_w = int(np.floor(1. + L / w))
  *     X_np = np.zeros((H, L_w), dtype=np.int32)
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_get_sequence_length); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_get_sequence_length); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
@@ -2912,30 +2912,30 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
   }
   __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 83, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_L = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "xsmc/_sampler.pyx":84
+  /* "xsmc/_sampler.pyx":86
  *     H = len(panel)
  *     L = ts.get_sequence_length()
  *     L_w = int(np.floor(1. + L / w))             # <<<<<<<<<<<<<<
  *     X_np = np.zeros((H, L_w), dtype=np.int32)
  *     cdef int[:, :] X = X_np
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_floor); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_floor); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_w); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_w); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = __Pyx_PyNumber_Divide(__pyx_v_L, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyNumber_Divide(__pyx_v_L, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyFloat_AddCObj(__pyx_float_1_, __pyx_t_5, 1., 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyFloat_AddCObj(__pyx_float_1_, __pyx_t_5, 1., 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_5 = NULL;
@@ -2951,30 +2951,30 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
   __pyx_t_2 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3);
   __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 84, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyNumber_Int(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyNumber_Int(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_L_w = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "xsmc/_sampler.pyx":85
+  /* "xsmc/_sampler.pyx":87
  *     L = ts.get_sequence_length()
  *     L_w = int(np.floor(1. + L / w))
  *     X_np = np.zeros((H, L_w), dtype=np.int32)             # <<<<<<<<<<<<<<
  *     cdef int[:, :] X = X_np
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyInt_FromSsize_t(__pyx_v_H); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_4 = PyInt_FromSsize_t(__pyx_v_H); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_4);
@@ -2982,21 +2982,21 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
   __Pyx_GIVEREF(__pyx_v_L_w);
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_v_L_w);
   __pyx_t_4 = 0;
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3);
   __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_int32); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_int32); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_dtype, __pyx_t_6) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_dtype, __pyx_t_6) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -3004,40 +3004,40 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
   __pyx_v_X_np = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "xsmc/_sampler.pyx":86
+  /* "xsmc/_sampler.pyx":88
  *     L_w = int(np.floor(1. + L / w))
  *     X_np = np.zeros((H, L_w), dtype=np.int32)
  *     cdef int[:, :] X = X_np             # <<<<<<<<<<<<<<
  * 
  *     cdef LightweightTableCollection lwt = LightweightTableCollection()
  */
-  __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_dsds_int(__pyx_v_X_np, PyBUF_WRITABLE); if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_dsds_int(__pyx_v_X_np, PyBUF_WRITABLE); if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(0, 88, __pyx_L1_error)
   __pyx_v_X = __pyx_t_7;
   __pyx_t_7.memview = NULL;
   __pyx_t_7.data = NULL;
 
-  /* "xsmc/_sampler.pyx":88
+  /* "xsmc/_sampler.pyx":90
  *     cdef int[:, :] X = X_np
  * 
  *     cdef LightweightTableCollection lwt = LightweightTableCollection()             # <<<<<<<<<<<<<<
  *     lwt.fromdict(ts.dump_tables().asdict())
  *     cdef tsk_treeseq_t _ts
  */
-  __pyx_t_6 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_4xsmc_6_tskit_LightweightTableCollection)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_4xsmc_6_tskit_LightweightTableCollection)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_v_lwt = ((LightweightTableCollection *)__pyx_t_6);
   __pyx_t_6 = 0;
 
-  /* "xsmc/_sampler.pyx":89
+  /* "xsmc/_sampler.pyx":91
  * 
  *     cdef LightweightTableCollection lwt = LightweightTableCollection()
  *     lwt.fromdict(ts.dump_tables().asdict())             # <<<<<<<<<<<<<<
  *     cdef tsk_treeseq_t _ts
  *     cdef int err = tsk_treeseq_init(&_ts, lwt.tables, 0)
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_lwt), __pyx_n_s_fromdict); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_lwt), __pyx_n_s_fromdict); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_dump_tables); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_ts, __pyx_n_s_dump_tables); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_8 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -3051,10 +3051,10 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
   }
   __pyx_t_2 = (__pyx_t_8) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_8) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 89, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_asdict); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_asdict); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -3069,7 +3069,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
   }
   __pyx_t_4 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 89, __pyx_L1_error)
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_5 = NULL;
@@ -3085,12 +3085,12 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
   __pyx_t_6 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_5, __pyx_t_4) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 89, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "xsmc/_sampler.pyx":91
+  /* "xsmc/_sampler.pyx":93
  *     lwt.fromdict(ts.dump_tables().asdict())
  *     cdef tsk_treeseq_t _ts
  *     cdef int err = tsk_treeseq_init(&_ts, lwt.tables, 0)             # <<<<<<<<<<<<<<
@@ -3099,7 +3099,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
  */
   __pyx_v_err = tsk_treeseq_init((&__pyx_v__ts), __pyx_v_lwt->tables, 0);
 
-  /* "xsmc/_sampler.pyx":92
+  /* "xsmc/_sampler.pyx":94
  *     cdef tsk_treeseq_t _ts
  *     cdef int err = tsk_treeseq_init(&_ts, lwt.tables, 0)
  *     check_error(err)             # <<<<<<<<<<<<<<
@@ -3108,26 +3108,26 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
  */
   __pyx_f_4xsmc_6_tskit_check_error(__pyx_v_err);
 
-  /* "xsmc/_sampler.pyx":96
+  /* "xsmc/_sampler.pyx":98
  *     cdef tsk_vargen_t _vg
  *     cdef tsk_variant_t *var
  *     cdef vector[tsk_id_t] _samples = [focal] + panel             # <<<<<<<<<<<<<<
  *     err = tsk_vargen_init(&_vg, &_ts, _samples.data(), _samples.size(), NULL, 0)
  *     check_error(err)
  */
-  __pyx_t_6 = PyList_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_6 = PyList_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 98, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_v_focal);
   __Pyx_GIVEREF(__pyx_v_focal);
   PyList_SET_ITEM(__pyx_t_6, 0, __pyx_v_focal);
-  __pyx_t_3 = PyNumber_Add(__pyx_t_6, __pyx_v_panel); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Add(__pyx_t_6, __pyx_v_panel); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 98, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_9 = __pyx_convert_vector_from_py_tsk_id_t(__pyx_t_3); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_9 = __pyx_convert_vector_from_py_tsk_id_t(__pyx_t_3); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 98, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v__samples = __pyx_t_9;
 
-  /* "xsmc/_sampler.pyx":97
+  /* "xsmc/_sampler.pyx":99
  *     cdef tsk_variant_t *var
  *     cdef vector[tsk_id_t] _samples = [focal] + panel
  *     err = tsk_vargen_init(&_vg, &_ts, _samples.data(), _samples.size(), NULL, 0)             # <<<<<<<<<<<<<<
@@ -3136,7 +3136,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
  */
   __pyx_v_err = tsk_vargen_init((&__pyx_v__vg), (&__pyx_v__ts), __pyx_v__samples.data(), __pyx_v__samples.size(), NULL, 0);
 
-  /* "xsmc/_sampler.pyx":98
+  /* "xsmc/_sampler.pyx":100
  *     cdef vector[tsk_id_t] _samples = [focal] + panel
  *     err = tsk_vargen_init(&_vg, &_ts, _samples.data(), _samples.size(), NULL, 0)
  *     check_error(err)             # <<<<<<<<<<<<<<
@@ -3145,17 +3145,17 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
  */
   __pyx_f_4xsmc_6_tskit_check_error(__pyx_v_err);
 
-  /* "xsmc/_sampler.pyx":99
+  /* "xsmc/_sampler.pyx":101
  *     err = tsk_vargen_init(&_vg, &_ts, _samples.data(), _samples.size(), NULL, 0)
  *     check_error(err)
  *     cdef tsk_id_t focal_ = focal             # <<<<<<<<<<<<<<
  *     cdef int i = 0, h, y_i
  *     logger.debug('Counting mismatches for focal=%d panel=%s', focal, panel)
  */
-  __pyx_t_10 = __Pyx_PyInt_As_int32_t(__pyx_v_focal); if (unlikely((__pyx_t_10 == ((tsk_id_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyInt_As_int32_t(__pyx_v_focal); if (unlikely((__pyx_t_10 == ((tsk_id_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 101, __pyx_L1_error)
   __pyx_v_focal_ = __pyx_t_10;
 
-  /* "xsmc/_sampler.pyx":100
+  /* "xsmc/_sampler.pyx":102
  *     check_error(err)
  *     cdef tsk_id_t focal_ = focal
  *     cdef int i = 0, h, y_i             # <<<<<<<<<<<<<<
@@ -3164,16 +3164,16 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
  */
   __pyx_v_i = 0;
 
-  /* "xsmc/_sampler.pyx":101
+  /* "xsmc/_sampler.pyx":103
  *     cdef tsk_id_t focal_ = focal
  *     cdef int i = 0, h, y_i
  *     logger.debug('Counting mismatches for focal=%d panel=%s', focal, panel)             # <<<<<<<<<<<<<<
  *     with nogil:
  *         while err == 1:
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_logger); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_logger); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_debug); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_debug); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_6 = NULL;
@@ -3191,7 +3191,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_4)) {
     PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_kp_s_Counting_mismatches_for_focal_d, __pyx_v_focal, __pyx_v_panel};
-    __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 3+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 3+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 103, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_3);
   } else
@@ -3199,13 +3199,13 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
     PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_kp_s_Counting_mismatches_for_focal_d, __pyx_v_focal, __pyx_v_panel};
-    __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 3+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_11, 3+__pyx_t_11); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 103, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_3);
   } else
   #endif
   {
-    __pyx_t_5 = PyTuple_New(3+__pyx_t_11); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(3+__pyx_t_11); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 103, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     if (__pyx_t_6) {
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -3219,14 +3219,14 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
     __Pyx_INCREF(__pyx_v_panel);
     __Pyx_GIVEREF(__pyx_v_panel);
     PyTuple_SET_ITEM(__pyx_t_5, 2+__pyx_t_11, __pyx_v_panel);
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 103, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "xsmc/_sampler.pyx":102
+  /* "xsmc/_sampler.pyx":104
  *     cdef int i = 0, h, y_i
  *     logger.debug('Counting mismatches for focal=%d panel=%s', focal, panel)
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -3241,7 +3241,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
       #endif
       /*try:*/ {
 
-        /* "xsmc/_sampler.pyx":103
+        /* "xsmc/_sampler.pyx":105
  *     logger.debug('Counting mismatches for focal=%d panel=%s', focal, panel)
  *     with nogil:
  *         while err == 1:             # <<<<<<<<<<<<<<
@@ -3252,7 +3252,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
           __pyx_t_12 = ((__pyx_v_err == 1) != 0);
           if (!__pyx_t_12) break;
 
-          /* "xsmc/_sampler.pyx":105
+          /* "xsmc/_sampler.pyx":107
  *         while err == 1:
  *             # proceed to next variant
  *             i = <int>(var.site.position / w)             # <<<<<<<<<<<<<<
@@ -3261,7 +3261,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
  */
           __pyx_v_i = ((int)(__pyx_v_var->site->position / __pyx_v_w));
 
-          /* "xsmc/_sampler.pyx":106
+          /* "xsmc/_sampler.pyx":108
  *             # proceed to next variant
  *             i = <int>(var.site.position / w)
  *             for h in range(H):             # <<<<<<<<<<<<<<
@@ -3273,7 +3273,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
           for (__pyx_t_11 = 0; __pyx_t_11 < __pyx_t_13; __pyx_t_11+=1) {
             __pyx_v_h = __pyx_t_11;
 
-            /* "xsmc/_sampler.pyx":107
+            /* "xsmc/_sampler.pyx":109
  *             i = <int>(var.site.position / w)
  *             for h in range(H):
  *                 y_i = <int>(var.genotypes.i8[h + 1] != var.genotypes.i8[0])             # <<<<<<<<<<<<<<
@@ -3282,7 +3282,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
  */
             __pyx_v_y_i = ((int)((__pyx_v_var->genotypes.i8[(__pyx_v_h + 1)]) != (__pyx_v_var->genotypes.i8[0])));
 
-            /* "xsmc/_sampler.pyx":108
+            /* "xsmc/_sampler.pyx":110
  *             for h in range(H):
  *                 y_i = <int>(var.genotypes.i8[h + 1] != var.genotypes.i8[0])
  *                 X[h, i] += y_i             # <<<<<<<<<<<<<<
@@ -3296,7 +3296,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
             *((int *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_X.data + __pyx_t_14 * __pyx_v_X.strides[0]) ) + __pyx_t_15 * __pyx_v_X.strides[1]) )) += __pyx_v_y_i;
           }
 
-          /* "xsmc/_sampler.pyx":109
+          /* "xsmc/_sampler.pyx":111
  *                 y_i = <int>(var.genotypes.i8[h + 1] != var.genotypes.i8[0])
  *                 X[h, i] += y_i
  *             err = tsk_vargen_next(&_vg, &var)             # <<<<<<<<<<<<<<
@@ -3307,7 +3307,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
         }
       }
 
-      /* "xsmc/_sampler.pyx":102
+      /* "xsmc/_sampler.pyx":104
  *     cdef int i = 0, h, y_i
  *     logger.debug('Counting mismatches for focal=%d panel=%s', focal, panel)
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -3326,7 +3326,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
       }
   }
 
-  /* "xsmc/_sampler.pyx":110
+  /* "xsmc/_sampler.pyx":112
  *                 X[h, i] += y_i
  *             err = tsk_vargen_next(&_vg, &var)
  *     tsk_vargen_free(&_vg)             # <<<<<<<<<<<<<<
@@ -3335,7 +3335,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
  */
   (void)(tsk_vargen_free((&__pyx_v__vg)));
 
-  /* "xsmc/_sampler.pyx":111
+  /* "xsmc/_sampler.pyx":113
  *             err = tsk_vargen_next(&_vg, &var)
  *     tsk_vargen_free(&_vg)
  *     tsk_treeseq_free(&_ts)             # <<<<<<<<<<<<<<
@@ -3344,7 +3344,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
  */
   (void)(tsk_treeseq_free((&__pyx_v__ts)));
 
-  /* "xsmc/_sampler.pyx":112
+  /* "xsmc/_sampler.pyx":114
  *     tsk_vargen_free(&_vg)
  *     tsk_treeseq_free(&_ts)
  *     return X_np             # <<<<<<<<<<<<<<
@@ -3356,7 +3356,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
   __pyx_r = __pyx_v_X_np;
   goto __pyx_L0;
 
-  /* "xsmc/_sampler.pyx":75
+  /* "xsmc/_sampler.pyx":77
  *         out[h] = x
  * 
  * def get_mismatches(             # <<<<<<<<<<<<<<
@@ -3386,7 +3386,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_get_mismatches(CYTHON_UNUSED PyObject 
   return __pyx_r;
 }
 
-/* "xsmc/_sampler.pyx":115
+/* "xsmc/_sampler.pyx":117
  * 
  * 
  * cdef double logsumexp(double[:] x) nogil:             # <<<<<<<<<<<<<<
@@ -3410,7 +3410,7 @@ static double __pyx_f_4xsmc_8_sampler_logsumexp(__Pyx_memviewslice __pyx_v_x) {
   double __pyx_t_7;
   int __pyx_t_8;
 
-  /* "xsmc/_sampler.pyx":117
+  /* "xsmc/_sampler.pyx":119
  * cdef double logsumexp(double[:] x) nogil:
  *     cdef int n
  *     cdef int N = x.shape[0]             # <<<<<<<<<<<<<<
@@ -3419,7 +3419,7 @@ static double __pyx_f_4xsmc_8_sampler_logsumexp(__Pyx_memviewslice __pyx_v_x) {
  */
   __pyx_v_N = (__pyx_v_x.shape[0]);
 
-  /* "xsmc/_sampler.pyx":118
+  /* "xsmc/_sampler.pyx":120
  *     cdef int n
  *     cdef int N = x.shape[0]
  *     cdef double m = NINF             # <<<<<<<<<<<<<<
@@ -3428,7 +3428,7 @@ static double __pyx_f_4xsmc_8_sampler_logsumexp(__Pyx_memviewslice __pyx_v_x) {
  */
   __pyx_v_m = __pyx_v_4xsmc_8_sampler_NINF;
 
-  /* "xsmc/_sampler.pyx":119
+  /* "xsmc/_sampler.pyx":121
  *     cdef int N = x.shape[0]
  *     cdef double m = NINF
  *     for n in range(N):             # <<<<<<<<<<<<<<
@@ -3440,7 +3440,7 @@ static double __pyx_f_4xsmc_8_sampler_logsumexp(__Pyx_memviewslice __pyx_v_x) {
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_n = __pyx_t_3;
 
-    /* "xsmc/_sampler.pyx":120
+    /* "xsmc/_sampler.pyx":122
  *     cdef double m = NINF
  *     for n in range(N):
  *         m = max(m, x[n])             # <<<<<<<<<<<<<<
@@ -3459,7 +3459,7 @@ static double __pyx_f_4xsmc_8_sampler_logsumexp(__Pyx_memviewslice __pyx_v_x) {
     __pyx_v_m = __pyx_t_7;
   }
 
-  /* "xsmc/_sampler.pyx":121
+  /* "xsmc/_sampler.pyx":123
  *     for n in range(N):
  *         m = max(m, x[n])
  *     if m == NINF:             # <<<<<<<<<<<<<<
@@ -3469,7 +3469,7 @@ static double __pyx_f_4xsmc_8_sampler_logsumexp(__Pyx_memviewslice __pyx_v_x) {
   __pyx_t_8 = ((__pyx_v_m == __pyx_v_4xsmc_8_sampler_NINF) != 0);
   if (__pyx_t_8) {
 
-    /* "xsmc/_sampler.pyx":122
+    /* "xsmc/_sampler.pyx":124
  *         m = max(m, x[n])
  *     if m == NINF:
  *         return m             # <<<<<<<<<<<<<<
@@ -3479,7 +3479,7 @@ static double __pyx_f_4xsmc_8_sampler_logsumexp(__Pyx_memviewslice __pyx_v_x) {
     __pyx_r = __pyx_v_m;
     goto __pyx_L0;
 
-    /* "xsmc/_sampler.pyx":121
+    /* "xsmc/_sampler.pyx":123
  *     for n in range(N):
  *         m = max(m, x[n])
  *     if m == NINF:             # <<<<<<<<<<<<<<
@@ -3488,7 +3488,7 @@ static double __pyx_f_4xsmc_8_sampler_logsumexp(__Pyx_memviewslice __pyx_v_x) {
  */
   }
 
-  /* "xsmc/_sampler.pyx":123
+  /* "xsmc/_sampler.pyx":125
  *     if m == NINF:
  *         return m
  *     cdef double tmp = 0.             # <<<<<<<<<<<<<<
@@ -3497,7 +3497,7 @@ static double __pyx_f_4xsmc_8_sampler_logsumexp(__Pyx_memviewslice __pyx_v_x) {
  */
   __pyx_v_tmp = 0.;
 
-  /* "xsmc/_sampler.pyx":124
+  /* "xsmc/_sampler.pyx":126
  *         return m
  *     cdef double tmp = 0.
  *     for n in range(N):             # <<<<<<<<<<<<<<
@@ -3509,7 +3509,7 @@ static double __pyx_f_4xsmc_8_sampler_logsumexp(__Pyx_memviewslice __pyx_v_x) {
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_n = __pyx_t_3;
 
-    /* "xsmc/_sampler.pyx":125
+    /* "xsmc/_sampler.pyx":127
  *     cdef double tmp = 0.
  *     for n in range(N):
  *         tmp += exp(x[n] - m)             # <<<<<<<<<<<<<<
@@ -3521,7 +3521,7 @@ static double __pyx_f_4xsmc_8_sampler_logsumexp(__Pyx_memviewslice __pyx_v_x) {
     __pyx_v_tmp = (__pyx_v_tmp + exp(((*((double *) ( /* dim=0 */ (__pyx_v_x.data + __pyx_t_4 * __pyx_v_x.strides[0]) ))) - __pyx_v_m)));
   }
 
-  /* "xsmc/_sampler.pyx":126
+  /* "xsmc/_sampler.pyx":128
  *     for n in range(N):
  *         tmp += exp(x[n] - m)
  *     cdef double ret = m + log(tmp)             # <<<<<<<<<<<<<<
@@ -3530,7 +3530,7 @@ static double __pyx_f_4xsmc_8_sampler_logsumexp(__Pyx_memviewslice __pyx_v_x) {
  */
   __pyx_v_ret = (__pyx_v_m + log(__pyx_v_tmp));
 
-  /* "xsmc/_sampler.pyx":127
+  /* "xsmc/_sampler.pyx":129
  *         tmp += exp(x[n] - m)
  *     cdef double ret = m + log(tmp)
  *     return ret             # <<<<<<<<<<<<<<
@@ -3540,7 +3540,7 @@ static double __pyx_f_4xsmc_8_sampler_logsumexp(__Pyx_memviewslice __pyx_v_x) {
   __pyx_r = __pyx_v_ret;
   goto __pyx_L0;
 
-  /* "xsmc/_sampler.pyx":115
+  /* "xsmc/_sampler.pyx":117
  * 
  * 
  * cdef double logsumexp(double[:] x) nogil:             # <<<<<<<<<<<<<<
@@ -3553,7 +3553,7 @@ static double __pyx_f_4xsmc_8_sampler_logsumexp(__Pyx_memviewslice __pyx_v_x) {
   return __pyx_r;
 }
 
-/* "xsmc/_sampler.pyx":129
+/* "xsmc/_sampler.pyx":131
  *     return ret
  * 
  * cdef void init_log_Q(double[:] log_Q, double[:] tmp,             # <<<<<<<<<<<<<<
@@ -3579,7 +3579,7 @@ static void __pyx_f_4xsmc_8_sampler_init_log_Q(__Pyx_memviewslice __pyx_v_log_Q,
   Py_ssize_t __pyx_t_9;
   int __pyx_t_10;
 
-  /* "xsmc/_sampler.pyx":133
+  /* "xsmc/_sampler.pyx":135
  *     sampler_params params) nogil:
  *     """Model evidence for observations X_{t:}."""
  *     cdef double eps = log(params.eps)             # <<<<<<<<<<<<<<
@@ -3588,7 +3588,7 @@ static void __pyx_f_4xsmc_8_sampler_init_log_Q(__Pyx_memviewslice __pyx_v_log_Q,
  */
   __pyx_v_eps = log(__pyx_v_params.eps);
 
-  /* "xsmc/_sampler.pyx":136
+  /* "xsmc/_sampler.pyx":138
  *     cdef double p, m
  * 
  *     cdef int n = log_Q.shape[0]             # <<<<<<<<<<<<<<
@@ -3597,7 +3597,7 @@ static void __pyx_f_4xsmc_8_sampler_init_log_Q(__Pyx_memviewslice __pyx_v_log_Q,
  */
   __pyx_v_n = (__pyx_v_log_Q.shape[0]);
 
-  /* "xsmc/_sampler.pyx":138
+  /* "xsmc/_sampler.pyx":140
  *     cdef int n = log_Q.shape[0]
  *     cdef int s, t
  *     for t in range(n - 1, -1, -1):             # <<<<<<<<<<<<<<
@@ -3607,7 +3607,7 @@ static void __pyx_f_4xsmc_8_sampler_init_log_Q(__Pyx_memviewslice __pyx_v_log_Q,
   for (__pyx_t_1 = (__pyx_v_n - 1); __pyx_t_1 > -1; __pyx_t_1-=1) {
     __pyx_v_t = __pyx_t_1;
 
-    /* "xsmc/_sampler.pyx":139
+    /* "xsmc/_sampler.pyx":141
  *     cdef int s, t
  *     for t in range(n - 1, -1, -1):
  *         log_P(tmp, t, n, Xcs, lgammacs, positions, params)             # <<<<<<<<<<<<<<
@@ -3616,7 +3616,7 @@ static void __pyx_f_4xsmc_8_sampler_init_log_Q(__Pyx_memviewslice __pyx_v_log_Q,
  */
     __pyx_f_4xsmc_8_sampler_log_P(__pyx_v_tmp, __pyx_v_t, __pyx_v_n, __pyx_v_Xcs, __pyx_v_lgammacs, __pyx_v_positions, __pyx_v_params);
 
-    /* "xsmc/_sampler.pyx":140
+    /* "xsmc/_sampler.pyx":142
  *     for t in range(n - 1, -1, -1):
  *         log_P(tmp, t, n, Xcs, lgammacs, positions, params)
  *         log_Q[t] = logsumexp(tmp)             # <<<<<<<<<<<<<<
@@ -3627,7 +3627,7 @@ static void __pyx_f_4xsmc_8_sampler_init_log_Q(__Pyx_memviewslice __pyx_v_log_Q,
     if (__pyx_t_2 < 0) __pyx_t_2 += __pyx_v_log_Q.shape[0];
     *((double *) ( /* dim=0 */ (__pyx_v_log_Q.data + __pyx_t_2 * __pyx_v_log_Q.strides[0]) )) = __pyx_f_4xsmc_8_sampler_logsumexp(__pyx_v_tmp);
 
-    /* "xsmc/_sampler.pyx":144
+    /* "xsmc/_sampler.pyx":146
  *             with gil:
  *                 print('t', t, 'log_Q[t]', np.asarray(log_Q[t]))
  *         for s in range(t + 1, n):             # <<<<<<<<<<<<<<
@@ -3639,7 +3639,7 @@ static void __pyx_f_4xsmc_8_sampler_init_log_Q(__Pyx_memviewslice __pyx_v_log_Q,
     for (__pyx_t_5 = (__pyx_v_t + 1); __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_s = __pyx_t_5;
 
-      /* "xsmc/_sampler.pyx":145
+      /* "xsmc/_sampler.pyx":147
  *                 print('t', t, 'log_Q[t]', np.asarray(log_Q[t]))
  *         for s in range(t + 1, n):
  *             log_P(tmp, t, s, Xcs, lgammacs, positions, params)             # <<<<<<<<<<<<<<
@@ -3648,7 +3648,7 @@ static void __pyx_f_4xsmc_8_sampler_init_log_Q(__Pyx_memviewslice __pyx_v_log_Q,
  */
       __pyx_f_4xsmc_8_sampler_log_P(__pyx_v_tmp, __pyx_v_t, __pyx_v_s, __pyx_v_Xcs, __pyx_v_lgammacs, __pyx_v_positions, __pyx_v_params);
 
-      /* "xsmc/_sampler.pyx":146
+      /* "xsmc/_sampler.pyx":148
  *         for s in range(t + 1, n):
  *             log_P(tmp, t, s, Xcs, lgammacs, positions, params)
  *             p = logsumexp(tmp) + log_Q[s]             # <<<<<<<<<<<<<<
@@ -3659,7 +3659,7 @@ static void __pyx_f_4xsmc_8_sampler_init_log_Q(__Pyx_memviewslice __pyx_v_log_Q,
       if (__pyx_t_2 < 0) __pyx_t_2 += __pyx_v_log_Q.shape[0];
       __pyx_v_p = (__pyx_f_4xsmc_8_sampler_logsumexp(__pyx_v_tmp) + (*((double *) ( /* dim=0 */ (__pyx_v_log_Q.data + __pyx_t_2 * __pyx_v_log_Q.strides[0]) ))));
 
-      /* "xsmc/_sampler.pyx":147
+      /* "xsmc/_sampler.pyx":149
  *             log_P(tmp, t, s, Xcs, lgammacs, positions, params)
  *             p = logsumexp(tmp) + log_Q[s]
  *             m = max(log_Q[t], p)             # <<<<<<<<<<<<<<
@@ -3677,7 +3677,7 @@ static void __pyx_f_4xsmc_8_sampler_init_log_Q(__Pyx_memviewslice __pyx_v_log_Q,
       }
       __pyx_v_m = __pyx_t_8;
 
-      /* "xsmc/_sampler.pyx":148
+      /* "xsmc/_sampler.pyx":150
  *             p = logsumexp(tmp) + log_Q[s]
  *             m = max(log_Q[t], p)
  *             log_Q[t] = m + log(exp(log_Q[t] - m) + exp(p - m))             # <<<<<<<<<<<<<<
@@ -3690,7 +3690,7 @@ static void __pyx_f_4xsmc_8_sampler_init_log_Q(__Pyx_memviewslice __pyx_v_log_Q,
       if (__pyx_t_9 < 0) __pyx_t_9 += __pyx_v_log_Q.shape[0];
       *((double *) ( /* dim=0 */ (__pyx_v_log_Q.data + __pyx_t_9 * __pyx_v_log_Q.strides[0]) )) = (__pyx_v_m + log((exp(((*((double *) ( /* dim=0 */ (__pyx_v_log_Q.data + __pyx_t_2 * __pyx_v_log_Q.strides[0]) ))) - __pyx_v_m)) + exp((__pyx_v_p - __pyx_v_m)))));
 
-      /* "xsmc/_sampler.pyx":149
+      /* "xsmc/_sampler.pyx":151
  *             m = max(log_Q[t], p)
  *             log_Q[t] = m + log(exp(log_Q[t] - m) + exp(p - m))
  *             if p - log_Q[t] < eps:             # <<<<<<<<<<<<<<
@@ -3702,7 +3702,7 @@ static void __pyx_f_4xsmc_8_sampler_init_log_Q(__Pyx_memviewslice __pyx_v_log_Q,
       __pyx_t_10 = (((__pyx_v_p - (*((double *) ( /* dim=0 */ (__pyx_v_log_Q.data + __pyx_t_2 * __pyx_v_log_Q.strides[0]) )))) < __pyx_v_eps) != 0);
       if (__pyx_t_10) {
 
-        /* "xsmc/_sampler.pyx":150
+        /* "xsmc/_sampler.pyx":152
  *             log_Q[t] = m + log(exp(log_Q[t] - m) + exp(p - m))
  *             if p - log_Q[t] < eps:
  *                 break             # <<<<<<<<<<<<<<
@@ -3711,7 +3711,7 @@ static void __pyx_f_4xsmc_8_sampler_init_log_Q(__Pyx_memviewslice __pyx_v_log_Q,
  */
         goto __pyx_L6_break;
 
-        /* "xsmc/_sampler.pyx":149
+        /* "xsmc/_sampler.pyx":151
  *             m = max(log_Q[t], p)
  *             log_Q[t] = m + log(exp(log_Q[t] - m) + exp(p - m))
  *             if p - log_Q[t] < eps:             # <<<<<<<<<<<<<<
@@ -3723,7 +3723,7 @@ static void __pyx_f_4xsmc_8_sampler_init_log_Q(__Pyx_memviewslice __pyx_v_log_Q,
     __pyx_L6_break:;
   }
 
-  /* "xsmc/_sampler.pyx":129
+  /* "xsmc/_sampler.pyx":131
  *     return ret
  * 
  * cdef void init_log_Q(double[:] log_Q, double[:] tmp,             # <<<<<<<<<<<<<<
@@ -3734,7 +3734,7 @@ static void __pyx_f_4xsmc_8_sampler_init_log_Q(__Pyx_memviewslice __pyx_v_log_Q,
   /* function exit code */
 }
 
-/* "xsmc/_sampler.pyx":153
+/* "xsmc/_sampler.pyx":155
  * 
  * 
  * cdef void P_tau_i(double[:] out, const int tau_jm1, const int k, double[:] log_Q, long[:, :] Xcs, double[:, :] lgammacs, double[:] positions,             # <<<<<<<<<<<<<<
@@ -3754,7 +3754,7 @@ static void __pyx_f_4xsmc_8_sampler_P_tau_i(__Pyx_memviewslice __pyx_v_out, int 
   Py_ssize_t __pyx_t_6;
   Py_ssize_t __pyx_t_7;
 
-  /* "xsmc/_sampler.pyx":156
+  /* "xsmc/_sampler.pyx":158
  *         sampler_params params) nogil:
  *     # log(P_tau[i]) where P_tau is defined above
  *     cdef int H = out.shape[0]             # <<<<<<<<<<<<<<
@@ -3763,7 +3763,7 @@ static void __pyx_f_4xsmc_8_sampler_P_tau_i(__Pyx_memviewslice __pyx_v_out, int 
  */
   __pyx_v_H = (__pyx_v_out.shape[0]);
 
-  /* "xsmc/_sampler.pyx":157
+  /* "xsmc/_sampler.pyx":159
  *     # log(P_tau[i]) where P_tau is defined above
  *     cdef int H = out.shape[0]
  *     cdef int tau0 = tau_jm1 + 1             # <<<<<<<<<<<<<<
@@ -3772,7 +3772,7 @@ static void __pyx_f_4xsmc_8_sampler_P_tau_i(__Pyx_memviewslice __pyx_v_out, int 
  */
   __pyx_v_tau0 = (__pyx_v_tau_jm1 + 1);
 
-  /* "xsmc/_sampler.pyx":158
+  /* "xsmc/_sampler.pyx":160
  *     cdef int H = out.shape[0]
  *     cdef int tau0 = tau_jm1 + 1
  *     log_P(out, tau0, k, Xcs, lgammacs, positions, params)             # <<<<<<<<<<<<<<
@@ -3781,7 +3781,7 @@ static void __pyx_f_4xsmc_8_sampler_P_tau_i(__Pyx_memviewslice __pyx_v_out, int 
  */
   __pyx_f_4xsmc_8_sampler_log_P(__pyx_v_out, __pyx_v_tau0, __pyx_v_k, __pyx_v_Xcs, __pyx_v_lgammacs, __pyx_v_positions, __pyx_v_params);
 
-  /* "xsmc/_sampler.pyx":161
+  /* "xsmc/_sampler.pyx":163
  *     # with gil:
  *     #     print("P_tau_i(%d,%d)=%s log_Q[%d]=%f log_Q[%d]=%f" % (tau0, k, np.array(out), k, log_Q[k], tau0, log_Q[tau0]))
  *     for h in range(H):             # <<<<<<<<<<<<<<
@@ -3793,7 +3793,7 @@ static void __pyx_f_4xsmc_8_sampler_P_tau_i(__Pyx_memviewslice __pyx_v_out, int 
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_h = __pyx_t_3;
 
-    /* "xsmc/_sampler.pyx":162
+    /* "xsmc/_sampler.pyx":164
  *     #     print("P_tau_i(%d,%d)=%s log_Q[%d]=%f log_Q[%d]=%f" % (tau0, k, np.array(out), k, log_Q[k], tau0, log_Q[tau0]))
  *     for h in range(H):
  *         out[h] = exp(out[h] + log_Q[k] - log_Q[tau0])             # <<<<<<<<<<<<<<
@@ -3811,7 +3811,7 @@ static void __pyx_f_4xsmc_8_sampler_P_tau_i(__Pyx_memviewslice __pyx_v_out, int 
     *((double *) ( /* dim=0 */ (__pyx_v_out.data + __pyx_t_7 * __pyx_v_out.strides[0]) )) = exp((((*((double *) ( /* dim=0 */ (__pyx_v_out.data + __pyx_t_4 * __pyx_v_out.strides[0]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_log_Q.data + __pyx_t_5 * __pyx_v_log_Q.strides[0]) )))) - (*((double *) ( /* dim=0 */ (__pyx_v_log_Q.data + __pyx_t_6 * __pyx_v_log_Q.strides[0]) )))));
   }
 
-  /* "xsmc/_sampler.pyx":153
+  /* "xsmc/_sampler.pyx":155
  * 
  * 
  * cdef void P_tau_i(double[:] out, const int tau_jm1, const int k, double[:] log_Q, long[:, :] Xcs, double[:, :] lgammacs, double[:] positions,             # <<<<<<<<<<<<<<
@@ -3822,7 +3822,7 @@ static void __pyx_f_4xsmc_8_sampler_P_tau_i(__Pyx_memviewslice __pyx_v_out, int 
   /* function exit code */
 }
 
-/* "xsmc/_sampler.pyx":165
+/* "xsmc/_sampler.pyx":167
  * 
  * 
  * cdef void uniform_order_statistics(double[:] out, int n, default_random_engine &rng) nogil:             # <<<<<<<<<<<<<<
@@ -3838,7 +3838,7 @@ static void __pyx_f_4xsmc_8_sampler_uniform_order_statistics(__Pyx_memviewslice 
   int __pyx_t_4;
   Py_ssize_t __pyx_t_5;
 
-  /* "xsmc/_sampler.pyx":167
+  /* "xsmc/_sampler.pyx":169
  * cdef void uniform_order_statistics(double[:] out, int n, default_random_engine &rng) nogil:
  *     # lazily sample from log_P_tau
  *     out[0] = rexp(rng)             # <<<<<<<<<<<<<<
@@ -3849,7 +3849,7 @@ static void __pyx_f_4xsmc_8_sampler_uniform_order_statistics(__Pyx_memviewslice 
   if (__pyx_t_1 < 0) __pyx_t_1 += __pyx_v_out.shape[0];
   *((double *) ( /* dim=0 */ (__pyx_v_out.data + __pyx_t_1 * __pyx_v_out.strides[0]) )) = rexp(__pyx_v_rng);
 
-  /* "xsmc/_sampler.pyx":169
+  /* "xsmc/_sampler.pyx":171
  *     out[0] = rexp(rng)
  *     cdef int j
  *     for j in range(1, n + 1):             # <<<<<<<<<<<<<<
@@ -3861,7 +3861,7 @@ static void __pyx_f_4xsmc_8_sampler_uniform_order_statistics(__Pyx_memviewslice 
   for (__pyx_t_4 = 1; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_j = __pyx_t_4;
 
-    /* "xsmc/_sampler.pyx":170
+    /* "xsmc/_sampler.pyx":172
  *     cdef int j
  *     for j in range(1, n + 1):
  *         out[j] = out[j - 1] + rexp(rng)             # <<<<<<<<<<<<<<
@@ -3875,7 +3875,7 @@ static void __pyx_f_4xsmc_8_sampler_uniform_order_statistics(__Pyx_memviewslice 
     *((double *) ( /* dim=0 */ (__pyx_v_out.data + __pyx_t_5 * __pyx_v_out.strides[0]) )) = ((*((double *) ( /* dim=0 */ (__pyx_v_out.data + __pyx_t_1 * __pyx_v_out.strides[0]) ))) + rexp(__pyx_v_rng));
   }
 
-  /* "xsmc/_sampler.pyx":173
+  /* "xsmc/_sampler.pyx":175
  *     # with gil:
  *     #     print('out', n, out[n], np.array(out))
  *     for j in range(n + 1):             # <<<<<<<<<<<<<<
@@ -3887,7 +3887,7 @@ static void __pyx_f_4xsmc_8_sampler_uniform_order_statistics(__Pyx_memviewslice 
   for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_j = __pyx_t_4;
 
-    /* "xsmc/_sampler.pyx":174
+    /* "xsmc/_sampler.pyx":176
  *     #     print('out', n, out[n], np.array(out))
  *     for j in range(n + 1):
  *         out[j] /= out[n]             # <<<<<<<<<<<<<<
@@ -3901,7 +3901,7 @@ static void __pyx_f_4xsmc_8_sampler_uniform_order_statistics(__Pyx_memviewslice 
     *((double *) ( /* dim=0 */ (__pyx_v_out.data + __pyx_t_5 * __pyx_v_out.strides[0]) )) /= (*((double *) ( /* dim=0 */ (__pyx_v_out.data + __pyx_t_1 * __pyx_v_out.strides[0]) )));
   }
 
-  /* "xsmc/_sampler.pyx":165
+  /* "xsmc/_sampler.pyx":167
  * 
  * 
  * cdef void uniform_order_statistics(double[:] out, int n, default_random_engine &rng) nogil:             # <<<<<<<<<<<<<<
@@ -3912,7 +3912,7 @@ static void __pyx_f_4xsmc_8_sampler_uniform_order_statistics(__Pyx_memviewslice 
   /* function exit code */
 }
 
-/* "xsmc/_sampler.pyx":178
+/* "xsmc/_sampler.pyx":180
  *     #     print('out2', n, out[n], np.array(out))
  * 
  * cdef vector[vector[pair[int, int]]] _sample_paths(int u, seed, double[:] log_Q, long[:, :] Xcs,             # <<<<<<<<<<<<<<
@@ -3969,7 +3969,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_sample_paths", 0);
 
-  /* "xsmc/_sampler.pyx":183
+  /* "xsmc/_sampler.pyx":185
  *     cdef int H, n
  *     cdef default_random_engine rng
  *     if seed is not None:             # <<<<<<<<<<<<<<
@@ -3980,17 +3980,17 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "xsmc/_sampler.pyx":184
+    /* "xsmc/_sampler.pyx":186
  *     cdef default_random_engine rng
  *     if seed is not None:
  *         rng.seed(seed)             # <<<<<<<<<<<<<<
  *     H = Xcs.shape[0]
  *     n = Xcs.shape[1] - 1
  */
-    __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_seed); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 184, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_seed); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 186, __pyx_L1_error)
     __pyx_v_rng.seed(__pyx_t_3);
 
-    /* "xsmc/_sampler.pyx":183
+    /* "xsmc/_sampler.pyx":185
  *     cdef int H, n
  *     cdef default_random_engine rng
  *     if seed is not None:             # <<<<<<<<<<<<<<
@@ -3999,7 +3999,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
   }
 
-  /* "xsmc/_sampler.pyx":185
+  /* "xsmc/_sampler.pyx":187
  *     if seed is not None:
  *         rng.seed(seed)
  *     H = Xcs.shape[0]             # <<<<<<<<<<<<<<
@@ -4008,7 +4008,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
   __pyx_v_H = (__pyx_v_Xcs.shape[0]);
 
-  /* "xsmc/_sampler.pyx":186
+  /* "xsmc/_sampler.pyx":188
  *         rng.seed(seed)
  *     H = Xcs.shape[0]
  *     n = Xcs.shape[1] - 1             # <<<<<<<<<<<<<<
@@ -4017,7 +4017,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
   __pyx_v_n = ((__pyx_v_Xcs.shape[1]) - 1);
 
-  /* "xsmc/_sampler.pyx":188
+  /* "xsmc/_sampler.pyx":190
  *     n = Xcs.shape[1] - 1
  *     cdef vector[vector[pair[int, int]]] paths
  *     paths.resize(u)             # <<<<<<<<<<<<<<
@@ -4028,94 +4028,22 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
     __pyx_v_paths.resize(__pyx_v_u);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 188, __pyx_L1_error)
+    __PYX_ERR(0, 190, __pyx_L1_error)
   }
 
-  /* "xsmc/_sampler.pyx":192
+  /* "xsmc/_sampler.pyx":194
  *     cdef int h, i, j, k, m
  *     cdef double p, q, s
  *     cdef double[:] cum_prob = np.zeros(H)             # <<<<<<<<<<<<<<
  *     cdef double[:] p_j = np.zeros(H)
  *     cdef double[:] z = np.zeros(u + 1)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 192, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_zeros); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 192, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_H); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 192, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
-    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_6);
-    if (likely(__pyx_t_7)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
-      __Pyx_INCREF(__pyx_t_7);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_6, function);
-    }
-  }
-  __pyx_t_4 = (__pyx_t_7) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_7, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 192, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_4, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 192, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_v_cum_prob = __pyx_t_8;
-  __pyx_t_8.memview = NULL;
-  __pyx_t_8.data = NULL;
-
-  /* "xsmc/_sampler.pyx":193
- *     cdef double p, q, s
- *     cdef double[:] cum_prob = np.zeros(H)
- *     cdef double[:] p_j = np.zeros(H)             # <<<<<<<<<<<<<<
- *     cdef double[:] z = np.zeros(u + 1)
- *     for i in range(u):
- */
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 193, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 193, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_H); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 193, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
-    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_5);
-    if (likely(__pyx_t_7)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-      __Pyx_INCREF(__pyx_t_7);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_5, function);
-    }
-  }
-  __pyx_t_4 = (__pyx_t_7) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_7, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6);
-  __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 193, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_4, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 193, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_v_p_j = __pyx_t_8;
-  __pyx_t_8.memview = NULL;
-  __pyx_t_8.data = NULL;
-
-  /* "xsmc/_sampler.pyx":194
- *     cdef double[:] cum_prob = np.zeros(H)
- *     cdef double[:] p_j = np.zeros(H)
- *     cdef double[:] z = np.zeros(u + 1)             # <<<<<<<<<<<<<<
- *     for i in range(u):
- *         paths.at(i).push_back((-1, -1))
- */
   __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 194, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_zeros); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 194, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyInt_From_long((__pyx_v_u + 1)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_H); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 194, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_7 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
@@ -4135,11 +4063,83 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_4, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 194, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_v_z = __pyx_t_8;
+  __pyx_v_cum_prob = __pyx_t_8;
   __pyx_t_8.memview = NULL;
   __pyx_t_8.data = NULL;
 
   /* "xsmc/_sampler.pyx":195
+ *     cdef double p, q, s
+ *     cdef double[:] cum_prob = np.zeros(H)
+ *     cdef double[:] p_j = np.zeros(H)             # <<<<<<<<<<<<<<
+ *     cdef double[:] z = np.zeros(u + 1)
+ *     for i in range(u):
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_H); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_7 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
+    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_5);
+    if (likely(__pyx_t_7)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_7);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_5, function);
+    }
+  }
+  __pyx_t_4 = (__pyx_t_7) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_7, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_4, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_v_p_j = __pyx_t_8;
+  __pyx_t_8.memview = NULL;
+  __pyx_t_8.data = NULL;
+
+  /* "xsmc/_sampler.pyx":196
+ *     cdef double[:] cum_prob = np.zeros(H)
+ *     cdef double[:] p_j = np.zeros(H)
+ *     cdef double[:] z = np.zeros(u + 1)             # <<<<<<<<<<<<<<
+ *     for i in range(u):
+ *         paths.at(i).push_back((-1, -1))
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_zeros); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_5 = __Pyx_PyInt_From_long((__pyx_v_u + 1)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_7 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
+    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_6);
+    if (likely(__pyx_t_7)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
+      __Pyx_INCREF(__pyx_t_7);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_6, function);
+    }
+  }
+  __pyx_t_4 = (__pyx_t_7) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_7, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_4, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_v_z = __pyx_t_8;
+  __pyx_t_8.memview = NULL;
+  __pyx_t_8.data = NULL;
+
+  /* "xsmc/_sampler.pyx":197
  *     cdef double[:] p_j = np.zeros(H)
  *     cdef double[:] z = np.zeros(u + 1)
  *     for i in range(u):             # <<<<<<<<<<<<<<
@@ -4151,7 +4151,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
   for (__pyx_t_10 = 0; __pyx_t_10 < __pyx_t_9; __pyx_t_10+=1) {
     __pyx_v_i = __pyx_t_10;
 
-    /* "xsmc/_sampler.pyx":196
+    /* "xsmc/_sampler.pyx":198
  *     cdef double[:] z = np.zeros(u + 1)
  *     for i in range(u):
  *         paths.at(i).push_back((-1, -1))             # <<<<<<<<<<<<<<
@@ -4162,18 +4162,18 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
       __pyx_t_11 = __pyx_v_paths.at(__pyx_v_i);
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      __PYX_ERR(0, 196, __pyx_L1_error)
+      __PYX_ERR(0, 198, __pyx_L1_error)
     }
-    __pyx_t_12 = __pyx_convert_pair_from_py_int__and_int(__pyx_tuple_); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 196, __pyx_L1_error)
+    __pyx_t_12 = __pyx_convert_pair_from_py_int__and_int(__pyx_tuple_); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 198, __pyx_L1_error)
     try {
       __pyx_t_11->push_back(__pyx_t_12);
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      __PYX_ERR(0, 196, __pyx_L1_error)
+      __PYX_ERR(0, 198, __pyx_L1_error)
     }
   }
 
-  /* "xsmc/_sampler.pyx":197
+  /* "xsmc/_sampler.pyx":199
  *     for i in range(u):
  *         paths.at(i).push_back((-1, -1))
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -4188,7 +4188,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
       #endif
       /*try:*/ {
 
-        /* "xsmc/_sampler.pyx":198
+        /* "xsmc/_sampler.pyx":200
  *         paths.at(i).push_back((-1, -1))
  *     with nogil:
  *         for i in range(n - 1):             # <<<<<<<<<<<<<<
@@ -4200,7 +4200,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
         for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_14; __pyx_t_3+=1) {
           __pyx_v_i = __pyx_t_3;
 
-          /* "xsmc/_sampler.pyx":200
+          /* "xsmc/_sampler.pyx":202
  *         for i in range(n - 1):
  *             # these need a new changepoint
  *             a.clear()             # <<<<<<<<<<<<<<
@@ -4209,7 +4209,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
           __pyx_v_a.clear();
 
-          /* "xsmc/_sampler.pyx":201
+          /* "xsmc/_sampler.pyx":203
  *             # these need a new changepoint
  *             a.clear()
  *             cum_prob[:] = 0.             # <<<<<<<<<<<<<<
@@ -4231,7 +4231,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
               }
           }
 
-          /* "xsmc/_sampler.pyx":202
+          /* "xsmc/_sampler.pyx":204
  *             a.clear()
  *             cum_prob[:] = 0.
  *             for j in range(u):             # <<<<<<<<<<<<<<
@@ -4243,7 +4243,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
           for (__pyx_t_15 = 0; __pyx_t_15 < __pyx_t_10; __pyx_t_15+=1) {
             __pyx_v_j = __pyx_t_15;
 
-            /* "xsmc/_sampler.pyx":203
+            /* "xsmc/_sampler.pyx":205
  *             cum_prob[:] = 0.
  *             for j in range(u):
  *                 if paths.at(j).back().first == i - 1:             # <<<<<<<<<<<<<<
@@ -4260,12 +4260,12 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 203, __pyx_L7_error)
+              __PYX_ERR(0, 205, __pyx_L7_error)
             }
             __pyx_t_2 = ((__pyx_t_16->back().first == (__pyx_v_i - 1)) != 0);
             if (__pyx_t_2) {
 
-              /* "xsmc/_sampler.pyx":204
+              /* "xsmc/_sampler.pyx":206
  *             for j in range(u):
  *                 if paths.at(j).back().first == i - 1:
  *                     a.push_back(j)             # <<<<<<<<<<<<<<
@@ -4282,10 +4282,10 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
                 #ifdef WITH_THREAD
                 __Pyx_PyGILState_Release(__pyx_gilstate_save);
                 #endif
-                __PYX_ERR(0, 204, __pyx_L7_error)
+                __PYX_ERR(0, 206, __pyx_L7_error)
               }
 
-              /* "xsmc/_sampler.pyx":203
+              /* "xsmc/_sampler.pyx":205
  *             cum_prob[:] = 0.
  *             for j in range(u):
  *                 if paths.at(j).back().first == i - 1:             # <<<<<<<<<<<<<<
@@ -4295,7 +4295,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
             }
           }
 
-          /* "xsmc/_sampler.pyx":205
+          /* "xsmc/_sampler.pyx":207
  *                 if paths.at(j).back().first == i - 1:
  *                     a.push_back(j)
  *             if a.size() == 0:             # <<<<<<<<<<<<<<
@@ -4305,7 +4305,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
           __pyx_t_2 = ((__pyx_v_a.size() == 0) != 0);
           if (__pyx_t_2) {
 
-            /* "xsmc/_sampler.pyx":206
+            /* "xsmc/_sampler.pyx":208
  *                     a.push_back(j)
  *             if a.size() == 0:
  *                 continue             # <<<<<<<<<<<<<<
@@ -4314,7 +4314,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
             goto __pyx_L9_continue;
 
-            /* "xsmc/_sampler.pyx":205
+            /* "xsmc/_sampler.pyx":207
  *                 if paths.at(j).back().first == i - 1:
  *                     a.push_back(j)
  *             if a.size() == 0:             # <<<<<<<<<<<<<<
@@ -4323,7 +4323,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
           }
 
-          /* "xsmc/_sampler.pyx":207
+          /* "xsmc/_sampler.pyx":209
  *             if a.size() == 0:
  *                 continue
  *             shuffle(a, rng)             # <<<<<<<<<<<<<<
@@ -4332,7 +4332,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
           shuffle(__pyx_v_a, __pyx_v_rng);
 
-          /* "xsmc/_sampler.pyx":208
+          /* "xsmc/_sampler.pyx":210
  *                 continue
  *             shuffle(a, rng)
  *             uniform_order_statistics(z, a.size(), rng)             # <<<<<<<<<<<<<<
@@ -4341,7 +4341,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
           __pyx_f_4xsmc_8_sampler_uniform_order_statistics(__pyx_v_z, __pyx_v_a.size(), __pyx_v_rng);
 
-          /* "xsmc/_sampler.pyx":209
+          /* "xsmc/_sampler.pyx":211
  *             shuffle(a, rng)
  *             uniform_order_statistics(z, a.size(), rng)
  *             q = 0.0             # <<<<<<<<<<<<<<
@@ -4350,7 +4350,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
           __pyx_v_q = 0.0;
 
-          /* "xsmc/_sampler.pyx":210
+          /* "xsmc/_sampler.pyx":212
  *             uniform_order_statistics(z, a.size(), rng)
  *             q = 0.0
  *             j = i + 1   # j <= n - 1 here.             # <<<<<<<<<<<<<<
@@ -4359,7 +4359,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
           __pyx_v_j = (__pyx_v_i + 1);
 
-          /* "xsmc/_sampler.pyx":211
+          /* "xsmc/_sampler.pyx":213
  *             q = 0.0
  *             j = i + 1   # j <= n - 1 here.
  *             k = 0             # <<<<<<<<<<<<<<
@@ -4368,7 +4368,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
           __pyx_v_k = 0;
 
-          /* "xsmc/_sampler.pyx":212
+          /* "xsmc/_sampler.pyx":214
  *             j = i + 1   # j <= n - 1 here.
  *             k = 0
  *             P_tau_i(p_j, i - 1, j, log_Q, Xcs, lgammacs, positions, params)             # <<<<<<<<<<<<<<
@@ -4377,7 +4377,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
           __pyx_f_4xsmc_8_sampler_P_tau_i(__pyx_v_p_j, (__pyx_v_i - 1), __pyx_v_j, __pyx_v_log_Q, __pyx_v_Xcs, __pyx_v_lgammacs, __pyx_v_positions, __pyx_v_params);
 
-          /* "xsmc/_sampler.pyx":215
+          /* "xsmc/_sampler.pyx":217
  *             # with gil:
  *             #     print('i', i, 'j', j, 'p_j', np.array(p_j), 'z', np.array(z))
  *             h = 0             # <<<<<<<<<<<<<<
@@ -4386,7 +4386,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
           __pyx_v_h = 0;
 
-          /* "xsmc/_sampler.pyx":216
+          /* "xsmc/_sampler.pyx":218
  *             #     print('i', i, 'j', j, 'p_j', np.array(p_j), 'z', np.array(z))
  *             h = 0
  *             while k < a.size() and j < n - 1:             # <<<<<<<<<<<<<<
@@ -4405,7 +4405,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
             __pyx_L17_bool_binop_done:;
             if (!__pyx_t_2) break;
 
-            /* "xsmc/_sampler.pyx":217
+            /* "xsmc/_sampler.pyx":219
  *             h = 0
  *             while k < a.size() and j < n - 1:
  *                 if z[k] < q + p_j[h]:             # <<<<<<<<<<<<<<
@@ -4419,7 +4419,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
             __pyx_t_2 = (((*((double *) ( /* dim=0 */ (__pyx_v_z.data + __pyx_t_17 * __pyx_v_z.strides[0]) ))) < (__pyx_v_q + (*((double *) ( /* dim=0 */ (__pyx_v_p_j.data + __pyx_t_18 * __pyx_v_p_j.strides[0]) ))))) != 0);
             if (__pyx_t_2) {
 
-              /* "xsmc/_sampler.pyx":218
+              /* "xsmc/_sampler.pyx":220
  *             while k < a.size() and j < n - 1:
  *                 if z[k] < q + p_j[h]:
  *                     paths.at(a.at(k)).push_back(pair[int, int](j, h))             # <<<<<<<<<<<<<<
@@ -4436,7 +4436,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
                 #ifdef WITH_THREAD
                 __Pyx_PyGILState_Release(__pyx_gilstate_save);
                 #endif
-                __PYX_ERR(0, 218, __pyx_L7_error)
+                __PYX_ERR(0, 220, __pyx_L7_error)
               }
               try {
                 __pyx_t_20 = __pyx_v_paths.at(__pyx_t_19);
@@ -4448,7 +4448,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
                 #ifdef WITH_THREAD
                 __Pyx_PyGILState_Release(__pyx_gilstate_save);
                 #endif
-                __PYX_ERR(0, 218, __pyx_L7_error)
+                __PYX_ERR(0, 220, __pyx_L7_error)
               }
               try {
                 __pyx_t_12 = std::pair<int,int> (__pyx_v_j, __pyx_v_h);
@@ -4460,7 +4460,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
                 #ifdef WITH_THREAD
                 __Pyx_PyGILState_Release(__pyx_gilstate_save);
                 #endif
-                __PYX_ERR(0, 218, __pyx_L7_error)
+                __PYX_ERR(0, 220, __pyx_L7_error)
               }
               try {
                 __pyx_t_20->push_back(__pyx_t_12);
@@ -4472,10 +4472,10 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
                 #ifdef WITH_THREAD
                 __Pyx_PyGILState_Release(__pyx_gilstate_save);
                 #endif
-                __PYX_ERR(0, 218, __pyx_L7_error)
+                __PYX_ERR(0, 220, __pyx_L7_error)
               }
 
-              /* "xsmc/_sampler.pyx":219
+              /* "xsmc/_sampler.pyx":221
  *                 if z[k] < q + p_j[h]:
  *                     paths.at(a.at(k)).push_back(pair[int, int](j, h))
  *                     k += 1             # <<<<<<<<<<<<<<
@@ -4484,7 +4484,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
               __pyx_v_k = (__pyx_v_k + 1);
 
-              /* "xsmc/_sampler.pyx":217
+              /* "xsmc/_sampler.pyx":219
  *             h = 0
  *             while k < a.size() and j < n - 1:
  *                 if z[k] < q + p_j[h]:             # <<<<<<<<<<<<<<
@@ -4494,7 +4494,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
               goto __pyx_L19;
             }
 
-            /* "xsmc/_sampler.pyx":221
+            /* "xsmc/_sampler.pyx":223
  *                     k += 1
  *                 else:
  *                     q += p_j[h]             # <<<<<<<<<<<<<<
@@ -4506,7 +4506,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
               if (__pyx_t_18 < 0) __pyx_t_18 += __pyx_v_p_j.shape[0];
               __pyx_v_q = (__pyx_v_q + (*((double *) ( /* dim=0 */ (__pyx_v_p_j.data + __pyx_t_18 * __pyx_v_p_j.strides[0]) ))));
 
-              /* "xsmc/_sampler.pyx":222
+              /* "xsmc/_sampler.pyx":224
  *                 else:
  *                     q += p_j[h]
  *                     cum_prob[h] += p_j[h]             # <<<<<<<<<<<<<<
@@ -4519,7 +4519,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
               if (__pyx_t_17 < 0) __pyx_t_17 += __pyx_v_cum_prob.shape[0];
               *((double *) ( /* dim=0 */ (__pyx_v_cum_prob.data + __pyx_t_17 * __pyx_v_cum_prob.strides[0]) )) += (*((double *) ( /* dim=0 */ (__pyx_v_p_j.data + __pyx_t_18 * __pyx_v_p_j.strides[0]) )));
 
-              /* "xsmc/_sampler.pyx":225
+              /* "xsmc/_sampler.pyx":227
  *                     # with gil:
  *                     #     print('i', i, 'j', j, 'q', q, 'h', h, 'p_j[h]', p_j[h])
  *                     if h < H - 1:             # <<<<<<<<<<<<<<
@@ -4529,7 +4529,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
               __pyx_t_2 = ((__pyx_v_h < (__pyx_v_H - 1)) != 0);
               if (__pyx_t_2) {
 
-                /* "xsmc/_sampler.pyx":226
+                /* "xsmc/_sampler.pyx":228
  *                     #     print('i', i, 'j', j, 'q', q, 'h', h, 'p_j[h]', p_j[h])
  *                     if h < H - 1:
  *                         h += 1             # <<<<<<<<<<<<<<
@@ -4538,7 +4538,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
                 __pyx_v_h = (__pyx_v_h + 1);
 
-                /* "xsmc/_sampler.pyx":225
+                /* "xsmc/_sampler.pyx":227
  *                     # with gil:
  *                     #     print('i', i, 'j', j, 'q', q, 'h', h, 'p_j[h]', p_j[h])
  *                     if h < H - 1:             # <<<<<<<<<<<<<<
@@ -4548,7 +4548,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
                 goto __pyx_L20;
               }
 
-              /* "xsmc/_sampler.pyx":228
+              /* "xsmc/_sampler.pyx":230
  *                         h += 1
  *                     else:
  *                         j += 1             # <<<<<<<<<<<<<<
@@ -4558,7 +4558,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
               /*else*/ {
                 __pyx_v_j = (__pyx_v_j + 1);
 
-                /* "xsmc/_sampler.pyx":229
+                /* "xsmc/_sampler.pyx":231
  *                     else:
  *                         j += 1
  *                         if j == n - 1:             # <<<<<<<<<<<<<<
@@ -4568,7 +4568,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
                 __pyx_t_2 = ((__pyx_v_j == (__pyx_v_n - 1)) != 0);
                 if (__pyx_t_2) {
 
-                  /* "xsmc/_sampler.pyx":230
+                  /* "xsmc/_sampler.pyx":232
  *                         j += 1
  *                         if j == n - 1:
  *                             break             # <<<<<<<<<<<<<<
@@ -4577,7 +4577,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
                   goto __pyx_L16_break;
 
-                  /* "xsmc/_sampler.pyx":229
+                  /* "xsmc/_sampler.pyx":231
  *                     else:
  *                         j += 1
  *                         if j == n - 1:             # <<<<<<<<<<<<<<
@@ -4586,7 +4586,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
                 }
 
-                /* "xsmc/_sampler.pyx":231
+                /* "xsmc/_sampler.pyx":233
  *                         if j == n - 1:
  *                             break
  *                         P_tau_i(p_j, i - 1, j, log_Q, Xcs, lgammacs, positions, params)             # <<<<<<<<<<<<<<
@@ -4595,7 +4595,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
                 __pyx_f_4xsmc_8_sampler_P_tau_i(__pyx_v_p_j, (__pyx_v_i - 1), __pyx_v_j, __pyx_v_log_Q, __pyx_v_Xcs, __pyx_v_lgammacs, __pyx_v_positions, __pyx_v_params);
 
-                /* "xsmc/_sampler.pyx":234
+                /* "xsmc/_sampler.pyx":236
  *                         # with gil:
  *                         #     print(i, j, np.array(p_j))
  *                         h = 0             # <<<<<<<<<<<<<<
@@ -4610,7 +4610,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
           }
           __pyx_L16_break:;
 
-          /* "xsmc/_sampler.pyx":236
+          /* "xsmc/_sampler.pyx":238
  *                         h = 0
  *             # all remaining changpoints occur at n, i.e. beyond end of sequence
  *             s = 0.             # <<<<<<<<<<<<<<
@@ -4619,7 +4619,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
           __pyx_v_s = 0.;
 
-          /* "xsmc/_sampler.pyx":240
+          /* "xsmc/_sampler.pyx":242
  *             #     print('i', i, 'n', n, 'cum prob', np.array(cum_prob), k, a.size())
  *             #     print(paths)
  *             for h in range(H):             # <<<<<<<<<<<<<<
@@ -4631,7 +4631,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
           for (__pyx_t_15 = 0; __pyx_t_15 < __pyx_t_10; __pyx_t_15+=1) {
             __pyx_v_h = __pyx_t_15;
 
-            /* "xsmc/_sampler.pyx":241
+            /* "xsmc/_sampler.pyx":243
  *             #     print(paths)
  *             for h in range(H):
  *                 cum_prob[h] = max(cum_prob[h], 1e-8)             # <<<<<<<<<<<<<<
@@ -4651,7 +4651,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
             if (__pyx_t_18 < 0) __pyx_t_18 += __pyx_v_cum_prob.shape[0];
             *((double *) ( /* dim=0 */ (__pyx_v_cum_prob.data + __pyx_t_18 * __pyx_v_cum_prob.strides[0]) )) = __pyx_t_23;
 
-            /* "xsmc/_sampler.pyx":242
+            /* "xsmc/_sampler.pyx":244
  *             for h in range(H):
  *                 cum_prob[h] = max(cum_prob[h], 1e-8)
  *                 s += cum_prob[h]             # <<<<<<<<<<<<<<
@@ -4663,7 +4663,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
             __pyx_v_s = (__pyx_v_s + (*((double *) ( /* dim=0 */ (__pyx_v_cum_prob.data + __pyx_t_18 * __pyx_v_cum_prob.strides[0]) ))));
           }
 
-          /* "xsmc/_sampler.pyx":243
+          /* "xsmc/_sampler.pyx":245
  *                 cum_prob[h] = max(cum_prob[h], 1e-8)
  *                 s += cum_prob[h]
  *             for h in range(H):             # <<<<<<<<<<<<<<
@@ -4675,7 +4675,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
           for (__pyx_t_15 = 0; __pyx_t_15 < __pyx_t_10; __pyx_t_15+=1) {
             __pyx_v_h = __pyx_t_15;
 
-            /* "xsmc/_sampler.pyx":244
+            /* "xsmc/_sampler.pyx":246
  *                 s += cum_prob[h]
  *             for h in range(H):
  *                 p_j[h] = cum_prob[h] / s             # <<<<<<<<<<<<<<
@@ -4689,7 +4689,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
             *((double *) ( /* dim=0 */ (__pyx_v_p_j.data + __pyx_t_17 * __pyx_v_p_j.strides[0]) )) = ((*((double *) ( /* dim=0 */ (__pyx_v_cum_prob.data + __pyx_t_18 * __pyx_v_cum_prob.strides[0]) ))) / __pyx_v_s);
           }
 
-          /* "xsmc/_sampler.pyx":246
+          /* "xsmc/_sampler.pyx":248
  *                 p_j[h] = cum_prob[h] / s
  *             # sample len(a) - k
  *             m = a.size() - k             # <<<<<<<<<<<<<<
@@ -4698,7 +4698,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
           __pyx_v_m = (__pyx_v_a.size() - __pyx_v_k);
 
-          /* "xsmc/_sampler.pyx":247
+          /* "xsmc/_sampler.pyx":249
  *             # sample len(a) - k
  *             m = a.size() - k
  *             if m > 0:             # <<<<<<<<<<<<<<
@@ -4708,7 +4708,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
           __pyx_t_2 = ((__pyx_v_m > 0) != 0);
           if (__pyx_t_2) {
 
-            /* "xsmc/_sampler.pyx":251
+            /* "xsmc/_sampler.pyx":253
  *                 #     print('i', i, 'n', n, 'cum prob', np.array(cum_prob), k, a.size())
  *                 #     print(paths)
  *                 uniform_order_statistics(z, m, rng)             # <<<<<<<<<<<<<<
@@ -4717,7 +4717,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
             __pyx_f_4xsmc_8_sampler_uniform_order_statistics(__pyx_v_z, __pyx_v_m, __pyx_v_rng);
 
-            /* "xsmc/_sampler.pyx":252
+            /* "xsmc/_sampler.pyx":254
  *                 #     print(paths)
  *                 uniform_order_statistics(z, m, rng)
  *                 q = 0.             # <<<<<<<<<<<<<<
@@ -4726,7 +4726,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
             __pyx_v_q = 0.;
 
-            /* "xsmc/_sampler.pyx":253
+            /* "xsmc/_sampler.pyx":255
  *                 uniform_order_statistics(z, m, rng)
  *                 q = 0.
  *                 h = 0             # <<<<<<<<<<<<<<
@@ -4735,7 +4735,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
             __pyx_v_h = 0;
 
-            /* "xsmc/_sampler.pyx":254
+            /* "xsmc/_sampler.pyx":256
  *                 q = 0.
  *                 h = 0
  *                 while k < a.size():             # <<<<<<<<<<<<<<
@@ -4746,7 +4746,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
               __pyx_t_2 = ((__pyx_v_k < __pyx_v_a.size()) != 0);
               if (!__pyx_t_2) break;
 
-              /* "xsmc/_sampler.pyx":255
+              /* "xsmc/_sampler.pyx":257
  *                 h = 0
  *                 while k < a.size():
  *                     if z[m - (a.size() - k)] <= q + p_j[h]:             # <<<<<<<<<<<<<<
@@ -4759,7 +4759,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
               __pyx_t_2 = (((*((double *) ( /* dim=0 */ (__pyx_v_z.data + __pyx_t_24 * __pyx_v_z.strides[0]) ))) <= (__pyx_v_q + (*((double *) ( /* dim=0 */ (__pyx_v_p_j.data + __pyx_t_18 * __pyx_v_p_j.strides[0]) ))))) != 0);
               if (__pyx_t_2) {
 
-                /* "xsmc/_sampler.pyx":256
+                /* "xsmc/_sampler.pyx":258
  *                 while k < a.size():
  *                     if z[m - (a.size() - k)] <= q + p_j[h]:
  *                         paths.at(a.at(k)).push_back(pair[int, int](n - 1, h))             # <<<<<<<<<<<<<<
@@ -4776,7 +4776,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 256, __pyx_L7_error)
+                  __PYX_ERR(0, 258, __pyx_L7_error)
                 }
                 try {
                   __pyx_t_26 = __pyx_v_paths.at(__pyx_t_25);
@@ -4788,7 +4788,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 256, __pyx_L7_error)
+                  __PYX_ERR(0, 258, __pyx_L7_error)
                 }
                 try {
                   __pyx_t_12 = std::pair<int,int> ((__pyx_v_n - 1), __pyx_v_h);
@@ -4800,7 +4800,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 256, __pyx_L7_error)
+                  __PYX_ERR(0, 258, __pyx_L7_error)
                 }
                 try {
                   __pyx_t_26->push_back(__pyx_t_12);
@@ -4812,10 +4812,10 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
                   #ifdef WITH_THREAD
                   __Pyx_PyGILState_Release(__pyx_gilstate_save);
                   #endif
-                  __PYX_ERR(0, 256, __pyx_L7_error)
+                  __PYX_ERR(0, 258, __pyx_L7_error)
                 }
 
-                /* "xsmc/_sampler.pyx":257
+                /* "xsmc/_sampler.pyx":259
  *                     if z[m - (a.size() - k)] <= q + p_j[h]:
  *                         paths.at(a.at(k)).push_back(pair[int, int](n - 1, h))
  *                         k += 1             # <<<<<<<<<<<<<<
@@ -4824,7 +4824,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
  */
                 __pyx_v_k = (__pyx_v_k + 1);
 
-                /* "xsmc/_sampler.pyx":255
+                /* "xsmc/_sampler.pyx":257
  *                 h = 0
  *                 while k < a.size():
  *                     if z[m - (a.size() - k)] <= q + p_j[h]:             # <<<<<<<<<<<<<<
@@ -4834,7 +4834,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
                 goto __pyx_L29;
               }
 
-              /* "xsmc/_sampler.pyx":259
+              /* "xsmc/_sampler.pyx":261
  *                         k += 1
  *                     else:
  *                         q += p_j[h]             # <<<<<<<<<<<<<<
@@ -4846,7 +4846,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
                 if (__pyx_t_18 < 0) __pyx_t_18 += __pyx_v_p_j.shape[0];
                 __pyx_v_q = (__pyx_v_q + (*((double *) ( /* dim=0 */ (__pyx_v_p_j.data + __pyx_t_18 * __pyx_v_p_j.strides[0]) ))));
 
-                /* "xsmc/_sampler.pyx":260
+                /* "xsmc/_sampler.pyx":262
  *                     else:
  *                         q += p_j[h]
  *                         h += 1             # <<<<<<<<<<<<<<
@@ -4858,7 +4858,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
               __pyx_L29:;
             }
 
-            /* "xsmc/_sampler.pyx":247
+            /* "xsmc/_sampler.pyx":249
  *             # sample len(a) - k
  *             m = a.size() - k
  *             if m > 0:             # <<<<<<<<<<<<<<
@@ -4870,7 +4870,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
         }
       }
 
-      /* "xsmc/_sampler.pyx":197
+      /* "xsmc/_sampler.pyx":199
  *     for i in range(u):
  *         paths.at(i).push_back((-1, -1))
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -4896,7 +4896,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
       }
   }
 
-  /* "xsmc/_sampler.pyx":261
+  /* "xsmc/_sampler.pyx":263
  *                         q += p_j[h]
  *                         h += 1
  *     return paths             # <<<<<<<<<<<<<<
@@ -4906,7 +4906,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
   __pyx_r = __pyx_v_paths;
   goto __pyx_L0;
 
-  /* "xsmc/_sampler.pyx":178
+  /* "xsmc/_sampler.pyx":180
  *     #     print('out2', n, out[n], np.array(out))
  * 
  * cdef vector[vector[pair[int, int]]] _sample_paths(int u, seed, double[:] log_Q, long[:, :] Xcs,             # <<<<<<<<<<<<<<
@@ -4931,7 +4931,7 @@ static std::vector<std::vector<std::pair<int,int> > >  __pyx_f_4xsmc_8_sampler__
   return __pyx_r;
 }
 
-/* "xsmc/_sampler.pyx":267
+/* "xsmc/_sampler.pyx":269
  *     cdef sampler_params params
  * 
  *     def __init__(self, Xcs, positions, theta, rho, robust, eps):             # <<<<<<<<<<<<<<
@@ -4985,35 +4985,35 @@ static int __pyx_pw_4xsmc_8_sampler_13_SamplerProxy_1__init__(PyObject *__pyx_v_
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_positions)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 1, 6, 6, 1); __PYX_ERR(0, 267, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 1, 6, 6, 1); __PYX_ERR(0, 269, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_theta)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 1, 6, 6, 2); __PYX_ERR(0, 267, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 1, 6, 6, 2); __PYX_ERR(0, 269, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_rho)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 1, 6, 6, 3); __PYX_ERR(0, 267, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 1, 6, 6, 3); __PYX_ERR(0, 269, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_robust)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 1, 6, 6, 4); __PYX_ERR(0, 267, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 1, 6, 6, 4); __PYX_ERR(0, 269, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (likely((values[5] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_eps)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 1, 6, 6, 5); __PYX_ERR(0, 267, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 1, 6, 6, 5); __PYX_ERR(0, 269, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 267, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 269, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 6) {
       goto __pyx_L5_argtuple_error;
@@ -5034,7 +5034,7 @@ static int __pyx_pw_4xsmc_8_sampler_13_SamplerProxy_1__init__(PyObject *__pyx_v_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 1, 6, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 267, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 1, 6, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 269, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("xsmc._sampler._SamplerProxy.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -5065,47 +5065,47 @@ static int __pyx_pf_4xsmc_8_sampler_13_SamplerProxy___init__(struct __pyx_obj_4x
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "xsmc/_sampler.pyx":268
+  /* "xsmc/_sampler.pyx":270
  * 
  *     def __init__(self, Xcs, positions, theta, rho, robust, eps):
  *         self.params.theta = theta  # emission probabilities             # <<<<<<<<<<<<<<
  *         self.params.rho = rho
  *         self.params.robust = robust
  */
-  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_theta); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 268, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_theta); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 270, __pyx_L1_error)
   __pyx_v_self->params.theta = __pyx_t_1;
 
-  /* "xsmc/_sampler.pyx":269
+  /* "xsmc/_sampler.pyx":271
  *     def __init__(self, Xcs, positions, theta, rho, robust, eps):
  *         self.params.theta = theta  # emission probabilities
  *         self.params.rho = rho             # <<<<<<<<<<<<<<
  *         self.params.robust = robust
  *         self.params.eps = eps
  */
-  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_rho); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 269, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_rho); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 271, __pyx_L1_error)
   __pyx_v_self->params.rho = __pyx_t_1;
 
-  /* "xsmc/_sampler.pyx":270
+  /* "xsmc/_sampler.pyx":272
  *         self.params.theta = theta  # emission probabilities
  *         self.params.rho = rho
  *         self.params.robust = robust             # <<<<<<<<<<<<<<
  *         self.params.eps = eps
  *         self.Xcs = Xcs
  */
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_robust); if (unlikely((__pyx_t_2 == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 270, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_robust); if (unlikely((__pyx_t_2 == ((bool)-1)) && PyErr_Occurred())) __PYX_ERR(0, 272, __pyx_L1_error)
   __pyx_v_self->params.robust = __pyx_t_2;
 
-  /* "xsmc/_sampler.pyx":271
+  /* "xsmc/_sampler.pyx":273
  *         self.params.rho = rho
  *         self.params.robust = robust
  *         self.params.eps = eps             # <<<<<<<<<<<<<<
  *         self.Xcs = Xcs
  *         X = np.diff(Xcs, axis=1)
  */
-  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_eps); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 271, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_eps); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 273, __pyx_L1_error)
   __pyx_v_self->params.eps = __pyx_t_1;
 
-  /* "xsmc/_sampler.pyx":272
+  /* "xsmc/_sampler.pyx":274
  *         self.params.robust = robust
  *         self.params.eps = eps
  *         self.Xcs = Xcs             # <<<<<<<<<<<<<<
@@ -5118,27 +5118,27 @@ static int __pyx_pf_4xsmc_8_sampler_13_SamplerProxy___init__(struct __pyx_obj_4x
   __Pyx_DECREF(__pyx_v_self->Xcs);
   __pyx_v_self->Xcs = __pyx_v_Xcs;
 
-  /* "xsmc/_sampler.pyx":273
+  /* "xsmc/_sampler.pyx":275
  *         self.params.eps = eps
  *         self.Xcs = Xcs
  *         X = np.diff(Xcs, axis=1)             # <<<<<<<<<<<<<<
  *         self.lgammacs = np.pad(scipy.special.gammaln(X + 1), [[0, 0], [0, 1]]).cumsum(axis=1)
  *         self.positions = positions
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_diff); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_diff); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_v_Xcs);
   __Pyx_GIVEREF(__pyx_v_Xcs);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_Xcs);
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 273, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 273, __pyx_L1_error)
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 273, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 275, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -5146,27 +5146,27 @@ static int __pyx_pf_4xsmc_8_sampler_13_SamplerProxy___init__(struct __pyx_obj_4x
   __pyx_v_X = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "xsmc/_sampler.pyx":274
+  /* "xsmc/_sampler.pyx":276
  *         self.Xcs = Xcs
  *         X = np.diff(Xcs, axis=1)
  *         self.lgammacs = np.pad(scipy.special.gammaln(X + 1), [[0, 0], [0, 1]]).cumsum(axis=1)             # <<<<<<<<<<<<<<
  *         self.positions = positions
  *         self._log_Q = None
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_pad); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_pad); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_scipy); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_scipy); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_special); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_special); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_gammaln); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_gammaln); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyInt_AddObjC(__pyx_v_X, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_AddObjC(__pyx_v_X, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_8 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -5181,10 +5181,10 @@ static int __pyx_pf_4xsmc_8_sampler_13_SamplerProxy___init__(struct __pyx_obj_4x
   __pyx_t_5 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_8, __pyx_t_7) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 274, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyList_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_4 = PyList_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_int_0);
   __Pyx_GIVEREF(__pyx_int_0);
@@ -5192,7 +5192,7 @@ static int __pyx_pf_4xsmc_8_sampler_13_SamplerProxy___init__(struct __pyx_obj_4x
   __Pyx_INCREF(__pyx_int_0);
   __Pyx_GIVEREF(__pyx_int_0);
   PyList_SET_ITEM(__pyx_t_4, 1, __pyx_int_0);
-  __pyx_t_7 = PyList_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_7 = PyList_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_INCREF(__pyx_int_0);
   __Pyx_GIVEREF(__pyx_int_0);
@@ -5200,7 +5200,7 @@ static int __pyx_pf_4xsmc_8_sampler_13_SamplerProxy___init__(struct __pyx_obj_4x
   __Pyx_INCREF(__pyx_int_1);
   __Pyx_GIVEREF(__pyx_int_1);
   PyList_SET_ITEM(__pyx_t_7, 1, __pyx_int_1);
-  __pyx_t_8 = PyList_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_8 = PyList_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_GIVEREF(__pyx_t_4);
   PyList_SET_ITEM(__pyx_t_8, 0, __pyx_t_4);
@@ -5223,7 +5223,7 @@ static int __pyx_pf_4xsmc_8_sampler_13_SamplerProxy___init__(struct __pyx_obj_4x
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[3] = {__pyx_t_7, __pyx_t_5, __pyx_t_8};
-    __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_9, 2+__pyx_t_9); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 274, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_9, 2+__pyx_t_9); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 276, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -5233,7 +5233,7 @@ static int __pyx_pf_4xsmc_8_sampler_13_SamplerProxy___init__(struct __pyx_obj_4x
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[3] = {__pyx_t_7, __pyx_t_5, __pyx_t_8};
-    __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_9, 2+__pyx_t_9); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 274, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_9, 2+__pyx_t_9); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 276, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -5241,7 +5241,7 @@ static int __pyx_pf_4xsmc_8_sampler_13_SamplerProxy___init__(struct __pyx_obj_4x
   } else
   #endif
   {
-    __pyx_t_4 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 274, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 276, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     if (__pyx_t_7) {
       __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_7); __pyx_t_7 = NULL;
@@ -5252,18 +5252,18 @@ static int __pyx_pf_4xsmc_8_sampler_13_SamplerProxy___init__(struct __pyx_obj_4x
     PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_9, __pyx_t_8);
     __pyx_t_5 = 0;
     __pyx_t_8 = 0;
-    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 274, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 276, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_cumsum); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_cumsum); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 274, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 274, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 274, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 276, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 276, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -5273,7 +5273,7 @@ static int __pyx_pf_4xsmc_8_sampler_13_SamplerProxy___init__(struct __pyx_obj_4x
   __pyx_v_self->lgammacs = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "xsmc/_sampler.pyx":275
+  /* "xsmc/_sampler.pyx":277
  *         X = np.diff(Xcs, axis=1)
  *         self.lgammacs = np.pad(scipy.special.gammaln(X + 1), [[0, 0], [0, 1]]).cumsum(axis=1)
  *         self.positions = positions             # <<<<<<<<<<<<<<
@@ -5286,7 +5286,7 @@ static int __pyx_pf_4xsmc_8_sampler_13_SamplerProxy___init__(struct __pyx_obj_4x
   __Pyx_DECREF(__pyx_v_self->positions);
   __pyx_v_self->positions = __pyx_v_positions;
 
-  /* "xsmc/_sampler.pyx":276
+  /* "xsmc/_sampler.pyx":278
  *         self.lgammacs = np.pad(scipy.special.gammaln(X + 1), [[0, 0], [0, 1]]).cumsum(axis=1)
  *         self.positions = positions
  *         self._log_Q = None             # <<<<<<<<<<<<<<
@@ -5299,7 +5299,7 @@ static int __pyx_pf_4xsmc_8_sampler_13_SamplerProxy___init__(struct __pyx_obj_4x
   __Pyx_DECREF(__pyx_v_self->_log_Q);
   __pyx_v_self->_log_Q = Py_None;
 
-  /* "xsmc/_sampler.pyx":267
+  /* "xsmc/_sampler.pyx":269
  *     cdef sampler_params params
  * 
  *     def __init__(self, Xcs, positions, theta, rho, robust, eps):             # <<<<<<<<<<<<<<
@@ -5325,7 +5325,7 @@ static int __pyx_pf_4xsmc_8_sampler_13_SamplerProxy___init__(struct __pyx_obj_4x
   return __pyx_r;
 }
 
-/* "xsmc/_sampler.pyx":280
+/* "xsmc/_sampler.pyx":282
  * 
  *     @property
  *     def log_Q(self):             # <<<<<<<<<<<<<<
@@ -5375,43 +5375,43 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "xsmc/_sampler.pyx":282
+  /* "xsmc/_sampler.pyx":284
  *     def log_Q(self):
  *         cdef double[:] v_log_Q, v_tmp
  *         cdef long[:, :] v_Xcs = self.Xcs             # <<<<<<<<<<<<<<
  *         cdef double[:, :] v_lgamma = self.lgammacs
  *         cdef double[:] v_positions = self.positions
  */
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_long(__pyx_v_self->Xcs, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 282, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_dsds_long(__pyx_v_self->Xcs, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 284, __pyx_L1_error)
   __pyx_v_v_Xcs = __pyx_t_1;
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;
 
-  /* "xsmc/_sampler.pyx":283
+  /* "xsmc/_sampler.pyx":285
  *         cdef double[:] v_log_Q, v_tmp
  *         cdef long[:, :] v_Xcs = self.Xcs
  *         cdef double[:, :] v_lgamma = self.lgammacs             # <<<<<<<<<<<<<<
  *         cdef double[:] v_positions = self.positions
  *         if self._log_Q is None:
  */
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_self->lgammacs, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 283, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_self->lgammacs, PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 285, __pyx_L1_error)
   __pyx_v_v_lgamma = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "xsmc/_sampler.pyx":284
+  /* "xsmc/_sampler.pyx":286
  *         cdef long[:, :] v_Xcs = self.Xcs
  *         cdef double[:, :] v_lgamma = self.lgammacs
  *         cdef double[:] v_positions = self.positions             # <<<<<<<<<<<<<<
  *         if self._log_Q is None:
  *             logger.debug("Computing log Q")
  */
-  __pyx_t_3 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_self->positions, PyBUF_WRITABLE); if (unlikely(!__pyx_t_3.memview)) __PYX_ERR(0, 284, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_self->positions, PyBUF_WRITABLE); if (unlikely(!__pyx_t_3.memview)) __PYX_ERR(0, 286, __pyx_L1_error)
   __pyx_v_v_positions = __pyx_t_3;
   __pyx_t_3.memview = NULL;
   __pyx_t_3.data = NULL;
 
-  /* "xsmc/_sampler.pyx":285
+  /* "xsmc/_sampler.pyx":287
  *         cdef double[:, :] v_lgamma = self.lgammacs
  *         cdef double[:] v_positions = self.positions
  *         if self._log_Q is None:             # <<<<<<<<<<<<<<
@@ -5422,16 +5422,16 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
   __pyx_t_5 = (__pyx_t_4 != 0);
   if (__pyx_t_5) {
 
-    /* "xsmc/_sampler.pyx":286
+    /* "xsmc/_sampler.pyx":288
  *         cdef double[:] v_positions = self.positions
  *         if self._log_Q is None:
  *             logger.debug("Computing log Q")             # <<<<<<<<<<<<<<
  *             logger.debug("Xcs.shape=%s positions=%s params=%s", self.Xcs.shape, self.positions, self.params)
  *             H, n = self.Xcs.shape
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_logger); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 286, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_logger); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 288, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_debug); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 286, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_debug); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 288, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_t_7 = NULL;
@@ -5446,26 +5446,26 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
     }
     __pyx_t_6 = (__pyx_t_7) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_7, __pyx_kp_s_Computing_log_Q) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_kp_s_Computing_log_Q);
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 286, __pyx_L1_error)
+    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 288, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "xsmc/_sampler.pyx":287
+    /* "xsmc/_sampler.pyx":289
  *         if self._log_Q is None:
  *             logger.debug("Computing log Q")
  *             logger.debug("Xcs.shape=%s positions=%s params=%s", self.Xcs.shape, self.positions, self.params)             # <<<<<<<<<<<<<<
  *             H, n = self.Xcs.shape
  *             tmp = np.zeros(H)
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_logger); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 287, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_logger); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 289, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_debug); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 287, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_debug); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 289, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->Xcs, __pyx_n_s_shape); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 287, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->Xcs, __pyx_n_s_shape); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 289, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_9 = __pyx_convert__to_py_struct____pyx_t_4xsmc_8_sampler_sampler_params(__pyx_v_self->params); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 287, __pyx_L1_error)
+    __pyx_t_9 = __pyx_convert__to_py_struct____pyx_t_4xsmc_8_sampler_sampler_params(__pyx_v_self->params); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 289, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __pyx_t_10 = NULL;
     __pyx_t_11 = 0;
@@ -5482,7 +5482,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_7)) {
       PyObject *__pyx_temp[5] = {__pyx_t_10, __pyx_kp_s_Xcs_shape_s_positions_s_params_s, __pyx_t_8, __pyx_v_self->positions, __pyx_t_9};
-      __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_11, 4+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 287, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_11, 4+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 289, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -5492,7 +5492,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
       PyObject *__pyx_temp[5] = {__pyx_t_10, __pyx_kp_s_Xcs_shape_s_positions_s_params_s, __pyx_t_8, __pyx_v_self->positions, __pyx_t_9};
-      __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_11, 4+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 287, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_11, 4+__pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 289, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -5500,7 +5500,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
     } else
     #endif
     {
-      __pyx_t_12 = PyTuple_New(4+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 287, __pyx_L1_error)
+      __pyx_t_12 = PyTuple_New(4+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 289, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       if (__pyx_t_10) {
         __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_10); __pyx_t_10 = NULL;
@@ -5517,21 +5517,21 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
       PyTuple_SET_ITEM(__pyx_t_12, 3+__pyx_t_11, __pyx_t_9);
       __pyx_t_8 = 0;
       __pyx_t_9 = 0;
-      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_12, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 287, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_12, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 289, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     }
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "xsmc/_sampler.pyx":288
+    /* "xsmc/_sampler.pyx":290
  *             logger.debug("Computing log Q")
  *             logger.debug("Xcs.shape=%s positions=%s params=%s", self.Xcs.shape, self.positions, self.params)
  *             H, n = self.Xcs.shape             # <<<<<<<<<<<<<<
  *             tmp = np.zeros(H)
  *             self._log_Q = np.zeros(n - 1)
  */
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->Xcs, __pyx_n_s_shape); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 288, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->Xcs, __pyx_n_s_shape); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 290, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     if ((likely(PyTuple_CheckExact(__pyx_t_6))) || (PyList_CheckExact(__pyx_t_6))) {
       PyObject* sequence = __pyx_t_6;
@@ -5539,7 +5539,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 288, __pyx_L1_error)
+        __PYX_ERR(0, 290, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -5552,15 +5552,15 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
       __Pyx_INCREF(__pyx_t_7);
       __Pyx_INCREF(__pyx_t_12);
       #else
-      __pyx_t_7 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 288, __pyx_L1_error)
+      __pyx_t_7 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 290, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_12 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 288, __pyx_L1_error)
+      __pyx_t_12 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 290, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       #endif
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_9 = PyObject_GetIter(__pyx_t_6); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 288, __pyx_L1_error)
+      __pyx_t_9 = PyObject_GetIter(__pyx_t_6); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 290, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __pyx_t_13 = Py_TYPE(__pyx_t_9)->tp_iternext;
@@ -5568,7 +5568,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
       __Pyx_GOTREF(__pyx_t_7);
       index = 1; __pyx_t_12 = __pyx_t_13(__pyx_t_9); if (unlikely(!__pyx_t_12)) goto __pyx_L4_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_12);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_9), 2) < 0) __PYX_ERR(0, 288, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_9), 2) < 0) __PYX_ERR(0, 290, __pyx_L1_error)
       __pyx_t_13 = NULL;
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       goto __pyx_L5_unpacking_done;
@@ -5576,7 +5576,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       __pyx_t_13 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 288, __pyx_L1_error)
+      __PYX_ERR(0, 290, __pyx_L1_error)
       __pyx_L5_unpacking_done:;
     }
     __pyx_v_H = __pyx_t_7;
@@ -5584,16 +5584,16 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
     __pyx_v_n = __pyx_t_12;
     __pyx_t_12 = 0;
 
-    /* "xsmc/_sampler.pyx":289
+    /* "xsmc/_sampler.pyx":291
  *             logger.debug("Xcs.shape=%s positions=%s params=%s", self.Xcs.shape, self.positions, self.params)
  *             H, n = self.Xcs.shape
  *             tmp = np.zeros(H)             # <<<<<<<<<<<<<<
  *             self._log_Q = np.zeros(n - 1)
  *             v_log_Q = self._log_Q
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 289, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 291, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_zeros); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 289, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_zeros); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 291, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     __pyx_t_12 = NULL;
@@ -5608,25 +5608,25 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
     }
     __pyx_t_6 = (__pyx_t_12) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_12, __pyx_v_H) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_v_H);
     __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
-    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 289, __pyx_L1_error)
+    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 291, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_tmp = __pyx_t_6;
     __pyx_t_6 = 0;
 
-    /* "xsmc/_sampler.pyx":290
+    /* "xsmc/_sampler.pyx":292
  *             H, n = self.Xcs.shape
  *             tmp = np.zeros(H)
  *             self._log_Q = np.zeros(n - 1)             # <<<<<<<<<<<<<<
  *             v_log_Q = self._log_Q
  *             v_tmp = tmp
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 290, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 292, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 290, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 292, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_n, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 290, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_n, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 292, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_9 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_12))) {
@@ -5641,7 +5641,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
     __pyx_t_6 = (__pyx_t_9) ? __Pyx_PyObject_Call2Args(__pyx_t_12, __pyx_t_9, __pyx_t_7) : __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_7);
     __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 290, __pyx_L1_error)
+    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 292, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     __Pyx_GIVEREF(__pyx_t_6);
@@ -5650,31 +5650,31 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
     __pyx_v_self->_log_Q = __pyx_t_6;
     __pyx_t_6 = 0;
 
-    /* "xsmc/_sampler.pyx":291
+    /* "xsmc/_sampler.pyx":293
  *             tmp = np.zeros(H)
  *             self._log_Q = np.zeros(n - 1)
  *             v_log_Q = self._log_Q             # <<<<<<<<<<<<<<
  *             v_tmp = tmp
  *             with nogil:
  */
-    __pyx_t_3 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_self->_log_Q, PyBUF_WRITABLE); if (unlikely(!__pyx_t_3.memview)) __PYX_ERR(0, 291, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_self->_log_Q, PyBUF_WRITABLE); if (unlikely(!__pyx_t_3.memview)) __PYX_ERR(0, 293, __pyx_L1_error)
     __pyx_v_v_log_Q = __pyx_t_3;
     __pyx_t_3.memview = NULL;
     __pyx_t_3.data = NULL;
 
-    /* "xsmc/_sampler.pyx":292
+    /* "xsmc/_sampler.pyx":294
  *             self._log_Q = np.zeros(n - 1)
  *             v_log_Q = self._log_Q
  *             v_tmp = tmp             # <<<<<<<<<<<<<<
  *             with nogil:
  *                 init_log_Q(v_log_Q, v_tmp, v_Xcs, v_lgamma, v_positions, self.params)
  */
-    __pyx_t_3 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_tmp, PyBUF_WRITABLE); if (unlikely(!__pyx_t_3.memview)) __PYX_ERR(0, 292, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_tmp, PyBUF_WRITABLE); if (unlikely(!__pyx_t_3.memview)) __PYX_ERR(0, 294, __pyx_L1_error)
     __pyx_v_v_tmp = __pyx_t_3;
     __pyx_t_3.memview = NULL;
     __pyx_t_3.data = NULL;
 
-    /* "xsmc/_sampler.pyx":293
+    /* "xsmc/_sampler.pyx":295
  *             v_log_Q = self._log_Q
  *             v_tmp = tmp
  *             with nogil:             # <<<<<<<<<<<<<<
@@ -5689,7 +5689,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
         #endif
         /*try:*/ {
 
-          /* "xsmc/_sampler.pyx":294
+          /* "xsmc/_sampler.pyx":296
  *             v_tmp = tmp
  *             with nogil:
  *                 init_log_Q(v_log_Q, v_tmp, v_Xcs, v_lgamma, v_positions, self.params)             # <<<<<<<<<<<<<<
@@ -5699,7 +5699,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
           __pyx_f_4xsmc_8_sampler_init_log_Q(__pyx_v_v_log_Q, __pyx_v_v_tmp, __pyx_v_v_Xcs, __pyx_v_v_lgamma, __pyx_v_v_positions, __pyx_v_self->params);
         }
 
-        /* "xsmc/_sampler.pyx":293
+        /* "xsmc/_sampler.pyx":295
  *             v_log_Q = self._log_Q
  *             v_tmp = tmp
  *             with nogil:             # <<<<<<<<<<<<<<
@@ -5718,16 +5718,16 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
         }
     }
 
-    /* "xsmc/_sampler.pyx":295
+    /* "xsmc/_sampler.pyx":297
  *             with nogil:
  *                 init_log_Q(v_log_Q, v_tmp, v_Xcs, v_lgamma, v_positions, self.params)
  *             logger.debug("Done computing log Q")             # <<<<<<<<<<<<<<
  *         return self._log_Q
  * 
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_logger); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 295, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_logger); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 297, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_debug); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 295, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_debug); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 297, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     __pyx_t_12 = NULL;
@@ -5742,12 +5742,12 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
     }
     __pyx_t_6 = (__pyx_t_12) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_12, __pyx_kp_s_Done_computing_log_Q) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_kp_s_Done_computing_log_Q);
     __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
-    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 295, __pyx_L1_error)
+    if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 297, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "xsmc/_sampler.pyx":285
+    /* "xsmc/_sampler.pyx":287
  *         cdef double[:, :] v_lgamma = self.lgammacs
  *         cdef double[:] v_positions = self.positions
  *         if self._log_Q is None:             # <<<<<<<<<<<<<<
@@ -5756,7 +5756,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
  */
   }
 
-  /* "xsmc/_sampler.pyx":296
+  /* "xsmc/_sampler.pyx":298
  *                 init_log_Q(v_log_Q, v_tmp, v_Xcs, v_lgamma, v_positions, self.params)
  *             logger.debug("Done computing log Q")
  *         return self._log_Q             # <<<<<<<<<<<<<<
@@ -5768,7 +5768,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
   __pyx_r = __pyx_v_self->_log_Q;
   goto __pyx_L0;
 
-  /* "xsmc/_sampler.pyx":280
+  /* "xsmc/_sampler.pyx":282
  * 
  *     @property
  *     def log_Q(self):             # <<<<<<<<<<<<<<
@@ -5803,7 +5803,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_5log_Q___get__(struct 
   return __pyx_r;
 }
 
-/* "xsmc/_sampler.pyx":299
+/* "xsmc/_sampler.pyx":301
  * 
  *     # used for testing
  *     def log_P(self, s, t):             # <<<<<<<<<<<<<<
@@ -5845,11 +5845,11 @@ static PyObject *__pyx_pw_4xsmc_8_sampler_13_SamplerProxy_3log_P(PyObject *__pyx
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_t)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("log_P", 1, 2, 2, 1); __PYX_ERR(0, 299, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("log_P", 1, 2, 2, 1); __PYX_ERR(0, 301, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "log_P") < 0)) __PYX_ERR(0, 299, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "log_P") < 0)) __PYX_ERR(0, 301, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -5862,7 +5862,7 @@ static PyObject *__pyx_pw_4xsmc_8_sampler_13_SamplerProxy_3log_P(PyObject *__pyx
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("log_P", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 299, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("log_P", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 301, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("xsmc._sampler._SamplerProxy.log_P", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -5897,14 +5897,14 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_2log_P(struct __pyx_ob
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("log_P", 0);
 
-  /* "xsmc/_sampler.pyx":300
+  /* "xsmc/_sampler.pyx":302
  *     # used for testing
  *     def log_P(self, s, t):
  *         H, n = self.Xcs.shape             # <<<<<<<<<<<<<<
  *         tmp = np.zeros(H)
  *         log_P(tmp, s, t, self.Xcs, self.lgammacs, self.positions, self.params)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->Xcs, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 300, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->Xcs, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 302, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
     PyObject* sequence = __pyx_t_1;
@@ -5912,7 +5912,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_2log_P(struct __pyx_ob
     if (unlikely(size != 2)) {
       if (size > 2) __Pyx_RaiseTooManyValuesError(2);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 300, __pyx_L1_error)
+      __PYX_ERR(0, 302, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -5925,15 +5925,15 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_2log_P(struct __pyx_ob
     __Pyx_INCREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_t_3);
     #else
-    __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 300, __pyx_L1_error)
+    __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 302, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 300, __pyx_L1_error)
+    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 302, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     #endif
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 300, __pyx_L1_error)
+    __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 302, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_5 = Py_TYPE(__pyx_t_4)->tp_iternext;
@@ -5941,7 +5941,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_2log_P(struct __pyx_ob
     __Pyx_GOTREF(__pyx_t_2);
     index = 1; __pyx_t_3 = __pyx_t_5(__pyx_t_4); if (unlikely(!__pyx_t_3)) goto __pyx_L3_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_3);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_5(__pyx_t_4), 2) < 0) __PYX_ERR(0, 300, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_5(__pyx_t_4), 2) < 0) __PYX_ERR(0, 302, __pyx_L1_error)
     __pyx_t_5 = NULL;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     goto __pyx_L4_unpacking_done;
@@ -5949,7 +5949,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_2log_P(struct __pyx_ob
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 300, __pyx_L1_error)
+    __PYX_ERR(0, 302, __pyx_L1_error)
     __pyx_L4_unpacking_done:;
   }
   __pyx_v_H = __pyx_t_2;
@@ -5957,16 +5957,16 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_2log_P(struct __pyx_ob
   __pyx_v_n = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "xsmc/_sampler.pyx":301
+  /* "xsmc/_sampler.pyx":303
  *     def log_P(self, s, t):
  *         H, n = self.Xcs.shape
  *         tmp = np.zeros(H)             # <<<<<<<<<<<<<<
  *         log_P(tmp, s, t, self.Xcs, self.lgammacs, self.positions, self.params)
  *         return tmp
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 301, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 303, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 301, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 303, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -5981,25 +5981,25 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_2log_P(struct __pyx_ob
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_v_H) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_H);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 301, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 303, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_tmp = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "xsmc/_sampler.pyx":302
+  /* "xsmc/_sampler.pyx":304
  *         H, n = self.Xcs.shape
  *         tmp = np.zeros(H)
  *         log_P(tmp, s, t, self.Xcs, self.lgammacs, self.positions, self.params)             # <<<<<<<<<<<<<<
  *         return tmp
  * 
  */
-  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_tmp, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 302, __pyx_L1_error)
-  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_s); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 302, __pyx_L1_error)
-  __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_v_t); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 302, __pyx_L1_error)
-  __pyx_t_9 = __Pyx_PyObject_to_MemoryviewSlice_dsds_long(__pyx_v_self->Xcs, PyBUF_WRITABLE); if (unlikely(!__pyx_t_9.memview)) __PYX_ERR(0, 302, __pyx_L1_error)
-  __pyx_t_10 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_self->lgammacs, PyBUF_WRITABLE); if (unlikely(!__pyx_t_10.memview)) __PYX_ERR(0, 302, __pyx_L1_error)
-  __pyx_t_11 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_self->positions, PyBUF_WRITABLE); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 302, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_tmp, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 304, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_s); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 304, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_v_t); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 304, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_to_MemoryviewSlice_dsds_long(__pyx_v_self->Xcs, PyBUF_WRITABLE); if (unlikely(!__pyx_t_9.memview)) __PYX_ERR(0, 304, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_self->lgammacs, PyBUF_WRITABLE); if (unlikely(!__pyx_t_10.memview)) __PYX_ERR(0, 304, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_self->positions, PyBUF_WRITABLE); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 304, __pyx_L1_error)
   __pyx_f_4xsmc_8_sampler_log_P(__pyx_t_6, __pyx_t_7, __pyx_t_8, __pyx_t_9, __pyx_t_10, __pyx_t_11, __pyx_v_self->params);
   __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
   __pyx_t_6.memview = NULL;
@@ -6014,7 +6014,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_2log_P(struct __pyx_ob
   __pyx_t_11.memview = NULL;
   __pyx_t_11.data = NULL;
 
-  /* "xsmc/_sampler.pyx":303
+  /* "xsmc/_sampler.pyx":305
  *         tmp = np.zeros(H)
  *         log_P(tmp, s, t, self.Xcs, self.lgammacs, self.positions, self.params)
  *         return tmp             # <<<<<<<<<<<<<<
@@ -6026,7 +6026,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_2log_P(struct __pyx_ob
   __pyx_r = __pyx_v_tmp;
   goto __pyx_L0;
 
-  /* "xsmc/_sampler.pyx":299
+  /* "xsmc/_sampler.pyx":301
  * 
  *     # used for testing
  *     def log_P(self, s, t):             # <<<<<<<<<<<<<<
@@ -6055,7 +6055,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_2log_P(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "xsmc/_sampler.pyx":305
+/* "xsmc/_sampler.pyx":307
  *         return tmp
  * 
  *     def sample_paths(self, k: int, seed: int) -> List[np.ndarray]:             # <<<<<<<<<<<<<<
@@ -6097,11 +6097,11 @@ static PyObject *__pyx_pw_4xsmc_8_sampler_13_SamplerProxy_5sample_paths(PyObject
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_seed)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("sample_paths", 1, 2, 2, 1); __PYX_ERR(0, 305, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("sample_paths", 1, 2, 2, 1); __PYX_ERR(0, 307, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "sample_paths") < 0)) __PYX_ERR(0, 305, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "sample_paths") < 0)) __PYX_ERR(0, 307, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -6114,7 +6114,7 @@ static PyObject *__pyx_pw_4xsmc_8_sampler_13_SamplerProxy_5sample_paths(PyObject
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("sample_paths", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 305, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("sample_paths", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 307, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("xsmc._sampler._SamplerProxy.sample_paths", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -6163,16 +6163,16 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_4sample_paths(struct _
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("sample_paths", 0);
 
-  /* "xsmc/_sampler.pyx":306
+  /* "xsmc/_sampler.pyx":308
  * 
  *     def sample_paths(self, k: int, seed: int) -> List[np.ndarray]:
  *         logger.debug("Sampling paths")             # <<<<<<<<<<<<<<
  *         cdef vector[vector[pair[int, int]]] paths
  *         paths = _sample_paths(k, seed, self.log_Q, self.Xcs, self.lgammacs, self.positions, self.params)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_logger); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 306, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_logger); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 308, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_debug); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 306, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_debug); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 308, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -6187,26 +6187,26 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_4sample_paths(struct _
   }
   __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_2, __pyx_kp_s_Sampling_paths) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_kp_s_Sampling_paths);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 306, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 308, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "xsmc/_sampler.pyx":308
+  /* "xsmc/_sampler.pyx":310
  *         logger.debug("Sampling paths")
  *         cdef vector[vector[pair[int, int]]] paths
  *         paths = _sample_paths(k, seed, self.log_Q, self.Xcs, self.lgammacs, self.positions, self.params)             # <<<<<<<<<<<<<<
  *         logger.debug("Done sampling paths.")
  *         cdef vector[pair[int, int]] p
  */
-  __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_v_k); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 308, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_log_Q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 308, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_v_k); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 310, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_log_Q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 310, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 308, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 310, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_dsds_long(__pyx_v_self->Xcs, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 308, __pyx_L1_error)
-  __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_self->lgammacs, PyBUF_WRITABLE); if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(0, 308, __pyx_L1_error)
-  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_self->positions, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 308, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_dsds_long(__pyx_v_self->Xcs, PyBUF_WRITABLE); if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 310, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_self->lgammacs, PyBUF_WRITABLE); if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(0, 310, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_self->positions, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 310, __pyx_L1_error)
   __pyx_v_paths = __pyx_f_4xsmc_8_sampler__sample_paths(__pyx_t_4, __pyx_v_seed, __pyx_t_5, __pyx_t_6, __pyx_t_7, __pyx_t_8, __pyx_v_self->params);
   __PYX_XDEC_MEMVIEW(&__pyx_t_5, 1);
   __pyx_t_5.memview = NULL;
@@ -6221,16 +6221,16 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_4sample_paths(struct _
   __pyx_t_8.memview = NULL;
   __pyx_t_8.data = NULL;
 
-  /* "xsmc/_sampler.pyx":309
+  /* "xsmc/_sampler.pyx":311
  *         cdef vector[vector[pair[int, int]]] paths
  *         paths = _sample_paths(k, seed, self.log_Q, self.Xcs, self.lgammacs, self.positions, self.params)
  *         logger.debug("Done sampling paths.")             # <<<<<<<<<<<<<<
  *         cdef vector[pair[int, int]] p
  *         cdef int i
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_logger); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 309, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_logger); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 311, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_debug); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 309, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_debug); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 311, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -6245,24 +6245,24 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_4sample_paths(struct _
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_kp_s_Done_sampling_paths) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_kp_s_Done_sampling_paths);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 309, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 311, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "xsmc/_sampler.pyx":314
+  /* "xsmc/_sampler.pyx":316
  *         cdef pair[int, int] q
  *         cdef int[:, :] z
  *         ret = []             # <<<<<<<<<<<<<<
  *         for p in paths:
  *             ret.append(np.zeros((p.size(), 2), dtype=np.int32))
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 314, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 316, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_ret = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "xsmc/_sampler.pyx":315
+  /* "xsmc/_sampler.pyx":317
  *         cdef int[:, :] z
  *         ret = []
  *         for p in paths:             # <<<<<<<<<<<<<<
@@ -6276,21 +6276,21 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_4sample_paths(struct _
     ++__pyx_t_9;
     __pyx_v_p = __pyx_t_10;
 
-    /* "xsmc/_sampler.pyx":316
+    /* "xsmc/_sampler.pyx":318
  *         ret = []
  *         for p in paths:
  *             ret.append(np.zeros((p.size(), 2), dtype=np.int32))             # <<<<<<<<<<<<<<
  *             z = ret[-1]
  *             i = 0
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 316, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 316, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyInt_FromSize_t(__pyx_v_p.size()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 316, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyInt_FromSize_t(__pyx_v_p.size()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 316, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_GIVEREF(__pyx_t_1);
     PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
@@ -6298,45 +6298,45 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_4sample_paths(struct _
     __Pyx_GIVEREF(__pyx_int_2);
     PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_int_2);
     __pyx_t_1 = 0;
-    __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 316, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_GIVEREF(__pyx_t_3);
     PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3);
     __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 316, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 316, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_int32); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 316, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_int32); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_dtype, __pyx_t_12) < 0) __PYX_ERR(0, 316, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_dtype, __pyx_t_12) < 0) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 316, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_ret, __pyx_t_12); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 316, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyList_Append(__pyx_v_ret, __pyx_t_12); if (unlikely(__pyx_t_13 == ((int)-1))) __PYX_ERR(0, 318, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-    /* "xsmc/_sampler.pyx":317
+    /* "xsmc/_sampler.pyx":319
  *         for p in paths:
  *             ret.append(np.zeros((p.size(), 2), dtype=np.int32))
  *             z = ret[-1]             # <<<<<<<<<<<<<<
  *             i = 0
  *             with nogil:
  */
-    __pyx_t_12 = __Pyx_GetItemInt_List(__pyx_v_ret, -1L, long, 1, __Pyx_PyInt_From_long, 1, 1, 0); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 317, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_GetItemInt_List(__pyx_v_ret, -1L, long, 1, __Pyx_PyInt_From_long, 1, 1, 0); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 319, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
-    __pyx_t_14 = __Pyx_PyObject_to_MemoryviewSlice_dsds_int(__pyx_t_12, PyBUF_WRITABLE); if (unlikely(!__pyx_t_14.memview)) __PYX_ERR(0, 317, __pyx_L1_error)
+    __pyx_t_14 = __Pyx_PyObject_to_MemoryviewSlice_dsds_int(__pyx_t_12, PyBUF_WRITABLE); if (unlikely(!__pyx_t_14.memview)) __PYX_ERR(0, 319, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     __PYX_XDEC_MEMVIEW(&__pyx_v_z, 1);
     __pyx_v_z = __pyx_t_14;
     __pyx_t_14.memview = NULL;
     __pyx_t_14.data = NULL;
 
-    /* "xsmc/_sampler.pyx":318
+    /* "xsmc/_sampler.pyx":320
  *             ret.append(np.zeros((p.size(), 2), dtype=np.int32))
  *             z = ret[-1]
  *             i = 0             # <<<<<<<<<<<<<<
@@ -6345,7 +6345,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_4sample_paths(struct _
  */
     __pyx_v_i = 0;
 
-    /* "xsmc/_sampler.pyx":319
+    /* "xsmc/_sampler.pyx":321
  *             z = ret[-1]
  *             i = 0
  *             with nogil:             # <<<<<<<<<<<<<<
@@ -6360,7 +6360,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_4sample_paths(struct _
         #endif
         /*try:*/ {
 
-          /* "xsmc/_sampler.pyx":320
+          /* "xsmc/_sampler.pyx":322
  *             i = 0
  *             with nogil:
  *                 for i in range(p.size()):             # <<<<<<<<<<<<<<
@@ -6372,7 +6372,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_4sample_paths(struct _
           for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_16; __pyx_t_4+=1) {
             __pyx_v_i = __pyx_t_4;
 
-            /* "xsmc/_sampler.pyx":321
+            /* "xsmc/_sampler.pyx":323
  *             with nogil:
  *                 for i in range(p.size()):
  *                     z[i, 0] = p.at(i).first             # <<<<<<<<<<<<<<
@@ -6389,7 +6389,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_4sample_paths(struct _
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 321, __pyx_L8_error)
+              __PYX_ERR(0, 323, __pyx_L8_error)
             }
             __pyx_t_18 = __pyx_t_17->first;
             __pyx_t_19 = __pyx_v_i;
@@ -6398,7 +6398,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_4sample_paths(struct _
             if (__pyx_t_20 < 0) __pyx_t_20 += __pyx_v_z.shape[1];
             *((int *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_z.data + __pyx_t_19 * __pyx_v_z.strides[0]) ) + __pyx_t_20 * __pyx_v_z.strides[1]) )) = __pyx_t_18;
 
-            /* "xsmc/_sampler.pyx":322
+            /* "xsmc/_sampler.pyx":324
  *                 for i in range(p.size()):
  *                     z[i, 0] = p.at(i).first
  *                     z[i, 1] = p.at(i).second             # <<<<<<<<<<<<<<
@@ -6415,7 +6415,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_4sample_paths(struct _
               #ifdef WITH_THREAD
               __Pyx_PyGILState_Release(__pyx_gilstate_save);
               #endif
-              __PYX_ERR(0, 322, __pyx_L8_error)
+              __PYX_ERR(0, 324, __pyx_L8_error)
             }
             __pyx_t_18 = __pyx_t_21->second;
             __pyx_t_20 = __pyx_v_i;
@@ -6426,7 +6426,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_4sample_paths(struct _
           }
         }
 
-        /* "xsmc/_sampler.pyx":319
+        /* "xsmc/_sampler.pyx":321
  *             z = ret[-1]
  *             i = 0
  *             with nogil:             # <<<<<<<<<<<<<<
@@ -6452,7 +6452,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_4sample_paths(struct _
         }
     }
 
-    /* "xsmc/_sampler.pyx":315
+    /* "xsmc/_sampler.pyx":317
  *         cdef int[:, :] z
  *         ret = []
  *         for p in paths:             # <<<<<<<<<<<<<<
@@ -6461,7 +6461,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_4sample_paths(struct _
  */
   }
 
-  /* "xsmc/_sampler.pyx":323
+  /* "xsmc/_sampler.pyx":325
  *                     z[i, 0] = p.at(i).first
  *                     z[i, 1] = p.at(i).second
  *         return [ary[1:] for ary in ret]             # <<<<<<<<<<<<<<
@@ -6469,22 +6469,22 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_4sample_paths(struct _
  *         # return [list(x)[1:] for x in paths]
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_12 = PyList_New(0); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 323, __pyx_L1_error)
+  __pyx_t_12 = PyList_New(0); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 325, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __pyx_t_3 = __pyx_v_ret; __Pyx_INCREF(__pyx_t_3); __pyx_t_22 = 0;
   for (;;) {
     if (__pyx_t_22 >= PyList_GET_SIZE(__pyx_t_3)) break;
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_22); __Pyx_INCREF(__pyx_t_1); __pyx_t_22++; if (unlikely(0 < 0)) __PYX_ERR(0, 323, __pyx_L1_error)
+    __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_22); __Pyx_INCREF(__pyx_t_1); __pyx_t_22++; if (unlikely(0 < 0)) __PYX_ERR(0, 325, __pyx_L1_error)
     #else
-    __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_22); __pyx_t_22++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 323, __pyx_L1_error)
+    __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_22); __pyx_t_22++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 325, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     #endif
     __Pyx_XDECREF_SET(__pyx_v_ary, __pyx_t_1);
     __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_ary, 1, 0, NULL, NULL, &__pyx_slice__2, 1, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 323, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetSlice(__pyx_v_ary, 1, 0, NULL, NULL, &__pyx_slice__2, 1, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 325, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_12, (PyObject*)__pyx_t_1))) __PYX_ERR(0, 323, __pyx_L1_error)
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_12, (PyObject*)__pyx_t_1))) __PYX_ERR(0, 325, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -6492,7 +6492,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_4sample_paths(struct _
   __pyx_t_12 = 0;
   goto __pyx_L0;
 
-  /* "xsmc/_sampler.pyx":305
+  /* "xsmc/_sampler.pyx":307
  *         return tmp
  * 
  *     def sample_paths(self, k: int, seed: int) -> List[np.ndarray]:             # <<<<<<<<<<<<<<
@@ -6636,7 +6636,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_8__setstate_cython__(C
   return __pyx_r;
 }
 
-/* "_tskit.pxd":83
+/* "_tskit.pxd":84
  *         cdef tsk_table_collection_t *tables
  * 
  * cdef inline void check_error(int err) nogil:             # <<<<<<<<<<<<<<
@@ -6657,7 +6657,7 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
   #endif
   __Pyx_RefNannySetupContext("check_error", 1);
 
-  /* "_tskit.pxd":84
+  /* "_tskit.pxd":85
  * 
  * cdef inline void check_error(int err) nogil:
  *     cdef const char *error             # <<<<<<<<<<<<<<
@@ -6666,7 +6666,7 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
  */
   /*try:*/ {
 
-    /* "_tskit.pxd":85
+    /* "_tskit.pxd":86
  * cdef inline void check_error(int err) nogil:
  *     cdef const char *error
  *     if err != 0:             # <<<<<<<<<<<<<<
@@ -6676,7 +6676,7 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
     __pyx_t_1 = ((__pyx_v_err != 0) != 0);
     if (__pyx_t_1) {
 
-      /* "_tskit.pxd":86
+      /* "_tskit.pxd":87
  *     cdef const char *error
  *     if err != 0:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -6688,22 +6688,22 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
           #endif
           /*try:*/ {
 
-            /* "_tskit.pxd":87
+            /* "_tskit.pxd":88
  *     if err != 0:
  *         with gil:
  *             raise RuntimeError(tsk_strerror(err))             # <<<<<<<<<<<<<<
  */
-            __pyx_t_2 = __Pyx_PyBytes_FromString(tsk_strerror(__pyx_v_err)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 87, __pyx_L8_error)
+            __pyx_t_2 = __Pyx_PyBytes_FromString(tsk_strerror(__pyx_v_err)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 88, __pyx_L8_error)
             __Pyx_GOTREF(__pyx_t_2);
-            __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_RuntimeError, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 87, __pyx_L8_error)
+            __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_RuntimeError, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 88, __pyx_L8_error)
             __Pyx_GOTREF(__pyx_t_3);
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_Raise(__pyx_t_3, 0, 0, 0);
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-            __PYX_ERR(2, 87, __pyx_L8_error)
+            __PYX_ERR(2, 88, __pyx_L8_error)
           }
 
-          /* "_tskit.pxd":86
+          /* "_tskit.pxd":87
  *     cdef const char *error
  *     if err != 0:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -6719,7 +6719,7 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
           }
       }
 
-      /* "_tskit.pxd":85
+      /* "_tskit.pxd":86
  * cdef inline void check_error(int err) nogil:
  *     cdef const char *error
  *     if err != 0:             # <<<<<<<<<<<<<<
@@ -6729,7 +6729,7 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
     }
   }
 
-  /* "_tskit.pxd":84
+  /* "_tskit.pxd":85
  * 
  * cdef inline void check_error(int err) nogil:
  *     cdef const char *error             # <<<<<<<<<<<<<<
@@ -6752,7 +6752,7 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
     __pyx_L5:;
   }
 
-  /* "_tskit.pxd":83
+  /* "_tskit.pxd":84
  *         cdef tsk_table_collection_t *tables
  * 
  * cdef inline void check_error(int err) nogil:             # <<<<<<<<<<<<<<
@@ -21101,9 +21101,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 47, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 49, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(1, 2, __pyx_L1_error)
-  __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(2, 87, __pyx_L1_error)
+  __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(2, 88, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 133, __pyx_L1_error)
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) __PYX_ERR(1, 148, __pyx_L1_error)
   __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(1, 151, __pyx_L1_error)
@@ -21119,25 +21119,25 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "xsmc/_sampler.pyx":196
+  /* "xsmc/_sampler.pyx":198
  *     cdef double[:] z = np.zeros(u + 1)
  *     for i in range(u):
  *         paths.at(i).push_back((-1, -1))             # <<<<<<<<<<<<<<
  *     with nogil:
  *         for i in range(n - 1):
  */
-  __pyx_tuple_ = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_neg_1); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_neg_1); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "xsmc/_sampler.pyx":323
+  /* "xsmc/_sampler.pyx":325
  *                     z[i, 0] = p.at(i).first
  *                     z[i, 1] = p.at(i).second
  *         return [ary[1:] for ary in ret]             # <<<<<<<<<<<<<<
  *         # equivalent to:
  *         # return [list(x)[1:] for x in paths]
  */
-  __pyx_slice__2 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__2)) __PYX_ERR(0, 323, __pyx_L1_error)
+  __pyx_slice__2 = PySlice_New(__pyx_int_1, Py_None, Py_None); if (unlikely(!__pyx_slice__2)) __PYX_ERR(0, 325, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__2);
   __Pyx_GIVEREF(__pyx_slice__2);
 
@@ -21352,17 +21352,17 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__22);
   __Pyx_GIVEREF(__pyx_tuple__22);
 
-  /* "xsmc/_sampler.pyx":75
+  /* "xsmc/_sampler.pyx":77
  *         out[h] = x
  * 
  * def get_mismatches(             # <<<<<<<<<<<<<<
  *     ts: tskit.TreeSequence,
  *     focal: int,
  */
-  __pyx_tuple__23 = PyTuple_Pack(19, __pyx_n_s_ts, __pyx_n_s_focal, __pyx_n_s_panel, __pyx_n_s_w, __pyx_n_s_H, __pyx_n_s_L, __pyx_n_s_L_w, __pyx_n_s_X_np, __pyx_n_s_X, __pyx_n_s_lwt, __pyx_n_s_ts_2, __pyx_n_s_err, __pyx_n_s_vg, __pyx_n_s_var, __pyx_n_s_samples, __pyx_n_s_focal_2, __pyx_n_s_i, __pyx_n_s_h, __pyx_n_s_y_i); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 75, __pyx_L1_error)
+  __pyx_tuple__23 = PyTuple_Pack(19, __pyx_n_s_ts, __pyx_n_s_focal, __pyx_n_s_panel, __pyx_n_s_w, __pyx_n_s_H, __pyx_n_s_L, __pyx_n_s_L_w, __pyx_n_s_X_np, __pyx_n_s_X, __pyx_n_s_lwt, __pyx_n_s_ts_2, __pyx_n_s_err, __pyx_n_s_vg, __pyx_n_s_var, __pyx_n_s_samples, __pyx_n_s_focal_2, __pyx_n_s_i, __pyx_n_s_h, __pyx_n_s_y_i); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__23);
   __Pyx_GIVEREF(__pyx_tuple__23);
-  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(4, 0, 19, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__sampler_pyx, __pyx_n_s_get_mismatches, 75, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 75, __pyx_L1_error)
+  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(4, 0, 19, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_xsmc__sampler_pyx, __pyx_n_s_get_mismatches, 77, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 77, __pyx_L1_error)
 
   /* "View.MemoryView":286
  *         return self.name
@@ -21492,15 +21492,15 @@ static int __Pyx_modinit_type_init_code(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_4xsmc_8_sampler__SamplerProxy) < 0) __PYX_ERR(0, 263, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_4xsmc_8_sampler__SamplerProxy) < 0) __PYX_ERR(0, 265, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_4xsmc_8_sampler__SamplerProxy.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4xsmc_8_sampler__SamplerProxy.tp_dictoffset && __pyx_type_4xsmc_8_sampler__SamplerProxy.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_4xsmc_8_sampler__SamplerProxy.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_SamplerProxy, (PyObject *)&__pyx_type_4xsmc_8_sampler__SamplerProxy) < 0) __PYX_ERR(0, 263, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_4xsmc_8_sampler__SamplerProxy) < 0) __PYX_ERR(0, 263, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_SamplerProxy, (PyObject *)&__pyx_type_4xsmc_8_sampler__SamplerProxy) < 0) __PYX_ERR(0, 265, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_4xsmc_8_sampler__SamplerProxy) < 0) __PYX_ERR(0, 265, __pyx_L1_error)
   __pyx_ptype_4xsmc_8_sampler__SamplerProxy = &__pyx_type_4xsmc_8_sampler__SamplerProxy;
   __pyx_vtabptr_array = &__pyx_vtable_array;
   __pyx_vtable_array.get_memview = (PyObject *(*)(struct __pyx_array_obj *))__pyx_array_get_memview;
@@ -21568,10 +21568,10 @@ static int __Pyx_modinit_type_import_code(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_import_code", 0);
   /*--- Type import code ---*/
-  __pyx_t_1 = PyImport_ImportModule("xsmc._lwtc"); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 80, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("xsmc._lwtc"); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_ptype_4xsmc_6_tskit_LightweightTableCollection = __Pyx_ImportType(__pyx_t_1, "xsmc._lwtc", "LightweightTableCollection", sizeof(LightweightTableCollection), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_4xsmc_6_tskit_LightweightTableCollection) __PYX_ERR(2, 80, __pyx_L1_error)
+   if (!__pyx_ptype_4xsmc_6_tskit_LightweightTableCollection) __PYX_ERR(2, 81, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -21883,7 +21883,7 @@ if (!__Pyx_RefNanny) {
  * import _tskit
  * import numpy as np             # <<<<<<<<<<<<<<
  * import scipy.special
- * import tskit
+ * 
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -21894,64 +21894,64 @@ if (!__Pyx_RefNanny) {
  * import _tskit
  * import numpy as np
  * import scipy.special             # <<<<<<<<<<<<<<
+ * 
  * import tskit
- * from scipy.special.cython_special cimport gammaln, xlogy
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_scipy_special, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_scipy, __pyx_t_1) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "xsmc/_sampler.pyx":12
- * import numpy as np
+  /* "xsmc/_sampler.pyx":13
  * import scipy.special
- * import tskit             # <<<<<<<<<<<<<<
- * from scipy.special.cython_special cimport gammaln, xlogy
  * 
+ * import tskit             # <<<<<<<<<<<<<<
+ * 
+ * from scipy.special.cython_special cimport gammaln, xlogy
  */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_tskit_2, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_tskit_2, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tskit_2, __pyx_t_1) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tskit_2, __pyx_t_1) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "xsmc/_sampler.pyx":17
+  /* "xsmc/_sampler.pyx":19
  * DEF DEBUG = 0
  * 
  * logger = getLogger(__name__)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_getLogger); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_getLogger); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_name_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_name_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_logger, __pyx_t_3) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_logger, __pyx_t_3) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "xsmc/_sampler.pyx":20
+  /* "xsmc/_sampler.pyx":22
  * 
  * 
  * cdef double NINF = float("-inf")             # <<<<<<<<<<<<<<
  * 
  * cdef struct sampler_params:
  */
-  __pyx_t_4 = __Pyx_PyObject_AsDouble(__pyx_kp_s_inf); if (unlikely(__pyx_t_4 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_AsDouble(__pyx_kp_s_inf); if (unlikely(__pyx_t_4 == ((double)((double)-1)) && PyErr_Occurred())) __PYX_ERR(0, 22, __pyx_L1_error)
   __pyx_v_4xsmc_8_sampler_NINF = __pyx_t_4;
 
-  /* "xsmc/_sampler.pyx":75
+  /* "xsmc/_sampler.pyx":77
  *         out[h] = x
  * 
  * def get_mismatches(             # <<<<<<<<<<<<<<
  *     ts: tskit.TreeSequence,
  *     focal: int,
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_sampler_1get_mismatches, NULL, __pyx_n_s_xsmc__sampler); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 75, __pyx_L1_error)
+  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_4xsmc_8_sampler_1get_mismatches, NULL, __pyx_n_s_xsmc__sampler); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_get_mismatches, __pyx_t_3) < 0) __PYX_ERR(0, 75, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_get_mismatches, __pyx_t_3) < 0) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "xsmc/_sampler.pyx":1

@@ -5,15 +5,16 @@ from dataclasses import dataclass
 from typing import List, Union
 
 import numpy as np
+
 import tskit
 import xsmc._sampler
 
 from . import _viterbi
+from .arg import make_trunk
 from .sampler import XSMCSampler
 from .segmentation import ArraySegmentation, Segmentation
 from .size_history import SizeHistory
 from .supporting import watterson
-from .arg import make_trunk
 
 logger = logging.getLogger(__name__)
 
@@ -52,7 +53,7 @@ class XSMC:
             logger.debug("Estimated θ=%f", self.theta)
         self.rho = self.theta * self.rho_over_theta
         if self.w is None:
-            if self.rho == 0.:
+            if self.rho == 0.0:
                 logger.warning("Got rho=0; is this really what you want?")
                 self.w = 100
             else:
@@ -112,9 +113,11 @@ class XSMC:
     def sample_heights(self, j: int, k: int, seed: Union[int, None]) -> np.ndarray:
         return self.sampler.sample_heights(j, k, seed)
 
-    def viterbi(self, beta: float = None,
-                eta: SizeHistory = SizeHistory(t=np.array([0.0, np.inf]), Ne=np.array([1.0]))
-                ) -> Segmentation:
+    def viterbi(
+        self,
+        beta: float = None,
+        eta: SizeHistory = SizeHistory(t=np.array([0.0, np.inf]), Ne=np.array([1.0])),
+    ) -> Segmentation:
         """Compute the maximum *a posteriori* (a.k.a. Viterbi) path in haplotype copying model.
 
         Args:
