@@ -429,3 +429,52 @@ def test_min_f_bug_20200808():
     m = xsmc._viterbi.test_min_f(c, t)
     assert not np.isnan(m["f"])
     assert m["f"] == 0.0
+
+
+def test_compact_1():
+    inf = np.inf
+    func = {'f': [{'c': [0.0, 0.0, inf], 'k': 0}, {'c': [0.0, 1.0, 2.0], 'k': 0}, {'c': [1.0, 2.0, 3.0], 'k': 10}],
+            't': [-inf, 0.6931471805599453, 1.0, inf]}
+    c = xsmc._viterbi.test_compact(func)
+    assert c == func
+
+
+def test_compact_2():
+    inf = np.inf
+    func = {'f': [{'c': [0.0, 0.0, inf], 'k': 0}, {'c': [0.0, 1.0, 2.0], 'k': 0}, {'c': [0.0, 1.0, 2.0], 'k': 0},
+                  {'c': [1.0, 2.0, 3.0], 'k': 10}], 't': [-inf, 0.6931471805599453, .75, 1.0, inf]}
+    c = xsmc._viterbi.test_compact(func)
+    assert c['t'] == func['t'][:2] + func['t'][3:]
+
+
+def test_compact_3():
+    inf = np.inf
+    func = {'f': [{'c': [0.0, 0.0, inf], 'k': 0}, {'c': [0.0, 1.0, 2.0], 'k': 0}, {'c': [0.0, 1.0, 2.0], 'k': 0},
+                  {'c': [1.0, 2.0, 3.0], 'k': 10}], 't': [-inf, .75, .75, 1.0, inf]}
+    c = xsmc._viterbi.test_compact(func)
+    assert c['t'] == [-inf, .75, 1., inf]
+    assert c['f'][0] == func['f'][0]
+    assert c['f'][1] == func['f'][1]
+    assert c['f'][2] == func['f'][3]
+
+    
+def test_truncate_prior():
+    prior = {'f': [{'c': [0., 1., 2.], 'k': 0}, {'c': [1., 2., 3.], 'k': 10}],
+             't': [-np.inf, 1., np.inf]}
+    tau = .5
+    trunc = xsmc._viterbi.test_truncate_prior(prior, tau)
+    assert np.isinf(trunc['f'][0]['c'][2])
+    assert trunc['t'][:2] == [-np.inf, -np.log(tau)]
+    assert trunc['t'][2:] == prior['t'][1:]
+    assert trunc['f'][1:] == prior['f']
+    
+def test_truncate_prior_exact_edge():
+    prior = {'f': [{'c': [0., 1., 2.], 'k': 0}, {'c': [1., 2., 3.], 'k': 10}],
+             't': [-np.inf, 1., np.inf]}
+    tau = np.exp(-1.)
+    trunc = xsmc._viterbi.test_truncate_prior(prior, tau)
+    assert np.isinf(trunc['f'][0]['c'][2])
+    assert trunc['t'][:2] == [-np.inf, -np.log(tau)]
+    assert trunc['t'] == prior['t']
+    assert trunc['f'][1] == prior['f'][1]
+    assert len(trunc['f']) == 2

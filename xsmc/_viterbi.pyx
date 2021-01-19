@@ -3,7 +3,7 @@
 # cython: language=c++
 # distutils: extra_compile_args=['-O2', '-Wno-unused-but-set-variable', '-ffast-math']
 
-DEF DEBUG = 1
+DEF DEBUG = 0
 
 import tskit
 import _tskit
@@ -175,9 +175,9 @@ def viterbi_path(
             
             # loop1: increment all the current ibd tracts
             i += 1
-            if DEBUG:
-                with gil:
-                    print("*** i=", i)
+            # if DEBUG:
+            #     with gil:
+            #         print("*** i=", i)
             while _arg_tree.right < i:
                 tsk_tree_next(&_arg_tree)  # FIXME assert ret == 1
                 priors = arg_prior(log_pi, &_arg_tree)
@@ -199,9 +199,9 @@ def viterbi_path(
                         C.at(j).f.at(k).c[1] += y_i
                         C.at(j).f.at(k).c[2] += gsl_sf_lngamma(1 + y_i) - y_i * log_theta
                     C.at(j).f.at(k).k += 1
-            if DEBUG:
-                with gil:
-                    print("Loop 1 C=", C)
+            # if DEBUG:
+            #     with gil:
+            #         print("Loop 1 C=", C)
 
             # loop 2: compute minimal cost function for recombination at this position
             for j in range(n):
@@ -216,9 +216,9 @@ def viterbi_path(
                         F_t.at(j).pos = i - q.k
                         F_t.at(j).s = <int>q.c[1]
                         F_t.at(j).hap = j
-            if DEBUG:
-                with gil:
-                    print("Loop 2 F_t=", F_t)
+            # if DEBUG:
+            #     with gil:
+            #         print("Loop 2 F_t=", F_t)
 
             b.m.f = INFINITY
             for j in range(n):
@@ -231,9 +231,9 @@ def viterbi_path(
             for j in range(n):
                  C[j] = compact(pointwise_min(priors.at(j), b.m.f, C.at(j)))
                 
-            if DEBUG:
-                with gil:
-                    print("Loop 3 C=", C)
+            # if DEBUG:
+            #     with gil:
+            #         print("Loop 3 C=", C)
 
             err = get_next_obs(&state)
 
@@ -300,6 +300,9 @@ cdef piecewise_func pmin(func f, func g, interval t) nogil:
     '''
     pointwise min of f, g on the interval t
     '''
+    if DEBUG:
+        with gil:
+            print("taking the piecewise min of f=%s g=%s t=(%f,%f)" % (f, g, t[0], t[1]))
     cdef double a = f.c[0] - g.c[0]
     cdef double b = f.c[1] - g.c[1]
     cdef double c = f.c[2] - g.c[2]
@@ -365,8 +368,8 @@ cdef piecewise_func pmin(func f, func g, interval t) nogil:
             x_star = -log(b / a)
             # h_star = a * exp(-x_star) + b * x_star + c
             h_star = b * (1 + log(a) - log(b)) + c
-            if DEBUG:
-                printf("a:%f b:%f c:%f h_star:%f\n", a, b, c, h_star)
+            # if DEBUG:
+            #     printf("a:%f b:%f c:%f h_star:%f\n", a, b, c, h_star)
             if h_star > 0:  # minimum > 0, so f > g
                 return f_is_greater
             else:
@@ -374,8 +377,8 @@ cdef piecewise_func pmin(func f, func g, interval t) nogil:
                 # so it has two real roots.
                 r0 = _root(0, a, b, c)
                 r1 = _root(-1, a, b, c)
-                if DEBUG:
-                    printf("r0:%f r1:%f a:%f b:%f c:%f t[0]:%f t[1]:%f\n", r0, r1, a, b, c, t[0], t[1])
+                # if DEBUG:
+                #     printf("r0:%f r1:%f a:%f b:%f c:%f t[0]:%f t[1]:%f\n", r0, r1, a, b, c, t[0], t[1])
                 # order the roots r0 < r1
                 r = r1
                 r1 = max(r0, r)
@@ -563,7 +566,9 @@ cdef vector[piecewise_func] arg_prior(const piecewise_func &log_pi, tsk_tree_t* 
             ret[i] = truncate_prior(log_pi, t)
     if DEBUG:
         with gil:
-            print('arg_prior', log_pi, ret)
+            print('---> arg_prior')
+            print('----> log_pi=', log_pi)
+            print('----> ret=', ret)
     return ret
 
 cdef piecewise_func truncate_prior(const piecewise_func &prior, double t) nogil:
@@ -579,17 +584,22 @@ cdef piecewise_func truncate_prior(const piecewise_func &prior, double t) nogil:
     f.k = 0
     f.c[0] = 0.
     f.c[1] = 0.
-    f.c[2] = -INFINITY
+    f.c[2] = INFINITY
     ret.f.push_back(f)
     ret.t.push_back(-INFINITY)
     ret.t.push_back(tau)
-    cdef int i
+    cdef int i, j
     for i in range(prior.f.size()):
         intv[0] = prior.t.at(i)
         intv[1] = prior.t.at(i + 1)
         if intv[0] <= tau and tau < intv[1]:
             break
-    return ret
+    ret.f.insert(ret.f.end(), prior.f.begin() + i, prior.f.end())
+    ret.t.insert(ret.t.end(), prior.t.begin() + i + 1, prior.t.end())
+    if DEBUG:
+        with gil:
+            check_piecewise(ret)
+    return compact(ret)
 
 # for piecewise constant coalescent function
 cdef piecewise_func piecewise_const_log_pi(double[:] a, double[:] t, double beta) nogil:
@@ -653,13 +663,13 @@ cdef piecewise_func compact(const piecewise_func &C) nogil:
     for i in range(1, C.f.size()):
         q0 = C.f.at(i)
         t0 = C.t.at(i)
-        if t == t0:
+        # if memcmp(&q, &q0, sizeof(func)) != 0:  this approach does not work. or rather, it's overly conservative.
+        if (t == t0) or (q.c[0] == q0.c[0] and q.c[1] == q0.c[1] and q.c[2] == q0.c[2] and q.k == q0.k):
             continue
-        if memcmp(&q, &q0, sizeof(func)) != 0:
-            ret.f.push_back(q)
-            ret.t.push_back(t)
-            q = q0
-            t = t0
+        ret.f.push_back(q)
+        ret.t.push_back(t)
+        q = q0
+        t = t0
     ret.f.push_back(q)
     ret.t.push_back(t)
     ret.t.push_back(C.t.back())
@@ -673,6 +683,10 @@ cdef piecewise_func compact(const piecewise_func &C) nogil:
     return ret
 
 cdef void check_piecewise(const piecewise_func &v):
+    assert len(v.f) == len(v.t) - 1
+    assert v.t[0] == -INFINITY
+    assert v.t.back() == INFINITY
+    assert sorted(v.t) == list(v.t)
     return
     # cdef float t1last
     # for i in range(v.t.size()):
@@ -736,3 +750,14 @@ def test_pmin(f, g, t, f_k=0, g_k=1):
 
 def test_root(k, a, b, c):
     return _root(k, a, b, c)
+
+
+def test_truncate_prior(prior, t):
+    cdef piecewise_func p
+    p.f = prior['f']
+    p.t = prior['t']
+    return truncate_prior(prior, t)
+
+
+def test_compact(func):
+    return compact(func)
