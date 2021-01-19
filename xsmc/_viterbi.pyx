@@ -393,7 +393,7 @@ cdef piecewise_func pmin(func f, func g, interval t) nogil:
                 if t[1] <= r0:
                     return f_is_greater
                 # case 2: t.a < r0 < t[1] < r1
-                elif t[0] <= r0 < t[1] < r1:
+                elif t[0] <= r0 <= t[1] <= r1:
                     ret.f.push_back(g)
                     ret.f.push_back(f)
                     ret.t.push_back(t[0])
@@ -401,7 +401,7 @@ cdef piecewise_func pmin(func f, func g, interval t) nogil:
                     ret.t.push_back(t[1])
                     return ret
                 # case 3: both roots in interval
-                elif t[0] <= r0 < r1 < t[1]:
+                elif t[0] <= r0 <= r1 <= t[1]:
                     ret.f.push_back(g)
                     ret.f.push_back(f)
                     ret.f.push_back(g)
@@ -412,10 +412,10 @@ cdef piecewise_func pmin(func f, func g, interval t) nogil:
                     return ret
                 # case 4: r0 <= t.a < t[1] < r1
                 # so the function is negative on t => f is minimal
-                elif r0 <= t[0] < t[1] < r1:
+                elif r0 <= t[0] <= t[1] <= r1:
                     return g_is_greater
                 # case 5: r0 <= t.a < r1 < t.b
-                elif r0 <= t[0] < r1 <= t[1]:
+                elif r0 <= t[0] <= r1 <= t[1]:
                     ret.f.push_back(f)
                     ret.f.push_back(g)
                     ret.t.push_back(t[0])

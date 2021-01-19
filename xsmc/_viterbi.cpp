@@ -7010,7 +7010,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  *                 if t[1] <= r0:
  *                     return f_is_greater             # <<<<<<<<<<<<<<
  *                 # case 2: t.a < r0 < t[1] < r1
- *                 elif t[0] <= r0 < t[1] < r1:
+ *                 elif t[0] <= r0 <= t[1] <= r1:
  */
             __pyx_r = __pyx_v_f_is_greater;
             goto __pyx_L3_return;
@@ -7027,15 +7027,15 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
           /* "xsmc/_viterbi.pyx":396
  *                     return f_is_greater
  *                 # case 2: t.a < r0 < t[1] < r1
- *                 elif t[0] <= r0 < t[1] < r1:             # <<<<<<<<<<<<<<
+ *                 elif t[0] <= r0 <= t[1] <= r1:             # <<<<<<<<<<<<<<
  *                     ret.f.push_back(g)
  *                     ret.f.push_back(f)
  */
           __pyx_t_6 = ((__pyx_v_t[0]) <= __pyx_v_r0);
           if (__pyx_t_6) {
-            __pyx_t_6 = (__pyx_v_r0 < (__pyx_v_t[1]));
+            __pyx_t_6 = (__pyx_v_r0 <= (__pyx_v_t[1]));
             if (__pyx_t_6) {
-              __pyx_t_6 = ((__pyx_v_t[1]) < __pyx_v_r1);
+              __pyx_t_6 = ((__pyx_v_t[1]) <= __pyx_v_r1);
             }
           }
           __pyx_t_10 = (__pyx_t_6 != 0);
@@ -7043,7 +7043,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
 
             /* "xsmc/_viterbi.pyx":397
  *                 # case 2: t.a < r0 < t[1] < r1
- *                 elif t[0] <= r0 < t[1] < r1:
+ *                 elif t[0] <= r0 <= t[1] <= r1:
  *                     ret.f.push_back(g)             # <<<<<<<<<<<<<<
  *                     ret.f.push_back(f)
  *                     ret.t.push_back(t[0])
@@ -7062,7 +7062,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
             }
 
             /* "xsmc/_viterbi.pyx":398
- *                 elif t[0] <= r0 < t[1] < r1:
+ *                 elif t[0] <= r0 <= t[1] <= r1:
  *                     ret.f.push_back(g)
  *                     ret.f.push_back(f)             # <<<<<<<<<<<<<<
  *                     ret.t.push_back(t[0])
@@ -7146,7 +7146,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
  *                     ret.t.push_back(t[1])
  *                     return ret             # <<<<<<<<<<<<<<
  *                 # case 3: both roots in interval
- *                 elif t[0] <= r0 < r1 < t[1]:
+ *                 elif t[0] <= r0 <= r1 <= t[1]:
  */
             __pyx_r = __pyx_v_ret;
             goto __pyx_L3_return;
@@ -7154,7 +7154,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
             /* "xsmc/_viterbi.pyx":396
  *                     return f_is_greater
  *                 # case 2: t.a < r0 < t[1] < r1
- *                 elif t[0] <= r0 < t[1] < r1:             # <<<<<<<<<<<<<<
+ *                 elif t[0] <= r0 <= t[1] <= r1:             # <<<<<<<<<<<<<<
  *                     ret.f.push_back(g)
  *                     ret.f.push_back(f)
  */
@@ -7163,15 +7163,15 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
           /* "xsmc/_viterbi.pyx":404
  *                     return ret
  *                 # case 3: both roots in interval
- *                 elif t[0] <= r0 < r1 < t[1]:             # <<<<<<<<<<<<<<
+ *                 elif t[0] <= r0 <= r1 <= t[1]:             # <<<<<<<<<<<<<<
  *                     ret.f.push_back(g)
  *                     ret.f.push_back(f)
  */
           __pyx_t_10 = ((__pyx_v_t[0]) <= __pyx_v_r0);
           if (__pyx_t_10) {
-            __pyx_t_10 = (__pyx_v_r0 < __pyx_v_r1);
+            __pyx_t_10 = (__pyx_v_r0 <= __pyx_v_r1);
             if (__pyx_t_10) {
-              __pyx_t_10 = (__pyx_v_r1 < (__pyx_v_t[1]));
+              __pyx_t_10 = (__pyx_v_r1 <= (__pyx_v_t[1]));
             }
           }
           __pyx_t_6 = (__pyx_t_10 != 0);
@@ -7179,7 +7179,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
 
             /* "xsmc/_viterbi.pyx":405
  *                 # case 3: both roots in interval
- *                 elif t[0] <= r0 < r1 < t[1]:
+ *                 elif t[0] <= r0 <= r1 <= t[1]:
  *                     ret.f.push_back(g)             # <<<<<<<<<<<<<<
  *                     ret.f.push_back(f)
  *                     ret.f.push_back(g)
@@ -7198,7 +7198,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
             }
 
             /* "xsmc/_viterbi.pyx":406
- *                 elif t[0] <= r0 < r1 < t[1]:
+ *                 elif t[0] <= r0 <= r1 <= t[1]:
  *                     ret.f.push_back(g)
  *                     ret.f.push_back(f)             # <<<<<<<<<<<<<<
  *                     ret.f.push_back(g)
@@ -7330,7 +7330,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
             /* "xsmc/_viterbi.pyx":404
  *                     return ret
  *                 # case 3: both roots in interval
- *                 elif t[0] <= r0 < r1 < t[1]:             # <<<<<<<<<<<<<<
+ *                 elif t[0] <= r0 <= r1 <= t[1]:             # <<<<<<<<<<<<<<
  *                     ret.f.push_back(g)
  *                     ret.f.push_back(f)
  */
@@ -7339,15 +7339,15 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
           /* "xsmc/_viterbi.pyx":415
  *                 # case 4: r0 <= t.a < t[1] < r1
  *                 # so the function is negative on t => f is minimal
- *                 elif r0 <= t[0] < t[1] < r1:             # <<<<<<<<<<<<<<
+ *                 elif r0 <= t[0] <= t[1] <= r1:             # <<<<<<<<<<<<<<
  *                     return g_is_greater
  *                 # case 5: r0 <= t.a < r1 < t.b
  */
           __pyx_t_6 = (__pyx_v_r0 <= (__pyx_v_t[0]));
           if (__pyx_t_6) {
-            __pyx_t_6 = ((__pyx_v_t[0]) < (__pyx_v_t[1]));
+            __pyx_t_6 = ((__pyx_v_t[0]) <= (__pyx_v_t[1]));
             if (__pyx_t_6) {
-              __pyx_t_6 = ((__pyx_v_t[1]) < __pyx_v_r1);
+              __pyx_t_6 = ((__pyx_v_t[1]) <= __pyx_v_r1);
             }
           }
           __pyx_t_10 = (__pyx_t_6 != 0);
@@ -7355,10 +7355,10 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
 
             /* "xsmc/_viterbi.pyx":416
  *                 # so the function is negative on t => f is minimal
- *                 elif r0 <= t[0] < t[1] < r1:
+ *                 elif r0 <= t[0] <= t[1] <= r1:
  *                     return g_is_greater             # <<<<<<<<<<<<<<
  *                 # case 5: r0 <= t.a < r1 < t.b
- *                 elif r0 <= t[0] < r1 <= t[1]:
+ *                 elif r0 <= t[0] <= r1 <= t[1]:
  */
             __pyx_r = __pyx_v_g_is_greater;
             goto __pyx_L3_return;
@@ -7366,7 +7366,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
             /* "xsmc/_viterbi.pyx":415
  *                 # case 4: r0 <= t.a < t[1] < r1
  *                 # so the function is negative on t => f is minimal
- *                 elif r0 <= t[0] < t[1] < r1:             # <<<<<<<<<<<<<<
+ *                 elif r0 <= t[0] <= t[1] <= r1:             # <<<<<<<<<<<<<<
  *                     return g_is_greater
  *                 # case 5: r0 <= t.a < r1 < t.b
  */
@@ -7375,13 +7375,13 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
           /* "xsmc/_viterbi.pyx":418
  *                     return g_is_greater
  *                 # case 5: r0 <= t.a < r1 < t.b
- *                 elif r0 <= t[0] < r1 <= t[1]:             # <<<<<<<<<<<<<<
+ *                 elif r0 <= t[0] <= r1 <= t[1]:             # <<<<<<<<<<<<<<
  *                     ret.f.push_back(f)
  *                     ret.f.push_back(g)
  */
           __pyx_t_10 = (__pyx_v_r0 <= (__pyx_v_t[0]));
           if (__pyx_t_10) {
-            __pyx_t_10 = ((__pyx_v_t[0]) < __pyx_v_r1);
+            __pyx_t_10 = ((__pyx_v_t[0]) <= __pyx_v_r1);
             if (__pyx_t_10) {
               __pyx_t_10 = (__pyx_v_r1 <= (__pyx_v_t[1]));
             }
@@ -7391,7 +7391,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
 
             /* "xsmc/_viterbi.pyx":419
  *                 # case 5: r0 <= t.a < r1 < t.b
- *                 elif r0 <= t[0] < r1 <= t[1]:
+ *                 elif r0 <= t[0] <= r1 <= t[1]:
  *                     ret.f.push_back(f)             # <<<<<<<<<<<<<<
  *                     ret.f.push_back(g)
  *                     ret.t.push_back(t[0])
@@ -7410,7 +7410,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
             }
 
             /* "xsmc/_viterbi.pyx":420
- *                 elif r0 <= t[0] < r1 <= t[1]:
+ *                 elif r0 <= t[0] <= r1 <= t[1]:
  *                     ret.f.push_back(f)
  *                     ret.f.push_back(g)             # <<<<<<<<<<<<<<
  *                     ret.t.push_back(t[0])
@@ -7502,7 +7502,7 @@ static __pyx_t_4xsmc_8_viterbi_piecewise_func __pyx_f_4xsmc_8_viterbi_pmin(__pyx
             /* "xsmc/_viterbi.pyx":418
  *                     return g_is_greater
  *                 # case 5: r0 <= t.a < r1 < t.b
- *                 elif r0 <= t[0] < r1 <= t[1]:             # <<<<<<<<<<<<<<
+ *                 elif r0 <= t[0] <= r1 <= t[1]:             # <<<<<<<<<<<<<<
  *                     ret.f.push_back(f)
  *                     ret.f.push_back(g)
  */
