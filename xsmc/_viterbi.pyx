@@ -300,9 +300,6 @@ cdef piecewise_func pmin(func f, func g, interval t) nogil:
     '''
     pointwise min of f, g on the interval t
     '''
-    if DEBUG:
-        with gil:
-            print("taking the piecewise min of f=%s g=%s t=(%f,%f)" % (f, g, t[0], t[1]))
     cdef double a = f.c[0] - g.c[0]
     cdef double b = f.c[1] - g.c[1]
     cdef double c = f.c[2] - g.c[2]
@@ -320,6 +317,12 @@ cdef piecewise_func pmin(func f, func g, interval t) nogil:
     g_is_greater.t.push_back(t[0])
     g_is_greater.t.push_back(t[1])
 
+    if DEBUG:
+        with gil:
+            print("taking the piecewise min of f=%s g=%s t=(%f,%f)" % (f, g, t[0], t[1]))
+            print("a=%g b=%g c=%g" % (a, b, c))
+            
+
     # strategy: find the roots of h = f - g
     if f.c[2] == INFINITY:
         return f_is_greater
@@ -336,7 +339,7 @@ cdef piecewise_func pmin(func f, func g, interval t) nogil:
             if a < 0:
                 return pmin(g, f, t)
             # assume a > 0
-            if c >= 0:
+            elif c >= 0:
                 # the function is always +, so g is smaller
                 return f_is_greater
             else:
@@ -356,7 +359,7 @@ cdef piecewise_func pmin(func f, func g, interval t) nogil:
         if a < 0:
             return pmin(g, f, t)
         # a > 0
-        if b < 0:
+        elif b < 0:
             # f' = -a exp(-x) + b so a > 0, b < 0 => f is monotone decreasing
             # solve a exp(-x) + b x + c == 0
             r = _root(0, a, b, c)
@@ -377,8 +380,8 @@ cdef piecewise_func pmin(func f, func g, interval t) nogil:
                 # so it has two real roots.
                 r0 = _root(0, a, b, c)
                 r1 = _root(-1, a, b, c)
-                # if DEBUG:
-                #     printf("r0:%f r1:%f a:%f b:%f c:%f t[0]:%f t[1]:%f\n", r0, r1, a, b, c, t[0], t[1])
+                if DEBUG:
+                    printf("r0:%f r1:%f a:%f b:%f c:%f t[0]:%f t[1]:%f\n", r0, r1, a, b, c, t[0], t[1])
                 # order the roots r0 < r1
                 r = r1
                 r1 = max(r0, r)
@@ -764,6 +767,9 @@ def test_pmin(f, g, t, f_k=0, g_k=1):
     _g.k = g_k
     return pmin(_f, _g, _t)
 
+def test_pmin_new_fmt(f, g, t):
+    cdef double[2] tt = t
+    return pmin(f, g, tt)
 
 def test_root(k, a, b, c):
     return _root(k, a, b, c)
