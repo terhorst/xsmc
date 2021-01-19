@@ -1099,7 +1099,7 @@ struct __pyx_t_4xsmc_8_sampler_sampler_params {
   bool use_cache;
 };
 
-/* "_tskit.pxd":79
+/* "_tskit.pxd":80
  * 
  * cdef extern:
  *     ctypedef class xsmc._lwtc.LightweightTableCollection [object LightweightTableCollection]:             # <<<<<<<<<<<<<<
@@ -6636,7 +6636,7 @@ static PyObject *__pyx_pf_4xsmc_8_sampler_13_SamplerProxy_8__setstate_cython__(C
   return __pyx_r;
 }
 
-/* "_tskit.pxd":82
+/* "_tskit.pxd":83
  *         cdef tsk_table_collection_t *tables
  * 
  * cdef inline void check_error(int err) nogil:             # <<<<<<<<<<<<<<
@@ -6657,7 +6657,7 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
   #endif
   __Pyx_RefNannySetupContext("check_error", 1);
 
-  /* "_tskit.pxd":83
+  /* "_tskit.pxd":84
  * 
  * cdef inline void check_error(int err) nogil:
  *     cdef const char *error             # <<<<<<<<<<<<<<
@@ -6666,7 +6666,7 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
  */
   /*try:*/ {
 
-    /* "_tskit.pxd":84
+    /* "_tskit.pxd":85
  * cdef inline void check_error(int err) nogil:
  *     cdef const char *error
  *     if err != 0:             # <<<<<<<<<<<<<<
@@ -6676,7 +6676,7 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
     __pyx_t_1 = ((__pyx_v_err != 0) != 0);
     if (__pyx_t_1) {
 
-      /* "_tskit.pxd":85
+      /* "_tskit.pxd":86
  *     cdef const char *error
  *     if err != 0:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -6688,22 +6688,22 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
           #endif
           /*try:*/ {
 
-            /* "_tskit.pxd":86
+            /* "_tskit.pxd":87
  *     if err != 0:
  *         with gil:
  *             raise RuntimeError(tsk_strerror(err))             # <<<<<<<<<<<<<<
  */
-            __pyx_t_2 = __Pyx_PyBytes_FromString(tsk_strerror(__pyx_v_err)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 86, __pyx_L8_error)
+            __pyx_t_2 = __Pyx_PyBytes_FromString(tsk_strerror(__pyx_v_err)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 87, __pyx_L8_error)
             __Pyx_GOTREF(__pyx_t_2);
-            __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_RuntimeError, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 86, __pyx_L8_error)
+            __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_RuntimeError, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 87, __pyx_L8_error)
             __Pyx_GOTREF(__pyx_t_3);
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_Raise(__pyx_t_3, 0, 0, 0);
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-            __PYX_ERR(2, 86, __pyx_L8_error)
+            __PYX_ERR(2, 87, __pyx_L8_error)
           }
 
-          /* "_tskit.pxd":85
+          /* "_tskit.pxd":86
  *     cdef const char *error
  *     if err != 0:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -6719,7 +6719,7 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
           }
       }
 
-      /* "_tskit.pxd":84
+      /* "_tskit.pxd":85
  * cdef inline void check_error(int err) nogil:
  *     cdef const char *error
  *     if err != 0:             # <<<<<<<<<<<<<<
@@ -6729,7 +6729,7 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
     }
   }
 
-  /* "_tskit.pxd":83
+  /* "_tskit.pxd":84
  * 
  * cdef inline void check_error(int err) nogil:
  *     cdef const char *error             # <<<<<<<<<<<<<<
@@ -6752,7 +6752,7 @@ static CYTHON_INLINE void __pyx_f_4xsmc_6_tskit_check_error(int __pyx_v_err) {
     __pyx_L5:;
   }
 
-  /* "_tskit.pxd":82
+  /* "_tskit.pxd":83
  *         cdef tsk_table_collection_t *tables
  * 
  * cdef inline void check_error(int err) nogil:             # <<<<<<<<<<<<<<
@@ -21103,7 +21103,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 47, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(1, 2, __pyx_L1_error)
-  __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(2, 86, __pyx_L1_error)
+  __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(2, 87, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 133, __pyx_L1_error)
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) __PYX_ERR(1, 148, __pyx_L1_error)
   __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(1, 151, __pyx_L1_error)
@@ -21568,10 +21568,10 @@ static int __Pyx_modinit_type_import_code(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_import_code", 0);
   /*--- Type import code ---*/
-  __pyx_t_1 = PyImport_ImportModule("xsmc._lwtc"); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 79, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("xsmc._lwtc"); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_ptype_4xsmc_6_tskit_LightweightTableCollection = __Pyx_ImportType(__pyx_t_1, "xsmc._lwtc", "LightweightTableCollection", sizeof(LightweightTableCollection), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_4xsmc_6_tskit_LightweightTableCollection) __PYX_ERR(2, 79, __pyx_L1_error)
+   if (!__pyx_ptype_4xsmc_6_tskit_LightweightTableCollection) __PYX_ERR(2, 80, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;

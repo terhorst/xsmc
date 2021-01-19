@@ -23,7 +23,7 @@ include_dirs = ["src/", np.get_include()]
 extensions = [
     Extension(
         "xsmc._lwtc",
-        ["src/_lwtc.c"],
+        ["src/_lwtc.c"] + tskit_sourcefiles,
         language="c",
         include_dirs=include_dirs,
     ),
@@ -52,6 +52,7 @@ setup(
         "scipy>=1.1.0",
         "tskit==0.3.1",
         "matplotlib>=3.0.0",
+        "python-intervals"
     ],
     setup_requires=["setuptools>=46.0", "cython>=0.29"],
     packages=find_packages(),

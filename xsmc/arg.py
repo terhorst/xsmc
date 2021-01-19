@@ -1,6 +1,8 @@
 from typing import List, Sequence
+import intervals as I
 
 import tskit
+from .segmentation import Segmentation
 
 
 def make_trunk(samples: List[int], sequence_length: int) -> tskit.TreeSequence:
@@ -43,27 +45,20 @@ def make_trunk(samples: List[int], sequence_length: int) -> tskit.TreeSequence:
     )
     for s in samples:
         i = tc.individuals.add_row(metadata={"sample_id": s})
-        n = tc.nodes.add_row(flags=tskit.NODE_IS_SAMPLE, individual=i)
+        n = tc.nodes.add_row(flags=tskit.NODE_IS_SAMPLE, individual=i, time=0.)  # TODO heterochronous?
     assert n == len(samples) - 1
     return tc.tree_sequence()
 
 
-def thread_chrom(
-    tc: tskit.TableCollection,
-    spans: Sequence[int],
-    haps: Sequence[int],
-    times: Sequence[float],
-) -> tskit.TableCollection:
-    """Thread a new chromosome into an existing table collection.
+def thread(
+    scaffold: tskit.TableCollection,
+    segmentation: Segmentation
+) -> tskit.TreeSequence:
+    """Thread a new decoding into an existing scaffold.
 
     Args:
-        tc: An existing tree sequence to weave in the new chromosome.
-        spans: Sequence of spans for which MRCA of new chromosome is constant.
-        nodes: Sequence of node IDs in ts representing leaf node onto whose ancestor
-            the new chromosome coalesces.
-        times: Sequence of join-on times representing the time of coalescence onto the
-            ancestral lineage.
-
+        scaffold: An existing tree sequence to weave in the newly decoded chromosome.
+        segmentation: A segmentation representing the local TMRCA at each position.
     Returns:
         A new table collection with the additional chromosome threaded in.
 
@@ -71,22 +66,18 @@ def thread_chrom(
         :spans:, :nodes: and :times: should all have the same length.
     """
     # FIXME this algorithm is very inefficient
-    ret = tc.copy()
-    ts = tc.tree_sequence()
+    ret = scaffold.dump_tables()
     new_edges = ret.edges
     new_edges.reset()
     # the labeled leaf nodes / haplotypes in our sample
     n = ret.nodes.add_row(time=0.0, flags=tskit.NODE_IS_SAMPLE)
     i = 0
-    for s, h, t in zip(spans, haps, times):
+    for h, (left, right), t, _ in segmentation.segments:
         # find all of the edges which are ancestral to h and overlap the given
         # time interval. break the edge, insert a new node and three new edges
         # to mark the new coalescent event.
-        if s == 0:
-            continue
-        left, right = i, i + s
-        i += s
-        sub_tables = ts.keep_intervals([(left, right)], simplify=False).dump_tables()
+        assert left < right
+        sub_tables = scaffold.keep_intervals([(left, right)], simplify=False).dump_tables()
         sub_nodes = sub_tables.nodes
         ancestral_nodes = I.IntervalDict()
         ancestral_nodes[I.closedopen(left, right)] = h
@@ -145,4 +136,4 @@ def thread_chrom(
     ret.sort()
     ret.simplify()
     # print(ret.tree_sequence().draw_text())
-    return ret
+    return ret.tree_sequence()

@@ -34,44 +34,44 @@ def test_root_bug2():
 def test_pmin1():
     # a = 1, b = -5, c = -5
     ret = xsmc._viterbi.test_pmin([1, -5, -5], [0, 0, 0], [-2, 2])
-    assert len(ret) == 2
-    np.testing.assert_allclose(ret[0]["t"][1], -0.6259832407)
-    np.testing.assert_allclose(ret[1]["t"][0], -0.6259832407)
-    assert ret[0]["f"]["c"][0] == 0
-    assert ret[0]["f"]["c"][1] == 0
-    assert ret[0]["f"]["c"][2] == 0
-    assert ret[0]["f"]["k"] == 1
-    assert ret[1]["f"]["c"][0] == 1
-    assert ret[1]["f"]["c"][1] == -5
-    assert ret[1]["f"]["c"][2] == -5
-    assert ret[1]["f"]["k"] == 0
-    assert ret[0]["t"][0] == -2.0
-    assert ret[1]["t"][1] == 2.0
+    assert len(ret['f']) == 2
+    assert len(ret['t']) == 3
+    assert ret["f"][0]["c"][0] == 0
+    assert ret["f"][0]["c"][1] == 0
+    assert ret["f"][0]["c"][2] == 0
+    assert ret["f"][0]["k"] == 1
+    assert ret["f"][1]["c"][0] == 1
+    assert ret["f"][1]["c"][1] == -5
+    assert ret["f"][1]["c"][2] == -5
+    assert ret["f"][1]["k"] == 0
+    assert ret["t"][0] == -2.0
+    np.testing.assert_allclose(ret["t"], [-2., -0.6259832407, 2.])
 
 
 def test_pmin2():
     # a = -5, b = -5, c = -5
     # function is strictly negative
     ret = xsmc._viterbi.test_pmin([-5, -5, -5], [0, 0, 0], [-2, 2])
-    assert len(ret) == 1
-    assert ret[0]["f"]["c"][0] == -5
-    assert ret[0]["f"]["c"][1] == -5
-    assert ret[0]["f"]["c"][2] == -5
-    assert ret[0]["f"]["k"] == 0
-    assert ret[0]["t"][0] == -2
-    assert ret[0]["t"][1] == 2
+    assert len(ret["f"]) == 1
+    assert len(ret["t"]) == 2
+    assert ret["f"][0]["c"][0] == -5
+    assert ret["f"][0]["c"][1] == -5
+    assert ret["f"][0]["c"][2] == -5
+    assert ret["f"][0]["k"] == 0
+    assert ret["t"][0] == -2
+    assert ret["t"][1] == 2
 
 
 def test_pmin_linear():
     ret = xsmc._viterbi.test_pmin([0, -5, -5], [0, 0, 0], [-10, 10])
-    assert len(ret) == 2
-    assert ret[0]["f"]["c"][0] == 0
-    assert ret[0]["f"]["c"][1] == 0
-    assert ret[0]["f"]["c"][2] == 0
-    assert ret[1]["f"]["c"][0] == 0
-    assert ret[1]["f"]["c"][1] == -5
-    assert ret[1]["f"]["c"][2] == -5
-    np.testing.assert_allclose(ret[0]["t"][1], -1.0)
+    assert len(ret["f"]) == 2
+    assert ret["f"][0]["c"][0] == 0
+    assert ret["f"][0]["c"][1] == 0
+    assert ret["f"][0]["c"][2] == 0
+    assert ret["f"][1]["c"][0] == 0
+    assert ret["f"][1]["c"][1] == -5
+    assert ret["f"][1]["c"][2] == -5
+    np.testing.assert_allclose(ret["t"], [-10., -1.0, 10.])
 
 
 def test_pmin_rnd():
@@ -81,7 +81,6 @@ def test_pmin_rnd():
 def test_pmin_inf():
     ret = xsmc._viterbi.test_pmin([-5, -5, np.inf], [0, 0, 0], [-2, -2])
     # assert doesn't raise
-
 
 def test_pmin_bug1():
     inf = np.inf
@@ -125,16 +124,15 @@ def test_pmin_bug2():
 
 def test_pmin_convex():
     ret = xsmc._viterbi.test_pmin([-5, -5, 6], [0, 0, 0], [-2, 2])
-    assert len(ret) == 3
-    assert ret[0]["f"] == ret[2]["f"]
-    assert ret[0]["f"]["c"][0] == -5
-    assert ret[0]["f"]["c"][1] == -5
-    assert ret[0]["f"]["c"][2] == 6
-    assert ret[1]["f"]["c"][0] == 0
-    assert ret[1]["f"]["c"][1] == 0
-    assert ret[1]["f"]["c"][2] == 0
-    np.testing.assert_allclose(ret[0]["t"][1], -0.5722498296)
-    np.testing.assert_allclose(ret[1]["t"][1], 0.7067605762)
+    assert len(ret["f"]) == 3
+    assert ret["f"][0] == ret["f"][2]
+    assert ret["f"][0]["c"][0] == -5
+    assert ret["f"][0]["c"][1] == -5
+    assert ret["f"][0]["c"][2] == 6
+    assert ret["f"][1]["c"][0] == 0
+    assert ret["f"][1]["c"][1] == 0
+    assert ret["f"][1]["c"][2] == 0
+    np.testing.assert_allclose(ret["t"], [-2., -0.5722498296, 0.7067605762, 2.])
 
 
 def test_bc_equal():
@@ -142,9 +140,9 @@ def test_bc_equal():
     g = [-10, 3, 4]
     rho = 1e-4
     ret = xsmc._viterbi.test_pmin(f, g, [-5, 5])
-    assert ret[0]["f"]["c"][0] == -10
-    assert ret[0]["f"]["c"][1] == 3
-    assert ret[0]["f"]["c"][2] == 4
+    assert ret["f"][0]["c"][0] == -10
+    assert ret["f"][0]["c"][1] == 3
+    assert ret["f"][0]["c"][2] == 4
 
 
 def test_min_f_bug1():
@@ -179,15 +177,18 @@ def test_min_f_random():
             assert np.isclose(ret["x"], bounds[0]) or np.isclose(ret["x"], bounds[1])
             warnings.warn("minimize_scalar() missed the endpoint")
 
+def _pwiter(pwf):
+    yield from zip(pwf['f'], zip(pwf['t'][:-1], pwf['t'][1:]))
+
 
 def _pmin_func_test(f, g, t):
     a1, b1, c1 = f
     a2, b2, c2 = g
     rho = 1e-4
     ret = xsmc._viterbi.test_pmin(f, g, t)
-    for p in ret:
-        x = np.linspace(p["t"][0], p["t"][1], 12)[1:-1]
-        s = (-1) ** np.allclose(p["f"]["c"], [a1, b1, c1])
+    for p, (t0, t1) in _pwiter(ret):
+        x = np.linspace(t0, t1, 50)[1:-1]
+        s = (-1) ** np.allclose(p["c"], [a1, b1, c1])
         np.testing.assert_array_less(
             -s * ((rho + (a1 - 1) * (1.0 + rho)) * np.exp(-x) + b1 * x + c1),
             -s * ((rho + (a2 - 1) * (1.0 + rho)) * np.exp(-x) + b2 * x + c2),
@@ -215,14 +216,14 @@ def test_pwc1():
     for _ in range(20):
         t = np.random.rand() * 10
         z = -np.log(t)
-        for p in ret:
-            assert p["f"]["k"] == 0
-            if p["t"][0] <= z < p["t"][1]:
+        for f, (t0, t1) in _pwiter(ret):
+            assert f["k"] == 0
+            if t0 <= z < t1:
                 np.testing.assert_allclose(
                     t,
-                    p["f"]["c"][0] * np.exp(-z)
-                    + (p["f"]["c"][1] - 2) * z
-                    + p["f"]["c"][2],
+                    f["c"][0] * np.exp(-z)
+                    + (f["c"][1] - 2) * z
+                    + f["c"][2],
                 )
 
 
@@ -234,14 +235,15 @@ def test_pwc2():
     for _ in range(20):
         t = np.random.rand() * 10
         z = -np.log(t)
-        for p in ret:
-            assert p["f"]["k"] == 0
-            if p["t"][0] <= z < p["t"][1]:
+        q = t
+        for f, (t0, t1) in _pwiter(ret):
+            assert f["k"] == 0
+            if t0 <= z < t1:
                 np.testing.assert_allclose(
-                    t,
-                    p["f"]["c"][0] * np.exp(-z)
-                    + (p["f"]["c"][1] - 2) * z
-                    + p["f"]["c"][2],
+                    q,
+                    f["c"][0] * np.exp(-z)
+                    + (f["c"][1] - 2) * z
+                    + f["c"][2],
                 )
 
 
@@ -253,18 +255,18 @@ def test_pwc3():
     ret = xsmc._viterbi.test_piecewise_const_log_pi(a, t)
     for _ in range(20):
         t = np.random.rand() * 3
-        t0 = t
+        q = t
         if t > 1:
-            t0 = -np.log(2 * np.exp(-(1 + (2 * (t - 1)))))
+            q = -np.log(2 * np.exp(-(1 + (2 * (t - 1)))))
         z = -np.log(t)
-        for p in ret:
-            assert p["f"]["k"] == 0
-            if p["t"][0] <= z < p["t"][1]:
+        for f, (t0, t1) in _pwiter(ret):
+            assert f["k"] == 0
+            if t0 <= z < t1:
                 np.testing.assert_allclose(
-                    t0,
-                    p["f"]["c"][0] * np.exp(-z)
-                    + (p["f"]["c"][1] - 2) * z
-                    + p["f"]["c"][2],
+                    q,
+                    f["c"][0] * np.exp(-z)
+                    + (f["c"][1] - 2) * z
+                    + f["c"][2],
                 )
 
 
@@ -277,24 +279,24 @@ def test_pwc4():
     ret = xsmc._viterbi.test_piecewise_const_log_pi(a, t)
     for _ in range(20):
         t = np.random.rand() * 5
-        t0 = t
+        q = t
         if 1 <= t < 2:
-            t0 = -np.log(2 * np.exp(-(1 + (2 * (t - 1)))))
+            q = -np.log(2 * np.exp(-(1 + (2 * (t - 1)))))
         elif t >= 2:
-            t0 = -np.log(3 * np.exp(-(3 + 3 * (t - 2))))
+            q = -np.log(3 * np.exp(-(3 + 3 * (t - 2))))
         z = -np.log(t)
-        for p in ret:
-            assert p["f"]["k"] == 0
-            if p["t"][0] <= z < p["t"][1]:
+        for f, (t0, t1) in _pwiter(ret):
+            assert f["k"] == 0
+            if t0 <= z < t1:
                 np.testing.assert_allclose(
-                    t0,
-                    p["f"]["c"][0] * np.exp(-z)
-                    + (p["f"]["c"][1] - 2) * z
-                    + p["f"]["c"][2],
+                    q,
+                    f["c"][0] * np.exp(-z)
+                    + (f["c"][1] - 2) * z
+                    + f["c"][2],
                 )
 
 
-def test_piecewise_min1():
+def test_pointwise_min1():
     prior = [
         {"f": [0, 0, 0], "t": [-np.inf, 0], "k": 1},
         {"f": [0, 0, 1], "t": [0.0, np.inf], "k": 2},
@@ -303,20 +305,18 @@ def test_piecewise_min1():
         {"f": [0, 0, 0.5], "t": [-np.inf, 1.0], "k": 3},
         {"f": [0, 0, 2], "t": [1.0, np.inf], "k": 4},
     ]
-    ret = xsmc._viterbi.test_piecewise_min(prior, 0.0, cost)
-    assert len(ret) == 3
-    assert ret[0]["f"]["k"] == 1
-    assert ret[0]["f"]["c"] == [0, 0, 0]
-    assert ret[0]["t"] == [-np.inf, 0]
-    assert ret[1]["f"]["k"] == 3
-    assert ret[1]["f"]["c"] == [0, 0, 0.5]
-    assert ret[1]["t"] == [0.0, 1.0]
-    assert ret[2]["f"]["k"] == 2
-    assert ret[2]["f"]["c"] == [0, 0, 1]
-    assert ret[2]["t"] == [1.0, np.inf]
+    ret = xsmc._viterbi.test_pointwise_min(prior, 0.0, cost)
+    assert len(ret["f"]) == 3
+    assert ret["f"][0]["k"] == 1
+    assert ret["f"][0]["c"] == [0, 0, 0]
+    assert ret["f"][1]["k"] == 3
+    assert ret["f"][1]["c"] == [0, 0, 0.5]
+    assert ret["f"][2]["k"] == 2
+    assert ret["f"][2]["c"] == [0, 0, 1]
+    np.testing.assert_allclose(ret["t"], [-np.inf, 0, 1., np.inf])
 
 
-def test_piecewise_min2():
+def test_pointwise_min2():
     prior = [
         {"f": [0, 0, 0], "t": [-np.inf, 0], "k": 1},
         {"f": [0, 0, 1], "t": [0.0, np.inf], "k": 2},
@@ -325,17 +325,51 @@ def test_piecewise_min2():
         {"f": [0, 0, 0.5], "t": [-np.inf, 1.0], "k": 3},
         {"f": [0, 0, 2], "t": [1.0, np.inf], "k": 4},
     ]
-    ret = xsmc._viterbi.test_piecewise_min(prior, 3.0, cost)
-    assert len(ret) == 2
-    assert ret[0]["f"]["k"] == 3
-    assert ret[0]["f"]["c"] == [0, 0, 0.5]
-    assert ret[0]["t"] == [-np.inf, 1.0]
-    assert ret[1]["f"]["k"] == 4
-    assert ret[1]["f"]["c"] == [0, 0, 2]
-    assert ret[1]["t"] == [1.0, np.inf]
+    ret = xsmc._viterbi.test_pointwise_min(prior, 3.0, cost)
+    assert len(ret["f"]) == 2
+    assert ret["f"][0]["k"] == 3
+    assert ret["f"][0]["c"] == [0, 0, 0.5]
+    assert ret["f"][1]["k"] == 4
+    assert ret["f"][1]["c"] == [0, 0, 2]
+    assert ret["t"] == [-np.inf, 1.0, np.inf]
+
+def test_pointwise_min2bis():
+    prior = [
+        {"f": [0, 0, 0], "t": [-np.inf, 0], "k": 1},
+        {"f": [0, 0, 1], "t": [0.0, np.inf], "k": 2},
+    ]
+    cost = [
+        {"f": [0, 0, 0.5], "t": [-np.inf, 1.0], "k": 3},
+        {"f": [0, 0, 2], "t": [1.0, np.inf], "k": 4},
+    ]
+    ret = xsmc._viterbi.test_pointwise_min(prior, -1, cost)
+    assert len(ret["f"]) == 2
+    assert ret["f"][0]["k"] == 1
+    assert ret["f"][0]["c"] == [0, 0, -1]
+    assert ret["f"][1]["k"] == 2
+    assert ret["f"][1]["c"] == [0, 0, 0]
+    assert ret["t"] == [-np.inf, 0.0, np.inf]
 
 
-def test_piecewise_min3():
+def test_pointwise_min2cis():
+    prior = [
+        {"f": [0, 0, 0], "t": [-np.inf, 0], "k": 1},
+        {"f": [0, 0, 1], "t": [0.0, np.inf], "k": 2},
+    ]
+    cost = [
+        {"f": [0, 0, 0.5], "t": [-np.inf, 1.0], "k": 3},
+        {"f": [0, 0, 2], "t": [1.0, np.inf], "k": 4},
+    ]
+    ret = xsmc._viterbi.test_pointwise_min(prior, -1, cost)
+    assert len(ret["f"]) == 2
+    assert ret["f"][0]["k"] == 1
+    assert ret["f"][0]["c"] == [0, 0, -1]
+    assert ret["f"][1]["k"] == 2
+    assert ret["f"][1]["c"] == [0, 0, 0]
+    assert ret["t"] == [-np.inf, 0.0, np.inf]
+
+
+def test_pointwise_min3():
     prior = [
         {"f": [0, 0, 0], "t": [-np.inf, 0], "k": 1},
         {"f": [0, 0, 1], "t": [0.0, 1.0], "k": 2},
@@ -346,12 +380,48 @@ def test_piecewise_min3():
         {"f": [0, 0, 4], "t": [0.0, 1.0], "k": 5},
         {"f": [0, 0, 5], "t": [1.0, np.inf], "k": 6},
     ]
-    ret = xsmc._viterbi.test_piecewise_min(prior, 3.0, cost)
-    assert len(ret) == 3
-    assert ret[0]["f"]["k"] == 1
-    assert ret[1]["f"]["k"] == 2
-    assert ret[2]["f"]["k"] == 3
+    ret = xsmc._viterbi.test_pointwise_min(prior, 3.0, cost)
+    assert len(ret["f"]) == 3
+    assert ret["f"][0]["k"] == 1
+    assert ret["f"][1]["k"] == 2
+    assert ret["f"][2]["k"] == 3
 
+
+def test_pointwise_min4():
+    inf = np.inf
+    prior = [
+        {"f": [0.0, 0.0, inf], "k": 0, "t": [-inf, 0.43363598507486]},
+        {
+            "f": [1.0, 2.0, 2.3025850929940455],
+            "k": 0,
+            "t": [0.43363598507486, inf],
+        },
+    ]
+    cost = [
+        {
+            "f": [14.999999999999979, 37.0, inf],
+            "k": 75,
+            "t": [-inf, 0.43363598507486],
+        },
+        {
+            "f": [1.2, 3.0, 60.44518822165908],
+            "k": 1,
+            "t": [0.43363598507486, inf],
+        },
+    ]
+    ret = xsmc._viterbi.test_pointwise_min(prior, 1.0, cost)
+    print(ret)
+
+def test_pointwise_min5():
+    inf = np.inf
+    d = dict([
+        ('prior', [{'f': [0.0, 0.0, inf], 'k': 0, 't': [-inf, -0.3788980807234443]}, {'f': [1.0, 2.0, 2.3025850929940455], 'k': 0, 't': [-0.3788980807234443, inf]}]),
+        ('cost', [{'f': [14.999999999999979, 24.0, inf], 'k': 75, 't': [-inf, -0.579818495252942]},
+                  {'f': [12.799999999999986, 18.0, 52.13467387946979], 'k': 59,
+                   't': [-0.579818495252942, -0.3788980807234443]}, {'f': [1.2, 2.0, 58.14260312866504], 'k': 1,
+                                                                     't': [2.1972245773362213, inf]}])
+    ])
+    ret = xsmc._viterbi.test_pointwise_min(d['prior'], 1.0, d['cost'])
 
 def test_min_f_bug_20200808():
     c = [1001.0, 0.0, 0.0]

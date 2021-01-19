@@ -136,4 +136,3 @@ class XSMC:
             robust=self.robust,
             beta=beta,
         )
-    

@@ -1,12 +1,14 @@
 # cython: boundscheck=False
 # cython: cdivision=True
 # cython: language=c++
-# distutils: extra_compile_args=['-O3', '-Wno-unused-but-set-variable', '-ffast-math']
+# distutils: extra_compile_args=['-O2', '-Wno-unused-but-set-variable', '-ffast-math']
+
+DEF DEBUG = 1
 
 import tskit
 import _tskit
 import numpy as np
-from typing import List, NamedTuple
+from typing import List, NamedTuple, Union
 
 from .segmentation import Segment, Segmentation
 from .size_history import SizeHistory
@@ -33,31 +35,40 @@ cdef int get_next_obs(obs_iter *state) nogil:
     state.ell += 1
     return 1
 
-def viterbi_path(ts: tskit.TreeSequence,
-           focal: int,
-           panel: List[int],
-           arg: tskit.TreeSequence,
-           eta: SizeHistory,
-           theta: float,
-           rho: float,
-           beta,
-           robust: bool,
-           w: int,
-           ) -> Segmentation:
-    '''Compute optimal segmentation for renewal approximation to sequentially
-    Markov coalescent.
+def viterbi_path(
+    ts: tskit.TreeSequence,
+    focal: int,
+    panel: List[int],
+    scaffold: tskit.TreeSequence,
+    eta: SizeHistory,
+    theta: float,
+    rho: float,
+    beta: Union[None, float],
+    robust: bool,
+    w: int,
+    ) -> Segmentation:
+    '''Compute optimal segmentation for renewal approximation to sequentially Markov coalescent.
 
     Args:
         ts: Tree sequence containing the data to segment.
         focal: Leaf index of the focal haplotype.
         panel: Leaf indices of the panel haplotypes.
+        scaffold: Tree sequence containing underlying scaffolding on which the focal lineage coalesces. 
         eta: Size history to use for coalescent prior. If None, Kingman's
             coalescent is used.
         theta: Population-scaled mutation rate per bp per generation.
         rho: Population-scaled recombination rate per bp per generation.
         beta: Penalization parameter. If None, defaults to :math:`-log(\rho)`, resulting in the MAP path.
+        
     Returns:
         The maximum *a posteriori* segmentation under specified parameters.
+        
+    Notes:
+        The following assumptions are made about the input:
+            - panel[i] corresponds to ts.nodes(panel[i]).
+            - panel[i] corresponds to scaffold.nodes()[i].
+            - both of the above nodes are flagged with tskit.NODE_IS_SAMPLE.
+            - scaffold.get_sequence_length() == ts.get_sequence_length() // w
     '''
     # Take the passed-in tree sequence and export/import the tables in order
     # to get a tree sequence that is binary compatble with whatever version of
@@ -70,7 +81,7 @@ def viterbi_path(ts: tskit.TreeSequence,
 
     assert theta > 0
     assert rho > 0
-    cdef piecewise_func q
+    assert scaffold.get_sequence_length() >= ts.get_sequence_length() // w
     cdef double rho_ = w * rho
     cdef double theta_ = w * theta
     if beta is None:
@@ -78,6 +89,7 @@ def viterbi_path(ts: tskit.TreeSequence,
     cdef double beta_ = beta
     cdef double log_theta = log(theta_)
     cdef int i, j, k, y_i
+    cdef interval intv
 
     if focal in panel:
         raise ValueError("focal haplotype cannot be a member of panel")
@@ -106,7 +118,8 @@ def viterbi_path(ts: tskit.TreeSequence,
     assert np.all(eta.Ne > 0), "Ne cannot be 0."
     assert np.all(np.isfinite(eta.Ne)), "Ne must be finite"
     coal_rate = np.array([eta(tt) for tt in eta.t[:-1]])
-    cdef vector[piecewise_func] log_pi = piecewise_const_log_pi(
+    cdef func q
+    cdef piecewise_func log_pi = piecewise_const_log_pi(
         coal_rate.astype(np.float64),
         eta.t[1:].astype(np.float64),
         beta_
@@ -136,31 +149,35 @@ def viterbi_path(ts: tskit.TreeSequence,
     
     # Initialize the tree sequence iterator for the arg
     cdef LightweightTableCollection lwt_arg = LightweightTableCollection()
-    lwt_arg.fromdict(arg.dump_tables().asdict())
+    lwt_arg.fromdict(scaffold.dump_tables().asdict())
     cdef tsk_treeseq_t _arg_ts
     err = tsk_treeseq_init(&_arg_ts, lwt_arg.tables, 0)
     check_error(err)
     cdef tsk_tree_t _arg_tree
     err = tsk_tree_init(&_arg_tree, &_arg_ts, 0);
     check_error(err)
-    cdef vector[vector[piecewise_func]] priors = arg_prior(log_pi, &_arg_tree)
+    tsk_tree_first(&_arg_tree)
+    cdef vector[piecewise_func] priors = arg_prior(log_pi, &_arg_tree)
 
     # i_p += 1
     # C are the cost functions for each haplotype
-    cdef vector[vector[piecewise_func]] C
-    cdef piecewise_func f
+    cdef vector[piecewise_func] C
     for j in range(n):
         C.push_back(priors.at(j))
         # subtract off one x because the first prior is not length-biased
-        for k in range(C[j].size()):
-            C[j][k].f.c[1] -= 1.
+        for k in range(C.at(j).f.size()):
+            C.at(j).f.at(k).c[1] -= 1.
 
     err = get_next_obs(&state)
     with nogil:
         while err == 1:
             # proceed to next variant
+            
             # loop1: increment all the current ibd tracts
             i += 1
+            if DEBUG:
+                with gil:
+                    print("*** i=", i)
             while _arg_tree.right < i:
                 tsk_tree_next(&_arg_tree)  # FIXME assert ret == 1
                 priors = arg_prior(log_pi, &_arg_tree)
@@ -168,43 +185,55 @@ def viterbi_path(ts: tskit.TreeSequence,
             delta = pos - positions.back()  # = 1
             positions.push_back(pos)
             for j in range(n):
-                for k in range(C[j].size()):
+                for k in range(C.at(j).f.size()):
                     if robust:
                         # bernoulli obs, which adds contribution 
                         # (1-min(y_i, 1)) * (-w theta x) + min(y_i, 1) log(w theta x)
                         y_i = min(1, state.mismatches[j])
-                        C[j][k].f.c[0] += ((1 - y_i) * theta_ + rho_)
-                        C[j][k].f.c[1] += y_i
-                        C[j][k].f.c[2] += -y_i * log_theta
+                        C.at(j).f.at(k).c[0] += ((1 - y_i) * theta_ + rho_)
+                        C.at(j).f.at(k).c[1] += y_i
+                        C.at(j).f.at(k).c[2] += -y_i * log_theta
                     else:
                         y_i = state.mismatches[j]
-                        C[j][k].f.c[0] += theta_ + rho_
-                        C[j][k].f.c[1] += y_i
-                        C[j][k].f.c[2] += gsl_sf_lngamma(1 + y_i) - y_i * log_theta
-                    C[j][k].f.k += 1
+                        C.at(j).f.at(k).c[0] += theta_ + rho_
+                        C.at(j).f.at(k).c[1] += y_i
+                        C.at(j).f.at(k).c[2] += gsl_sf_lngamma(1 + y_i) - y_i * log_theta
+                    C.at(j).f.at(k).k += 1
+            if DEBUG:
+                with gil:
+                    print("Loop 1 C=", C)
 
             # loop 2: compute minimal cost function for recombination at this position
             for j in range(n):
-                F_t[j].m.f = INFINITY
-                for q in C[j]:
-                    F_t_j = min_f(q.f, q.t)
-                    if F_t_j.f < F_t[j].m.f:
-                        F_t[j].m = F_t_j
-                        F_t[j].pos = i - q.f.k
-                        F_t[j].s = <int>q.f.c[1]
-                        F_t[j].hap = j
+                F_t.at(j).m.f = INFINITY
+                for k in range(C.at(j).f.size()):
+                    q = C.at(j).f.at(k)
+                    intv[0] = C.at(j).t.at(k)
+                    intv[1] = C.at(j).t.at(k + 1)
+                    F_t_j = min_f(q, intv)
+                    if F_t_j.f < F_t.at(j).m.f:
+                        F_t.at(j).m = F_t_j
+                        F_t.at(j).pos = i - q.k
+                        F_t.at(j).s = <int>q.c[1]
+                        F_t.at(j).hap = j
+            if DEBUG:
+                with gil:
+                    print("Loop 2 F_t=", F_t)
 
             b.m.f = INFINITY
             for j in range(n):
-                if F_t[j].m.f < b.m.f:
-                    b = F_t[j]
+                if F_t.at(j).m.f < b.m.f:
+                    b = F_t.at(j)
             cp.push_back(b)
-
 
             # loop 3
             # compute piecewise min and eliminate any duplicate pieces
             for j in range(n):
-                 C[j] = compact(piecewise_min(priors.at(j), b.m.f, C[j]))
+                 C[j] = compact(pointwise_min(priors.at(j), b.m.f, C.at(j)))
+                
+            if DEBUG:
+                with gil:
+                    print("Loop 3 C=", C)
 
             err = get_next_obs(&state)
 
@@ -241,37 +270,33 @@ cimport cython
 from gsl cimport *
 
 # test functions, used for testing only
-cdef vector[piecewise_func] _monotone_decreasing_case(
+cdef piecewise_func _monotone_decreasing_case(
     func f, func g, interval t, double r) nogil:
     '''
     pointwise min of f, g over t under the condition that the function f - g is
     monotone decreasing with root r
     '''
-    cdef piecewise_func q1, q2
-    cdef vector[piecewise_func] ret
-    q1.f = f
-    q1.t[0] = t[0]
-    q1.t[1] = t[1]
+    cdef piecewise_func ret
+    ret.t.push_back(t[0])
     if r <= t[0]:
         # the function is always -
-        ret.push_back(q1)
+        ret.f.push_back(f)
+        ret.t.push_back(t[1])
+        return ret
     elif r >= t[1]:
         # the function is always +
-        q1.f = g
-        ret.push_back(q1)
+        ret.f.push_back(g)
+        ret.t.push_back(t[1])
+        return ret
     else: # the function is + on [a, r) and and - on (r, b]
-        q1.t[0] = t[0]
-        q1.t[1] = r
-        q1.f = g
-        q2.t[0] = r
-        q2.t[1] = t[1]
-        q2.f = f
-        ret.push_back(q1)
-        ret.push_back(q2)
+        ret.f.push_back(g)
+        ret.f.push_back(f)
+        ret.t.push_back(r)
+        ret.t.push_back(t[1])
     return ret
 
 @cython.cdivision(True)
-cdef vector[piecewise_func] pmin(func f, func g, interval t) nogil:
+cdef piecewise_func pmin(func f, func g, interval t) nogil:
     '''
     pointwise min of f, g on the interval t
     '''
@@ -280,36 +305,37 @@ cdef vector[piecewise_func] pmin(func f, func g, interval t) nogil:
     cdef double c = f.c[2] - g.c[2]
 
     cdef double r, x_star, h_star, r0, r1
-    cdef vector[piecewise_func] ret
-    cdef piecewise_func q1, q2, q3
+    cdef piecewise_func ret
+    
+    cdef piecewise_func f_is_greater
+    f_is_greater.f.push_back(g)
+    f_is_greater.t.push_back(t[0])
+    f_is_greater.t.push_back(t[1])
+    
+    cdef piecewise_func g_is_greater
+    g_is_greater.f.push_back(f)
+    g_is_greater.t.push_back(t[0])
+    g_is_greater.t.push_back(t[1])
 
     # strategy: find the roots of h = f - g
-    q1.f = f
-    q1.t[0] = t[0]
-    q1.t[1] = t[1]
     if f.c[2] == INFINITY:
-        q1.f = g
-        ret.push_back(q1)
-        return ret
+        return f_is_greater
     if g.c[2] == INFINITY:
-        ret.push_back(q1)
-        return ret
+        return g_is_greater
     if b == 0:
         if a == 0:
             # the function is constant
             if c > 0:  # h > 0 => f is greater
-                q1.f = g
-            ret.push_back(q1)
-            return ret
+                return f_is_greater
+            else:
+                return g_is_greater
         else:  # a e^(-x) + c == 0
             if a < 0:
                 return pmin(g, f, t)
             # assume a > 0
             if c >= 0:
                 # the function is always +, so g is smaller
-                q1.f = g
-                ret.push_back(q1)
-                return ret
+                return f_is_greater
             else:
                 # as a > 0, c <= 0 the function is decreasing
                 x_star = -c / a
@@ -339,19 +365,17 @@ cdef vector[piecewise_func] pmin(func f, func g, interval t) nogil:
             x_star = -log(b / a)
             # h_star = a * exp(-x_star) + b * x_star + c
             h_star = b * (1 + log(a) - log(b)) + c
-            # printf("a:%f b:%f c:%f h_star:%f\n", a, b, c, h_star)
+            if DEBUG:
+                printf("a:%f b:%f c:%f h_star:%f\n", a, b, c, h_star)
             if h_star > 0:  # minimum > 0, so f > g
-                q1.f = g
-                q1.t[0] = t[0]
-                q1.t[1] = t[1]
-                ret.push_back(q1)
-                return ret
+                return f_is_greater
             else:
                 # minimum < 0, but f is convex and -> oo at +-oo.
                 # so it has two real roots.
                 r0 = _root(0, a, b, c)
                 r1 = _root(-1, a, b, c)
-                # printf("r0:%f r1:%f a:%f b:%f c:%f t[0]:%f t[1]:%f\n", r0, r1, a, b, c, t[0], t[1])
+                if DEBUG:
+                    printf("r0:%f r1:%f a:%f b:%f c:%f t[0]:%f t[1]:%f\n", r0, r1, a, b, c, t[0], t[1])
                 # order the roots r0 < r1
                 r = r1
                 r1 = max(r0, r)
@@ -361,126 +385,99 @@ cdef vector[piecewise_func] pmin(func f, func g, interval t) nogil:
                 # case 1: t.b <= r0 implies that the function is
                 # positive on all of t, meaning g is smaller
                 if t[1] <= r0:
-                    q1.f = g
-                    q1.t[0] = t[0]
-                    q1.t[1] = t[1]
-                    ret.push_back(q1)
-                    return ret
+                    return f_is_greater
                 # case 2: t.a < r0 < t[1] < r1
                 elif t[0] <= r0 < t[1] < r1:
-                    q1.f = g
-                    q1.t[0] = t[0]
-                    q1.t[1] = r0
-                    ret.push_back(q1)
-                    q2.f = f
-                    q2.t[0] = r0
-                    q2.t[1] = t[1]
-                    ret.push_back(q2)
+                    ret.f.push_back(g)
+                    ret.f.push_back(f)
+                    ret.t.push_back(t[0])
+                    ret.t.push_back(r0)
+                    ret.t.push_back(t[1])
                     return ret
                 # case 3: both roots in interval
                 elif t[0] <= r0 < r1 < t[1]:
-                    q1.f = g
-                    q1.t[0] = t[0]
-                    q1.t[1] = r0
-                    ret.push_back(q1)
-                    q2.f = f
-                    q2.t[0] = r0
-                    q2.t[1] = r1
-                    ret.push_back(q2)
-                    q3.f = g
-                    q3.t[0] = r1
-                    q3.t[1] = t[1]
-                    ret.push_back(q3)
+                    ret.f.push_back(g)
+                    ret.f.push_back(f)
+                    ret.f.push_back(g)
+                    ret.t.push_back(t[0])
+                    ret.t.push_back(r0)
+                    ret.t.push_back(r1)
+                    ret.t.push_back(t[1])
                     return ret
                 # case 4: r0 <= t.a < t[1] < r1
                 # so the function is negative on t => f is minimal
                 elif r0 <= t[0] < t[1] < r1:
-                    q1.f = f
-                    q1.t[0] = t[0]
-                    q1.t[1] = t[1]
-                    ret.push_back(q1)
-                    return ret
+                    return g_is_greater
                 # case 5: r0 <= t.a < r1 < t.b
                 elif r0 <= t[0] < r1 <= t[1]:
-                    q1.f = f
-                    q1.t[0] = t[0]
-                    q1.t[1] = r1
-                    ret.push_back(q1)
-                    q2.f = g
-                    q2.t[0]= r1
-                    q2.t[1] = t[1]
-                    ret.push_back(q2)
+                    ret.f.push_back(f)
+                    ret.f.push_back(g)
+                    ret.t.push_back(t[0])
+                    ret.t.push_back(r1)
+                    ret.t.push_back(t[1])
                     return ret
                 # case 6: r1 < t.a
                 elif r1 <= t[0]:
-                    q1.f = g
-                    q1.t[0] = t[0]
-                    q1.t[1] = t[1]
-                    ret.push_back(q1)
-                    return ret
+                    return f_is_greater
 
-cdef vector[piecewise_func] piecewise_min(
-    const vector[piecewise_func] prior,
+cdef piecewise_func pointwise_min(
+    const piecewise_func prior,
     const double F_t,
-    const vector[piecewise_func] cost
+    const piecewise_func cost
 ) nogil:
     '''
-    pointwise minimum of vectors of piecewise_funcs. the break points do not
-    necessarily align.
+    pointwise minimum of vectors of piecewise_funcs. the break points do not necessarily align.
     '''
-    # printf('in piecewise_min\n')
-    cdef vector[piecewise_func] prior_a, cost_a  # aligned functions
-    cdef vector[piecewise_func].const_iterator prior_it = prior.const_begin(), cost_it = cost.const_begin()
-    cdef piecewise_func prior_i, cost_i, tmp1, tmp2
-    cdef double x
-    # assert cost.size() > 0
-    # assert prior.size() > 0
-    prior_i = deref(prior_it)
-    cost_i = deref(cost_it)
-    prior_i.f.c[2] += F_t
-    cdef vector[piecewise_func] ret, tmp
-    # print("***** in piecewise_min")
-    # print('prior', prior)
-    # print('cost', cost)
-    while True:
-        # prior:
-        # -oo ---- 1 ------- +oo
-        # cost:
-        # -oo ------- 1.5 -- +oo
-        if (
-            (cost_i.t[0] == prior_i.t[0]) and
-            isinf(prior_i.t[1]) and isinf(cost_i.t[1])
-        ):
-            tmp = pmin(prior_i.f, cost_i.f, cost_i.t)
-            ret.insert(ret.end(), tmp.begin(), tmp.end())
-            break
-        # prior:
-        # -oo ---- -5 ---- -1 ---- 0 ---- 1 ------- +oo
-        # cost:
-        # -oo -------- -2 -------- 0 ------- 1.5 -- +oo
-        if prior_i.t[1] <= cost_i.t[1]:
-            x = cost_i.t[1]
-            cost_i.t[1] = prior_i.t[1]
-            tmp = pmin(prior_i.f, cost_i.f, cost_i.t)
-            ret.insert(ret.end(), tmp.begin(), tmp.end())
-            cost_i.t[0] = prior_i.t[1]
-            cost_i.t[1] = x
-            inc(prior_it)
-            prior_i = deref(prior_it)
-            prior_i.f.c[2] += F_t
-        else:
-            x = prior_i.t[1]
-            prior_i.t[1] = cost_i.t[1]
-            tmp = pmin(prior_i.f, cost_i.f, cost_i.t)
-            ret.insert(ret.end(), tmp.begin(), tmp.end())
-            prior_i.t[0] = cost_i.t[1]
-            prior_i.t[1] = x
-            inc(cost_it)
-            cost_i = deref(cost_it)
-        # print("\tprior_i", prior_i)
-        # print("\tcost_i", cost_i)
-    # print("**** end piecewise_min")
+    if DEBUG:
+        with gil:
+            check_piecewise(prior)
+            check_piecewise(cost)
+    cdef int i = 0, j = 0
+    cdef interval prior_intv, cost_intv, intv
+    cdef func prior_f, cost_f
+    prior_f = prior.f.at(i)
+    prior_f.c[2] += F_t
+    cost_f = cost.f.at(j)
+    cdef piecewise_func ret, tmp
+    prior_intv[0] = prior.t.at(i)
+    prior_intv[1] = prior.t.at(i + 1)
+    cost_intv[0] = cost.t.at(j)
+    cost_intv[1] = cost.t.at(j + 1)
+    intv[0] = prior_intv[0]
+    while isfinite(prior_intv[1]) or isfinite(cost_intv[1]):
+        if DEBUG:
+            with gil:
+                assert prior_intv[0] == cost_intv[0]
+        intv[0] = prior_intv[0]
+        intv[1] = min(cost_intv[1], prior_intv[1])
+        tmp = pmin(prior_f, cost_f, intv)
+        ret.f.insert(ret.f.end(), tmp.f.begin(), tmp.f.end())
+        ret.t.insert(ret.t.end(), tmp.t.begin(), tmp.t.end() - 1)
+        prior_intv[0] = intv[1]
+        cost_intv[0] = intv[1]
+        if prior_intv[1] == intv[1]:
+            i += 1
+            prior_f = prior.f.at(i)
+            prior_intv[1] = prior.t.at(i + 1)
+            prior_f.c[2] += F_t
+        if cost_intv[1] == intv[1]:
+            j += 1
+            cost_f = cost.f.at(j)
+            cost_intv[1] = cost.t.at(j + 1)
+        if DEBUG:
+            with gil:
+                print('pointwise_min', i, j, cost_intv, cost_f, prior_intv, prior_f, tmp, ret)
+    intv[0] = prior_intv[0]
+    intv[1] = min(cost_intv[1], prior_intv[1])
+    tmp = pmin(prior_f, cost_f, intv)
+    ret.f.insert(ret.f.end(), tmp.f.begin(), tmp.f.end())
+    ret.t.insert(ret.t.end(), tmp.t.begin(), tmp.t.end())
+    if DEBUG:
+        with gil:
+            print('pointwise_min done', i, j, cost_intv, cost_f, prior_intv, prior_f, tmp, ret)
     return compact(ret)
+    
+            
 
 @cython.cdivision(True)
 cdef double _root(int branch, double a, double b, double c) nogil:
@@ -508,8 +505,8 @@ cdef double _root(int branch, double a, double b, double c) nogil:
             h_star = b * (1 + log(a) - log(b)) + c
             printf('*** branch=%d a=%.20f b=%.20f c=%.20f x=%.20f\n h_star=%.16f\n',
                    branch, a, b, c, x, h_star)
-            printf('*** status=%d\n result.val=%.10f result.err=%.10f\n',
-                   status, result.val, result.err)
+            printf('*** status=%d desc=%s\n*** result.val=%.10f result.err=%.10f\n',
+                   status, gsl_strerror(status), result.val, result.err)
         w = result.val
     return w - c / b
 
@@ -550,8 +547,8 @@ cdef minimum min_f(const func f, const interval t) nogil:
             ret.x = x_star
     return ret
 
-cdef vector[vector[piecewise_func]] arg_prior(const vector[piecewise_func] &log_pi, tsk_tree_t* tree) nogil:
-    cdef vector[vector[piecewise_func]] ret
+cdef vector[piecewise_func] arg_prior(const piecewise_func &log_pi, tsk_tree_t* tree) nogil:
+    cdef vector[piecewise_func] ret
     cdef int num_samples = tsk_treeseq_get_num_samples(tree.tree_sequence)
     ret.resize(num_samples)
     cdef tsk_size_t i
@@ -564,38 +561,38 @@ cdef vector[vector[piecewise_func]] arg_prior(const vector[piecewise_func] &log_
         else:
             tsk_tree_get_time(tree, u, &t)
             ret[i] = truncate_prior(log_pi, t)
+    if DEBUG:
+        with gil:
+            print('arg_prior', log_pi, ret)
     return ret
 
-cdef vector[piecewise_func] truncate_prior(const vector[piecewise_func] &prior, double t) nogil:
+cdef piecewise_func truncate_prior(const piecewise_func &prior, double t) nogil:
     # given piecewise constant rate prior and time t, define the rate to be 0. more anciently than
     # time t. Thus, focal lineage has infinite cost of coalescing prior to that time (as when
     # threading onto an arg, above the coalescence time of a particular lineage.
-    cdef vector[piecewise_func] ret
-    ret.reserve(prior.size())
-    cdef piecewise_func f
+    
+    #   [-inf, 1] tau=2
+    cdef piecewise_func ret
+    cdef func f
+    cdef interval intv
     cdef double tau = -log(t)
-    f.t[0] = -INFINITY
-    f.t[1] = tau
-    f.f.c[0] = 0.
-    f.f.c[1] = 0.
-    f.f.c[2] = INFINITY
-    ret.push_back(f)
+    f.k = 0
+    f.c[0] = 0.
+    f.c[1] = 0.
+    f.c[2] = -INFINITY
+    ret.f.push_back(f)
+    ret.t.push_back(-INFINITY)
+    ret.t.push_back(tau)
     cdef int i
-    while prior.at(i).t[1] < tau:
-        i += 1
-    f = prior.at(i)
-    f.t[0] = tau
-    ret.push_back(f)
-    i += 1
-    while i < prior.size():
-        ret.push_back(prior.at(i))
-        i += 1
+    for i in range(prior.f.size()):
+        intv[0] = prior.t.at(i)
+        intv[1] = prior.t.at(i + 1)
+        if intv[0] <= tau and tau < intv[1]:
+            break
     return ret
 
 # for piecewise constant coalescent function
-cdef vector[piecewise_func] piecewise_const_log_pi(double[:] a,
-                                                   double[:] t,
-                                                   double beta) nogil:
+cdef piecewise_func piecewise_const_log_pi(double[:] a, double[:] t, double beta) nogil:
     '''
     piecewise constant prior. if eta(t) = a_k, t_{k-1} <= t < t_k, then
     R(t) = a_1(t_1 - t_0) + ... + a_k(t - t_{k-1}), t_{k-1} <= t < t_k
@@ -617,43 +614,76 @@ cdef vector[piecewise_func] piecewise_const_log_pi(double[:] a,
     cdef int32_t j, k
     cdef int32_t K = t.shape[0]
     cdef double c_k = 0, tk1
-    cdef vector[piecewise_func] ret
-    ret.resize(K)
+    cdef piecewise_func ret
+    ret.f.resize(K)
+    ret.t.resize(K + 1)
     for k in range(K):
         j = K - 1 - k
-        ret[j].f.k = 0
+        ret.f.at(j).k = 0
         if k == 0:
             tk1 = 0.
         else:
             tk1 = t[k - 1]
-        ret[j].f.c[0] = a[k]
-        ret[j].f.c[1] = 2.
+        ret.f.at(j).c[0] = a[k]
+        ret.f.at(j).c[1] = 2.
         c_k -= a[k] * tk1
-        ret[j].f.c[2] = c_k - log(a[k]) + beta
+        ret.f.at(j).c[2] = c_k - log(a[k]) + beta
+        ret.f.at(j).k = 0
         c_k += a[k] * t[k]
-        ret[j].t[0] = -log(t[k])
-        ret[j].t[1] = -log(tk1)
+        ret.t[j] = -log(t[k])
+    ret.t[K] = INFINITY
     return ret
 
 
-cdef vector[piecewise_func] compact(const vector[piecewise_func] C) nogil:
-    cdef piecewise_func q0, q
-    cdef vector[piecewise_func] ret
-    if C.size() == 0:
+cdef piecewise_func compact(const piecewise_func &C) nogil:
+    if DEBUG:
+        with gil:
+            try:
+                check_piecewise(C)
+            except:
+                print("compact/C")
+                raise
+    cdef func q, q0
+    cdef double t, t0
+    cdef piecewise_func ret
+    if C.f.size() == 0:
         return ret
-    q0 = C[0]
-    cdef int i
-    for i in range(1, C.size()):
-        q = C[i]
-        if q.t[0] == q.t[1]:
+    q = C.f.at(0)
+    t = C.t.at(0)
+    for i in range(1, C.f.size()):
+        q0 = C.f.at(i)
+        t0 = C.t.at(i)
+        if t == t0:
             continue
-        if memcmp(&q.f, &q0.f, sizeof(func)) == 0:
-            q0.t[1] = q.t[1]
-        else:
-            ret.push_back(q0)
-            q0 = q
-    ret.push_back(q0)
+        if memcmp(&q, &q0, sizeof(func)) != 0:
+            ret.f.push_back(q)
+            ret.t.push_back(t)
+            q = q0
+            t = t0
+    ret.f.push_back(q)
+    ret.t.push_back(t)
+    ret.t.push_back(C.t.back())
+    if DEBUG:
+        with gil:
+            try:
+                check_piecewise(ret)
+            except:
+                print("compact/ret")
+                raise
     return ret
+
+cdef void check_piecewise(const piecewise_func &v):
+    return
+    # cdef float t1last
+    # for i in range(v.t.size()):
+    #     if i == 0:
+    #         assert v.at(i).t == -INFINITY, "func has wrong left endpoint"
+    #     if i == v.size() - 1:
+    #         assert v.at(i).t < INFINITY, "func has wrong right endpoint"
+    #     if i > 0:
+    #         assert v.at(i).t > t1last, ("func not defined everywhere", i, t1last, v)
+    #     t1last = v.at(i).t
+            
 
 #### TESTING FUNCTIONS
 def test_min_f(f, t):
@@ -668,23 +698,26 @@ def test_min_f(f, t):
 def test_piecewise_const_log_pi(a, t):
     return piecewise_const_log_pi(a, t, 0.)
 
-def test_piecewise_min(prior, double F_t, cost):
-    cdef vector[piecewise_func] _prior, _cost
-    _prior.resize(len(prior))
-    _cost.resize(len(cost))
+def test_pointwise_min(prior, double F_t, cost):
+    cdef piecewise_func _prior, _cost
+    _prior.f.resize(len(prior))
+    _prior.t.resize(len(prior))
+    _cost.f.resize(len(cost))
+    _cost.t.resize(len(cost))
     for i, p in enumerate(prior):
         for j in range(3):
-            _prior[i].f.c[j] = p['f'][j]
-        _prior[i].f.k = p['k']
-        _prior[i].t[0] = p['t'][0]
-        _prior[i].t[1] = p['t'][1]
+            _prior.f[i].c[j] = p['f'][j]
+        _prior.f[i].k = p['k']
+        _prior.t[i] = p['t'][0]
+    _prior.t.push_back(np.inf)
     for i, p in enumerate(cost):
         for j in range(3):
-            _cost[i].f.c[j] = p['f'][j]
-        _cost[i].f.k = p['k']
-        _cost[i].t[0] = p['t'][0]
-        _cost[i].t[1] = p['t'][1]
-    return piecewise_min(_prior, F_t, _cost)
+            _cost.f[i].c[j] = p['f'][j]
+        _cost.f[i].k = p['k']
+        _cost.t[i] = p['t'][0]
+    _cost.t.push_back(np.inf)
+    print(_prior, _cost)
+    return pointwise_min(_prior, F_t, _cost)
 
 
 def test_pmin(f, g, t, f_k=0, g_k=1):

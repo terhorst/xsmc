@@ -43,6 +43,7 @@ cdef extern from "tskit.h" nogil:
         tsk_site_t* sites
         tsk_size_t sites_length
     int tsk_tree_init(tsk_tree_t *self, const tsk_treeseq_t *ts, tsk_flags_t options)
+    int tsk_tree_first(tsk_tree_t *self)
     int tsk_tree_next(tsk_tree_t *self)
     int tsk_tree_free(tsk_tree_t *self)
     bool tsk_tree_is_sample(tsk_tree_t *self, tsk_id_t u)
