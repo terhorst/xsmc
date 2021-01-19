@@ -10,10 +10,10 @@ import tskit
 import xsmc._sampler
 
 from . import _viterbi
-from .arg import make_trunk
+import xsmc.arg
 from .sampler import XSMCSampler
 from .segmentation import ArraySegmentation, Segmentation
-from .size_history import SizeHistory
+from .size_history import SizeHistory, KINGMAN
 from .supporting import watterson
 
 logger = logging.getLogger(__name__)
@@ -40,12 +40,11 @@ class XSMC:
         rescale them by `self.theta / (4 * mu)`, where `mu` is the biological mutation rate.
     """
     ts: tskit.TreeSequence
-    focal: int
-    panel: List[int]
     theta: float = None
     rho_over_theta: float = 1.0
     w: int = None
     robust: bool = False
+    eta: SizeHistory = KINGMAN
 
     def __post_init__(self):
         if self.theta is None:
@@ -69,24 +68,22 @@ class XSMC:
     def H(self):
         return len(self.panel)
 
-    @property
-    def sampler(self):
-        if self._sampler is None:
-            X = xsmc._sampler.get_mismatches(self.ts, self.focal, self.panel, self.w)
-            deltas = np.ones_like(X[0])
-            # Perform sampling
-            assert deltas.shape[0] == X.shape[1]
-            self._sampler = XSMCSampler(
-                X=X,
-                deltas=deltas,
-                theta=self.w * self.theta,
-                rho=self.w * self.rho,
-                robust=self.robust,
-                eps=1e-4,
-            )
-        return self._sampler
+    def sampler(self, focal, panel):
+        X = xsmc._sampler.get_mismatches(self.ts, focal, panel, self.w)
+        deltas = np.ones_like(X[0])
+        # Perform sampling
+        assert deltas.shape[0] == X.shape[1]
+        return XSMCSampler(
+            X=X,
+            deltas=deltas,
+            theta=self.w * self.theta,
+            rho=self.w * self.rho,
+            robust=self.robust,
+            eps=1e-4,
+        )
+        
 
-    def sample(self, k: int = 1, seed: int = None) -> List[Segmentation]:
+    def sample(self, focal: int, panel: List[int], k: int = 1, seed: int = None) -> List[Segmentation]:
         r"""Sample path(s) from the posterior distribution.
 
         Args:
@@ -101,9 +98,9 @@ class XSMC:
             repeatedly.
         """
         prime = False
-        segs = self.sampler.sample_paths(k, seed, prime)
+        segs = self.sampler(focal, panel).sample_paths(k, seed, prime)
         ret = [
-            ArraySegmentation(segments=s, panel_inds=p, panel=self.panel)
+            ArraySegmentation(segments=s, panel_inds=p, focal=focal, panel=panel)
             for s, p in segs
         ]
         for a in ret:
@@ -115,8 +112,9 @@ class XSMC:
 
     def viterbi(
         self,
+        focal: int,
+        panel: List[int],
         beta: float = None,
-        eta: SizeHistory = SizeHistory(t=np.array([0.0, np.inf]), Ne=np.array([1.0])),
     ) -> Segmentation:
         """Compute the maximum *a posteriori* (a.k.a. Viterbi) path in haplotype copying model.
 
@@ -126,16 +124,46 @@ class XSMC:
         Returns:
             A segmentation containing the MAP path.
         """
-        trunk = make_trunk(self.panel, 1 + self.L // self.w)
+        trunk = xsmc.arg.make_trunk(panel, 1 + self.L // self.w)
         return _viterbi.viterbi_path(
             self.ts,
-            self.focal,
-            self.panel,
+            focal,
+            panel,
             trunk,
-            eta,
+            self.eta,
             self.theta,
             self.rho,
             beta,
             self.robust,
             self.w,
         )
+    
+    def arg(
+        self,
+        haps: List[int],
+    ) -> tskit.TreeSequence:
+        '''
+        Construct an ancestral recombination graph by iteratively threading haps onto tree sequence.
+
+        Args:
+            ts: The tree sequence containing the variation data.
+            haps: A list of samples (leaf nodes) in ts for which to build the ARG.
+
+        Returns:
+            A tree sequence containing the estimated ARG.
+
+        Notes:
+            The output depends on the order of haps. First, haps[1] will be "threaded" onto haps[0] by estimating
+            the local TMRCA at each position. (Equivalent to PSMC). Then, haps[2] will be threaded onto the
+            (haps[0], haps[1]) tree sequence. And so forth.
+
+            The length of the returned tree sequence will be ts.get_sequence_length() // self.w.
+        '''
+        scaffold = xsmc.arg.make_trunk([haps[0]], self.ts.get_sequence_length() // self.w)
+        for i in range(1, len(haps)):
+            panel = haps[:i]
+            seg = _viterbi.viterbi_path(
+                self.ts, haps[i], panel, scaffold, self.eta, self.theta, self.rho, beta=None, robust=False, w=self.w
+            )
+            scaffold = xsmc.arg.thread(scaffold, seg)
+        return scaffold

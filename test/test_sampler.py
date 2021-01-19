@@ -96,8 +96,8 @@ def tiny_data():
 
 
 def test_rho_equals_0(big_data, caplog):
-    p = xsmc.XSMC(big_data, 0, [1, 2, 3], theta=1, rho_over_theta=0.0).sample(
-        k=5, seed=1
+    p = xsmc.XSMC(big_data, theta=1, rho_over_theta=0.0).sample(
+        0, [1, 2, 3], k=5, seed=1
     )
     for pp in p:
         assert pp.segments.shape[1] == 1
@@ -107,7 +107,7 @@ def test_rho_equals_0(big_data, caplog):
 
 
 def test_multiple_panel(data):
-    p = xsmc.XSMC(data, 0, [1, 2, 3], theta=1, rho_over_theta=0.0).sample(k=1, seed=1)
+    p = xsmc.XSMC(data, theta=1, rho_over_theta=0.0).sample(0, [1, 2, 3], k=1, seed=1)
     # print(p.segments[1])
 
 
@@ -115,11 +115,11 @@ def test_multithreaded(big_data):
     from concurrent.futures import ThreadPoolExecutor
 
     xs = [
-        xsmc.XSMC(big_data, 2 * i, [2 * i + 1])
+        xsmc.XSMC(big_data)
         for i in range(big_data.get_sample_size() // 2)
     ]
     with ThreadPoolExecutor() as p:
-        futs = [p.submit(x.sample, k=100, seed=i) for i, x in enumerate(xs)]
+        futs = [p.submit(x.sample,  2 * i, [2 * i + 1], k=100, seed=i) for i, x in enumerate(xs)]
         res = [f.result() for f in futs]
 
 
@@ -138,9 +138,9 @@ def test_bug():
     logging.getLogger("xsmc").setLevel(logging.DEBUG)
     focal = 0
     panel = list(range(1, 19))
-    xs = [xsmc.XSMC(data, focal, panel, rho_over_theta=1.0, w=100, robust=True)]
+    xs = [xsmc.XSMC(data, rho_over_theta=1.0, w=100, robust=True)]
     with ThreadPoolExecutor() as p:
-        futs = [p.submit(x.sample, k=1, seed=1) for i, x in enumerate(xs)]
+        futs = [p.submit(x.sample, focal, panel, k=1, seed=1) for i, x in enumerate(xs)]
         paths = [f.result() for f in futs]
 
     print(paths[0][0].panel_inds[-1], paths[0][0].segments[:1, -1])
@@ -217,8 +217,8 @@ def test_memory_leak(tiny_data):
     for _ in range(4):
         focal = 0
         panel = list(range(1, 2))
-        x = xsmc.XSMC(tiny_data, focal, panel, rho_over_theta=1.0, w=100, robust=True)
-        s = x.sample(k=100, seed=1)
+        x = xsmc.XSMC(tiny_data, rho_over_theta=1.0, w=100, robust=True)
+        s = x.sample(focal, panel, k=100, seed=1)
         # current = tracemalloc.take_snapshot()
         # stats = current.compare_to(start, 'filename')
         # for i, stat in enumerate(stats[:5], 1):

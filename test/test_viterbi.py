@@ -68,15 +68,6 @@ def test_pmin3():
     g = {"c": [1.0, 2.0, 53.6512465799372], "k": 0}
     t = (-0.378898, 2.197225)
     ret = xsmc._viterbi.test_pmin_new_fmt(f, g, t)
-    print(ret)
-
-
-def test_pmin4():
-    f = {"c": [3.0000000000000004, 3.0, 51.23179978037876], "k": 10}
-    g = {"c": [1.0, 2.0, 53.6512465799372], "k": 0}
-    t = (-0.378898, 2.197225)
-    ret = xsmc._viterbi.test_pmin_new_fmt(f, g, t)
-    print(ret)
 
 
 def test_pmin_linear():
@@ -422,7 +413,6 @@ def test_pointwise_min4():
         },
     ]
     ret = xsmc._viterbi.test_pointwise_min(prior, 1.0, cost)
-    print(ret)
 
 
 def test_pointwise_min5():

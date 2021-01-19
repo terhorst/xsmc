@@ -35,6 +35,7 @@ class Segmentation(NamedTuple):
     """
 
     segments: List[Segment]
+    focal: int
     panel: List[int]
 
     def rescale(self, x: float) -> "Segmentation":
@@ -120,6 +121,7 @@ class ArraySegmentation(NamedTuple):
     # of a list of tuples. This class is better for manipulating large amounts of long paths.
     segments: np.ndarray
     panel_inds: np.ndarray
+    focal: int
     panel: List[int]
 
     @property

@@ -259,9 +259,10 @@ def viterbi_path(
     seg_pos = [r[1] for r in ret] + [L_w]
     return Segmentation(
         segments=[
-            Segment(hap=h, interval=w * np.array(p), height=x, mutations=s)
+            Segment(hap=h, interval=p, height=x, mutations=s)
             for (h, _, x, s), p in zip(ret, zip(seg_pos[:-1], seg_pos[1:]))
         ],
+        focal=focal,
         panel=panel
     )
 

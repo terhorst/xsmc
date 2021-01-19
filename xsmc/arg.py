@@ -5,6 +5,8 @@ import intervals as I
 import tskit
 
 from .segmentation import Segmentation
+from ._viterbi import viterbi_path
+from .size_history import KINGMAN, SizeHistory
 
 
 def make_trunk(samples: List[int], sequence_length: int) -> tskit.TreeSequence:
@@ -66,26 +68,32 @@ def thread(
         A new table collection with the additional chromosome threaded in.
 
     Note:
-        :spans:, :nodes: and :times: should all have the same length.
+        scaffold.individuals() is used to map the samples in segmentation to the nodes in scaffold.
+        Specifically, each segment in segmentation with segment.haplotype=h will be mapped to the node
+        i for which scaffold.individual(scaffold.node(i)).metadata['sample_id'].
     """
     # FIXME this algorithm is very inefficient
+    sample_map = {scaffold.individual(scaffold.node(node).individual).metadata['sample_id']: node
+                  for node in scaffold.samples()}
     ret = scaffold.dump_tables()
     new_edges = ret.edges
     new_edges.reset()
     # the labeled leaf nodes / haplotypes in our sample
-    n = ret.nodes.add_row(time=0.0, flags=tskit.NODE_IS_SAMPLE)
+    ind = ret.individuals.add_row(metadata={'sample_id': segmentation.focal})
+    n = ret.nodes.add_row(time=0.0, flags=tskit.NODE_IS_SAMPLE, individual=ind)
     i = 0
     for h, (left, right), t, _ in segmentation.segments:
         # find all of the edges which are ancestral to h and overlap the given
         # time interval. break the edge, insert a new node and three new edges
         # to mark the new coalescent event.
+        node_id = sample_map[h]
         assert left < right
         sub_tables = scaffold.keep_intervals(
             [(left, right)], simplify=False
         ).dump_tables()
         sub_nodes = sub_tables.nodes
         ancestral_nodes = I.IntervalDict()
-        ancestral_nodes[I.closedopen(left, right)] = h
+        ancestral_nodes[I.closedopen(left, right)] = sample_map[h]
         for edge in sub_tables.edges:
 
             def add_edge(
@@ -142,3 +150,5 @@ def thread(
     ret.simplify()
     # print(ret.tree_sequence().draw_text())
     return ret.tree_sequence()
+
+
