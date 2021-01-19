@@ -4,7 +4,7 @@ import pytest
 from scipy.integrate import quad
 from scipy.interpolate import PPoly
 
-import xsmc
+from xsmc import XSMC
 from xsmc.size_history import SizeHistory
 
 
@@ -34,4 +34,4 @@ def test_size_history_R(rnd_eta):
     for t in np.random.rand(100) * len(p.t):
         assert abs(p.R(t) - q(t)) < 1e-4
     for t1, t2 in np.random.rand(100, 2) * len(p.t):
-        assert abs((p.R(t1 + t2) - p.R(t1)) - (q(t1 + t2) - q(t1))) < 1e-4
+        assert abs(p.R(t1 + t2) - p.R(t1) - (q(t1 + t2) - q(t1))) < 1e-4
