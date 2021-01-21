@@ -15,6 +15,8 @@ import tskit
 from .segmentation import Segment, Segmentation
 from .size_history import SizeHistory
 
+cimport lwtc
+
 
 cdef struct obs_iter:
     int ell, L, w  # current position, total obs, window size
@@ -76,11 +78,8 @@ def viterbi_path(
     # Take the passed-in tree sequence and export/import the tables in order
     # to get a tree sequence that is binary compatble with whatever version of
     # tskit was used to compile the software (which could be different).
-    cdef LightweightTableCollection lwt = LightweightTableCollection()
-    lwt.fromdict(ts.dump_tables().asdict())
     cdef tsk_treeseq_t _ts
-    cdef int err = tsk_treeseq_init(&_ts, lwt.tables, 0)
-    check_error(err)
+    lwtc.from_ts(ts, &_ts)
 
     assert theta > 0
     assert rho > 0
@@ -151,11 +150,8 @@ def viterbi_path(
     state.err = tsk_vargen_next(state.vg, &state.var)
     
     # Initialize the tree sequence iterator for the arg
-    cdef LightweightTableCollection lwt_arg = LightweightTableCollection()
-    lwt_arg.fromdict(scaffold.dump_tables().asdict())
     cdef tsk_treeseq_t _arg_ts
-    err = tsk_treeseq_init(&_arg_ts, lwt_arg.tables, 0)
-    check_error(err)
+    lwtc.from_ts(scaffold, &_arg_ts)
     cdef tsk_tree_t _arg_tree
     err = tsk_tree_init(&_arg_tree, &_arg_ts, 0);
     check_error(err)

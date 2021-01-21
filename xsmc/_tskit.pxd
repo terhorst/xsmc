@@ -24,6 +24,7 @@ cdef extern from "tskit.h" nogil:
     ctypedef uint32_t tsk_flags_t
     ctypedef struct tsk_table_collection_t:
         pass
+    int tsk_table_collection_build_index(tsk_table_collection_t *self, tsk_flags_t options)
     enum: TSK_NULL
     # Tree sequence
     ctypedef struct tsk_treeseq_t:
@@ -76,10 +77,6 @@ cdef extern from "tskit.h" nogil:
     int tsk_vargen_free(tsk_vargen_t *self);
     const char *tsk_strerror(int err)
     # void tsk_vargen_print_state(tsk_vargen_t *self, FILE *out);
-
-cdef extern:
-    ctypedef class xsmc._lwtc.LightweightTableCollection [object LightweightTableCollection]:
-        cdef tsk_table_collection_t *tables
 
 cdef inline void check_error(int err) nogil:
     cdef const char *error

@@ -18,6 +18,8 @@ DEF DEBUG = 0
 
 logger = getLogger(__name__)
 
+cimport lwtc
+
 
 cdef double NINF = float("-inf")
 
@@ -87,11 +89,8 @@ def get_mismatches(
     X_np = np.zeros((H, L_w), dtype=np.int32)
     cdef int[:, :] X = X_np
 
-    cdef LightweightTableCollection lwt = LightweightTableCollection()
-    lwt.fromdict(ts.dump_tables().asdict())
     cdef tsk_treeseq_t _ts
-    cdef int err = tsk_treeseq_init(&_ts, lwt.tables, 0)
-    check_error(err)
+    lwtc.from_ts(ts, &_ts)
 
     cdef tsk_vargen_t _vg
     cdef tsk_variant_t *var
