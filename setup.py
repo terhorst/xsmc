@@ -4,6 +4,9 @@ import numpy as np
 from setuptools import find_packages, setup
 from setuptools.extension import Extension
 
+from numpy.distutils.misc_util import get_info
+npymath_info = get_info('npymath')
+
 USE_CYTHON = True  # os.environ.get("USE_CYTHON", True)
 
 ext = ".pyx" if USE_CYTHON else ".cpp"
@@ -13,6 +16,8 @@ tskit_sourcefiles = ["tskit/c/subprojects/kastore/kastore.c"] + list(
 )
 
 include_dirs = ["include", "tskit/c", "tskit/c/subprojects/kastore", np.get_include()]
+npymath_info.setdefault('include_dirs', [])
+npymath_info['include_dirs'] += include_dirs
 
 extensions = [
     Extension(
@@ -30,8 +35,8 @@ extensions = [
         "xsmc._sampler",
         ["xsmc/_sampler.pyx"] + tskit_sourcefiles,
         language="c++",
-        include_dirs=include_dirs,
-        # extra_compile_args=["-Wfatal-errors"]
+        **npymath_info,
+        extra_compile_args=["-Wfatal-errors"]
     ),
 ]
 
