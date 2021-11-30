@@ -68,6 +68,23 @@ def _psmciter(out):
     return [list(lines) for i, lines in itertools.groupby(out, keyfunc)]
 
 
+
+def _parse_psmc(out) -> List[PSMCResult]:
+    "Parse PSMC output"
+    iterations = _psmciter(out)
+    ret = []
+    for iterate in iterations[:-1]:
+        t_lam = []
+        for line in iterate:
+            if line.startswith("TR"):
+                theta, rho = list(map(float, line.strip().split("\t")[1:3]))
+            elif line.startswith("RS"):
+                t_lam.append(list(map(float, line.strip().split("\t")[2:4])))
+        t, lam = zip(*t_lam)
+        ret.append(dict(theta=theta, rho=rho, t=np.array(t), Ne=np.array(lam)))
+    return ret
+
+
 def _parse_psmc(out) -> List[PSMCResult]:
     "Parse PSMC output"
     iterations = _psmciter(out)
