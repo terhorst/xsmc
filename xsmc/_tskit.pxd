@@ -61,6 +61,7 @@ cdef extern from "tskit.h" nogil:
     int tsk_tree_get_parent(tsk_tree_t *self, tsk_id_t u, tsk_id_t *parent);
     int tsk_tree_get_time(tsk_tree_t *self, tsk_id_t u, double *t)
     int tsk_treeseq_init(tsk_treeseq_t *self, tsk_table_collection_t *tables, tsk_flags_t options)
+    int tsk_treeseq_free(tsk_treeseq_t *self)
     double tsk_treeseq_get_sequence_length(tsk_treeseq_t *self)
     tsk_size_t tsk_treeseq_get_num_sites(tsk_treeseq_t *self)
     # void tsk_vargen_print_state(tsk_vargen_t *self, FILE *out);

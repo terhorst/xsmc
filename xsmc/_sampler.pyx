@@ -109,6 +109,8 @@ def get_mismatches(
                 y_i = <int>(var.genotypes.i8[h + 1] != var.genotypes.i8[0])
                 X[h, i] += y_i
             err = tsk_vargen_next(&vg, &var)
+    tsk_vargen_free(&vg);
+    tsk_treeseq_free(&ts);
     return X_np
 
 

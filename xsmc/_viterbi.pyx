@@ -198,6 +198,10 @@ def viterbi_path(LightweightTableCollection lwtc,
             while bt.back().pos >= 0:
                 bt.push_back(cp[bt.back().pos])
 
+        # free the allocated memory
+        tsk_vargen_free(&state.vg);
+        tsk_treeseq_free(&ts);
+
     ret = [[panel[b.hap], positions[b.pos + 1], np.exp(-b.m.x), b.s] for b in reversed(bt)]
     # print('cp', cp)
     # print('backtrace', bt)

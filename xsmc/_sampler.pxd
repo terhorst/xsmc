@@ -9,6 +9,6 @@ from scipy.special.cython_special cimport gammaln
 
 from xsmc._tskit cimport (TSK_BUILD_INDEXES, LightweightTableCollection,
                           tsk_flags_t, tsk_id_t,
-                          tsk_treeseq_get_sequence_length, tsk_treeseq_init,
-                          tsk_treeseq_t, tsk_vargen_init, tsk_vargen_next,
+                          tsk_treeseq_get_sequence_length, tsk_treeseq_init, tsk_treeseq_free,
+                          tsk_treeseq_t, tsk_vargen_init, tsk_vargen_free, tsk_vargen_next,
                           tsk_vargen_t, tsk_variant_t)
