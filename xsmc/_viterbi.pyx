@@ -1,4 +1,4 @@
-# cython: boundscheck=False
+# cython: boundscheck=True
 # cython: cdivision=True
 # cython: language=c++
 # distutils: extra_compile_args=['-O3', '-Wno-unused-but-set-variable', '-ffast-math']
@@ -8,6 +8,7 @@ from typing import List, NamedTuple
 import numpy as np
 
 import xsmc._tskit
+from _xsmc cimport TreeSequence
 
 from .segmentation import Segment, Segmentation
 from .size_history import SizeHistory
@@ -35,7 +36,7 @@ cdef int get_next_obs(obs_iter *state) nogil:
     state.ell += 1
     return 1
 
-def viterbi_path(LightweightTableCollection lwtc,
+def viterbi_path(TreeSequence ts,
                  focal: int,
                  panel: List[int],
                  eta: SizeHistory,
@@ -49,7 +50,7 @@ def viterbi_path(LightweightTableCollection lwtc,
     Markov coalescent.
 
     Args:
-        ts: Tree sequence containing the data to segment.
+        lwtc: Lightweight table collection of the data to segment.
         focal: Leaf index of the focal haplotype.
         panel: Leaf indices of the panel haplotypes.
         eta: Size history to use for coalescent prior. If None, Kingman's
@@ -71,6 +72,7 @@ def viterbi_path(LightweightTableCollection lwtc,
     cdef double log_theta = log(theta_)
     cdef int i, j, k, y_i
 
+
     if focal in panel:
         raise ValueError("focal haplotype cannot be a member of panel")
     if len(panel) == 0:
@@ -86,12 +88,12 @@ def viterbi_path(LightweightTableCollection lwtc,
     cdef vector[backtrace] F_t
     F_t.resize(n)
 
-    cdef tsk_treeseq_t ts
-    cdef int err
-    err = tsk_treeseq_init(&ts, lwtc.tables, TSK_BUILD_INDEXES)
-    assert err == 0
-    cdef double L = tsk_treeseq_get_sequence_length(&ts)
-    cdef tsk_size_t S = tsk_treeseq_get_num_sites(&ts);
+    # cdef tsk_treeseq_t ts
+    # cdef int err
+    # err = tsk_treeseq_init(&ts, lwtc.tables, TSK_BUILD_INDEXES)
+    # assert err == 0
+    cdef double L = tsk_treeseq_get_sequence_length(&ts._ts)
+    cdef tsk_size_t S = tsk_treeseq_get_num_sites(&ts._ts);
 
     # cp is the backtrace list of changepoints: (pos, hap)
     cdef backtrace b
@@ -125,6 +127,9 @@ def viterbi_path(LightweightTableCollection lwtc,
     positions.push_back(pos)
     cdef int L_w = <int>(L // w)
     i = -1
+    H = len(panel)
+    K_n = np.zeros([L_w + 2, n], dtype=np.uint32)
+    cdef unsigned int[:, :] vK_n = K_n
 
     # Initialize the variant generator for our sample. the focal haplotype has
     # genotype index 0, and the panel haps have genotype indices 1, ..., n + 1
@@ -137,7 +142,7 @@ def viterbi_path(LightweightTableCollection lwtc,
     state.mismatches = &mismatches[0]
 
     cdef tsk_id_t[:] samples = np.array([focal] + list(panel), dtype=np.int32)
-    err = tsk_vargen_init(&state.vg, &ts, &samples[0], 1 + len(panel), NULL, 0)
+    err = tsk_vargen_init(&state.vg, &ts._ts, &samples[0], 1 + len(panel), NULL, 0)
     assert n + 1 == state.vg.num_samples
     assert err == 0
     state.err = tsk_vargen_next(&state.vg, &state.var)
@@ -189,6 +194,7 @@ def viterbi_path(LightweightTableCollection lwtc,
             # compute piecewise min and eliminate any duplicate pieces
             for j in range(n):
                  C[j] = compact(piecewise_min(prior, b.m.f, C[j]))
+                 vK_n[pos, j] = C[j].size()
 
             err = get_next_obs(&state)
 
@@ -198,19 +204,25 @@ def viterbi_path(LightweightTableCollection lwtc,
             while bt.back().pos >= 0:
                 bt.push_back(cp[bt.back().pos])
 
+    # free the allocated memory
+    tsk_vargen_free(&state.vg);
+    # tsk_treeseq_free(&ts);
+
     ret = [[panel[b.hap], positions[b.pos + 1], np.exp(-b.m.x), b.s] for b in reversed(bt)]
     # print('cp', cp)
     # print('backtrace', bt)
     # print('postions', positions)
     # print('ret', ret)
     seg_pos = [r[1] for r in ret] + [L_w]
-    return Segmentation(
+    ret = Segmentation(
         segments=[
             Segment(hap=h, interval=w * np.array(p), height=x, mutations=s)
             for (h, _, x, s), p in zip(ret, zip(seg_pos[:-1], seg_pos[1:]))
         ],
         panel=panel
     )
+    ret = (ret, K_n)
+    return ret
 
 
 
@@ -581,13 +593,16 @@ cdef vector[piecewise_func] compact(const vector[piecewise_func] C) nogil:
     cdef vector[piecewise_func] ret
     if C.size() == 0:
         return ret
-    q0 = C[0]
+    q0 = C.at(0)
     cdef int i
     for i in range(1, C.size()):
-        q = C[i]
+        q = C.at(i)
         if q.t[0] == q.t[1]:
             continue
-        if memcmp(&q.f, &q0.f, sizeof(func)) == 0:
+        if (q.f.c[0] == q0.f.c[0] and
+            q.f.c[1] == q0.f.c[1] and
+            q.f.c[2] == q0.f.c[2] and
+            q.f.k == q0.f.k):
             q0.t[1] = q.t[1]
         else:
             ret.push_back(q0)

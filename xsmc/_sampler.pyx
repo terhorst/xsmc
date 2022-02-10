@@ -10,8 +10,12 @@ import numpy as np
 import scipy.special
 
 from scipy.special.cython_special cimport gammaln, xlogy
+from numpy.math cimport logaddexp
 
 import xsmc._tskit
+from _xsmc cimport TreeSequence
+
+from cython.operator cimport dereference as deref
 
 DEF DEBUG = 0
 
@@ -20,10 +24,15 @@ logger = getLogger(__name__)
 
 cdef double NINF = float("-inf")
 
+
+cdef extern from "_cache.h":
+    struct log_P_cache_key:
+        int Xb, delta, u, v
+
 cdef struct sampler_params:
     float theta, rho, eps
-    bool robust
-    bool use_cache
+    int cache_hit, cache_miss
+    unordered_map[log_P_cache_key, float]* log_P_cache
 
 cdef extern from "<random>" namespace "std" nogil:
     cdef cppclass default_random_engine:
@@ -35,56 +44,65 @@ cdef extern from '_sampler.hpp' nogil:
     cdef void shuffle(vector[int]&, default_random_engine&)
 
 cdef void log_P(double[:] out, int s, int t,
-        long[:, :] Xcs, double[:, :] lgammacs, double[:] positions, 
+        long[:, :] Xcs, double[:, :] lgammacs,
+        double[:, :] pi,
+        double[:] positions,
         sampler_params params) nogil:
-    cdef int h, H, n, Xb, delta, u, v
-    cdef double lg
+    cdef int h, k, H, K, n, Xb, delta, u, v
+    cdef double lg, e, alpha, beta, log_c
+    K = pi.shape[1]
     H = Xcs.shape[0]
     n = Xcs.shape[1] - 1
     delta = int(positions[t] - positions[s])
     u = int(s > 0)
     v = int(t < n)
     cdef double x
+    cdef log_P_cache_key key
+    key.delta = delta
+    key.u = u
+    key.v = v
     for h in range(H):
         Xb = Xcs[h, t] - Xcs[h, s]
+        key.Xb = Xb
         lg = lgammacs[h, t] - lgammacs[h, s]
+        if True:  # deref(params.log_P_cache).count(key) == 0:
+            params.cache_miss += 1
+            # deref(params.log_P_cache)[key] = NINF
+            out[h] = NINF
+            for k in range(pi.shape[1]):
+                alpha = pi[0, k]
+                beta = pi[1, k]
+                log_c = pi[2, k]
+                e = 1 + u + v + Xb + alpha
+                x = (
+                    + xlogy(Xb, params.theta)
+                    + xlogy(v, params.rho)
+                    + xlogy(alpha, beta)
+                    - xlogy(e, beta + delta * (params.rho + params.theta))
+                    + gammaln(e)
+                    - gammaln(alpha)
+                )
+                # deref(params.log_P_cache)[key] = logaddexp(deref(params.log_P_cache).at(key), log_c + x)
+                out[h] = logaddexp(out[h], log_c + x)
+        # else:
+        #    params.cache_hit += 1
+        # out[h] = deref(params.log_P_cache).at(key) - lg
+        out[h] -= lg
         if DEBUG:
             with gil:
-                print('s', s, 't', t, n, 'n', 'u', u, 'v', v, 'delta', delta, 'Xb', Xb,
-                      Xb * log(params.theta), 
-                      xlogy(v, params.rho), 
-                      (1 + u + v + Xb) * log(H + delta * (params.rho + params.theta) - params.theta * Xb),
-                      gammaln(1 + u + v + Xb)
-                      )
-        if params.robust:
-            x = (
-                + Xb * log(params.theta)
-                + xlogy(v, params.rho) 
-                - (1 + u + v + Xb) * log(H + delta * (params.rho + params.theta) - params.theta * Xb)
-                + gammaln(1 + u + v + Xb)
-            )
-        else:
-            x = (
-                + Xb * log(params.theta)
-                + xlogy(v, params.rho)
-                - (1 + u + v + Xb) * log(H + delta * (params.rho + params.theta))
-                + gammaln(1 + u + v + Xb)
-                - lg
-            )
-        out[h] = x
+                print('h', h, 'out[h]', out[h])
 
 def get_mismatches(
-    LightweightTableCollection lwtc,
+    TreeSequence ts,
     focal: int,
     panel: List[int],
     int w
 ):
     '''Cumulate genotype matrix for use in sampling algorithm.'''
-    cdef tsk_treeseq_t ts
-    cdef int err
-    err = tsk_treeseq_init(&ts, lwtc.tables, TSK_BUILD_INDEXES)
-    assert err == 0
-    cdef double L = tsk_treeseq_get_sequence_length(&ts)
+    # cdef int err
+    # err = tsk_treeseq_init(&ts, lwtc.tables, TSK_BUILD_INDEXES)
+    # assert err == 0
+    cdef double L = tsk_treeseq_get_sequence_length(&ts._ts)
 
     H = len(panel)
     L_w = int(np.floor(1. + L / w))
@@ -93,7 +111,7 @@ def get_mismatches(
 
     cdef tsk_id_t[:] samples = np.array([focal] + list(panel), dtype=np.int32)
     cdef tsk_vargen_t vg
-    err = tsk_vargen_init(&vg, &ts, &samples[0], 1 + len(panel), NULL, 0)
+    err = tsk_vargen_init(&vg, &ts._ts, &samples[0], 1 + len(panel), NULL, 0)
     assert err == 0
     cdef tsk_variant_t *var
     err = tsk_vargen_next(&vg, &var)
@@ -109,6 +127,8 @@ def get_mismatches(
                 y_i = <int>(var.genotypes.i8[h + 1] != var.genotypes.i8[0])
                 X[h, i] += y_i
             err = tsk_vargen_next(&vg, &var)
+    tsk_vargen_free(&vg);
+    # tsk_treeseq_free(&ts);
     return X_np
 
 
@@ -127,7 +147,9 @@ cdef double logsumexp(double[:] x) nogil:
     return ret
 
 cdef void init_log_Q(double[:] log_Q, double[:] tmp, 
-        long[:, :] Xcs, double[:, :] lgammacs, double[:] positions, 
+        long[:, :] Xcs, double[:, :] lgammacs,
+        double[:, :] pi,
+        double[:] positions,
     sampler_params params) nogil:
     """Model evidence for observations X_{t:}."""
     cdef double eps = log(params.eps)
@@ -136,13 +158,13 @@ cdef void init_log_Q(double[:] log_Q, double[:] tmp,
     cdef int n = log_Q.shape[0]
     cdef int s, t
     for t in range(n - 1, -1, -1):
-        log_P(tmp, t, n, Xcs, lgammacs, positions, params)
+        log_P(tmp, t, n, Xcs, lgammacs, pi, positions, params)
         log_Q[t] = logsumexp(tmp)
-        IF DEBUG:
+        if DEBUG:
             with gil:
                 print('t', t, 'log_Q[t]', np.asarray(log_Q[t]))
         for s in range(t + 1, n):
-            log_P(tmp, t, s, Xcs, lgammacs, positions, params)
+            log_P(tmp, t, s, Xcs, lgammacs, pi, positions, params)
             p = logsumexp(tmp) + log_Q[s]
             m = max(log_Q[t], p)
             log_Q[t] = m + log(exp(log_Q[t] - m) + exp(p - m))
@@ -150,12 +172,13 @@ cdef void init_log_Q(double[:] log_Q, double[:] tmp,
                 break
 
 
-cdef void P_tau_i(double[:] out, const int tau_jm1, const int k, double[:] log_Q, long[:, :] Xcs, double[:, :] lgammacs, double[:] positions, 
+cdef void P_tau_i(double[:] out, const int tau_jm1, const int k, double[:] log_Q, long[:, :] Xcs, double[:, :] lgammacs,
+        double[:, :] pi, double[:] positions,
         sampler_params params) nogil:
     # log(P_tau[i]) where P_tau is defined above
     cdef int H = out.shape[0]
     cdef int tau0 = tau_jm1 + 1
-    log_P(out, tau0, k, Xcs, lgammacs, positions, params)
+    log_P(out, tau0, k, Xcs, lgammacs, pi, positions, params)
     # with gil:
     #     print("P_tau_i(%d,%d)=%s log_Q[%d]=%f log_Q[%d]=%f" % (tau0, k, np.array(out), k, log_Q[k], tau0, log_Q[tau0]))
     for h in range(H):
@@ -177,6 +200,7 @@ cdef void uniform_order_statistics(double[:] out, int n, default_random_engine &
 
 cdef vector[vector[pair[int, int]]] _sample_paths(int u, seed, double[:] log_Q, long[:, :] Xcs, 
         double[:, :] lgammacs,
+        double[:, :] pi,
         double[:] positions, sampler_params params):
     cdef int H, n
     cdef default_random_engine rng
@@ -194,6 +218,8 @@ cdef vector[vector[pair[int, int]]] _sample_paths(int u, seed, double[:] log_Q, 
     cdef double[:] z = np.zeros(u + 1)
     for i in range(u):
         paths.at(i).push_back((-1, -1))
+    params.cache_hit = 0
+    params.cache_miss = 0
     with nogil:
         for i in range(n - 1):
             # these need a new changepoint
@@ -209,7 +235,7 @@ cdef vector[vector[pair[int, int]]] _sample_paths(int u, seed, double[:] log_Q, 
             q = 0.0
             j = i + 1   # j <= n - 1 here.
             k = 0
-            P_tau_i(p_j, i - 1, j, log_Q, Xcs, lgammacs, positions, params)
+            P_tau_i(p_j, i - 1, j, log_Q, Xcs, lgammacs, pi, positions, params)
             # with gil:
             #     print('i', i, 'j', j, 'p_j', np.array(p_j), 'z', np.array(z))
             h = 0
@@ -228,7 +254,7 @@ cdef vector[vector[pair[int, int]]] _sample_paths(int u, seed, double[:] log_Q, 
                         j += 1
                         if j == n - 1:
                             break
-                        P_tau_i(p_j, i - 1, j, log_Q, Xcs, lgammacs, positions, params)
+                        P_tau_i(p_j, i - 1, j, log_Q, Xcs, lgammacs, pi, positions, params)
                         # with gil:
                         #     print(i, j, np.array(p_j))
                         h = 0
@@ -245,9 +271,10 @@ cdef vector[vector[pair[int, int]]] _sample_paths(int u, seed, double[:] log_Q, 
             # sample len(a) - k
             m = a.size() - k
             if m > 0:
-                # with gil:
-                #     print('i', i, 'n', n, 'cum prob', np.array(cum_prob), k, a.size())
-                #     print(paths)
+                if DEBUG:
+                    with gil:
+                        print('i', i, 'n', n, 'cum prob', np.array(cum_prob), k, a.size())
+                        print(paths)
                 uniform_order_statistics(z, m, rng)
                 q = 0.
                 h = 0
@@ -258,18 +285,25 @@ cdef vector[vector[pair[int, int]]] _sample_paths(int u, seed, double[:] log_Q, 
                     else:
                         q += p_j[h]
                         h += 1
+    # print(f"cache_hit={params.cache_hit} cache_miss={params.cache_miss}")
     return paths
 
 cdef class _SamplerProxy:
-    cdef object Xcs, lgammacs, positions, _log_Q
+    cdef object Xcs, lgammacs, pi, positions, _log_Q
     cdef sampler_params params
 
-    def __init__(self, Xcs, positions, theta, rho, robust, eps):
+    def __cinit__(self):
+        self.params.log_P_cache = new unordered_map[log_P_cache_key, float]()
+
+    def __dealloc__(self):
+        del self.params.log_P_cache
+
+    def __init__(self, Xcs, pi, positions, theta, rho, eps):
         self.params.theta = theta  # emission probabilities
         self.params.rho = rho
-        self.params.robust = robust
         self.params.eps = eps
         self.Xcs = Xcs
+        self.pi = pi
         X = np.diff(Xcs, axis=1)
         self.lgammacs = np.pad(scipy.special.gammaln(X + 1), [[0, 0], [0, 1]]).cumsum(axis=1)
         self.positions = positions
@@ -281,17 +315,18 @@ cdef class _SamplerProxy:
         cdef double[:] v_log_Q, v_tmp
         cdef long[:, :] v_Xcs = self.Xcs
         cdef double[:, :] v_lgamma = self.lgammacs
+        cdef double[:, :] v_pi = self.pi
         cdef double[:] v_positions = self.positions
         if self._log_Q is None:
             logger.debug("Computing log Q")
-            logger.debug("Xcs.shape=%s positions=%s params=%s", self.Xcs.shape, self.positions, self.params)
+            # logger.debug("Xcs.shape=%s positions=%s params=%s", self.Xcs.shape, self.positions, self.params)
             H, n = self.Xcs.shape
             tmp = np.zeros(H)
             self._log_Q = np.zeros(n - 1)
             v_log_Q = self._log_Q
             v_tmp = tmp
             with nogil:
-                init_log_Q(v_log_Q, v_tmp, v_Xcs, v_lgamma, v_positions, self.params)
+                init_log_Q(v_log_Q, v_tmp, v_Xcs, v_lgamma, v_pi, v_positions, self.params)
             logger.debug("Done computing log Q")
         return self._log_Q
 
@@ -299,13 +334,13 @@ cdef class _SamplerProxy:
     def log_P(self, s, t):
         H, n = self.Xcs.shape
         tmp = np.zeros(H)
-        log_P(tmp, s, t, self.Xcs, self.lgammacs, self.positions, self.params)
+        log_P(tmp, s, t, self.Xcs, self.lgammacs, self.pi, self.positions, self.params)
         return tmp
 
     def sample_paths(self, k: int, seed: int) -> List[np.ndarray]:
         logger.debug("Sampling paths")
         cdef vector[vector[pair[int, int]]] paths
-        paths = _sample_paths(k, seed, self.log_Q, self.Xcs, self.lgammacs, self.positions, self.params)
+        paths = _sample_paths(k, seed, self.log_Q, self.Xcs, self.lgammacs, self.pi, self.positions, self.params)
         logger.debug("Done sampling paths.")
         cdef vector[pair[int, int]] p
         cdef int i
